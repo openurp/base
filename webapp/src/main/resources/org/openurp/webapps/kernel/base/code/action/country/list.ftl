@@ -1,0 +1,20 @@
+[#ftl]
+[@b.head/]
+[@b.grid items=countrys var="country"]
+  [@b.gridbar]
+    bar.addItem("${b.text("action.new")}",action.add());
+    bar.addItem("${b.text("action.modify")}",action.edit());
+    bar.addItem("${b.text("action.delete")}",action.remove("确认删除？"));
+  [/@]
+  [@b.row]
+    [@b.boxcol/]
+    [@b.col width="10%" property="code" title="代码"][@b.a href="!info?id=${country.id}"]${country.code}[/@][/@]
+    [@b.col width="10%" property="name" title="国家名称"]${country.name}[/@]
+    [@b.col width="15%" property="enName" title="英文名称"]${country.enName!}[/@]
+    [@b.col width="15%" property="alpha2Code" title="2位字母代码"]${country.alpha2Code}[/@]
+    [@b.col width="15%" property="alpha3Code" title="3位字母代码"]${country.alpha3Code}[/@]
+    [@b.col width="15%" property="beginOn" title="起始时间"]${country.beginOn!}[/@]
+    [@b.col width="15%" property="endOn" title="结束时间"]${country.endOn!}[/@]
+  [/@]
+[/@]
+[@b.foot/]

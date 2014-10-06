@@ -1,0 +1,18 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改语种类型"]bar.addBack();[/@]
+[@b.tabs]
+  [@b.form action="!update?id=${language.id}" theme="list"]
+    [@b.textfield name="language.code" label="代码" value="${language.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="language.name" label="语种名称" value="${language.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="language.enName" label="英文名称" value="${language.enName!}" maxlength="100"/]
+    [@b.startend label="开始结束时间" 
+      name="language.beginOn,language.endOn" required="false,false" 
+      start=language.beginOn end=language.endOn format="date"/]
+    [@b.textfield name="language.remark" label="备注" value="${language.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[/@]
+[@b.foot/]

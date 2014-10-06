@@ -1,0 +1,18 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="新建政治面貌信息"]bar.addBack();[/@]
+[@b.tabs]
+  [@b.form action="!save" theme="list"]
+    [@b.textfield name="politicalAffiliation.code" label="代码" value="${politicalAffiliation.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="politicalAffiliation.name" label="政治面貌名称" value="${politicalAffiliation.name!}" required="true" maxlength="200"/]
+    [@b.textfield name="politicalAffiliation.enName" label="英文名称" value="${politicalAffiliation.enName!}" maxlength="200"/]
+    [@b.startend label="开始结束时间" 
+      name="politicalAffiliation.beginOn,politicalAffiliation.endOn" required="false,false" 
+      start=politicalAffiliation.beginOn end=politicalAffiliation.endOn format="date"/]
+    [@b.textfield name="politicalAffiliation.remark" label="备注" value="${politicalAffiliation.remark!}" maxlength="30"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[/@]
+[@b.foot/]

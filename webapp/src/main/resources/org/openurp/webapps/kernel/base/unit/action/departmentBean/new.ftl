@@ -1,0 +1,20 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="新建部门类型"]bar.addBack();[/@]
+[@b.tabs]
+  [@b.form action="!save" theme="list"]
+    [@b.textfield name="departmentBean.code" label="代码" value="${departmentBean.code!}" required="true" maxlength="10"/]
+    [@b.textfield name="departmentBean.name" label="部门名称" value="${departmentBean.name!}" required="true" maxlength="80"/]
+    [@b.radios label="是否教学部门"  name="departmentBean.teaching" value=departmentBean.teaching items="1:common.yes,0:common.no"/]
+    [@b.startend label="开始结束时间" 
+      name="departmentBean.beginOn,departmentBean.endOn" required="false,false" 
+      start=departmentBean.beginOn end=departmentBean.endOn format="date"/]
+    [@b.textfield name="departmentBean.indexno" label="序号" value="${departmentBean.indexno!}" required="true" maxlength="20"/]
+    [@b.select name="departmentBean.parent.id" label="父级菜单" value="${departmentBean.parent!}" 
+               style="width:200px;" items=departmentBeans option="id,name" empty="..."/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[/@]
+[@b.foot/]
