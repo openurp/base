@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping"
+ xsi:schemaLocation="http://www.hibernate.org/xsd/hibernate-mapping classpath://org/hibernate/hibernate-mapping-4.0.xsd" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="org.openurp.base.domain"
+  default-access="org.beangle.data.jpa.hibernate.PropertyAccessor">
+  
+    <class name="PersonBean" entity-name="org.openurp.base.Person" >
+        <id name="id" unsaved-value="null" type="long"><generator class="date"/></id>
+        <property name="code" length="30" unique="true"  not-null="true"/>
+        <property name="name" length="80" unique="true"  not-null="true"/>
+        <many-to-one name="idType"  not-null="true"/>
+        <property name="sid" length="30" unique="true"  not-null="true"/>
+        <property name="email" length="80" unique="true"  not-null="true"/>
+        <many-to-one name="department"/>
+        <many-to-one name="gender"/>
+        <property name="birthday"/>
+        <many-to-one name="country"/>
+        <many-to-one name="category"/>
+        <property name="mobile" length="15"/>
+        <property name="address" length="200"/>
+        <property name="updatedAt"/>
+        <property name="remark" length="190"/>
+    </class>
+
+</hibernate-mapping>

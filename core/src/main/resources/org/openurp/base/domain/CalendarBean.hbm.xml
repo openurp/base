@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping"
+ xsi:schemaLocation="http://www.hibernate.org/xsd/hibernate-mapping classpath://org/hibernate/hibernate-mapping-4.0.xsd" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="org.openurp.base.domain"
+  default-access="org.beangle.data.jpa.hibernate.PropertyAccessor">
+ 
+  <typedef name="weekday" class="org.beangle.data.jpa.hibernate.udt.EnumType">
+    <param name="enumClass">org.openurp.base.WeekDay</param>
+  </typedef>
+
+  <class name="CalendarBean" entity-name="org.openurp.base.Calendar" >
+    <cache usage="read-write"/>
+    <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
+    <property name="code" length="10" unique="true"  not-null="true"/>
+    <property name="name" length="80" unique="true"  not-null="true"/>
+    <bag name="semesters" collection-type="seq" inverse="true">
+        <key><column name="calendar_id" /></key>
+        <one-to-many class="org.openurp.base.Semester"/>
+    </bag>
+    <property name="firstDay" type="weekday"  not-null="true"/>
+    <property name="beginOn"/>
+    <property name="endOn"/>
+  </class>
+
+</hibernate-mapping>

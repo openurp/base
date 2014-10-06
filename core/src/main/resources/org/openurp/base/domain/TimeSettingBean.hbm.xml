@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping"
+ xsi:schemaLocation="http://www.hibernate.org/xsd/hibernate-mapping classpath://org/hibernate/hibernate-mapping-4.0.xsd" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="org.openurp.base.domain"
+  default-access="org.beangle.data.jpa.hibernate.PropertyAccessor">
+
+    <class name="TimeSettingBean" entity-name="org.openurp.base.TimeSetting" >
+        <cache usage="read-write"/>
+        <id name="id" unsaved-value="null" type="integer"><generator class="date"/></id>
+        <property name="name" length="20"  not-null="true"/>
+        <bag name="units" collection-type="seq" inverse="true">
+            <key><column name="calendar_id" /></key>
+            <one-to-many class="org.openurp.base.CourseUnit"/>
+        </bag>
+    </class>
+
+</hibernate-mapping>

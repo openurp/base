@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>  
+<!DOCTYPE hibernate-configuration PUBLIC  
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <mapping resource="org/openurp/base/domain/code/nation.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/code/ministry.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/code/school.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/code/CodeCategory.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/code/CodeMeta.hbm.xml"/>
+
+    <mapping resource="org/openurp/base/domain/PersonBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/SchoolBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/DepartmentBean.hbm.xml"/>
+
+    <mapping resource="org/openurp/base/domain/CalendarBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/SemesterBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/TimeSettingBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/CourseUnitBean.hbm.xml"/>
+
+    <mapping resource="org/openurp/base/domain/CampusBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/BuildingBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/domain/RoomBean.hbm.xml"/>
+    
+  </session-factory>
+</hibernate-configuration>
