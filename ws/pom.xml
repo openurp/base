@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <groupId>org.openurp.base</groupId>
+    <artifactId>openurp-base-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>openurp-base-ws</artifactId>
+  <packaging>jar</packaging>
+  <name>OpenURP Base Web Service</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.openurp.platform</groupId>
+      <artifactId>openurp-platform-ws</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.openurp.base</groupId>
+      <artifactId>openurp-base-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+  </dependencies>
+</project>
