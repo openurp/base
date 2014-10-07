@@ -8,13 +8,17 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-webapp</artifactId>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <name>Openurp Base Webapp</name>
 
   <dependencies>
     <dependency>
       <groupId>org.openurp.platform</groupId>
       <artifactId>openurp-platform-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-config-plugin</artifactId>
     </dependency>
     <dependency>
       <groupId>org.openurp.base</groupId>
