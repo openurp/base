@@ -16,6 +16,20 @@
       <artifactId>openurp-platform-ws</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-config-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-tag</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-bootstrap-ui</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.openurp.base</groupId>
       <artifactId>openurp-base-core</artifactId>
       <version>${project.version}</version>

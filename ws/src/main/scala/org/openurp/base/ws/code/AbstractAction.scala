@@ -14,7 +14,7 @@ class AbstractAction[T <: BaseCode] extends EntityActionSupport[T] {
   def index(): Seq[T] = {
     val builder = OqlBuilder.from(entityType, "code")
     builder.orderBy(get("orderBy", "code.code"))
-    builder.select("new org.openurp.services.kernel.base.code.model.Code(code.id,code.code,code.name)")
+    builder.select("new org.openurp.base.ws.model.Code(code.id,code.code,code.name)")
     buildQuery(builder)
     entityDao.search(builder)
   }
