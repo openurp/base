@@ -4,13 +4,13 @@
 <table class="indexpanel">
   <tr>
     <td class="index_view" style="width:200px">
-    [@b.form name="schoolBeanSearchForm" action="!search" target="schoolBeanlist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="schoolBean.code;代码"/]
-      [@b.textfields names="schoolBean.name;名称"/]
-      <input type="hidden" name="orderBy" value="schoolBean.name"/>
+    [@b.form name="schoolSearchForm" action="!search" target="schoollist" title="ui.searchForm" theme="search"]
+      [@b.textfields names="school.code;代码"/]
+      [@b.textfields names="school.name;名称"/]
+      <input type="hidden" name="orderBy" value="school.name"/>
     [/@]
     </td>
-    <td class="index_content">[@b.div id="schoolBeanlist" href="!search?orderBy=schoolBean.code"/]
+    <td class="index_content">[@b.div id="schoollist" href="!search?orderBy=school.code"/]
     </td>
   </tr>
 </table>

@@ -6,10 +6,11 @@ import org.openurp.base.code.Institution
 import org.openurp.base.domain.DepartmentBean
 import org.openurp.base.domain.SchoolBean
 import org.openurp.base.Department
+import org.openurp.base.School
 
-class SchoolAction extends RestfulAction[SchoolBean] {
+class SchoolAction extends RestfulAction[School] {
 
-  override def editSetting(entity: SchoolBean) = {
+  override def editSetting(entity: School) = {
     val query = OqlBuilder.from(classOf[Institution])
     query.orderBy("name")
     val institutions = entityDao.search(query)

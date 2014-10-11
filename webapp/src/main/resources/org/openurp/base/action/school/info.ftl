@@ -6,15 +6,15 @@
 <table class="infoTable">
   <tr>
     <td class="title" width="20%">学校名称</td>
-    <td class="content" >${schoolBean.name}</td>
+    <td class="content" >${school.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">代码</td>
-    <td class="content">${schoolBean.code}</td>
+    <td class="content">${school.code}</td>
   </tr>
   <tr>
     <td class="title" width="20%">科研机构</td>
-    <td class="content" >${schoolBean.institution!}</td>
+    <td class="content" >${school.institution!}</td>
   </tr>
 </table>
 

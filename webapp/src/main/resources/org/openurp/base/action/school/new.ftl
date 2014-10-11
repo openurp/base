@@ -3,9 +3,9 @@
 [@b.toolbar title="新建学校类型"]bar.addBack();[/@]
 [@b.tabs]
   [@b.form action="!save" theme="list"]
-    [@b.textfield name="schoolBean.code" label="代码" value="${schoolBean.code!}" required="true" maxlength="10"/]
-    [@b.textfield name="schoolBean.name" label="学校名称" value="${schoolBean.name!}" required="true" maxlength="50"/]
-    [@urp.codeSelect name="schoolBean.institution.id" label="科研机构" value="${schoolBean.institution!}" 
+    [@b.textfield name="school.code" label="代码" value="${school.code!}" required="true" maxlength="10"/]
+    [@b.textfield name="school.name" label="学校名称" value="${school.name!}" required="true" maxlength="50"/]
+    [@b.select name="school.institution.id" label="科研机构" value="${school.institution!}" 
                style="width:200px;" code="/base/code/institution" option="id,name" empty="..."/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]

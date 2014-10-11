@@ -9,7 +9,7 @@
                style="width:200px;" items=campuses option="id,name" empty="..." required="true"/]
     [@b.select name="room.department.id" label="管理部门" value="${room.department!}" 
                style="width:200px;" items=departments option="id,name" empty="..."/]
-    [@urp.codeSelect name="room.roomType.id" label="房间类型" value=(room.roomType.id)! empty="..."
+    [@b.select name="room.roomType.id" label="房间类型" value=(room.roomType.id)! empty="..."
                style="width:200px;"  code="/base/code/room-type"/]
     [@b.select name="room.building.id" label="所属建筑" value="${room.building!}" 
                style="width:200px;" items=buildings option="id,name" empty="..."/]
