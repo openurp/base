@@ -1,0 +1,21 @@
+[#ftl]
+[@b.head/]
+[@b.grid items=rooms var="room"]
+  [@b.gridbar]
+    bar.addItem("${b.text("action.new")}",action.add());
+    bar.addItem("${b.text("action.modify")}",action.edit());
+    bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
+  [/@]
+  [@b.row]
+    [@b.boxcol /]
+    [@b.col width="15%" property="code" title="代码"]${room.code}[/@]
+    [@b.col width="20%" property="name" title="房间名称"][@b.a href="!info?id=${room.id}"]${room.name}[/@][/@]
+    [@b.col width="20%" property="campus" title="所属校区"]${room.campus.name}[/@]
+    [@b.col width="20%" property="department" title="管理部门"]${(room.department.name)!}[/@]
+    [@b.col width="20%" property="roomType" title="房间类型"]${(room.roomType.name)!}[/@]
+    [@b.col width="20%" property="building" title="所属建筑"]${(room.building.name)!}[/@]
+    [@b.col width="20%" property="beginOn" title="生效时间"]${room.beginOn!}[/@]
+    [@b.col width="20%" property="endOn" title="失效时间"]${room.endOn!}[/@]
+  [/@]
+[/@]
+[@b.foot/]

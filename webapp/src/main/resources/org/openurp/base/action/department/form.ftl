@@ -1,0 +1,20 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="部门基本信息"]bar.addBack();[/@]
+[@b.tabs]
+  [@b.form action="!update?id=${department.id}" theme="list"]
+    [@b.textfield name="department.code" label="代码" value="${department.code!}" required="true" maxlength="10"/]
+    [@b.textfield name="department.name" label="部门名称" value="${department.name!}" required="true" maxlength="80"/]
+    [@b.radios label="是否教学部门"  name="department.teaching" value=department.teaching items="1:common.yes,0:common.no"/]
+    [@b.startend label="生效失效时间" 
+      name="department.beginOn,department.endOn" required="false,false" 
+      start=department.beginOn end=department.endOn format="date"/]
+    [@b.textfield name="department.indexno" label="序号" value="${department.indexno!}" required="true" maxlength="20"/]
+    [@b.select name="department.parent.id" label="上级院系" value="${department.parent!}" 
+               style="width:200px;" items=departments option="id,name" empty="..."/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[/@]
+[@b.foot/]
