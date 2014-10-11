@@ -10,25 +10,6 @@ import org.beangle.data.jpa.dao.OqlBuilder
 
 class HolidayAction extends RestfulAction[Holiday]
 
-class TimeSettingAction extends RestfulAction[TimeSetting]{
-    
-  override def editSetting(entity: TimeSetting) = {
-    val query = OqlBuilder.from(classOf[CourseUnit])
-    query.orderBy("name")
-    val units = entityDao.search(query)
-    put("units", units)
-    super.editSetting(entity)
-  }
-  
-}
+class TimeSettingAction extends RestfulAction[TimeSetting]
 
-class CourseUnitAction extends RestfulAction[CourseUnit]{
-    
-  override def editSetting(entity: CourseUnit) = {
-    val query = OqlBuilder.from(classOf[TimeSetting])
-    query.orderBy("name")
-    val settings = entityDao.search(query)
-    put("settings", settings)
-    super.editSetting(entity)
-  }
-}
+class CourseUnitAction extends RestfulAction[CourseUnit]

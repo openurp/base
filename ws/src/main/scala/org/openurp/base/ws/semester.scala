@@ -1,9 +1,9 @@
 package org.openurp.base.ws
 
-import org.beangle.webmvc.entity.action.AbstractEntityAction
 import org.openurp.base.Semester
 import org.openurp.base.Calendar
+import org.beangle.webmvc.entity.action.RestfulService
 
-class CalendarAction extends AbstractEntityAction[Calendar]
+class CalendarAction extends RestfulService[Calendar]
 
-class SemesterAction extends AbstractEntityAction[Semester]
+class SemesterAction extends RestfulService[Semester]

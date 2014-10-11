@@ -7,7 +7,7 @@
       [@b.textfield name="codeMeta.title" label="代码中文名称" value="${codeMeta.title!}" required="true" maxlength="50"/]
       [@b.textfield name="codeMeta.className" label="代码类名" value="${codeMeta.className!}" required="true" maxlength="50"/]
       [@b.select name="codeMeta.category.id" label="所在分类" value="${codeMeta.category!}" style="width:200px;"
-                 items=categorys option="id,name" empty="..."/]
+                 href=urp.service("/base/code/code-categories") empty="..."/]
       [@b.formfoot]
         [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
       [/@]

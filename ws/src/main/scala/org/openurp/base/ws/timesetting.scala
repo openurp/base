@@ -1,12 +1,12 @@
 package org.openurp.base.ws
 
-import org.beangle.webmvc.entity.action.AbstractEntityAction
 import org.openurp.base.Holiday
 import org.openurp.base.CourseUnit
 import org.openurp.base.TimeSetting
+import org.beangle.webmvc.entity.action.RestfulService
 
-class HolidayAction extends AbstractEntityAction[Holiday]
+class HolidayAction extends RestfulService[Holiday]
 
-class TimeSettingAction extends AbstractEntityAction[TimeSetting]
+class TimeSettingAction extends RestfulService[TimeSetting]
 
-class CourseUnitAction extends AbstractEntityAction[CourseUnit]
+class CourseUnitAction extends RestfulService[CourseUnit]

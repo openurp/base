@@ -6,13 +6,4 @@ import org.beangle.data.jpa.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.openurp.base.domain.code.CodeCategory
 
-class CategoryAction extends RestfulAction[CodeCategory] {
-
-  override def editSetting(entity: CodeCategory) = {
-    val query = OqlBuilder.from(classOf[CodeCategory])
-    query.orderBy("name")
-    val categorys = entityDao.search(query)
-    put("categorys", categorys)
-    super.editSetting(entity)
-  }
-}
+class CategoryAction extends RestfulAction[CodeCategory] 

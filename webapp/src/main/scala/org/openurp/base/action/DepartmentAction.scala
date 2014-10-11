@@ -8,24 +8,6 @@ import org.openurp.base.domain.SchoolBean
 import org.openurp.base.Department
 import org.openurp.base.School
 
-class SchoolAction extends RestfulAction[School] {
+class SchoolAction extends RestfulAction[School] 
 
-  override def editSetting(entity: School) = {
-    val query = OqlBuilder.from(classOf[Institution])
-    query.orderBy("name")
-    val institutions = entityDao.search(query)
-    put("institutions", institutions)
-    super.editSetting(entity)
-  }
-}
-
-class DepartmentAction extends RestfulAction[Department] {
-
-  override def editSetting(entity: Department) = {
-    val query = OqlBuilder.from(classOf[Department])
-    query.orderBy("name")
-    val departments = entityDao.search(query)
-    put("departments", departments)
-    super.editSetting(entity)
-  }
-}
+class DepartmentAction extends RestfulAction[Department] 

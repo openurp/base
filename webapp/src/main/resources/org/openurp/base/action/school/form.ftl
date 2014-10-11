@@ -6,7 +6,7 @@
     [@b.textfield name="school.code" label="代码" value="${school.code!}" required="true" maxlength="10"/]
     [@b.textfield name="school.name" label="学校名称" value="${school.name!}" required="true" maxlength="50"/]
     [@b.select name="school.institution.id" label="科研机构" value="${school.institution!}" 
-               style="width:200px;" code="/base/code/institution" option="id,name" empty="..."/]
+               style="width:200px;" code="/base/code/institutions" option="id,name" empty="..."/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
