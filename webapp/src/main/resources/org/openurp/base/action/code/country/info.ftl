@@ -25,18 +25,17 @@
     <td class="content">${country.alpha3Code}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">起始时间</td>
+    <td class="title" width="20%">生效时间</td>
     <td class="content" >${country.beginOn!}</td>
   </tr>
   <tr>
-    <td class="title" width="10%">终止时间</td>
+    <td class="title" width="10%">失效时间</td>
     <td class="content" width="40%">${country.endOn!}</td>
   </tr>
   <tr>
     <td class="title" width="10%">备注</td>
     <td class="content">${country.remark!}</td>
   </tr>
-  <tr>
 </table>
 
 [@b.foot/]

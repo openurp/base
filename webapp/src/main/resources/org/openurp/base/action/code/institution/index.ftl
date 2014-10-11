@@ -5,8 +5,8 @@
   <tr>
     <td class="index_view" style="width:200px">
     [@b.form name="institutionSearchForm" action="!search" target="institutionlist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="institution.name;科研机构名称"/]
       [@b.textfields names="institution.code;代码"/]
+      [@b.textfields names="institution.name;名称"/]
       [@b.textfields names="institution.enName;英文名称"/]
       <input type="hidden" name="orderBy" value="institution.name"/>
     [/@]

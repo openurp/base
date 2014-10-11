@@ -21,18 +21,17 @@
     <td class="content" >${nation.enName!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">起始时间</td>
+    <td class="title" width="20%">生效时间</td>
     <td class="content" >${nation.beginOn!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">终止时间</td>
+    <td class="title" width="20%">失效时间</td>
     <td class="content" >${nation.endOn!}</td>
   </tr>
   <tr>
     <td class="title">备注</td>
     <td class="content">${nation.remark!}</td>
   </tr>
-  <tr>
 </table>
 
 [@b.foot/]

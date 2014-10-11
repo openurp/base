@@ -17,18 +17,17 @@
     <td class="content" >${familyRelation.enName!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">起始时间</td>
+    <td class="title" width="20%">生效时间</td>
     <td class="content" >${familyRelation.beginOn!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">终止时间</td>
+    <td class="title" width="20%">失效时间</td>
     <td class="content" >${familyRelation.endOn!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">备注</td>
     <td class="content">${familyRelation.remark!}</td>
   </tr>
-  <tr>
 </table>
 
 [@b.foot/]

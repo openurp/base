@@ -5,8 +5,8 @@
   <tr>
     <td class="index_view" style="width:200px">
     [@b.form name="familyRelationSearchForm" action="!search" target="familyRelationlist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="familyRelation.name;人员关系名称"/]
       [@b.textfields names="familyRelation.code;代码"/]
+      [@b.textfields names="familyRelation.name;名称"/]
       [@b.textfields names="familyRelation.enName;英文名称"/]
       <input type="hidden" name="orderBy" value="familyRelation.name"/>
     [/@]

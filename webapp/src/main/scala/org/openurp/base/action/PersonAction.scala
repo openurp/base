@@ -10,16 +10,16 @@ import org.openurp.base.Person
 class PersonAction extends RestfulAction[Person] {
 
   override def editSetting(entity: Person) = {
-    val idTypes = findItems(classOf[IdType])
-    put("idTypes", idTypes)
-    val genders = findItems(classOf[Gender])
-    put("genders", genders)
-    val countries = findItems(classOf[Country])
-    put("countries", countries)
+//    val idTypes = findItems(classOf[IdType])
+//    put("idTypes", idTypes)
+//    val genders = findItems(classOf[Gender])
+//    put("genders", genders)
+//    val countries = findItems(classOf[Country])
+//    put("countries", countries)
     val departments = findItems(classOf[DepartmentBean])
     put("departments", departments)
-    val categorys = findItems(classOf[PersonCategory])
-    put("categorys", categorys)
+//    val categorys = findItems(classOf[PersonCategory])
+//    put("categorys", categorys)
     super.editSetting(entity)
   }
 

@@ -5,8 +5,8 @@
   <tr>
     <td class="index_view" style="width:200px">
     [@b.form name="disciplineCategorySearchForm" action="!search" target="disciplineCategorylist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="disciplineCategory.name;学科门类名称"/]
       [@b.textfields names="disciplineCategory.code;代码"/]
+      [@b.textfields names="disciplineCategory.name;名称"/]
       [@b.textfields names="disciplineCategory.enName;英文名称"/]
       <input type="hidden" name="orderBy" value="disciplineCategory.name"/>
     [/@]

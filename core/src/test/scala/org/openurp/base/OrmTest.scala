@@ -18,7 +18,7 @@ class OrmTest extends FunSpec with Matchers {
       for (fileName <- Array("/1-tables.sql", "/2-sequences.sql", "/3-comments.sql")) {
         val file = new File(dir + fileName)
         assert(file.exists())
-        file.delete()
+        //file.delete()
       }
     }
   }

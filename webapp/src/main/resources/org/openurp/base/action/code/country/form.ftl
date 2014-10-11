@@ -8,7 +8,7 @@
     [@b.textfield name="country.enName" label="英文名称" value="${country.enName!}" maxlength="200"/]
     [@b.textfield name="country.alpha2Code" label="2位字母代码" value="${country.alpha2Code}" required="true" maxlength="2"/]
     [@b.textfield name="country.alpha3Code" label="3位字母代码" value="${country.alpha3Code}" required="true" maxlength="3"/]
-    [@b.startend label="开始结束时间" 
+    [@b.startend label="生效失效时间" 
       name="country.beginOn,country.endOn" required="false,false" 
       start=country.beginOn end=country.endOn format="date"/]
     [@b.textfield name="country.remark" label="备注" value="${country.remark!}" maxlength="30"/]

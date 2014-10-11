@@ -5,8 +5,9 @@ import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.base.code.Institution
 import org.openurp.base.domain.DepartmentBean
 import org.openurp.base.domain.SchoolBean
+import org.openurp.base.Department
 
-class SchoolBeanAction extends RestfulAction[SchoolBean] {
+class SchoolAction extends RestfulAction[SchoolBean] {
 
   override def editSetting(entity: SchoolBean) = {
     val query = OqlBuilder.from(classOf[Institution])
@@ -17,13 +18,13 @@ class SchoolBeanAction extends RestfulAction[SchoolBean] {
   }
 }
 
-class DepartmentBeanAction extends RestfulAction[DepartmentBean] {
+class DepartmentAction extends RestfulAction[Department] {
 
-  override def editSetting(entity: DepartmentBean) = {
-    val query = OqlBuilder.from(classOf[DepartmentBean])
+  override def editSetting(entity: Department) = {
+    val query = OqlBuilder.from(classOf[Department])
     query.orderBy("name")
-    val departmentBeans = entityDao.search(query)
-    put("departmentBeans", departmentBeans)
+    val departments = entityDao.search(query)
+    put("departments", departments)
     super.editSetting(entity)
   }
 }

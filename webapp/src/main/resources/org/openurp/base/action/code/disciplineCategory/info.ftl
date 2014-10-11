@@ -17,18 +17,17 @@
     <td class="content" >${disciplineCategory.enName!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">起始时间</td>
+    <td class="title" width="20%">生效时间</td>
     <td class="content" >${disciplineCategory.beginOn!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">终止时间</td>
+    <td class="title" width="20%">失效时间</td>
     <td class="content" >${disciplineCategory.endOn!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">备注</td>
     <td class="content">${disciplineCategory.remark!}</td>
   </tr>
-  <tr>
 </table>
 
 [@b.foot/]

@@ -16,6 +16,8 @@
 
     <mapping resource="org/openurp/base/domain/CalendarBean.hbm.xml"/>
     <mapping resource="org/openurp/base/domain/SemesterBean.hbm.xml"/>
+    
+    <mapping resource="org/openurp/base/domain/HolidayBean.hbm.xml"/>
     <mapping resource="org/openurp/base/domain/TimeSettingBean.hbm.xml"/>
     <mapping resource="org/openurp/base/domain/CourseUnitBean.hbm.xml"/>
 

@@ -5,7 +5,7 @@
   <tr>
     <td class="index_view">
     [@b.form name="metaSearchForm"  action="!search" target="metalist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="codeMeta.name;代码名称"/]
+      [@b.textfields names="codeMeta.name;名称"/]
       <input type="hidden" name="orderBy" value="codeMeta.name"/>
     [/@]
     </td>

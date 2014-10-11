@@ -6,7 +6,7 @@
     [@b.textfield name="personCategory.code" label="代码" value="${personCategory.code!}" required="true" maxlength="20"/]
     [@b.textfield name="personCategory.name" label="名称" value="${personCategory.name!}" required="true" maxlength="20"/]
     [@b.textfield name="personCategory.enName" label="英文名称" value="${personCategory.enName!}" maxlength="100"/]
-    [@b.startend label="开始结束时间" 
+    [@b.startend label="生效失效时间" 
       name="personCategory.beginOn,personCategory.endOn" required="false,false" 
       start=personCategory.beginOn end=personCategory.endOn format="date"/]
     [@b.textfield name="personCategory.remark" label="备注" value="${personCategory.remark!}" maxlength="30"/]

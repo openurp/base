@@ -17,18 +17,17 @@
     <td class="content" >${personCategory.enName!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">起始时间</td>
+    <td class="title" width="20%">生效时间</td>
     <td class="content" >${personCategory.beginOn!}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">终止时间</td>
+    <td class="title" width="20%">失效时间</td>
     <td class="content" >${personCategory.endOn!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">备注</td>
     <td class="content">${personCategory.remark!}</td>
   </tr>
-  <tr>
 </table>
 
 [@b.foot/]

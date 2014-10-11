@@ -5,8 +5,8 @@
   <tr>
     <td class="index_view">
     [@b.form name="genderSearchForm" action="!search" target="genderlist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="gender.name;性别名称"/]
       [@b.textfields names="gender.code;代码"/]
+      [@b.textfields names="gender.name;名称"/]
       [@b.textfields names="gender.enName;英文名称"/]
       <input type="hidden" name="orderBy" value="gender.name"/>
     [/@]

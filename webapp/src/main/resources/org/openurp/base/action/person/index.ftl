@@ -5,8 +5,8 @@
   <tr>
     <td class="index_view" >
     [@b.form name="personSearchForm" action="!search" target="personlist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="person.name;姓名"/]
       [@b.textfields names="person.code;学工号"/]
+      [@b.textfields names="person.name;姓名"/]
       <input type="hidden" name="orderBy" value="person.name"/>
     [/@]
     </td>
