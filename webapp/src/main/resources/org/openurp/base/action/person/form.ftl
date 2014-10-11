@@ -8,7 +8,7 @@
     [@b.select name="person.gender.id" label="性别" value=(person.gender.id)! empty="..." style="width:200px;" 
                  href=urp.service("/base/code/genders")  required="true"/]
     [@b.select name="person.idType.id" label="证件类型" value="${(person.idType.id)!}" empty="..."
-               style="width:200px;"  href=urp.service("/base/code/id-type") required="true"/]
+               style="width:200px;"  href=urp.service("/base/code/id-types") required="true"/]
     [@b.textfield name="person.sid" label="证件号码" value="${person.sid!}" required="true" maxlength="30"/]
     [@b.datepicker name="person.birthday" label="出生日期" value="${person.birthday!}" /]
     [@b.select name="person.department.id" label="所在部门" value="${person.department!}" 
