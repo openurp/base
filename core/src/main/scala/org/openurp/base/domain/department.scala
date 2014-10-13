@@ -18,4 +18,6 @@ class DepartmentBean extends IntIdBean with CodedBean with NamedBean
   with HierarchicalBean[Department] with Department
   with TemporalOnBean {
   var teaching = false
+  var enName : String = _
+  var shortName : String =_
 }

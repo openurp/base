@@ -13,6 +13,8 @@
         <many-to-one name="department" />
         <many-to-one name="roomType"/>
         <many-to-one name="building"/>
+        <property name="floor" not-null="true"/>
+        <property name="capacity" not-null="true"/>
         <property name="beginOn"/>
         <property name="endOn"/>
         <property name="updatedAt"/>
