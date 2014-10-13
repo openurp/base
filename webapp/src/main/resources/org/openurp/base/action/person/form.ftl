@@ -11,9 +11,9 @@
                style="width:200px;"  href=urp.service("/base/code/id-types") required="true"/]
     [@b.textfield name="person.sid" label="证件号码" value="${person.sid!}" required="true" maxlength="30"/]
     [@b.datepicker name="person.birthday" label="出生日期" value="${person.birthday!}" /]
-    [@b.select name="person.department.id" label="所在部门" value="${person.department!}" 
+    [@b.select name="person.department.id" label="所在部门" value="${(person.department.id)!}" 
                style="width:200px;"  href=urp.service("/base/departments") empty="..."/]
-    [@b.select name="person.category.id" label="人员分类" value="${person.category.id!}" style="width:200px;" 
+    [@b.select name="person.category.id" label="人员分类" value="${(person.category.id)!}" style="width:200px;" 
          href=urp.service("/base/code/person-categories")/]
     [@b.textfield name="person.mobile" label="电话" value="${person.mobile!}" maxlength="15"/]
     [@b.textfield name="person.email" label="邮箱" value="${person.email!}" required="true" maxlength="80"/]

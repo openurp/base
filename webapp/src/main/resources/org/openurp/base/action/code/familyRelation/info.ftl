@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">人员关系名称</td>
-    <td class="content" >${familyRelation.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">代码</td>
     <td class="content">${familyRelation.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
+    <td class="content" >${familyRelation.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">英文名称</td>

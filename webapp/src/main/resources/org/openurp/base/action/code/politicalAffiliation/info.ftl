@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">政治面貌名称</td>
-    <td class="content" >${politicalAffiliation.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">代码</td>
     <td class="content">${politicalAffiliation.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
+    <td class="content" >${politicalAffiliation.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">英文名称</td>

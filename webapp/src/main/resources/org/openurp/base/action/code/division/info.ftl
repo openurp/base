@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">行政区划名称</td>
-    <td class="content" >${division.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">代码</td>
     <td class="content">${division.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
+    <td class="content" >${division.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">英文名称</td>

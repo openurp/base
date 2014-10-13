@@ -4,7 +4,7 @@
 [@b.tabs]
   [@b.form action="!save" theme="list"]
     [@b.textfield name="nation.code" label="代码" value="${nation.code!}" required="true" maxlength="20"/]
-    [@b.textfield name="nation.name" label="民族名称" value="${nation.name!}" required="true" maxlength="200"/]
+    [@b.textfield name="nation.name" label="名称" value="${nation.name!}" required="true" maxlength="200"/]
     [@b.textfield name="nation.enName" label="英文名称" value="${nation.enName!}" maxlength="200"/]
     [@b.textfield name="nation.alphaCode" label="字母代码" value="${nation.alphaCode!}" required="true" maxlength="3"/]
     [@b.startend label="生效失效时间" 

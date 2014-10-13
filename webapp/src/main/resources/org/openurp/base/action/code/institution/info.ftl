@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">科研机构名称</td>
-    <td class="content">${institution.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">代码</td>
     <td class="content">${institution.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
+    <td class="content">${institution.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">英文名称</td>

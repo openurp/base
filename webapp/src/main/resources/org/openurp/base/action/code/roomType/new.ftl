@@ -4,7 +4,7 @@
 [@b.tabs]
   [@b.form action="!save" theme="list"]
     [@b.textfield name="roomType.code" label="代码" value="${roomType.code!}" required="true" maxlength="20"/]
-    [@b.textfield name="roomType.name" label="房间类型" value="${roomType.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="roomType.name" label="名称" value="${roomType.name!}" required="true" maxlength="20"/]
     [@b.textfield name="roomType.enName" label="英文名称" value="${roomType.enName!}" maxlength="100"/]
     [@b.startend label="生效失效时间" 
       name="roomType.beginOn,roomType.endOn" required="false,false" 

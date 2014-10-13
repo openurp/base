@@ -7,6 +7,8 @@
     [@b.form name="personSearchForm" action="!search" target="personlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="person.code;学工号"/]
       [@b.textfields names="person.name;姓名"/]
+      [@b.select name="person.category.id" label="人员分类" href=urp.service("/base/code/person-categories") empty="..." style="width:100px"/]  
+      [@b.select name="person.department.id" label="所在部门" href=urp.service("/base/departments") empty="..." style="width:100px"/]
       <input type="hidden" name="orderBy" value="person.name"/>
     [/@]
     </td>

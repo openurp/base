@@ -5,7 +5,7 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">假日名称</td>
+    <td class="title" width="20%">名称</td>
     <td class="content">${holiday.name}</td>
   </tr>
   <tr>

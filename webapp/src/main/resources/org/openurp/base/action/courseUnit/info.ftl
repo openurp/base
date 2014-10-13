@@ -5,7 +5,7 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">小节名称</td>
+    <td class="title" width="20%">名称</td>
     <td class="content">${courseUnit.name}</td>
   </tr>
   <tr>

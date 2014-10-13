@@ -4,7 +4,7 @@
 [@b.tabs]
   [@b.form action="!save" theme="list"]
     [@b.textfield name="institution.code" label="代码" value="${institution.code!}" required="true" maxlength="20"/]
-    [@b.textfield name="institution.name" label="科研机构名称" value="${institution.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="institution.name" label="名称" value="${institution.name!}" required="true" maxlength="20"/]
     [@b.textfield name="institution.enName" label="英文名称" value="${institution.enName!}" maxlength="100"/]
     [@b.startend label="生效失效时间" 
       name="institution.beginOn,institution.endOn" required="false,false" 

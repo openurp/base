@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">教学日历方案名称</td>
-    <td class="content">${calendar.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">代码</td>
     <td class="content">${calendar.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
+    <td class="content">${calendar.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">每周开始时间</td>

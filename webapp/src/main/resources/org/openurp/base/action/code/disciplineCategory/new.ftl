@@ -4,7 +4,7 @@
 [@b.tabs]
   [@b.form action="!save" theme="list"]
     [@b.textfield name="disciplineCategory.code" label="代码" value="${disciplineCategory.code!}" required="true" maxlength="20"/]
-    [@b.textfield name="disciplineCategory.name" label="学科门类名称" value="${disciplineCategory.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="disciplineCategory.name" label="名称" value="${disciplineCategory.name!}" required="true" maxlength="20"/]
     [@b.textfield name="disciplineCategory.enName" label="英文名称" value="${disciplineCategory.enName!}" maxlength="100"/]
     [@b.startend label="生效失效时间" 
       name="disciplineCategory.beginOn,disciplineCategory.endOn" required="false,false" 

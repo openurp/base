@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">学科门类名称</td>
-    <td class="content">${disciplineCategory.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">代码</td>
     <td class="content">${disciplineCategory.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
+    <td class="content">${disciplineCategory.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">英文名称</td>

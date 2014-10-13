@@ -3,7 +3,7 @@
 [@b.toolbar title="新建假日安排"]bar.addBack();[/@]
 [@b.tabs]
   [@b.form action="!save" theme="list"]
-    [@b.textfield name="holiday.name" label="假日名称" value="${holiday.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="holiday.name" label="名称" value="${holiday.name!}" required="true" maxlength="20"/]
     [@b.startend label="生效失效时间" 
       name="holiday.beginOn,holiday.endOn" required="true,true" 
       start=holiday.beginOn end=holiday.endOn format="date"/]

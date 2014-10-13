@@ -8,7 +8,7 @@
   [/@]
   [@b.row]
     [@b.boxcol /]
-    [@b.col width="20%" property="name" title="时间设置名称"][@b.a href="!info?id=${timeSetting.id}"]${timeSetting.name}[/@][/@]
+    [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${timeSetting.id}"]${timeSetting.name}[/@][/@]
     [@b.col width="20%" property="units" title="关联小节"]
       [#list timeSetting.units as unit]
         ${unit.name!}

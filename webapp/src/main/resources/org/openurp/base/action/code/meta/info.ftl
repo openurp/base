@@ -5,11 +5,11 @@ bar.addBack("${b.text("action.back")}");
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">代码名称</td>
+    <td class="title" width="20%">名称</td>
     <td class="content" width="80%">${codeMeta.name}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">代码中文名称</td>
+    <td class="title" width="20%">中文名称</td>
     <td class="content" width="80%">${codeMeta.title}</td>
   </tr>
   <tr>

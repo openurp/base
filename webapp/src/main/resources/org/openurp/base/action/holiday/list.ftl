@@ -8,7 +8,7 @@
   [/@]
   [@b.row]
     [@b.boxcol /]
-    [@b.col width="20%" property="name" title="假日名称"][@b.a href="!info?id=${holiday.id}"]${holiday.name}[/@][/@]
+    [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${holiday.id}"]${holiday.name}[/@][/@]
     [@b.col width="20%" property="beginOn" title="生效时间"]${holiday.beginOn}[/@]
     [@b.col width="20%" property="endOn" title="失效时间"]${holiday.endOn}[/@]
   [/@]

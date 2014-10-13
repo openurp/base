@@ -4,8 +4,10 @@
 [@b.tabs]
   [@b.form action="!save" theme="list"]
     [@b.textfield name="department.code" label="代码" value="${department.code!}" required="true" maxlength="10"/]
-    [@b.textfield name="department.name" label="部门名称" value="${department.name!}" required="true" maxlength="80"/]
-    [@b.radios label="是否教学部门"  name="department.teaching" value="1" items="1:common.yes,0:common.no"/]
+    [@b.textfield name="department.name" label="名称" value="${department.name!}" required="true" maxlength="80"/]
+    [@b.textfield name="department.enName" label="英文名称" value="${department.enName!}" maxlength="100"/]
+    [@b.textfield name="department.shortName" label="简称" value="${department.shortName!}" maxlength="100"/]
+    [@b.radios label="是否教学部门"  name="department.teaching" value=department.teaching items="1:common.yes,0:common.no"/]
     [@b.startend label="生效失效时间" 
       name="department.beginOn,department.endOn" required="false,false" 
       start=department.beginOn end=department.endOn format="date"/]

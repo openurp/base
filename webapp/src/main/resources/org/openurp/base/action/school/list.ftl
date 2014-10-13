@@ -9,7 +9,7 @@
   [@b.row]
     [@b.boxcol /]
     [@b.col width="20%" property="code" title="代码"]${school.code}[/@]
-    [@b.col width="40%" property="name" title="学校名称"][@b.a href="!info?id=${school.id}"]${school.name}[/@][/@]
+    [@b.col width="40%" property="name" title="名称"][@b.a href="!info?id=${school.id}"]${school.name}[/@][/@]
     [@b.col width="30%" property="institution" title="科研机构"]${school.institution.name!}[/@]
   [/@]
 [/@]

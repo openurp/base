@@ -9,7 +9,7 @@
   [@b.row]
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"]${semester.code}[/@]
-    [@b.col width="15%" property="name" title="学年学期名称"][@b.a href="!info?id=${semester.id}"]${semester.name}[/@][/@]
+    [@b.col width="15%" property="name" title="名称"][@b.a href="!info?id=${semester.id}"]${semester.name}[/@][/@]
     [@b.col width="15%" property="schoolYear" title="学年度"]${semester.schoolYear}[/@]
     [@b.col width="15%" property="calendar" title="日历方案"]${semester.calendar.name}[/@]
     [@b.col width="10%" property="firstDay" title="每周开始时间"]${semester.firstDay}[/@]

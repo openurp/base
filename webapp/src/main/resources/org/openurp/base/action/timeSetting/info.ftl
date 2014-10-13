@@ -5,7 +5,7 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">时间设置名称</td>
+    <td class="title" width="20%">名称</td>
     <td class="content">${timeSetting.name}</td>
   </tr>
   <tr>

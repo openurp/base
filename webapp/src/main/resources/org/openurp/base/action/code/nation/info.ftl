@@ -9,12 +9,12 @@
     <td class="content" >${nation.code}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">字母代码</td>
-    <td class="content" >${nation.alphaCode}</td>
+    <td class="title" width="20%">名称</td>
+    <td class="content" >${nation.name}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">民族名称</td>
-    <td class="content" >${nation.name}</td>
+    <td class="title" width="20%">字母代码</td>
+    <td class="content" >${nation.alphaCode}</td>
   </tr>
   <tr>
     <td class="title" width="20%">英文名称</td>

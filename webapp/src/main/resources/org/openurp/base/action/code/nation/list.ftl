@@ -9,7 +9,7 @@
   [@b.row]
     [@b.boxcol/]
     [@b.col width="10%" property="code" title="代码"]${nation.code}[/@]
-    [@b.col width="10%" property="name" title="民族名称"][@b.a href="!info?id=${nation.id}"]${nation.name}[/@][/@]
+    [@b.col width="10%" property="name" title="名称"][@b.a href="!info?id=${nation.id}"]${nation.name}[/@][/@]
     [@b.col width="15%" property="enName" title="英文名称"]${nation.enName!}[/@]
     [@b.col width="15%" property="alphaCode" title="字母代码"]${nation.alphaCode}[/@]
     [@b.col width="15%" property="beginOn" title="生效时间"]${nation.beginOn!}[/@]

@@ -4,7 +4,7 @@
 [@b.tabs]
   [@b.form action="!save" theme="list"]
     [@b.textfield name="gender.code" label="代码" value="${gender.code!}" required="true" maxlength="20"/]
-    [@b.textfield name="gender.name" label="性别名称" value="${gender.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="gender.name" label="名称" value="${gender.name!}" required="true" maxlength="20"/]
     [@b.textfield name="gender.enName" label="英文名称" value="${gender.enName!}" maxlength="100"/]
     [@b.startend label="生效失效时间" 
       name="gender.beginOn,gender.endOn" required="false,false" 

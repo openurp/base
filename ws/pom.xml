@@ -7,7 +7,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>openurp-base-ws</artifactId>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <name>OpenURP Base Web Service</name>
 
   <dependencies>
@@ -32,7 +32,7 @@
     <dependency>
       <groupId>org.openurp.base</groupId>
       <artifactId>openurp-base-core</artifactId>
-      <version>${project.version}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

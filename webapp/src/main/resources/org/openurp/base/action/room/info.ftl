@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">房间名称</td>
-    <td class="content">${room.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">代码</td>
     <td class="content">${room.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
+    <td class="content">${room.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">所属校区</td>
@@ -27,6 +27,14 @@
   <tr>
     <td class="title" width="20%">所属建筑</td>
     <td class="content">${(room.building.name)!}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">楼层</td>
+    <td class="content">${room.floor}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">容量</td>
+    <td class="content">${room.capacity}</td>
   </tr>
   <tr>
     <td class="title" width="20%">生效时间</td>

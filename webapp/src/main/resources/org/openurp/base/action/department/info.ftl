@@ -5,12 +5,20 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">部门名称</td>
+    <td class="title" width="20%">代码</td>
+    <td class="content">${department.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
     <td class="content">${department.name}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">代码</td>
-    <td class="content">${department.code}</td>
+    <td class="title" width="20%">英文名称</td>
+    <td class="content">${department.enName!}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">简称</td>
+    <td class="content">${department.shortName!}</td>
   </tr>
   <tr>
    <td class="title" width="20%">是否教学部门</td>

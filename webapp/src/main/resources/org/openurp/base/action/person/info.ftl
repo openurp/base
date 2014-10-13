@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">姓名</td>
-    <td class="content">${personBean.name}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">学工号</td>
     <td class="content">${personBean.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">姓名</td>
+    <td class="content">${personBean.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">性别</td>

@@ -4,7 +4,7 @@
 [@b.tabs]
   [@b.form action="!update?id=${country.id}" theme="list"]
     [@b.textfield name="country.code" label="代码" value="${country.code}" required="true" maxlength="20"/]
-    [@b.textfield name="country.name" label="国家名称" value="${country.name}" required="true" maxlength="200"/]
+    [@b.textfield name="country.name" label="名称" value="${country.name}" required="true" maxlength="200"/]
     [@b.textfield name="country.enName" label="英文名称" value="${country.enName!}" maxlength="200"/]
     [@b.textfield name="country.alpha2Code" label="2位字母代码" value="${country.alpha2Code}" required="true" maxlength="2"/]
     [@b.textfield name="country.alpha3Code" label="3位字母代码" value="${country.alpha3Code}" required="true" maxlength="3"/]

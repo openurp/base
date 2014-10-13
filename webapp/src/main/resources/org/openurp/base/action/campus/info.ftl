@@ -5,12 +5,20 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">校区名称</td>
+    <td class="title" width="20%">代码</td>
+    <td class="content">${campus.code}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">名称</td>
     <td class="content">${campus.name}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">代码</td>
-    <td class="content">${campus.code}</td>
+    <td class="title" width="20%">英文名称</td>
+    <td class="content">${campus.enName!}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">简称</td>
+    <td class="content">${campus.shortName!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">生效时间</td>
