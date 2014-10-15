@@ -3,7 +3,7 @@
 [@b.toolbar title="学年学期类型"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:210px">
+    <td class="index_view" >
     [@b.form name="semesterSearchForm" action="!search" target="semesterlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="semester.code;代码"/]
       [@b.textfields names="semester.name;名称"/]

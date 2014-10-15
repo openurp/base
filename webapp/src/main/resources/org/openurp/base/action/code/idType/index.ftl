@@ -3,7 +3,7 @@
 [@b.toolbar title="证件类型"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:210px">
+    <td class="index_view" >
     [@b.form name="idTypeSearchForm" action="!search" target="idTypelist" title="ui.searchForm" theme="search"]
       [@b.textfields names="idType.code;代码"/]
       [@b.textfields names="idType.name;名称"/]

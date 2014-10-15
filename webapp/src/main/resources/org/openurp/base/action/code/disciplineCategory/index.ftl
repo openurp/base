@@ -3,7 +3,7 @@
 [@b.toolbar title="学科门类类型"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:200px">
+    <td class="index_view" >
     [@b.form name="disciplineCategorySearchForm" action="!search" target="disciplineCategorylist" title="ui.searchForm" theme="search"]
       [@b.textfields names="disciplineCategory.code;代码"/]
       [@b.textfields names="disciplineCategory.name;名称"/]

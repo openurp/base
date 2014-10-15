@@ -3,7 +3,7 @@
 [@b.toolbar title="人员关系类型"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:200px">
+    <td class="index_view" >
     [@b.form name="familyRelationSearchForm" action="!search" target="familyRelationlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="familyRelation.code;代码"/]
       [@b.textfields names="familyRelation.name;名称"/]

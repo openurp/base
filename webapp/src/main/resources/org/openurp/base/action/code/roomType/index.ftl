@@ -3,7 +3,7 @@
 [@b.toolbar title="房间类型"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:200px">
+    <td class="index_view">
     [@b.form name="roomTypeSearchForm" action="!search" target="roomTypelist" title="ui.searchForm" theme="search"]
       [@b.textfields names="roomType.code;代码"/]
       [@b.textfields names="roomType.name;名称"/]

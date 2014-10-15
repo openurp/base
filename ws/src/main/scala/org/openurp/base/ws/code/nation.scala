@@ -17,7 +17,14 @@ class PoliticalAffiliationAction extends AbstractAction[PoliticalAffiliation]
 
 class LanguageAction extends AbstractAction[Language]
 
-class DivisionAction extends AbstractAction[Division]
+class DivisionAction extends AbstractAction[Division] {
+
+  override def buildQuery(builder: OqlBuilder[Division]): Unit = {
+    get("parent") foreach { p =>
+      builder.where("code.code like :code and code.code !=:mycode", p + "%",p)
+    }
+  }
+}
 
 class EducationAction extends AbstractAction[Education]
 

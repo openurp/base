@@ -3,7 +3,7 @@
 [@b.toolbar title="行政区划类型"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:200px">
+    <td class="index_view" >
     [@b.form name="divisionSearchForm" action="!search" target="divisionlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="division.code;代码"/]
       [@b.textfields names="division.name;名称"/]

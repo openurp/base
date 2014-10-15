@@ -3,7 +3,7 @@
 [@b.toolbar title="政治面貌"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:200px">
+    <td class="index_view" >
     [@b.form name="politicalAffiliationSearchForm" action="!search" target="politicalAffiliationlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="politicalAffiliation.code;代码"/]
       [@b.textfields names="politicalAffiliation.name;名称"/]

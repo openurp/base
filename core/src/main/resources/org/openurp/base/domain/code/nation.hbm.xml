@@ -71,7 +71,7 @@
         <cache usage="read-write"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
-        <property name="name" length="200" unique="true" not-null="true"/>
+        <property name="name" length="200" not-null="true"/>
         <property name="enName" length="200"/>
         <property name="beginOn"/>
         <property name="endOn"/>

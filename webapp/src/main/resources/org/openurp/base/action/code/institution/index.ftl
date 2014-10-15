@@ -3,7 +3,7 @@
 [@b.toolbar title="科研机构类型"/]
 <table class="indexpanel">
   <tr>
-    <td class="index_view" style="width:200px">
+    <td class="index_view" >
     [@b.form name="institutionSearchForm" action="!search" target="institutionlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="institution.code;代码"/]
       [@b.textfields names="institution.name;名称"/]
