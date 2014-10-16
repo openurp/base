@@ -19,6 +19,5 @@
   <cache eternal="false" overflowToDisk="false" maxElementsInMemory="1000"
     timeToLiveSeconds="1000" timeToIdleSeconds="120"
     name="org.openurp.base"></cache>
-
   
 </ehcache>
