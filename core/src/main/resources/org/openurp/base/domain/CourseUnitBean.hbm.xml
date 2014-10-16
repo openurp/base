@@ -7,7 +7,7 @@
     <typedef name="hourminute" class="org.beangle.data.jpa.hibernate.udt.HourMinuteType"/>
 
     <class name="CourseUnitBean" entity-name="org.openurp.base.CourseUnit" >
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="date"/></id>
         <property name="indexno"  not-null="true"/>
         <property name="name" length="20"  not-null="true"/>

@@ -5,7 +5,7 @@
   default-access="org.beangle.data.jpa.hibernate.PropertyAccessor">
  
     <class name="GenderBean" entity-name="org.openurp.base.code.Gender">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="20" unique="true" not-null="true"/>
@@ -17,7 +17,7 @@
     </class>
 
     <class name="NationBean" entity-name="org.openurp.base.code.Nation">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="60" unique="true" not-null="true"/>
@@ -30,7 +30,7 @@
     </class>
 
     <class name="CountryBean" entity-name="org.openurp.base.code.Country">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="200" unique="true" not-null="true"/>
@@ -44,7 +44,7 @@
     </class>
     
     <class name="PoliticalAffiliationBean" entity-name="org.openurp.base.code.PoliticalAffiliation">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="200" unique="true" not-null="true"/>
@@ -56,7 +56,7 @@
     </class>
 
     <class name="LanguageBean" entity-name="org.openurp.base.code.Language">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="200" unique="true" not-null="true"/>
@@ -68,7 +68,7 @@
     </class>
 
     <class name="DivisionBean" entity-name="org.openurp.base.code.Division">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="200" not-null="true"/>
@@ -80,7 +80,7 @@
     </class>
 
   <class name="EducationBean" entity-name="org.openurp.base.code.Education">
-    <cache usage="read-write"/>
+    <cache usage="read-write" region="org.openurp.base"/>
     <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
     <property name="code" length="20" unique="true" not-null="true"/>
     <property name="name" length="200" unique="true" not-null="true"/>
@@ -92,7 +92,7 @@
   </class>
   
   <class name="FamilyRelationBean" entity-name="org.openurp.base.code.FamilyRelation">
-    <cache usage="read-write"/>
+    <cache usage="read-write" region="org.openurp.base"/>
     <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
     <property name="code" length="20" unique="true" not-null="true"/>
     <property name="name" length="200" unique="true" not-null="true"/>
