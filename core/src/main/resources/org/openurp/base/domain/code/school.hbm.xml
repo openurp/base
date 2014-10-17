@@ -5,7 +5,7 @@
   default-access="org.beangle.data.jpa.hibernate.PropertyAccessor">
  
     <class name="IdTypeBean" entity-name="org.openurp.base.code.IdType">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="20" unique="true" not-null="true"/>
@@ -17,7 +17,7 @@
     </class>
 
     <class name="RoomTypeBean" entity-name="org.openurp.base.code.RoomType">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="20" unique="true" not-null="true"/>
@@ -29,7 +29,7 @@
     </class>
     
     <class name="PersonCategoryBean" entity-name="org.openurp.base.code.PersonCategory">
-        <cache usage="read-write"/>
+        <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="integer"><generator class="code"/></id>
         <property name="code" length="20" unique="true" not-null="true"/>
         <property name="name" length="20" unique="true" not-null="true"/>
