@@ -77,11 +77,3 @@ class EducationBean extends BaseCodeBean with Education
  */
 @code("nation")
 class FamilyRelationBean extends BaseCodeBean with FamilyRelation
-
-/**
- * 学科门类
- * 参见国家推荐标准GB/T 13745-2009
- * @see http://web.heuet.edu.cn/rsc/zhicheng2007/erjixuekemulu.doc
- */
-@code("nation")
-class DisciplineCategoryBean extends BaseCodeBean with DisciplineCategory
