@@ -18,7 +18,7 @@
  */
 package org.openurp.base.domain.code
 
-import org.beangle.data.model.IdGrowSlow
+import org.beangle.data.model.SlowId
 import org.beangle.data.model.bean.HierarchicalBean
 import org.beangle.data.model.bean.IntIdBean
 
@@ -27,7 +27,7 @@ import org.beangle.data.model.bean.IntIdBean
  *
  * @author chaostone
  */
-class CodeCategory extends IntIdBean with HierarchicalBean[CodeCategory] with IdGrowSlow {
+class CodeCategory extends IntIdBean with HierarchicalBean[CodeCategory] with SlowId {
 
   var name: String = _
 

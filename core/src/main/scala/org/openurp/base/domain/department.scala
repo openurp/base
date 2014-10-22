@@ -1,13 +1,13 @@
 package org.openurp.base.domain
 
-import org.beangle.data.model.IdGrowSlow
+import org.beangle.data.model.SlowId
 import org.beangle.data.model.bean.{ CodedBean, HierarchicalBean, IntIdBean, NamedBean, TemporalOnBean }
 import org.openurp.base.{ Department, School }
 import org.openurp.base.code.Institution
 /**
  * 学校
  */
-class SchoolBean extends IntIdBean with CodedBean with NamedBean with School with IdGrowSlow {
+class SchoolBean extends IntIdBean with CodedBean with NamedBean with School with SlowId {
   var institution: Institution = _
 }
 
