@@ -9,12 +9,6 @@
   [@b.row]
     [@b.boxcol /]
     [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${timeSetting.id}"]${timeSetting.name}[/@][/@]
-    [@b.col width="20%" property="units" title="关联小节"]
-      [#list timeSetting.units as unit]
-        ${unit.name!}
-        [#if schema_has_next]<br>[/#if]
-      [/#list]
-    [/@]
   [/@]
 [/@]
 [@b.foot/]

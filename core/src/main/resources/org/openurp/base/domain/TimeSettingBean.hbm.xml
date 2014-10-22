@@ -10,7 +10,7 @@
         <property name="name" length="20"  not-null="true"/>
         <bag name="units" collection-type="seq" inverse="true">
             <cache usage="read-write" region="org.openurp.base"/>
-            <key><column name="calendar_id" /></key>
+            <key column="setting_id" />
             <one-to-many class="org.openurp.base.CourseUnit"/>
         </bag>
     </class>

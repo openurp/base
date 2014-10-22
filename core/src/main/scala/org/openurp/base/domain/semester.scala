@@ -8,13 +8,14 @@ import org.beangle.data.model.bean.TemporalOnBean
 import org.openurp.base.Calendar
 import org.openurp.base.Semester
 import org.openurp.base.WeekDay.WeekDay
+import scala.collection.mutable.Buffer
 
 /**
  * 教学日历方案
  * 校历（日历方案）记录了一整套学年学期的设置，是连贯性学年学期设置的集合，也可称日历方案。
  */
 class CalendarBean extends IntIdBean with CodedBean with NamedBean with TemporalOnBean with Calendar {
-  var semesters: Seq[Semester] = new collection.mutable.ListBuffer[Semester]
+  var semesters: Buffer[Semester] = new collection.mutable.ListBuffer[Semester]
   var firstDay: WeekDay = _
 }
 

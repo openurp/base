@@ -17,10 +17,6 @@
     <td class="content" >${calendar.firstDay}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">关联学年学期</td>
-    <td class="content" >${calendar.semester.name!}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">生效时间</td>
     <td class="content" >${calendar.beginOn!}</td>
   </tr>

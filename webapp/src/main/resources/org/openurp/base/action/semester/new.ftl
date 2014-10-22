@@ -14,7 +14,7 @@ form.listform label.title{width:120px}
     [@b.radios name="firstDay" label="每周开始时间" value="1"
         required="true" items="7:周日,1:周一"/]
     [@b.startend label="生效失效时间" 
-      name="semester.beginOn,semester.endOn" required="false,false" 
+      name="semester.beginOn,semester.endOn" required="true,true" 
       start=semester.beginOn end=semester.endOn format="date"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]

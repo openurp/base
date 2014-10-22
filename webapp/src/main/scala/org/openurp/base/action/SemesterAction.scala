@@ -8,15 +8,7 @@ import org.openurp.base.{Calendar, Semester, WeekDay}
 import org.openurp.base.domain.{CalendarBean, SemesterBean}
 
 class CalendarAction extends RestfulAction[Calendar]{
-  
-  override def editSetting(entity:Calendar){
-    val query = OqlBuilder.from(classOf[Semester])
-    query.orderBy("name")
-    val semesters = entityDao.search(query)
-    put("semesters", semesters)
-    super.editSetting(entity)
-  }
-  
+
   override def saveAndRedirect(entity:Calendar):View = {
     val calendar = entity.asInstanceOf[CalendarBean]
     calendar.firstDay=WeekDay(Numbers.toInt(get("firstday","1"))).asInstanceOf[WeekDay.WeekDay]
