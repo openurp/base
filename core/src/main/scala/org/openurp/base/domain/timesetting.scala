@@ -19,8 +19,7 @@ class TimeSettingBean extends IntIdBean with NamedBean with TimeSetting {
   var units: Buffer[CourseUnit] = new collection.mutable.ListBuffer[CourseUnit]
 }
 
-//class CourseUnitBean extends NumIdBean[java.lang.Short] with NamedBean with CourseUnit {
-class CourseUnitBean extends IntIdBean with NamedBean with CourseUnit {
+class CourseUnitBean extends NumIdBean[java.lang.Short] with NamedBean with CourseUnit {
   var indexno: Int = _
   var startTime: HourMinute = _
   var endTime: HourMinute = _

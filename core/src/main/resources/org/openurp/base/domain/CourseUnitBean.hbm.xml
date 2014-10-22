@@ -8,7 +8,7 @@
 
     <class name="CourseUnitBean" entity-name="org.openurp.base.CourseUnit" >
         <cache usage="read-write" region="org.openurp.base"/>
-        <id name="id" unsaved-value="null" type="integer"><generator class="date"/></id>
+        <id name="id" unsaved-value="null" type="short"><generator class="auto_increment"/></id>
         <property name="indexno"  not-null="true"/>
         <property name="name" length="20"  not-null="true"/>
         <many-to-one name="setting" not-null="true"/>
