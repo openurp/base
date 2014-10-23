@@ -1,14 +1,9 @@
 package org.openurp.base.domain
 
-import org.beangle.data.model.bean.CodedBean
-import org.beangle.data.model.bean.IntIdBean
-import org.beangle.data.model.bean.NamedBean
-import org.beangle.data.model.bean.NumIdBean
-import org.beangle.data.model.bean.TemporalOnBean
-import org.openurp.base.Calendar
-import org.openurp.base.Semester
-import org.openurp.base.WeekDay.WeekDay
 import scala.collection.mutable.Buffer
+import org.beangle.data.model.bean.{CodedBean, IntIdBean, NamedBean, TemporalOnBean}
+import org.openurp.base.{Calendar, Semester}
+import org.beangle.commons.lang.time.WeekDays.WeekDay
 
 /**
  * 教学日历方案

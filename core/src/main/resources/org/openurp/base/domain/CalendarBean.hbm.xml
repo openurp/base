@@ -5,7 +5,7 @@
   default-access="org.beangle.data.jpa.hibernate.PropertyAccessor">
  
   <typedef name="weekday" class="org.beangle.data.jpa.hibernate.udt.EnumType">
-    <param name="enumClass">org.openurp.base.WeekDay</param>
+    <param name="enumClass">org.beangle.commons.lang.time.WeekDays</param>
   </typedef>
 
   <class name="CalendarBean" entity-name="org.openurp.base.Calendar" >

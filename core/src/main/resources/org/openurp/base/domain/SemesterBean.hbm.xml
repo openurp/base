@@ -11,7 +11,7 @@
         <property name="name" length="10"  not-null="true"/>
         <property name="schoolYear" length="10"  not-null="true"/>
         <many-to-one name="calendar"  not-null="true"/>
-        <property name="firstDay" type="weekday"  not-null="true"/>
+        <property name="firstDay" type="weekday" not-null="true"/>
         <property name="beginOn"  not-null="true"/>
         <property name="endOn"  not-null="true"/>
     </class>
