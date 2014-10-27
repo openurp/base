@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="部门基本信息"]bar.addBack();[/@]
 [@b.tabs]
-  [@b.form action="!update?id=${department.id}" theme="list"]
+  [@b.form action="!update?id=${department.id!}" theme="list"]
     [@b.textfield name="department.code" label="代码" value="${department.code!}" required="true" maxlength="10"/]
     [@b.textfield name="department.name" label="名称" value="${department.name!}" required="true" maxlength="80"/]
     [@b.textfield name="department.enName" label="英文名称" value="${department.enName!}" maxlength="100"/]

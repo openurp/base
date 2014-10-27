@@ -8,7 +8,7 @@ form.listform label.title{width:120px}
   [@b.form action="!save" theme="list" ]
     [@b.textfield name="calendar.code" label="代码" value="${calendar.code!}" required="true" maxlength="10"/]
     [@b.textfield name="calendar.name" label="名称" value="${calendar.name!}" required="true" maxlength="80" /]
-    [@b.radios name="firstDay" label="每周开始时间" value="1"
+    [@b.radios name="calendar.firstDay" label="每周开始时间" value=((calendar.firstDay.id)?string)!"1"
         required="true" items="7:周日,1:周一"/]
     [@b.startend label="生效失效时间" 
       name="calendar.beginOn,calendar.endOn" required="false,false" 
