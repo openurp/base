@@ -36,6 +36,5 @@ class DefaultModule extends AbstractBindModule {
     bind(classOf[CalendarAction],classOf[SemesterAction])
     bind(classOf[HolidayAction],classOf[TimeSettingAction],classOf[CourseUnitAction])
     bind(classOf[CampusAction],classOf[RoomAction],classOf[BuildingAction])
-    DefaultConversion.Instance.addConverter(String2HourMinuteConverter)
   }
 }

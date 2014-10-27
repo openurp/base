@@ -28,7 +28,7 @@
     <dependency>
       <groupId>org.openurp.base</groupId>
       <artifactId>openurp-base-core</artifactId>
-      <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
