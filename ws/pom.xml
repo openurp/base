@@ -17,6 +17,14 @@
     </dependency>
     <dependency>
       <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-webxml-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-entity-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webmvc</groupId>
       <artifactId>beangle-webmvc-config-plugin</artifactId>
     </dependency>
     <dependency>
@@ -32,12 +40,12 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
-      <scope>runtime</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <scope>runtime</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.openurp.base</groupId>
@@ -45,8 +53,35 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-ehcache</artifactId>
+    </dependency>
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
     </dependency>
   </dependencies>
+  <build>
+
+    <plugins>
+      <plugin>
+        <groupId>org.beangle.maven</groupId>
+        <artifactId>beangle-maven-plugin</artifactId>
+        <version>0.1.1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>generate</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>gen-dependency</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
