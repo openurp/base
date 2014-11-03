@@ -25,7 +25,12 @@
     </dependency>
     <dependency>
       <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-serializer-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webmvc</groupId>
       <artifactId>beangle-webmvc-config-plugin</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.beangle.webmvc</groupId>
@@ -71,7 +76,7 @@
       <plugin>
         <groupId>org.beangle.maven</groupId>
         <artifactId>beangle-maven-plugin</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
+        <version>0.1.0</version>
         <executions>
           <execution>
             <id>generate</id>
