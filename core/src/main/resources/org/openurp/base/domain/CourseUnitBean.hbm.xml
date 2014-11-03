@@ -4,8 +4,6 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" package="org.openurp.base.domain"
   default-access="org.beangle.data.jpa.hibernate.PropertyAccessor">
   
-    <typedef name="hourminute" class="org.beangle.data.jpa.hibernate.udt.HourMinuteType"/>
-
     <class name="CourseUnitBean" entity-name="org.openurp.base.CourseUnit" >
         <cache usage="read-write" region="org.openurp.base"/>
         <id name="id" unsaved-value="null" type="short"><generator class="auto_increment"/></id>
