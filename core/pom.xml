@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.openurp.base</groupId>
-    <artifactId>openurp-base-parent</artifactId>
+    <groupId>org.openurp</groupId>
+    <artifactId>openurp-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>org.openurp.base</groupId>
@@ -18,12 +18,23 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.openurp.platform</groupId>
+      <artifactId>openurp-platform-kernel</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.openurp.base</groupId>
       <artifactId>openurp-base-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openurp.base</groupId>
+      <artifactId>openurp-base-api</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.beangle.data</groupId>
-      <artifactId>beangle-data-jdbc</artifactId>
+      <artifactId>beangle-data-jpa</artifactId>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
