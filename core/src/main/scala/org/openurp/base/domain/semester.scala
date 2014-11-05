@@ -24,4 +24,12 @@ class SemesterBean extends IntIdBean with CodedBean with NamedBean with Temporal
   var schoolYear: String = _
 
   var firstDay: WeekDay = _
+  
+  def this(id:Integer,code:String,schoolYear:String,name:String){
+    this()
+    this.id=id
+    this.code=code
+    this.schoolYear =schoolYear
+    this.name=name
+  }
 }
