@@ -1,4 +1,4 @@
-package org.openurp.base.domain
+package org.openurp.base.model
 
 import org.beangle.data.model.SlowId
 import org.beangle.data.model.bean.{ CodedBean, HierarchicalBean, IntIdBean, NamedBean, TemporalOnBean }

@@ -1,4 +1,4 @@
-package org.openurp.base.domain
+package org.openurp.base.model
 
 import scala.collection.mutable.Buffer
 import org.beangle.data.model.bean.{CodedBean, IntIdBean, NamedBean, TemporalOnBean}

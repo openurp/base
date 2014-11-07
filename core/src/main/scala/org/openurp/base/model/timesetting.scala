@@ -1,4 +1,4 @@
-package org.openurp.base.domain
+package org.openurp.base.model
 
 import java.{ util => ju }
 import org.beangle.commons.lang.time.HourMinute

@@ -1,4 +1,4 @@
-package org.openurp.base.domain.code
+package org.openurp.base.model.code
 
 import org.beangle.data.model.annotation.code
 import org.openurp.base.code.{ IdType, PersonCategory, RoomType }
