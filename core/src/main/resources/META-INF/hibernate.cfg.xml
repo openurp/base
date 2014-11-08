@@ -11,6 +11,8 @@
     <mapping resource="org/openurp/base/model/code/CodeMeta.hbm.xml"/>
 
     <mapping resource="org/openurp/base/model/PersonBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/model/TeacherBean.hbm.xml"/>
+    <mapping resource="org/openurp/base/model/TeacherJournalBean.hbm.xml"/>
     <mapping resource="org/openurp/base/model/SchoolBean.hbm.xml"/>
     <mapping resource="org/openurp/base/model/DepartmentBean.hbm.xml"/>
 

@@ -12,6 +12,7 @@ import org.openurp.base.code.{ Country, Gender, IdType, PersonCategory }
 class PersonBean extends LongIdBean with CodedBean with NamedBean with UpdatedBean with Person {
   /**Socail ID*/
   var sid: String = _
+  var enName: String = _
   var idType: IdType = _
   var country: Country = _
   var department: Department = _

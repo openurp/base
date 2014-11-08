@@ -4,6 +4,9 @@ import org.beangle.data.model.annotation.code
 import org.openurp.base.code.{ Country, Division, Education, FamilyRelation, Gender, Language, Nation, PoliticalAffiliation }
 import org.openurp.platform.model.BaseCodeBean
 import org.openurp.base.code.DisciplineCategory
+import org.openurp.base.code.TeacherTitle
+import org.openurp.base.code.Degree
+import org.openurp.base.code.TeacherTitleLevel
 
 /**
  * 性别
@@ -77,3 +80,33 @@ class EducationBean extends BaseCodeBean with Education
  */
 @code("nation")
 class FamilyRelationBean extends BaseCodeBean with FamilyRelation
+
+/**
+ * 教师职称
+ *
+ * @author chaostone
+ * @since 2005-9-7
+ */
+@code("nation")
+class TeacherTitleBean extends BaseCodeBean with TeacherTitle {
+
+}
+
+/**
+ * 教师职称等级
+ */
+@code("nation")
+class TeacherTitleLevelBean extends BaseCodeBean with TeacherTitleLevel {
+
+}
+
+/**
+ * 学位
+ *
+ * @author chaostone
+ * @since 2005-9-7
+ */
+@code("nation")
+class DegreeBean extends BaseCodeBean with Degree {
+
+}
