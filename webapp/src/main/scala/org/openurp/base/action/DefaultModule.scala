@@ -19,7 +19,6 @@ import org.openurp.base.action.code.RoomTypeAction
 import org.openurp.platform.web.tag.UrpTagLibrary
 import org.openurp.base.domain.TimeSettingBean
 import org.beangle.commons.conversion.impl.DefaultConversion
-import org.beangle.commons.conversion.converter.String2HourMinuteConverter
 
 class DefaultModule extends AbstractBindModule {
 
