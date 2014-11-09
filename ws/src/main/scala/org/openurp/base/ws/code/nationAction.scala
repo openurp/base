@@ -1,7 +1,7 @@
 package org.openurp.base.ws.code
 
 import org.beangle.data.jpa.dao.OqlBuilder
-import org.openurp.base.code.{ Country, Division, Education, FamilyRelation, Gender, Language, Nation, PoliticalAffiliation }
+import org.openurp.base.code.{ Country, Degree, Division, Education, FamilyRelation, Gender, Language, Nation, PoliticalAffiliation, TeacherTitle, TeacherTitleLevel }
 
 class GenderAction extends AbstractAction[Gender]
 
@@ -21,7 +21,7 @@ class DivisionAction extends AbstractAction[Division] {
 
   override def buildQuery(builder: OqlBuilder[Division]): Unit = {
     get("parent") foreach { p =>
-      builder.where("code.code like :code and code.code !=:mycode", p + "%",p)
+      builder.where("code.code like :code and code.code !=:mycode", p + "%", p)
     }
   }
 }
@@ -30,3 +30,8 @@ class EducationAction extends AbstractAction[Education]
 
 class FamilyRelationAction extends AbstractAction[FamilyRelation]
 
+class TeacherTitleAction extends AbstractAction[TeacherTitle]
+
+class TeacherTitleLevelAction extends AbstractAction[TeacherTitleLevel]
+
+class DegreeAction extends AbstractAction[Degree]
