@@ -9,7 +9,7 @@ import org.beangle.data.model.bean.IntIdBean
 /**
  * 通用人员信息
  */
-class PersonBean extends IntIdBean with CodedBean with NamedBean with UpdatedBean with Person {
+class PersonBean extends LongIdBean with CodedBean with NamedBean with UpdatedBean with Person {
   /**Socail ID*/
   var sid: String = _
   var enName: String = _
