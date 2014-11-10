@@ -1,27 +1,15 @@
 package org.openurp.base.model
 
-import org.beangle.data.model.bean.TemporalOnBean
-import org.beangle.data.model.bean.CodedBean
-import org.beangle.data.model.bean.LongIdBean
-import org.openurp.base.code.Education
-import org.beangle.data.model.bean.NamedBean
 import java.sql.Date
-import org.openurp.base.Department
-import org.openurp.base.TeacherJournal
-import org.openurp.base.code.TeacherUnitType
-import org.openurp.base.code.TeacherTitleLevel
-import org.openurp.base.code.TeacherType
-import org.openurp.base.Teacher
-import org.openurp.base.Person
-import org.openurp.base.code.Degree
-import org.openurp.base.code.TeacherTitle
-import org.openurp.base.code.TeacherState
-import org.openurp.base.code.TutorType
+import org.beangle.data.model.bean.{ CodedBean, IntIdBean, NamedBean, TemporalOnBean }
+import org.openurp.base.{ Department, Person, Teacher, TeacherJournal }
+import org.openurp.base.code.{ Degree, Education, TeacherState, TeacherTitle, TeacherTitleLevel, TeacherType, TeacherUnitType, TutorType }
+import org.beangle.data.model.bean.LongIdBean
 
 /**
  * 教师信息默认实现
  */
-class TeacherBean extends LongIdBean with CodedBean with NamedBean with TemporalOnBean with Teacher {
+class TeacherBean extends IntIdBean with CodedBean with NamedBean with TemporalOnBean with Teacher {
   /**人员信息*/
   var person: Person = _
   /** 部门 */

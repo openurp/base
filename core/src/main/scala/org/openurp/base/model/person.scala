@@ -1,15 +1,15 @@
 package org.openurp.base.model
 
 import java.{ util => ju }
-
 import org.beangle.data.model.bean.{ CodedBean, LongIdBean, NamedBean, UpdatedBean }
 import org.openurp.base.{ Department, Person }
 import org.openurp.base.code.{ Country, Gender, IdType, PersonCategory }
+import org.beangle.data.model.bean.IntIdBean
 
 /**
  * 通用人员信息
  */
-class PersonBean extends LongIdBean with CodedBean with NamedBean with UpdatedBean with Person {
+class PersonBean extends IntIdBean with CodedBean with NamedBean with UpdatedBean with Person {
   /**Socail ID*/
   var sid: String = _
   var enName: String = _
