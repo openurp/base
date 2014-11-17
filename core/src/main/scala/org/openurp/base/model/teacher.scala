@@ -9,7 +9,7 @@ import org.beangle.data.model.bean.LongIdBean
 /**
  * 教师信息默认实现
  */
-class TeacherBean extends IntIdBean with CodedBean with NamedBean with TemporalOnBean with Teacher {
+class TeacherBean extends IntIdBean with CodedBean with TemporalOnBean with Teacher {
   /**人员信息*/
   var person: Person = _
   /** 部门 */
