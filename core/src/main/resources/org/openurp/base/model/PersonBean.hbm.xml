@@ -14,6 +14,7 @@
         <property name="email" length="80" unique="true"  not-null="true"/>
         <many-to-one name="department"/>
         <many-to-one name="gender"/>
+        <many-to-one name="nation"/>
         <property name="birthday"/>
         <many-to-one name="country"/>
         <many-to-one name="category"/>
