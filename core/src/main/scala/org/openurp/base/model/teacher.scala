@@ -1,15 +1,15 @@
 package org.openurp.base.model
 
 import java.sql.Date
-import org.beangle.data.model.bean.{ CodedBean, IntIdBean, NamedBean, TemporalOnBean }
-import org.openurp.base.{ Department, Person, Teacher, TeacherJournal }
-import org.openurp.base.code.{ Degree, Education, TeacherState, TeacherTitle, TeacherTitleLevel, TeacherType, TeacherUnitType, TutorType }
-import org.beangle.data.model.bean.LongIdBean
+
+import org.beangle.data.model.bean.{CodedBean, IntIdBean, LongIdBean, TemporalOnBean, UpdatedBean}
+import org.openurp.base.{Department, Person, Teacher, TeacherJournal}
+import org.openurp.base.code.{Degree, Education, TeacherState, TeacherTitle, TeacherTitleLevel, TeacherType, TeacherUnitType, TutorType}
 
 /**
  * 教师信息默认实现
  */
-class TeacherBean extends IntIdBean with CodedBean with TemporalOnBean with Teacher {
+class TeacherBean extends IntIdBean with CodedBean with TemporalOnBean with UpdatedBean with Teacher {
   /**人员信息*/
   var person: Person = _
   /** 部门 */

@@ -30,6 +30,7 @@
             <key column="teacher_id" />
             <one-to-many class="org.openurp.base.TeacherJournal"/>
         </bag>
+        <property name="updatedAt"/>
     </class>
 
 </hibernate-mapping>
