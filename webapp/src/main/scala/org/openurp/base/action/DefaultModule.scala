@@ -3,6 +3,8 @@ package org.openurp.base.action
 import org.beangle.commons.inject.bind.AbstractBindModule
 import org.openurp.base.action.code.{ CategoryAction, CountryAction, DisciplineCategoryAction, DivisionAction, EducationAction, FamilyRelationAction, GenderAction, IdTypeAction, InstitutionAction, LanguageAction, MetaAction, NationAction, PersonCategoryAction, PoliticalAffiliationAction, RoomTypeAction }
 import org.openurp.platform.web.tag.UrpTagLibrary
+import org.openurp.base.Teacher
+import org.openurp.base.TeacherJournal
 
 class DefaultModule extends AbstractBindModule {
 
@@ -19,5 +21,6 @@ class DefaultModule extends AbstractBindModule {
     bind(classOf[CalendarAction], classOf[SemesterAction])
     bind(classOf[HolidayAction], classOf[TimeSettingAction], classOf[CourseUnitAction])
     bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
+    bind(classOf[Teacher],classOf[TeacherJournal])
   }
 }
