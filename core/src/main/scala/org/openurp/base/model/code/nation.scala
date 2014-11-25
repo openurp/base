@@ -2,7 +2,7 @@ package org.openurp.base.model.code
 
 import org.beangle.data.model.annotation.code
 import org.openurp.base.code.{ Country, Division, Education, FamilyRelation, Gender, Language, Nation, PoliticalAffiliation }
-import org.openurp.platform.model.BaseCodeBean
+import org.openurp.platform.code.BaseCodeBean
 import org.openurp.base.code.DisciplineCategory
 import org.openurp.base.code.TeacherTitle
 import org.openurp.base.code.Degree

@@ -19,7 +19,6 @@
 package org.openurp.base.model.code
 
 import org.beangle.data.model.bean.IntIdBean
-import org.beangle.data.model.SlowId
 
 /**
  * 登记系统使用的基础代码
@@ -28,7 +27,7 @@ import org.beangle.data.model.SlowId
  *
  * @author chaostone
  */
-class CodeMeta extends IntIdBean with SlowId {
+class CodeMeta extends IntIdBean {
 
   var name: String = _
 

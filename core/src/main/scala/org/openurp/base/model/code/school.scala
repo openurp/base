@@ -2,7 +2,7 @@ package org.openurp.base.model.code
 
 import org.beangle.data.model.annotation.code
 import org.openurp.base.code.{ IdType, PersonCategory, RoomType }
-import org.openurp.platform.model.BaseCodeBean
+import org.openurp.platform.code.BaseCodeBean
 import org.openurp.base.code.TeacherUnitType
 import org.openurp.base.code.TeacherType
 import org.openurp.base.code.TutorType

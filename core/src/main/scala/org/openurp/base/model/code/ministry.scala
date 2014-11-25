@@ -2,7 +2,7 @@ package org.openurp.base.model.code
 
 import org.beangle.data.model.annotation.code
 import org.openurp.base.code.{ DisciplineCategory, Institution }
-import org.openurp.platform.model.BaseCodeBean
+import org.openurp.platform.code.BaseCodeBean
 
 /**
  * 科研机构

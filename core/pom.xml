@@ -20,7 +20,7 @@
   <dependencies>
     <dependency>
       <groupId>org.openurp.platform</groupId>
-      <artifactId>openurp-platform-kernel</artifactId>
+      <artifactId>openurp-platform-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
