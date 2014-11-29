@@ -1,4 +1,4 @@
-package org.openurp.base.ws.code
+package org.openurp.base.ds.code
 
 import org.beangle.data.jpa.dao.OqlBuilder
 import org.beangle.data.model.dao.EntityDao
@@ -6,7 +6,7 @@ import org.beangle.webmvc.api.action.EntityActionSupport
 import org.beangle.webmvc.api.annotation.response
 import org.openurp.code.BaseCode
 
-class AbstractAction[T <: BaseCode] extends EntityActionSupport[T] {
+class AbstractWS[T <: BaseCode] extends EntityActionSupport[T] {
 
   var entityDao: EntityDao = _
 
@@ -14,7 +14,7 @@ class AbstractAction[T <: BaseCode] extends EntityActionSupport[T] {
   def index(): Seq[T] = {
     val builder = OqlBuilder.from(entityType, "code")
     builder.orderBy(get("orderBy", "code.code"))
-    builder.select("new org.openurp.base.ws.model.Code(code.id,code.code,code.name)")
+    builder.select("new org.openurp.base.ds.model.Code(code.id,code.code,code.name)")
     buildQuery(builder)
     entityDao.search(builder)
   }

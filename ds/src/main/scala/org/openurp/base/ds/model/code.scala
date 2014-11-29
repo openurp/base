@@ -1,4 +1,4 @@
-package org.openurp.base.ws.model
+package org.openurp.base.ds.model
 
 class Code(val id:Integer,val code:String,val name:String) {
 
