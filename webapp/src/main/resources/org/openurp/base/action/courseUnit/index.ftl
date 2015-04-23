@@ -7,10 +7,10 @@
     [@b.form name="courseUnitSearchForm" action="!search" target="courseUnitlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="courseUnit.name;名称"/]
       [@b.textfields names="courseUnit.indexno;序号"/]
-      <input type="hidden" name="orderBy" value="courseUnit.name"/>
+      <input type="hidden" name="orderBy" value="courseUnit.indexno"/>
     [/@]
     </td>
-    <td class="index_content">[@b.div id="courseUnitlist" href="!search?orderBy=courseUnit.id"/]
+    <td class="index_content">[@b.div id="courseUnitlist" href="!search?orderBy=courseUnit.indexno"/]
     </td>
   </tr>
 </table>

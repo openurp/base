@@ -7,7 +7,7 @@
     [@b.form name="schoolSearchForm" action="!search" target="schoollist" title="ui.searchForm" theme="search"]
       [@b.textfields names="school.code;代码"/]
       [@b.textfields names="school.name;名称"/]
-      <input type="hidden" name="orderBy" value="school.name"/>
+      <input type="hidden" name="orderBy" value="school.code"/>
     [/@]
     </td>
     <td class="index_content">[@b.div id="schoollist" href="!search?orderBy=school.code"/]

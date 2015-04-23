@@ -14,11 +14,11 @@
   </tr>
   <tr>
     <td class="title" width="20%">开始时间</td>
-    <td class="content" >${courseUnit.beginTime}</td>
+    <td class="content" >${courseUnit.beginAt}</td>
   </tr>
   <tr>
     <td class="title" width="20%">失效时间</td>
-    <td class="content" >${courseUnit.endTime}</td>
+    <td class="content" >${courseUnit.endAt}</td>
   </tr>
 </table>
 

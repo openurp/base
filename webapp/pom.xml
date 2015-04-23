@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-webapp-parent</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.11</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openurp.base</groupId>
@@ -11,6 +11,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Openurp Base Webapp</name>
+
+  <properties>
+    <beangle.webmvc.version>0.2.7-SNAPSHOT</beangle.webmvc.version>
+    <beangle.security.version>4.0.7-SNAPSHOT</beangle.security.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -20,8 +25,17 @@
     </dependency>
     <dependency>
       <groupId>org.openurp.base</groupId>
-      <artifactId>openurp-base-core</artifactId>
-      <version>${project.version}</version>
+      <artifactId>openurp-base-model</artifactId>
+      <version>0.0.2-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.security</groupId>
+      <artifactId>beangle-security-cas</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.template</groupId>
+      <artifactId>beangle-template-freemarker</artifactId>
+      <version>0.0.2</version>
     </dependency>
   </dependencies>
 </project>

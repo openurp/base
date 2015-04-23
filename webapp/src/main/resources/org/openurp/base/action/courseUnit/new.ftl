@@ -8,8 +8,8 @@
     [@b.select name="courseUnit.setting.id" label="时间设置" value="${courseUnit.setting!}" 
                style="width:200px;" href=urp.service("/base/time-settings") empty="..."/]
     [@b.startend label="生效失效时间" 
-      name="courseUnit.startTime,courseUnit.endTime" required="true,true" 
-      start=courseUnit.startTime end=courseUnit.endTime format="HH:mm"/]
+      name="courseUnit.beginAt,courseUnit.endAt" required="true,true" 
+      start=courseUnit.beginAt end=courseUnit.endAt format="HH:mm"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]

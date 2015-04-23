@@ -11,7 +11,7 @@
       [@b.select name="room.department.id" label="管理部门" href=urp.service("/base/departments") empty="..." style="width:100px"/]
       [@b.select name="room.roomType.id" label="房间类型" empty="..." href=urp.service("/base/code/room-types") style="width:100px"/]
       [@b.select name="room.building.id" label="所属建筑" href=urp.service("/base/buildings") empty="..." style="width:100px"/]
-      <input type="hidden" name="orderBy" value="room.name"/>
+      <input type="hidden" name="orderBy" value="room.code"/>
     [/@]
     </td>
     <td class="index_content">[@b.div id="roomlist" href="!search?orderBy=room.code"/]

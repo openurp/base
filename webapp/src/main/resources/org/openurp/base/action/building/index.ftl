@@ -8,7 +8,7 @@
       [@b.textfields names="building.code;代码"/]
       [@b.textfields names="building.name;名称"/]
       [@b.select name="building.campus.id" label="所属校区" href=urp.service("/base/campuses") empty="..." style="width:100px"/]
-      <input type="hidden" name="orderBy" value="building.name"/>
+      <input type="hidden" name="orderBy" value="building.code"/>
     [/@]
     </td>
     <td class="index_content">[@b.div id="buildinglist" href="!search?orderBy=building.code"/]
