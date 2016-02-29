@@ -1,14 +1,14 @@
-package org.openurp.base.action.code
+package org.openurp.base.model.action.code
 
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.code.geo.Country
-import org.openurp.code.person.Nation
-import org.openurp.code.geo.Division
-import org.openurp.code.edu.Language
-import org.openurp.code.edu.Education
-import org.openurp.code.person.Gender
-import org.openurp.code.person.PoliticalStatus
-import org.openurp.code.person.FamilyRelationship
+import org.openurp.code.person.model.PoliticalStatus
+import org.openurp.code.geo.model.Country
+import org.openurp.code.person.model.Nation
+import org.openurp.code.geo.model.Division
+import org.openurp.code.edu.model.Language
+import org.openurp.code.person.model.FamilyRelationship
+import org.openurp.code.person.model.Gender
+import org.openurp.edu.base.code.school.Education
 
 class GenderAction extends RestfulAction[Gender]
 
@@ -24,4 +24,4 @@ class DivisionAction extends RestfulAction[Division]
 
 class EducationAction extends RestfulAction[Education]
 
-class FamilyRelationshipAction extends RestfulAction[FamilyRelationship] 
+class FamilyRelationshipAction extends RestfulAction[FamilyRelationship]

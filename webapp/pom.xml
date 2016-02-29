@@ -26,7 +26,7 @@
     <dependency>
       <groupId>org.openurp.base</groupId>
       <artifactId>openurp-base-model</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
+      <version>0.0.6</version>
     </dependency>
     <dependency>
       <groupId>org.beangle.security</groupId>

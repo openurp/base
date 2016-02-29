@@ -1,12 +1,12 @@
-package org.openurp.base.action
+package org.openurp.base.model.action
 
 import org.beangle.data.jpa.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.Building
-import org.openurp.base.Campus
-import org.openurp.base.Department
-import org.openurp.base.Room
+import org.openurp.base.model.Building
+import org.openurp.base.model.Campus
+import org.openurp.base.model.Department
+import org.openurp.base.model.Room
 
 class CampusAction extends RestfulAction[Campus]
 

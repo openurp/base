@@ -1,4 +1,4 @@
-package org.openurp.base.action.code
+package org.openurp.base.model.action.code
 
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.beangle.data.jpa.dao.OqlBuilder

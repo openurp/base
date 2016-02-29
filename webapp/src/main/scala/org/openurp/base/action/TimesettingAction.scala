@@ -1,7 +1,7 @@
-package org.openurp.base.action
+package org.openurp.base.model.action
 
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.{ CourseUnit, Holiday, TimeSetting }
+import org.openurp.base.model.{ CourseUnit, Holiday, TimeSetting }
 
 class HolidayAction extends RestfulAction[Holiday]
 

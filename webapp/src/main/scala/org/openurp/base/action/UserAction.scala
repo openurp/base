@@ -1,6 +1,6 @@
-package org.openurp.base.action
+package org.openurp.base.model.action
 
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.User
+import org.openurp.base.model.User
 
 class UserAction extends RestfulAction[User] 

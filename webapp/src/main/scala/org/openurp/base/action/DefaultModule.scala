@@ -1,21 +1,21 @@
-package org.openurp.base.action
+package org.openurp.base.model.action
 
 import org.beangle.commons.inject.bind.AbstractBindModule
-import org.openurp.base.action.code.CategoryAction
-import org.openurp.base.action.code.CountryAction
-import org.openurp.base.action.code.DisciplineCategoryAction
-import org.openurp.base.action.code.DivisionAction
-import org.openurp.base.action.code.EducationAction
-import org.openurp.base.action.code.FamilyRelationshipAction
-import org.openurp.base.action.code.GenderAction
-import org.openurp.base.action.code.IdTypeAction
-import org.openurp.base.action.code.InstitutionAction
-import org.openurp.base.action.code.LanguageAction
-import org.openurp.base.action.code.MetaAction
-import org.openurp.base.action.code.NationAction
-import org.openurp.base.action.code.PoliticalStatusAction
-import org.openurp.base.action.code.RoomTypeAction
-import org.openurp.base.action.code.UserCategoryAction
+import org.openurp.base.model.action.code.CategoryAction
+import org.openurp.base.model.action.code.CountryAction
+import org.openurp.base.model.action.code.DisciplineCategoryAction
+import org.openurp.base.model.action.code.DivisionAction
+import org.openurp.base.model.action.code.EducationAction
+import org.openurp.base.model.action.code.FamilyRelationshipAction
+import org.openurp.base.model.action.code.GenderAction
+import org.openurp.base.model.action.code.IdTypeAction
+import org.openurp.base.model.action.code.InstitutionAction
+import org.openurp.base.model.action.code.LanguageAction
+import org.openurp.base.model.action.code.MetaAction
+import org.openurp.base.model.action.code.NationAction
+import org.openurp.base.model.action.code.PoliticalStatusAction
+import org.openurp.base.model.action.code.RoomTypeAction
+import org.openurp.base.model.action.code.UserCategoryAction
 import org.openurp.platform.web.tag.UrpTagLibrary
 
 class DefaultModule extends AbstractBindModule {
