@@ -1,4 +1,4 @@
-package org.openurp.base.model.action.code
+package org.openurp.base.web.action.code
 
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.code.edu.model.Institution

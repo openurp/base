@@ -1,4 +1,4 @@
-package org.openurp.base.model.action
+package org.openurp.base.web.action
 
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.base.model.{ CourseUnit, Holiday, TimeSetting }
