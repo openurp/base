@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.grid items=campuss var="campus"]
+[@b.grid items=campuses var="campus"]
   [@b.gridbar]
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());

@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.grid items=userCategorys var="userCategory"]
+[@b.grid items=userCategories var="userCategory"]
   [@b.gridbar]
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());

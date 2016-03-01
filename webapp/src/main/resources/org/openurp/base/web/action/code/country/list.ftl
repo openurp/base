@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.grid items=countrys var="country"]
+[@b.grid items=countries var="country"]
   [@b.gridbar]
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());

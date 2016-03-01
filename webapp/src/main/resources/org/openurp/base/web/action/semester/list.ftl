@@ -12,7 +12,6 @@
     [@b.col width="15%" property="name" title="名称"][@b.a href="!info?id=${semester.id}"]${semester.name}[/@][/@]
     [@b.col width="15%" property="schoolYear" title="学年度"]${semester.schoolYear}[/@]
     [@b.col width="15%" property="calendar" title="日历方案"]${semester.calendar.name}[/@]
-    [@b.col width="10%" property="firstWeekday" title="每周开始时间"]${semester.firstWeekday}[/@]
     [@b.col width="15%" property="beginOn" title="生效时间"]${semester.beginOn}[/@]
     [@b.col width="15%" property="endOn" title="失效时间"]${semester.endOn}[/@]
   [/@]

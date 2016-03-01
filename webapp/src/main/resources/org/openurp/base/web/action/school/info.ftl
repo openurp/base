@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <td class="title" width="20%">科研机构</td>
-    <td class="content" >${school.institution!}</td>
+    <td class="content" >${(school.institution.name)!}</td>
   </tr>
 </table>
 

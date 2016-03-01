@@ -22,7 +22,7 @@
   </tr>
   <tr>
     <td class="title" width="20%">每周开始时间</td>
-    <td class="content" >${semester.firstWeekday}</td>
+    <td class="content" >${semester.calendar.firstWeekday}</td>
   </tr>
   <tr>
     <td class="title" width="20%">生效时间</td>

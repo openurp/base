@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.grid items=politicalStatuss var="politicalStatus"]
+[@b.grid items=politicalStatuses var="politicalStatus"]
   [@b.gridbar]
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());

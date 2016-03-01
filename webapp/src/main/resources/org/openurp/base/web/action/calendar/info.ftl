@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <td class="title" width="20%">每周开始时间</td>
-    <td class="content" >${calendar.firstDay}</td>
+    <td class="content" >${calendar.firstWeekday}</td>
   </tr>
   <tr>
     <td class="title" width="20%">生效时间</td>

@@ -18,17 +18,24 @@ import org.openurp.base.web.action.code.LanguageAction
 import org.openurp.base.web.action.code.NationAction
 import org.openurp.base.web.action.code.PoliticalStatusAction
 import org.openurp.base.web.action.code.UserCategoryAction
+import org.openurp.base.web.action.SemesterAction
+import org.openurp.base.web.action.CalendarAction
+import org.openurp.base.web.action.CourseUnitAction
+import org.openurp.base.web.action.TimeSettingAction
+import org.openurp.base.web.action.HolidayAction
 
 class DefaultModule extends AbstractBindModule {
 
   protected override def binding() {
     bind(classOf[GenderAction], classOf[CountryAction], classOf[NationAction],
       classOf[PoliticalStatusAction], classOf[LanguageAction],
-      classOf[DivisionAction],  classOf[FamilyRelationshipAction])
+      classOf[DivisionAction], classOf[FamilyRelationshipAction])
     bind(classOf[InstitutionAction], classOf[DisciplineCategoryAction])
-    bind(classOf[IdTypeAction] )
-    bind(classOf[DepartmentAction], classOf[SchoolAction], classOf[UserAction])
-    bind(classOf[UserCategoryAction])
+    bind(classOf[IdTypeAction], classOf[UserCategoryAction])
+    bind(classOf[DepartmentAction], classOf[SchoolAction])
+    bind(classOf[UserAction])
+    bind(classOf[SemesterAction], classOf[CalendarAction])
+    bind(classOf[TimeSettingAction], classOf[CourseUnitAction], classOf[HolidayAction])
     bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
   }
 }
