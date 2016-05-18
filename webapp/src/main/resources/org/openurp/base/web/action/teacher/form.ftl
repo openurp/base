@@ -3,7 +3,8 @@
 [@b.toolbar title="修改教师信息"]bar.addBack();[/@]
 [@b.tabs]
   [@b.tab label="基本信息"]
-  [@b.form action="!update?id=${teacher.id}" theme="list"]
+  [#assign sa][#if teacher.id??]!update?id=${teacher.id!}[#else]!save[/#if][/#assign]
+  [@b.form action=sa theme="list"]
     [@b.textfield name="teacher.code" label="职工号" value="${teacher.code!}" required="true" maxlength="20"/]
     [@b.textfield name="teacher.name" label="姓名" value="${teacher.name!}" required="true" maxlength="20"/]
     [@b.startend label="生效失效日期" 

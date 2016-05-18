@@ -2,7 +2,8 @@
 [@b.head/]
 [@b.toolbar title="修改代码类别"]bar.addBack();[/@]
 [@b.tabs]
-    [@b.form action="!update?id=${codeCategory.id}" theme="list"]
+  [#assign sa][#if codeCategory.id??]!update?id=${codeCategory.id!}[#else]!save[/#if][/#assign]
+  [@b.form action=sa theme="list"]
       [@b.textfield name="codeCategory.name" label="代码类名" value="${codeCategory.name!}" required="true" maxlength="50"/]
       [@b.textfield name="codeCategory.indexno" label="序号" value="${codeCategory.indexno!}" required="true" maxlength="50"/]
       [@b.select name="codeCategory.parent.id" label="父级菜单" value="${(codeCategory.parent.id)!}" 

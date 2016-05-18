@@ -23,6 +23,7 @@ import org.openurp.base.web.action.CalendarAction
 import org.openurp.base.web.action.CourseUnitAction
 import org.openurp.base.web.action.TimeSettingAction
 import org.openurp.base.web.action.HolidayAction
+import org.openurp.base.web.action.IndexAction
 
 class DefaultModule extends AbstractBindModule {
 
@@ -37,5 +38,6 @@ class DefaultModule extends AbstractBindModule {
     bind(classOf[SemesterAction], classOf[CalendarAction])
     bind(classOf[TimeSettingAction], classOf[CourseUnitAction], classOf[HolidayAction])
     bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
+    bind(classOf[IndexAction])
   }
 }

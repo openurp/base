@@ -2,7 +2,19 @@ package org.openurp.base.web.action
 
 import org.openurp.base.model.{ Department, School }
 import org.beangle.webmvc.entity.action.RestfulAction
+import org.beangle.data.dao.OqlBuilder
+import org.beangle.webmvc.api.annotation.action
+import org.beangle.commons.collection.Order
 
 class SchoolAction extends RestfulAction[School]
 
-class DepartmentAction extends RestfulAction[Department]
+@action("{school}/department")
+class DepartmentAction extends RestfulAction[Department] {
+  override protected def getQueryBuilder(): OqlBuilder[Department] = {
+    val builder: OqlBuilder[Department] = OqlBuilder.from(entityName, "department")
+    builder.where("department.school.code=:schoolCode", get("school").get)
+    populateConditions(builder)
+    builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
+  }
+
+}

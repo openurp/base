@@ -2,7 +2,8 @@
 [@b.head/]
 [@b.toolbar title="修改小节类型"]bar.addBack();[/@]
 [@b.tabs]
-  [@b.form action="!update?id=${courseUnit.id}" theme="list"]
+  [#assign sa][#if courseUnit.id??]!update?id=${courseUnit.id!}[#else]!save[/#if][/#assign]
+  [@b.form action=sa theme="list"]
     [@b.textfield name="courseUnit.name" label="名称" value="${courseUnit.name!}" required="true" maxlength="20"/]
     [@b.textfield name="courseUnit.indexno" label="序号" value="${courseUnit.indexno!}" required="true"/]
     [@b.select name="courseUnit.setting.id" label="时间设置" value="${(courseUnit.setting.id)!}" 

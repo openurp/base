@@ -2,7 +2,8 @@
 [@b.head/]
 [@b.toolbar title="修改通用人员信息"]bar.addBack();[/@]
 [@b.tabs]
-  [@b.form action="!update?id=${user.id}" theme="list"]
+  [#assign sa][#if user.id??]!update?id=${user.id!}[#else]!save[/#if][/#assign]
+  [@b.form action=sa theme="list"]
     [@b.textfield name="user.code" label="学工号" value="${user.code!}" required="true" maxlength="30"/]
     [@b.textfield name="user.name" label="姓名" value="${user.name!}" required="true" maxlength="80"/]
     [@b.select name="user.department.id" label="所在部门" value="${(user.department.id)!}" 

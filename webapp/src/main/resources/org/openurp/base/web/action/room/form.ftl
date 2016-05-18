@@ -2,7 +2,8 @@
 [@b.head/]
 [@b.toolbar title="修改房间类型"]bar.addBack();[/@]
 [@b.tabs]
-  [@b.form action="!update?id=${room.id}" theme="list"]
+  [#assign sa][#if room.id??]!update?id=${room.id!}[#else]!save[/#if][/#assign]
+  [@b.form action=sa theme="list"]
     [@b.textfield name="room.code" label="代码" value="${room.code!}" required="true" maxlength="10"/]
     [@b.textfield name="room.name" label="名称" value="${room.name!}" required="true" maxlength="80"/]
     [@b.select name="room.campus.id" label="所属校区" value="${(room.campus.id)!}" 
