@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改性别类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if gender.id??]!update?id=${gender.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if gender.persisted]!update?id=${gender.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="gender.code" label="代码" value="${gender.code!}" required="true" maxlength="20"/]
     [@b.textfield name="gender.name" label="名称" value="${gender.name!}" required="true" maxlength="20"/]

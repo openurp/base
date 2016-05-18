@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改科研机构类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if institution.id??]!update?id=${institution.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if institution.persisted]!update?id=${institution.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="institution.code" label="代码" value="${institution.code!}" required="true" maxlength="20"/]
     [@b.textfield name="institution.name" label="名称" value="${institution.name!}" required="true" maxlength="20"/]

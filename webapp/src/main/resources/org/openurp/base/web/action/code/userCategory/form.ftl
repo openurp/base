@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改人员分类"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if userCategory.id??]!update?id=${userCategory.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if userCategory.persisted]!update?id=${userCategory.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="userCategory.code" label="代码" value="${userCategory.code!}" required="true" maxlength="20"/]
     [@b.textfield name="userCategory.name" label="名称" value="${userCategory.name!}" required="true" maxlength="20"/]

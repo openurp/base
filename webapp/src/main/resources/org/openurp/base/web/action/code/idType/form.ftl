@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改证件类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if idType.id??]!update?id=${idType.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if idType.persisted]!update?id=${idType.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="idType.code" label="代码" value="${idType.code!}" required="true" maxlength="20"/]
     [@b.textfield name="idType.name" label="名称" value="${idType.name!}" required="true" maxlength="20"/]

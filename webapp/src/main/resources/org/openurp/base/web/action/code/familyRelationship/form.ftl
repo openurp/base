@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改人员关系类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if familyRelationship.id??]!update?id=${familyRelationship.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if familyRelationship.persisted]!update?id=${familyRelationship.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="familyRelationship.code" label="代码" value="${familyRelationship.code!}" required="true" maxlength="20"/]
     [@b.textfield name="familyRelationship.name" label="名称" value="${familyRelationship.name!}" required="true" maxlength="20"/]

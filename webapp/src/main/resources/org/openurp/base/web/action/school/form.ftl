@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改学校类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if school.id??]!update?id=${school.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if school.persisted]!update?id=${school.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="school.code" label="代码" value="${school.code!}" required="true" maxlength="10"/]
     [@b.textfield name="school.name" label="名称" value="${school.name!}" required="true" maxlength="50"/]

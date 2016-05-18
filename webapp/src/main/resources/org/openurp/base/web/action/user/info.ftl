@@ -14,11 +14,11 @@
   </tr>
   <tr>
     <td class="title" width="20%">所在部门</td>
-    <td class="content">${user.department.name!}</td>
+    <td class="content">${(user.department.name)!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">人员分类</td>
-    <td class="content">${user.category.name!}</td>
+    <td class="content">${user.category.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">电话</td>

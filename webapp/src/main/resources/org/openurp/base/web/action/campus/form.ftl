@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改校区类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if campus.id??]!update?id=${campus.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if campus.persisted]!update?id=${campus.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="campus.code" label="代码" value="${campus.code!}" required="true" maxlength="10"/]
     [@b.textfield name="campus.name" label="名称" value="${campus.name!}" required="true" maxlength="80"/]

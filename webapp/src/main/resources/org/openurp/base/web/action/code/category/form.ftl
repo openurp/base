@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改代码类别"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if codeCategory.id??]!update?id=${codeCategory.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if codeCategory.persisted]!update?id=${codeCategory.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
       [@b.textfield name="codeCategory.name" label="代码类名" value="${codeCategory.name!}" required="true" maxlength="50"/]
       [@b.textfield name="codeCategory.indexno" label="序号" value="${codeCategory.indexno!}" required="true" maxlength="50"/]

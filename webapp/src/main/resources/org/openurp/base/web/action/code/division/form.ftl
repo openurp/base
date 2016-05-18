@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改行政区划类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if division.id??]!update?id=${division.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if division.persisted]!update?id=${division.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="division.code" label="代码" value="${division.code!}" required="true" maxlength="20"/]
     [@b.textfield name="division.name" label="名称" value="${division.name!}" required="true" maxlength="20"/]

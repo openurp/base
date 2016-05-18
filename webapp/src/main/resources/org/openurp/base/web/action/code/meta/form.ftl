@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改代码"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if codeMeta.id??]!update?id=${codeMeta.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if codeMeta.persisted]!update?id=${codeMeta.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
       [@b.textfield name="codeMeta.name" label="名称" value="${codeMeta.name!}" required="true" maxlength="50"/]
       [@b.textfield name="codeMeta.title" label="中文名称" value="${codeMeta.title!}" required="true" maxlength="50"/]

@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="修改语种类型"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if language.id??]!update?id=${language.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if language.persisted]!update?id=${language.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="language.code" label="代码" value="${language.code!}" required="true" maxlength="20"/]
     [@b.textfield name="language.name" label="名称" value="${language.name!}" required="true" maxlength="20"/]

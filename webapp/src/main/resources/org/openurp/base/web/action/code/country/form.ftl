@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="新建国家信息"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if country.id??]!update?id=${country.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if country.persisted]!update?id=${country.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="country.code" label="代码" value="${country.code}" required="true" maxlength="20"/]
     [@b.textfield name="country.name" label="名称" value="${country.name}" required="true" maxlength="200"/]

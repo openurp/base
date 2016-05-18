@@ -2,16 +2,16 @@
 [@b.head/]
 [@b.toolbar title="修改通用人员信息"]bar.addBack();[/@]
 [@b.tabs]
-  [#assign sa][#if user.id??]!update?id=${user.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if user.persisted]!update?id=${user.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="user.code" label="学工号" value="${user.code!}" required="true" maxlength="30"/]
     [@b.textfield name="user.name" label="姓名" value="${user.name!}" required="true" maxlength="80"/]
     [@b.select name="user.department.id" label="所在部门" value="${(user.department.id)!}" 
-               style="width:200px;"  href=urp.service("/base/departments") empty="..."/]
-    [@b.select name="user.category.id" label="人员分类" value="${(user.category.id)!}" style="width:200px;" 
-         href=urp.service("/base/code/user-categories")/]
+               style="width:200px;" items=departments empty="..."/]
+    [@b.select name="user.category.id" label="人员分类" value="${(user.category.id)!}" style="width:200px;"  required="true"
+        items =userCategories /]
     [@b.textfield name="user.mobile" label="电话" value="${user.mobile!}" maxlength="15"/]
-    [@b.textfield name="user.email" label="邮箱" value="${user.email!}" required="true" maxlength="80"/]
+    [@b.textfield name="user.email" label="邮箱" value="${user.email!}"  maxlength="80"/]
     [@b.textfield name="user.remark" label="说明" value="${user.remark!}" maxlength="190"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]

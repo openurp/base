@@ -4,7 +4,7 @@
 form.listform label.title{width:120px}
 </style>
 [@b.toolbar title="修改学年学期类型"]bar.addBack();[/@]
-  [#assign sa][#if semester.id??]!update?id=${semester.id!}[#else]!save[/#if][/#assign]
+  [#assign sa][#if semester.persisted]!update?id=${semester.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="semester.code" label="代码" value="${semester.code!}" required="true" maxlength="15"/]
     [@b.textfield name="semester.name" label="名称" value="${semester.name!}" required="true" maxlength="10"/]
