@@ -48,7 +48,7 @@
         <span class="glyphicon glyphicon-user" aria-hidden="true">[@b.a href="/security/my" target="_blank" title="查看登录记录"]${user.name}&nbsp;[/@]</span>
        </li>
      <li>
-     [#assign logoutUrl]index!logout?redirect=${casConfig.casServer}/logout[/#assign]
+     [#assign logoutUrl]!logout?redirect=${casConfig.casServer}/logout[/#assign]
      <span class="glyphicon glyphicon-log-out" aria-hidden="true">[@b.a href=logoutUrl target="_top"]退出&nbsp;&nbsp;[/@]</span>
         </li>
       </ul>
