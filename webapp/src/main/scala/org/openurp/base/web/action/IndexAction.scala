@@ -1,20 +1,17 @@
 package org.openurp.base.web.action
 
-import java.net.URL
-import org.beangle.commons.io.IOs
 import org.beangle.data.dao.{ EntityDao, OqlBuilder }
 import org.beangle.security.context.SecurityContext
 import org.beangle.security.mgt.SecurityManager
 import org.beangle.security.realm.cas.CasConfig
 import org.beangle.webmvc.api.action.ActionSupport
-import org.beangle.webmvc.api.annotation.{ ignore, mapping }
+import org.beangle.webmvc.api.annotation.{ action, mapping }
 import org.beangle.webmvc.api.view.View
 import org.openurp.base.model.{ School, User }
+import org.openurp.platform.api.Urp
 import org.openurp.platform.api.app.UrpApp
 import org.openurp.platform.api.security.Securities
-import org.beangle.webmvc.api.annotation.action
 import org.openurp.platform.api.security.RemoteService
-import org.openurp.platform.api.Urp
 
 @action("")
 class IndexAction extends ActionSupport {
