@@ -45,6 +45,10 @@
      <ul class="nav navbar-nav" style="height: 50px;" id="app_nav_bar"></ul>
      <ul class="nav navbar-nav navbar-right" style="height: 35px; padding-top: 15px;">
        <li>
+        [#if schools?? && schools?size > 1]
+            [@b.select name="school" items=schools title="学校"  option = "code,name" onchange = "changeSchool(this.value)"
+             style="width:150px;margin-right:5px;" value=school.code/]
+        [/#if]
         <span class="glyphicon glyphicon-user" aria-hidden="true">[@b.a href="/security/my" target="_blank" title="查看登录记录"]${user.name}&nbsp;[/@]</span>
        </li>
      <li>
@@ -130,7 +134,11 @@
       }
     });
   });
-  
+  function changeSchool(code){
+    var url= "${b.url("!school?school=")}";
+    url=url.substring(0,url.lastIndexOf("/"))+"/"+code;
+    document.location =url;
+  }
 </script>
 
 [@b.foot/]

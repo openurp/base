@@ -23,7 +23,9 @@ class IndexAction extends ActionSupport {
   def school(): String = {
     put("menuJson", RemoteService.getMenusJson())
     put("appJson", RemoteService.getAppsJson())
-    entityDao.getAll(classOf[School]) foreach { school => put("school", school) }
+    val schools = entityDao.findBy(classOf[School], "code", List(get("school").get))
+    put("school", schools.head)
+    put("schools", entityDao.getAll(classOf[School]))
     put("user", getUser())
     put("casConfig", casConfig)
     put("webappBase", Urp.webappBase)
