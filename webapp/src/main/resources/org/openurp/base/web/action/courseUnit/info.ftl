@@ -13,6 +13,10 @@
     <td class="content">${courseUnit.indexno}</td>
   </tr>
   <tr>
+    <td class="title" width="20%">时段</td>
+    <td class="content">${courseUnit.part.name}</td>
+  </tr>
+  <tr>
     <td class="title" width="20%">开始时间</td>
     <td class="content" >${courseUnit.beginAt}</td>
   </tr>
