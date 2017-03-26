@@ -2,7 +2,7 @@ package org.openurp.base.web.action
 
 import org.openurp.base.model.School
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.commons.dao.OqlBuilder
 import org.openurp.base.model.Department
 
 trait Schooled { this: RestfulAction[_] =>

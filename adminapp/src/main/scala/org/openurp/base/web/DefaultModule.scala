@@ -1,6 +1,6 @@
 package org.openurp.base.web
 
-import org.beangle.commons.inject.bind.AbstractBindModule
+import org.beangle.commons.cdi.bind.AbstractBindModule
 import org.openurp.base.web.action.BuildingAction
 import org.openurp.base.web.action.CampusAction
 import org.openurp.base.web.action.DepartmentAction

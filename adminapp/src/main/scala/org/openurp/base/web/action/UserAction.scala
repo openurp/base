@@ -2,7 +2,7 @@ package org.openurp.base.web.action
 
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.base.model.User
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.commons.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.action
 import org.beangle.commons.collection.Order
 import org.beangle.webmvc.api.annotation.ignore

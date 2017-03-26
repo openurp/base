@@ -2,7 +2,7 @@ package org.openurp.base.web.action
 
 import org.openurp.base.model.{ Department, School }
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.commons.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.action
 import org.beangle.commons.collection.Order
 import org.openurp.base.model.Building
