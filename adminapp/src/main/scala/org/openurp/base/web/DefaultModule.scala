@@ -1,6 +1,6 @@
 package org.openurp.base.web
 
-import org.beangle.commons.cdi.bind.AbstractBindModule
+import org.beangle.cdi.bind.BindModule
 import org.openurp.base.web.action.BuildingAction
 import org.openurp.base.web.action.CampusAction
 import org.openurp.base.web.action.DepartmentAction
@@ -25,7 +25,7 @@ import org.openurp.base.web.action.TimeSettingAction
 import org.openurp.base.web.action.HolidayAction
 import org.openurp.base.web.action.IndexAction
 
-class DefaultModule extends AbstractBindModule {
+class DefaultModule extends BindModule {
 
   protected override def binding() {
     bind(classOf[GenderAction], classOf[CountryAction], classOf[NationAction],

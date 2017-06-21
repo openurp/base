@@ -12,10 +12,6 @@
   <packaging>war</packaging>
   <name>OpenURP Base Adminapp</name>
 
-  <properties>
-    <hibernate.version>4.3.1.Final</hibernate.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.openurp.platform.api</groupId>

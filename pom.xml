@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-parent</artifactId>
-    <version>0.1.6</version>
+    <version>0.1.8</version>
   </parent>
   <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-web-parent</artifactId>
@@ -13,8 +13,10 @@
   <name>OpenURP Base Web Parent</name>
 
   <properties>
-    <openurp.platform.version>0.0.15</openurp.platform.version>
-    <openurp.api.version>0.0.17</openurp.api.version>
+    <openurp.platform.version>0.0.20-SNAPSHOT</openurp.platform.version>
+    <openurp.api.version>0.0.18-SNAPSHOT</openurp.api.version>
+    <beangle.webmvc.version>0.3.12-SNAPSHOT</beangle.webmvc.version>
+    <beangle.data.version>5.0.0.M4-SNAPSHOT</beangle.data.version>
   </properties>
 
   <modules>

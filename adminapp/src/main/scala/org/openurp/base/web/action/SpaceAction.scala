@@ -1,7 +1,7 @@
 package org.openurp.base.web.action
 
 import org.beangle.commons.collection.Order
-import org.beangle.commons.dao.OqlBuilder
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.action
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.base.model.Building
@@ -10,7 +10,7 @@ import org.openurp.base.model.Room
 import org.openurp.code.asset.model.RoomType
 import org.openurp.base.model.Department
 import org.beangle.webmvc.api.annotation.ignore
-import org.beangle.commons.model.Updated
+import org.beangle.data.model.pojo.Updated
 import org.beangle.webmvc.execution.Handler
 import org.beangle.webmvc.api.view.View
 import org.openurp.base.model.School
