@@ -20,7 +20,7 @@ class IndexAction extends ActionSupport {
   var securityManager: SecurityManager = _
 
   @mapping("{school}")
-  def school(): String = {
+  def school(): View = {
     put("menuJson", RemoteService.getMenusJson())
     put("appJson", RemoteService.getAppsJson())
     val schools = entityDao.findBy(classOf[School], "code", List(get("school").get))

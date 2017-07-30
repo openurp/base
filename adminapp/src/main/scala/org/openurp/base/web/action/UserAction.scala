@@ -9,6 +9,7 @@ import org.beangle.webmvc.api.annotation.ignore
 import org.beangle.webmvc.api.view.View
 import org.openurp.code.asset.model.RoomType
 import org.openurp.base.code.model.UserCategory
+import java.time.LocalDate
 
 @action("{school}/user")
 class UserAction extends RestfulAction[User] with Schooled {
@@ -33,6 +34,7 @@ class UserAction extends RestfulAction[User] with Schooled {
   @ignore
   override protected def saveAndRedirect(entity: User): View = {
     entity.school = getSchool
+    entity.beginOn = LocalDate.now
     super.saveAndRedirect(entity)
   }
 }

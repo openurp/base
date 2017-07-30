@@ -19,10 +19,15 @@ class CalendarAction extends RestfulAction[Calendar] {
 @action("{school}/semester")
 class SemesterAction extends RestfulAction[Semester] {
   override protected def getQueryBuilder(): OqlBuilder[Semester] = {
-    val builder: OqlBuilder[Semester] = OqlBuilder.from(entityName, "semester")
+    val builder = OqlBuilder.from(classOf[Semester], "semester")
     builder.where("semester.calendar.school.code=:schoolCode", get("school").get)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 
+  protected override def editSetting(entity: Semester): Unit = {
+    val builder = OqlBuilder.from(classOf[Calendar], "calendar")
+    builder.where("calendar.school.code=:schoolCode", get("school").get)
+    put("calendars",entityDao.search(builder))
+  }
 }

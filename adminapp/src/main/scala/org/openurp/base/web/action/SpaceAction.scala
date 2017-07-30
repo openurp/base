@@ -10,7 +10,7 @@ import org.openurp.base.model.Room
 import org.openurp.code.asset.model.RoomType
 import org.openurp.base.model.Department
 import org.beangle.webmvc.api.annotation.ignore
-import org.beangle.data.model.Updated
+import org.beangle.data.model.pojo.Updated
 import org.beangle.webmvc.execution.Handler
 import org.beangle.webmvc.api.view.View
 import org.openurp.base.model.School

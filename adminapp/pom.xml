@@ -3,18 +3,14 @@
   <parent>
     <groupId>org.openurp.base</groupId>
     <artifactId>openurp-base-web-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-adminapp</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>war</packaging>
   <name>OpenURP Base Adminapp</name>
-
-  <properties>
-    <hibernate.version>4.3.1.Final</hibernate.version>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -64,6 +60,11 @@
       <groupId>org.openurp.platform.api</groupId>
       <artifactId>openurp-platform-api-cas</artifactId>
       <version>${openurp.platform.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.8.1</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
