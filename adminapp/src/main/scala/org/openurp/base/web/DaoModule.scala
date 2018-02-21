@@ -33,10 +33,13 @@ import org.beangle.data.hibernate.spring.web.OpenSessionInViewInterceptor
 import org.springframework.beans.factory.config.PropertiesFactoryBean
 import org.springframework.transaction.interceptor.TransactionProxyFactoryBean
 import org.beangle.data.hibernate.DomainFactory
+import org.openurp.app.datasource.AppDataSourceFactory
 
 object DaoModule extends BindModule {
 
   protected override def binding(): Unit = {
+    bind(classOf[AppDataSourceFactory])
+
     bind("HibernateConfig.default", classOf[PropertiesFactoryBean]).property(
       "properties",
       props(

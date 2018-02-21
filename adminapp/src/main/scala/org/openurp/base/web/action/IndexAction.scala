@@ -8,10 +8,10 @@ import org.beangle.webmvc.api.action.ActionSupport
 import org.beangle.webmvc.api.annotation.{ action, mapping }
 import org.beangle.webmvc.api.view.View
 import org.openurp.base.model.{ School, User }
-import org.openurp.platform.api.Urp
-import org.openurp.platform.api.app.UrpApp
-import org.openurp.platform.api.security.Securities
-import org.openurp.platform.api.security.RemoteService
+import org.openurp.app.Urp
+import org.openurp.app.UrpApp
+import org.openurp.app.security.Securities
+import org.openurp.app.security.RemoteService
 
 @action("")
 class IndexAction extends ActionSupport {
