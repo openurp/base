@@ -10,8 +10,8 @@ import org.beangle.webmvc.api.view.View
 import org.openurp.base.model.{ School, User }
 import org.openurp.app.Urp
 import org.openurp.app.UrpApp
-import org.openurp.app.security.Securities
 import org.openurp.app.security.RemoteService
+import org.beangle.security.Securities
 
 @action("")
 class IndexAction extends ActionSupport {
@@ -41,7 +41,7 @@ class IndexAction extends ActionSupport {
   }
 
   def logout(): View = {
-    securityManager.logout(SecurityContext.session)
+    securityManager.logout(Securities.session.get)
     redirect(to(casConfig.casServer + "/logout"), null)
   }
 
