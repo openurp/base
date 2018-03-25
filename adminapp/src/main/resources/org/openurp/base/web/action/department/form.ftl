@@ -9,11 +9,11 @@
     [@b.textfield name="department.enName" label="英文名称" value="${department.enName!}" maxlength="100"/]
     [@b.textfield name="department.shortName" label="简称" value="${department.shortName!}" maxlength="100"/]
     [@b.radios label="是否教学部门"  name="department.teaching" value=department.teaching items="1:common.yes,0:common.no"/]
-    [@b.startend label="生效失效时间" 
-      name="department.beginOn,department.endOn" required="false,false" 
+    [@b.startend label="生效失效时间"
+      name="department.beginOn,department.endOn" required="false,false"
       start=department.beginOn end=department.endOn format="date"/]
     [@b.textfield name="department.indexno" label="序号" value="${department.indexno!}" required="true" maxlength="20"/]
-    [@b.select name="department.parent.id" label="上级院系" value="${(department.parent.id)!}" 
+    [@b.select name="department.parent.id" label="上级院系" value="${(department.parent.id)!}"
                style="width:200px;" href=urp.service("/base/departments") empty="..."/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
