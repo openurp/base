@@ -30,12 +30,12 @@ import org.openurp.app.Urp
 import org.openurp.app.UrpApp
 import org.openurp.app.security.RemoteService
 import org.beangle.security.Securities
+import org.beangle.webmvc.api.context.ActionContext
 
 @action("")
 class IndexAction extends ActionSupport {
   var entityDao: EntityDao = _
   var casConfig: CasConfig = _
-  var securityManager: SecurityManager = _
 
   @mapping("{school}")
   def school(): View = {
@@ -45,7 +45,6 @@ class IndexAction extends ActionSupport {
     put("school", schools.head)
     put("schools", entityDao.getAll(classOf[School]))
     put("user", getUser())
-    put("casConfig", casConfig)
     put("webappBase", Urp.webappBase)
     put("thisAppName", UrpApp.name)
     forward()
@@ -59,8 +58,7 @@ class IndexAction extends ActionSupport {
   }
 
   def logout(): View = {
-    securityManager.logout(Securities.session.get)
-    redirect(to(casConfig.casServer + "/logout"), null)
+    redirect(to(Cas.logout(ActionContext.current.request, ActionContext.current.response)), null)
   }
 
   def getUser(): User = {
