@@ -19,23 +19,20 @@
 package org.openurp.base.web.action
 
 import org.beangle.data.dao.{ EntityDao, OqlBuilder }
-import org.beangle.security.context.SecurityContext
-import org.beangle.security.mgt.SecurityManager
-import org.beangle.security.realm.cas.CasConfig
+import org.beangle.security.Securities
+import org.beangle.security.realm.cas.{ Cas, CasConfig }
 import org.beangle.webmvc.api.action.ActionSupport
 import org.beangle.webmvc.api.annotation.{ action, mapping }
+import org.beangle.webmvc.api.context.ActionContext
 import org.beangle.webmvc.api.view.View
-import org.openurp.base.model.{ School, User }
-import org.openurp.app.Urp
-import org.openurp.app.UrpApp
+import org.openurp.app.{ Urp, UrpApp }
 import org.openurp.app.security.RemoteService
-import org.beangle.security.Securities
+import org.openurp.base.model.{ School, User }
 
 @action("")
 class IndexAction extends ActionSupport {
   var entityDao: EntityDao = _
   var casConfig: CasConfig = _
-  var securityManager: SecurityManager = _
 
   @mapping("{school}")
   def school(): View = {
@@ -45,7 +42,6 @@ class IndexAction extends ActionSupport {
     put("school", schools.head)
     put("schools", entityDao.getAll(classOf[School]))
     put("user", getUser())
-    put("casConfig", casConfig)
     put("webappBase", Urp.webappBase)
     put("thisAppName", UrpApp.name)
     forward()
@@ -59,8 +55,7 @@ class IndexAction extends ActionSupport {
   }
 
   def logout(): View = {
-    securityManager.logout(Securities.session.get)
-    redirect(to(casConfig.casServer + "/logout"), null)
+    redirect(to(Cas.cleanup(casConfig, ActionContext.current.request, ActionContext.current.response)), null)
   }
 
   def getUser(): User = {
