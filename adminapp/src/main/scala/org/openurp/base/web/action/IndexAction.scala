@@ -36,14 +36,12 @@ class IndexAction extends ActionSupport {
 
   @mapping("{school}")
   def school(): View = {
-    put("menuJson", RemoteService.getMenusJson())
-    put("appJson", RemoteService.getAppsJson())
-    val schools = entityDao.findBy(classOf[School], "code", List(get("school").get))
-    put("school", schools.head)
-    put("schools", entityDao.getAll(classOf[School]))
-    put("user", getUser())
-    put("webappBase", Urp.webappBase)
-    put("thisAppName", UrpApp.name)
+    put("menusJson", RemoteService.getMenusJson())
+    put("appsJson", RemoteService.getAppsJson())
+    put("user", Securities.session.get.principal)
+    put("URP", Urp)
+    put("appName", UrpApp.name)
+    put("org", RemoteService.getOrg)
     forward()
   }
 
