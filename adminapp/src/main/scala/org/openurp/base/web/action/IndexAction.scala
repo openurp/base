@@ -56,14 +56,4 @@ class IndexAction extends ActionSupport {
     redirect(to(Cas.cleanup(casConfig, ActionContext.current.request, ActionContext.current.response)), null)
   }
 
-  def getUser(): User = {
-    val builder = OqlBuilder.from(classOf[User], "user")
-    builder.where("user.code=:code", Securities.user) //.where("user.school.code=:schoolCode", get("school").get)
-    val users = entityDao.search(builder)
-    if (users.isEmpty) {
-      throw new RuntimeException("Cannot find staff with code " + Securities.user)
-    } else {
-      users.head
-    }
-  }
 }
