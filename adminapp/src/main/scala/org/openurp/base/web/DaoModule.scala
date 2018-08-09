@@ -18,22 +18,16 @@
  */
 package org.openurp.base.web
 
-import org.beangle.cdi.bind.BindModule
-import org.beangle.data.hibernate.spring.web.OpenSessionInViewInterceptor
-import org.springframework.beans.factory.config.PropertiesFactoryBean
-import org.springframework.transaction.interceptor.TransactionProxyFactoryBean
-import org.beangle.data.hibernate.spring.LocalSessionFactoryBean
-import org.beangle.data.hibernate.spring.HibernateTransactionManager
-import org.beangle.data.hibernate.HibernateEntityDao
 import org.beangle.cache.concurrent.ConcurrentMapCacheManager
+import org.beangle.cdi.bind.BindModule
+import org.beangle.data.hibernate.DomainFactory
 import org.beangle.data.hibernate.HibernateEntityDao
 import org.beangle.data.hibernate.spring.HibernateTransactionManager
 import org.beangle.data.hibernate.spring.LocalSessionFactoryBean
 import org.beangle.data.hibernate.spring.web.OpenSessionInViewInterceptor
+import org.openurp.app.datasource.AppDataSourceFactory
 import org.springframework.beans.factory.config.PropertiesFactoryBean
 import org.springframework.transaction.interceptor.TransactionProxyFactoryBean
-import org.beangle.data.hibernate.DomainFactory
-import org.openurp.app.datasource.AppDataSourceFactory
 
 object DaoModule extends BindModule {
 
@@ -75,5 +69,4 @@ object DaoModule extends BindModule {
 
     bind("CacheManager.concurrent", classOf[ConcurrentMapCacheManager])
   }
-
 }
