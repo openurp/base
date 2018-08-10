@@ -15,6 +15,7 @@
   <properties>
     <openurp.app.version>0.0.9</openurp.app.version>
     <openurp.api.version>0.1.0</openurp.api.version>
+    <beangle.webui.version>0.3.19</beangle.webui.version>
   </properties>
 
   <modules>
