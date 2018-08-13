@@ -28,20 +28,17 @@ import org.beangle.webmvc.api.view.View
 import org.openurp.app.{ Urp, UrpApp }
 import org.openurp.app.security.RemoteService
 import org.openurp.base.model.{ School, User }
+import org.beangle.webmvc.api.action.ServletSupport
+import org.openurp.app.web.NavContext
 
 @action("")
-class IndexAction extends ActionSupport {
+class IndexAction extends ActionSupport with ServletSupport {
   var entityDao: EntityDao = _
   var casConfig: CasConfig = _
 
   @mapping("{school}")
   def school(): View = {
-    put("menusJson", RemoteService.getMenusJson())
-    put("appsJson", RemoteService.getAppsJson())
-    put("user", Securities.session.get.principal)
-    put("URP", Urp)
-    put("appName", UrpApp.name)
-    put("org", RemoteService.getOrg)
+    put("nav", NavContext.get(request))
     forward()
   }
 
