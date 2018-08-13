@@ -13,7 +13,7 @@
   <name>OpenURP Base Web Parent</name>
 
   <properties>
-    <openurp.app.version>0.0.10</openurp.app.version>
+    <openurp.app.version>0.0.11</openurp.app.version>
     <openurp.api.version>0.1.0</openurp.api.version>
   </properties>
 
