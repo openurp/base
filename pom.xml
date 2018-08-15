@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-parent</artifactId>
-    <version>0.2.16</version>
+    <version>0.2.17</version>
   </parent>
   <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-web-parent</artifactId>
@@ -13,7 +13,7 @@
   <name>OpenURP Base Web Parent</name>
 
   <properties>
-    <openurp.app.version>0.0.12</openurp.app.version>
+    <openurp.app.version>0.0.13</openurp.app.version>
     <openurp.api.version>0.1.0</openurp.api.version>
   </properties>
 
