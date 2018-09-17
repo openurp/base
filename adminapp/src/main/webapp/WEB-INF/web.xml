@@ -10,6 +10,10 @@
     <listener-class>org.beangle.commons.web.init.BootstrapListener</listener-class>
   </listener>
 
+  <listener>
+    <listener-class>org.openurp.app.web.UrpPropertiesExporter</listener-class>
+  </listener>
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
