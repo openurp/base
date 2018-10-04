@@ -19,29 +19,8 @@
 package org.openurp.base.web
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.BuildingAction
-import org.openurp.base.web.action.CampusAction
-import org.openurp.base.web.action.DepartmentAction
-import org.openurp.base.web.action.RoomAction
-import org.openurp.base.web.action.SchoolAction
-import org.openurp.base.web.action.UserAction
-import org.openurp.base.web.action.code.CountryAction
-import org.openurp.base.web.action.code.DisciplineCategoryAction
-import org.openurp.base.web.action.code.DivisionAction
-import org.openurp.base.web.action.code.FamilyRelationshipAction
-import org.openurp.base.web.action.code.GenderAction
-import org.openurp.base.web.action.code.IdTypeAction
-import org.openurp.base.web.action.code.InstitutionAction
-import org.openurp.base.web.action.code.LanguageAction
-import org.openurp.base.web.action.code.NationAction
-import org.openurp.base.web.action.code.PoliticalStatusAction
-import org.openurp.base.web.action.code.UserCategoryAction
-import org.openurp.base.web.action.SemesterAction
-import org.openurp.base.web.action.CalendarAction
-import org.openurp.base.web.action.CourseUnitAction
-import org.openurp.base.web.action.TimeSettingAction
-import org.openurp.base.web.action.HolidayAction
-import org.openurp.base.web.action.IndexAction
+import org.openurp.base.web.action.{ BuildingAction, CampusAction, DepartmentAction, IndexAction, RoomAction, SchoolAction, UserAction }
+import org.openurp.base.web.action.code.{ CountryAction, DisciplineCategoryAction, DivisionAction, FamilyRelationshipAction, GenderAction, IdTypeAction, InstitutionAction, LanguageAction, NationAction, PoliticalStatusAction, UserCategoryAction }
 
 class DefaultModule extends BindModule {
 
@@ -53,8 +32,6 @@ class DefaultModule extends BindModule {
     bind(classOf[IdTypeAction], classOf[UserCategoryAction])
     bind(classOf[DepartmentAction], classOf[SchoolAction])
     bind(classOf[UserAction])
-    bind(classOf[SemesterAction], classOf[CalendarAction])
-    bind(classOf[TimeSettingAction], classOf[CourseUnitAction], classOf[HolidayAction])
     bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
     bind(classOf[IndexAction])
   }
