@@ -19,7 +19,7 @@
 package org.openurp.base.web
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.{ BuildingAction, CampusAction, DepartmentAction, IndexAction, RoomAction, SchoolAction, UserAction }
+import org.openurp.base.web.action.{ BuildingAction, CampusAction, DepartmentAction, RoomAction, SchoolAction, UserAction }
 import org.openurp.base.web.action.code.{ CountryAction, DisciplineCategoryAction, DivisionAction, FamilyRelationshipAction, GenderAction, IdTypeAction, InstitutionAction, LanguageAction, NationAction, PoliticalStatusAction, UserCategoryAction }
 
 class DefaultModule extends BindModule {
@@ -33,6 +33,5 @@ class DefaultModule extends BindModule {
     bind(classOf[DepartmentAction], classOf[SchoolAction])
     bind(classOf[UserAction])
     bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
-    bind(classOf[IndexAction])
   }
 }

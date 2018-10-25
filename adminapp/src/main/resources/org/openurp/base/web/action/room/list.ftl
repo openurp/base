@@ -10,7 +10,7 @@
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"]${room.code}[/@]
     [@b.col width="15%" property="name" title="名称"][@b.a href="!info?id=${room.id}"]${room.name}[/@][/@]
-    [@b.col width="10%" property="campus" title="所属校区"]${room.campus.name}[/@]
+    [@b.col width="10%" property="campus" title="所属校区"]${(room.campus.name)!}[/@]
     [@b.col width="15%" property="department" title="管理部门"]${(room.department.name)!}[/@]
     [@b.col width="10%" property="roomType" title="房间类型"]${(room.roomType.name)!}[/@]
     [@b.col width="15%" property="building" title="所属建筑"]${(room.building.name)!}[/@]
