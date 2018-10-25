@@ -10,7 +10,7 @@
     [@b.textfield name="building.shortName" label="简称" value="${building.shortName!}" maxlength="100"/]
     [@b.select name="building.campus.id" label="所属校区" value="${(building.campus.id)!}"
                style="width:200px;" items=campuses empty="..." required="true"/]
-    [@b.startend label="生效失效时间"
+    [@b.startend label="有效期限"
       name="building.beginOn,building.endOn" required="false,false"
       start=building.beginOn end=building.endOn format="date"/]
     [@b.formfoot]

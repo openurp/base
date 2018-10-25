@@ -110,6 +110,10 @@ class RoomAction extends RestfulAction[Room] with Schooled {
   @ignore
   override protected def saveAndRedirect(entity: Room): View = {
     entity.school = getSchool
+    entity.building foreach { building =>
+      val b = entityDao.get(classOf[Building], building.id)
+      entity.campus = b.campus
+    }
     super.saveAndRedirect(entity)
   }
 
