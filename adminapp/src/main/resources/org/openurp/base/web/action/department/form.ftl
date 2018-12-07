@@ -13,8 +13,6 @@
       name="department.beginOn,department.endOn" required="false,false"
       start=department.beginOn end=department.endOn format="date"/]
     [@b.textfield name="department.indexno" label="序号" value="${department.indexno!}" required="true" maxlength="20"/]
-    [@b.select name="department.parent.id" label="上级院系" value="${(department.parent.id)!}"
-               style="width:200px;" href=urp.service("/base/departments") empty="..."/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
