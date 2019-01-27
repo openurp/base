@@ -37,7 +37,7 @@ import org.openurp.base.model.School
 class CampusAction extends RestfulAction[Campus] with Schooled {
   override protected def getQueryBuilder(): OqlBuilder[Campus] = {
     val builder: OqlBuilder[Campus] = OqlBuilder.from(entityName, "campus")
-    builder.where("campus.school.code=:schoolCode", get("school").get)
+    builder.where("campus.school.id=:schoolId", get("school").get)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
@@ -52,7 +52,7 @@ class CampusAction extends RestfulAction[Campus] with Schooled {
 class BuildingAction extends RestfulAction[Building] with Schooled {
   override protected def getQueryBuilder(): OqlBuilder[Building] = {
     val builder: OqlBuilder[Building] = OqlBuilder.from(entityName, "building")
-    builder.where("building.school.code=:schoolCode", getSchoolCode)
+    builder.where("building.school.id=:schoolId", getSchoolId)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
@@ -66,7 +66,7 @@ class BuildingAction extends RestfulAction[Building] with Schooled {
   }
 
   private def getCampuses(): Seq[Campus] = {
-    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school.code=:schoolCode", getSchoolCode))
+    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school.id=:schoolId", getSchoolId))
   }
 
   @ignore
@@ -93,16 +93,16 @@ class RoomAction extends RestfulAction[Room] with Schooled {
   }
 
   private def getCampuses(): Seq[Campus] = {
-    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school.code=:schoolCode", getSchoolCode))
+    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school.id=:schoolId", getSchoolId))
   }
 
   private def getBuildings(): Seq[Building] = {
-    entityDao.search(OqlBuilder.from(classOf[Building], "c").where("c.school.code=:schoolCode", getSchoolCode))
+    entityDao.search(OqlBuilder.from(classOf[Building], "c").where("c.school.id=:schoolId", getSchoolId))
   }
 
   override protected def getQueryBuilder(): OqlBuilder[Room] = {
     val builder: OqlBuilder[Room] = OqlBuilder.from(entityName, "room")
-    builder.where("room.school.code=:schoolCode", getSchoolCode)
+    builder.where("room.school.id=:schoolId", getSchoolId)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }

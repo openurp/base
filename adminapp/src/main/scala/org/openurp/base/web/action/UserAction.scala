@@ -33,7 +33,7 @@ import java.time.LocalDate
 class UserAction extends RestfulAction[User] with Schooled {
   override protected def getQueryBuilder(): OqlBuilder[User] = {
     val builder: OqlBuilder[User] = OqlBuilder.from(entityName, "user")
-    builder.where("user.school.code=:schoolCode", get("school").get)
+    builder.where("user.school.id=:schoolId", get("school").get)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }

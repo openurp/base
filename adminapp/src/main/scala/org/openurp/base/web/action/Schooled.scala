@@ -26,15 +26,14 @@ import org.openurp.base.model.Department
 trait Schooled { this: RestfulAction[_] =>
 
   def getSchool(): School = {
-    val schools = entityDao.findBy(classOf[School], "code", List(get("school").get))
-    schools.head
+    entityDao.get(classOf[School], get("school").get.toInt)
   }
 
-  def getSchoolCode: String = {
+  def getSchoolId: String = {
     get("school").get
   }
 
   def getDepartments(): Seq[Department] = {
-    entityDao.search(OqlBuilder.from(classOf[Department], "c").where("c.school.code=:schoolCode", getSchoolCode))
+    entityDao.search(OqlBuilder.from(classOf[Department], "c").where("c.school.id=:schoolid", getSchoolId))
   }
 }
