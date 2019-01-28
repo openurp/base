@@ -26,7 +26,7 @@ import org.openurp.base.model.Department
 trait Schooled { this: RestfulAction[_] =>
 
   def getSchool(): School = {
-    entityDao.get(classOf[School], get("school").get.toInt)
+    entityDao.get(classOf[School], getInt("school").get)
   }
 
   def getSchoolId: String = {

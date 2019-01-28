@@ -33,7 +33,7 @@ class SchoolAction extends RestfulAction[School]
 class DepartmentAction extends RestfulAction[Department] with Schooled {
   override protected def getQueryBuilder(): OqlBuilder[Department] = {
     val builder: OqlBuilder[Department] = OqlBuilder.from(entityName, "department")
-    builder.where("department.school.id=:schoolId", get("school").get)
+    builder.where("department.school.id=:schoolId", getInt("school").get)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }

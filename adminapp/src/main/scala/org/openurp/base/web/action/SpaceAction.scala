@@ -37,7 +37,7 @@ import org.openurp.base.model.School
 class CampusAction extends RestfulAction[Campus] with Schooled {
   override protected def getQueryBuilder(): OqlBuilder[Campus] = {
     val builder: OqlBuilder[Campus] = OqlBuilder.from(entityName, "campus")
-    builder.where("campus.school.id=:schoolId", get("school").get)
+    builder.where("campus.school.id=:schoolId",  getInt("school").get)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
