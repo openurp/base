@@ -21,7 +21,10 @@ package org.openurp.base.web.action.code
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.code.edu.model.Institution
 import org.openurp.code.edu.model.DisciplineCategory
+import org.openurp.code.asset.model.RoomType
 
 class InstitutionAction extends RestfulAction[Institution]
 
 class DisciplineCategoryAction extends RestfulAction[DisciplineCategory]
+
+class RoomTypeAction extends RestfulAction[RoomType]

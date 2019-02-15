@@ -12,6 +12,7 @@
         items =userCategories /]
     [@b.textfield name="user.mobile" label="电话" value="${user.mobile!}" maxlength="15"/]
     [@b.textfield name="user.email" label="邮箱" value="${user.email!}"  maxlength="80"/]
+    [@b.startend name="user.beginOn,user.endOn"  label="有效期限" start=user.beginOn end=user.endOn! required="true,false"/]
     [@b.textfield name="user.remark" label="说明" value="${user.remark!}" maxlength="190"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]

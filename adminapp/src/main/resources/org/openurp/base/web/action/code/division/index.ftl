@@ -1,6 +1,5 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="行政区划类型"/]
 <table class="indexpanel">
   <tr>
     <td class="index_view" >
