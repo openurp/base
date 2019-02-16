@@ -14,7 +14,7 @@
 
   <properties>
     <openurp.app.version>0.1.11</openurp.app.version>
-    <openurp.api.version>0.5.3</openurp.api.version>
+    <openurp.api.version>0.6.0</openurp.api.version>
   </properties>
 
   <modules>
