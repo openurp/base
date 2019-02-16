@@ -41,7 +41,6 @@ class UserAction extends RestfulAction[User] with Schooled {
   override protected def editSetting(entity: User): Unit = {
     put("userCategories", entityDao.getAll(classOf[UserCategory]))
     put("departments", getDepartments)
-
   }
 
   override protected def indexSetting(): Unit = {

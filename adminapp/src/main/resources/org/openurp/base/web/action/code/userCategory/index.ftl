@@ -1,6 +1,5 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="人员分类"/]
 <table class="indexpanel">
   <tr>
     <td class="index_view">

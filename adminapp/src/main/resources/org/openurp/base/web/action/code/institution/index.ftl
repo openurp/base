@@ -1,6 +1,5 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="科研机构类型"/]
 <table class="indexpanel">
   <tr>
     <td class="index_view" >

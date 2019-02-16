@@ -26,6 +26,7 @@ import org.openurp.code.geo.model.Division
 import org.openurp.code.edu.model.Language
 import org.openurp.code.person.model.FamilyRelationship
 import org.openurp.code.person.model.Gender
+import org.openurp.code.person.model.IdType
 
 class GenderAction extends RestfulAction[Gender]
 
@@ -40,3 +41,5 @@ class LanguageAction extends RestfulAction[Language]
 class DivisionAction extends RestfulAction[Division]
 
 class FamilyRelationshipAction extends RestfulAction[FamilyRelationship]
+
+class IdTypeAction extends RestfulAction[IdType]

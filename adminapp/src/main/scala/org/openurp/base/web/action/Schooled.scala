@@ -29,8 +29,8 @@ trait Schooled { this: RestfulAction[_] =>
     entityDao.get(classOf[School], getInt("school").get)
   }
 
-  def getSchoolId: String = {
-    get("school").get
+  def getSchoolId: Int = {
+    getInt("school").get
   }
 
   def getDepartments(): Seq[Department] = {
