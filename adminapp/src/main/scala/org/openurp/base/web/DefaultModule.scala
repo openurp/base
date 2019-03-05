@@ -23,6 +23,7 @@ import org.openurp.base.web.action.{ BuildingAction, CampusAction, DepartmentAct
 import org.openurp.base.web.action.code.{ CountryAction, DisciplineCategoryAction, DivisionAction, FamilyRelationshipAction, GenderAction, IdTypeAction, InstitutionAction, LanguageAction, NationAction, PoliticalStatusAction, UserCategoryAction }
 import org.openurp.base.web.action.CodeAction
 import org.openurp.base.web.action.code.RoomTypeAction
+import org.openurp.base.web.action.code.EduCategoryAction
 
 class DefaultModule extends BindModule {
 
@@ -34,7 +35,7 @@ class DefaultModule extends BindModule {
     bind(classOf[CodeAction])
 
     bind(classOf[InstitutionAction], classOf[DisciplineCategoryAction], classOf[RoomTypeAction])
-    bind(classOf[UserCategoryAction])
+    bind(classOf[UserCategoryAction], classOf[EduCategoryAction])
 
     bind(classOf[DepartmentAction], classOf[SchoolAction])
     bind(classOf[UserAction])
