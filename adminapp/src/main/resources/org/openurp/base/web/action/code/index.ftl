@@ -12,6 +12,7 @@
 
 [#assign codes=codes+{'学科门类':'/code/discipline-category'}]
 [#assign codes=codes+{'科研机构':'/code/institution'}]
+[#assign codes=codes+{'教育类型':'/code/edu-category'}]
 [#assign codes=codes+{'用户类型':'/code/user-category'}]
 
 <ul class="nav nav-tabs" id="code_nav">
