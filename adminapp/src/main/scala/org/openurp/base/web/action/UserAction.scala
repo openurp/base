@@ -18,22 +18,20 @@
  */
 package org.openurp.base.web.action
 
-import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.model.User
-import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.api.annotation.action
-import org.beangle.commons.collection.Order
-import org.beangle.webmvc.api.annotation.ignore
-import org.beangle.webmvc.api.view.View
-import org.openurp.code.asset.model.RoomType
-import org.openurp.base.code.model.UserCategory
 import java.time.LocalDate
 
-@action("{school}/user")
-class UserAction extends RestfulAction[User] with Schooled {
+import org.beangle.commons.collection.Order
+import org.beangle.data.dao.OqlBuilder
+import org.beangle.webmvc.api.annotation.ignore
+import org.beangle.webmvc.api.view.View
+import org.beangle.webmvc.entity.action.RestfulAction
+import org.openurp.base.code.model.UserCategory
+import org.openurp.base.model.User
+
+class UserAction extends RestfulAction[User] with SchoolSupport {
   override protected def getQueryBuilder(): OqlBuilder[User] = {
     val builder: OqlBuilder[User] = OqlBuilder.from(entityName, "user")
-    builder.where("user.school.id=:schoolId", getInt("school").get)
+    builder.where("user.school=:school",getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }

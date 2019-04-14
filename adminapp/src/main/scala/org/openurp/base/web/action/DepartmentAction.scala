@@ -29,11 +29,10 @@ import org.beangle.webmvc.api.view.View
 
 class SchoolAction extends RestfulAction[School]
 
-@action("{school}/department")
-class DepartmentAction extends RestfulAction[Department] with Schooled {
+class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
   override protected def getQueryBuilder(): OqlBuilder[Department] = {
     val builder: OqlBuilder[Department] = OqlBuilder.from(entityName, "department")
-    builder.where("department.school.id=:schoolId", getInt("school").get)
+    builder.where("department.school=:school", getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }

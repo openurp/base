@@ -2,6 +2,10 @@
 <cdi>
   <container name="web">
     <module class="org.openurp.base.web.DefaultModule"/>
-    <module class="org.openurp.app.web.SchoolModule"/>
+    <module class="org.openurp.app.cas.DefaultModule"/>
   </container>
+  <container>
+    <module class="org.openurp.base.web.DaoModule"/>
+  </container>
+
 </cdi>

@@ -20,24 +20,16 @@ package org.openurp.base.web.action
 
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.api.annotation.action
-import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.model.Building
-import org.openurp.base.model.Campus
-import org.openurp.base.model.Room
-import org.openurp.code.asset.model.RoomType
-import org.openurp.base.model.Department
-import org.beangle.webmvc.api.annotation.ignore
-import org.beangle.data.model.pojo.Updated
-import org.beangle.webmvc.execution.Handler
+import org.beangle.webmvc.api.annotation.{action, ignore}
 import org.beangle.webmvc.api.view.View
-import org.openurp.base.model.School
+import org.beangle.webmvc.entity.action.RestfulAction
+import org.openurp.base.model.{Building, Campus, Room}
+import org.openurp.code.asset.model.RoomType
 
-@action("{school}/campus")
-class CampusAction extends RestfulAction[Campus] with Schooled {
+class CampusAction extends RestfulAction[Campus] with SchoolSupport{
   override protected def getQueryBuilder(): OqlBuilder[Campus] = {
     val builder: OqlBuilder[Campus] = OqlBuilder.from(entityName, "campus")
-    builder.where("campus.school.id=:schoolId",  getInt("school").get)
+    builder.where("campus.school=:school",  getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
@@ -48,11 +40,11 @@ class CampusAction extends RestfulAction[Campus] with Schooled {
   }
 }
 
-@action("{school}/building")
-class BuildingAction extends RestfulAction[Building] with Schooled {
+@action("building")
+class BuildingAction extends RestfulAction[Building] with SchoolSupport {
   override protected def getQueryBuilder(): OqlBuilder[Building] = {
     val builder: OqlBuilder[Building] = OqlBuilder.from(entityName, "building")
-    builder.where("building.school.id=:schoolId", getSchoolId)
+    builder.where("building.school=:school", getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
@@ -65,8 +57,8 @@ class BuildingAction extends RestfulAction[Building] with Schooled {
     put("campuses", getCampuses)
   }
 
-  private def getCampuses(): Seq[Campus] = {
-    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school.id=:schoolId", getSchoolId))
+  private def getCampuses: Seq[Campus] = {
+    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school=:school", getSchool))
   }
 
   @ignore
@@ -76,8 +68,7 @@ class BuildingAction extends RestfulAction[Building] with Schooled {
   }
 }
 
-@action("{school}/room")
-class RoomAction extends RestfulAction[Room] with Schooled {
+class RoomAction extends RestfulAction[Room] with SchoolSupport {
 
   override protected def editSetting(entity: Room): Unit = {
     put("roomTypes", entityDao.getAll(classOf[RoomType]))
@@ -92,17 +83,17 @@ class RoomAction extends RestfulAction[Room] with Schooled {
     put("buildings", getBuildings)
   }
 
-  private def getCampuses(): Seq[Campus] = {
-    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school.id=:schoolId", getSchoolId))
+  private def getCampuses: Seq[Campus] = {
+    entityDao.search(OqlBuilder.from(classOf[Campus], "c").where("c.school=:school", getSchool))
   }
 
-  private def getBuildings(): Seq[Building] = {
-    entityDao.search(OqlBuilder.from(classOf[Building], "c").where("c.school.id=:schoolId", getSchoolId))
+  private def getBuildings: Seq[Building] = {
+    entityDao.search(OqlBuilder.from(classOf[Building], "c").where("c.school=:school", getSchool))
   }
 
   override protected def getQueryBuilder(): OqlBuilder[Room] = {
     val builder: OqlBuilder[Room] = OqlBuilder.from(entityName, "room")
-    builder.where("room.school.id=:schoolId", getSchoolId)
+    builder.where("room.school=:school", getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }

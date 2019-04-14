@@ -18,22 +18,24 @@
  */
 package org.openurp.base.web.action
 
-import org.openurp.base.model.School
-import org.beangle.webmvc.entity.action.RestfulAction
-import org.beangle.data.dao.OqlBuilder
-import org.openurp.base.model.Department
+import org.beangle.security.realm.cas.{Cas, CasConfig}
+import org.beangle.webmvc.api.action.{ActionSupport, ServletSupport}
+import org.beangle.webmvc.api.annotation.{action, mapping}
+import org.beangle.webmvc.api.context.ActionContext
+import org.beangle.webmvc.api.view.View
+import org.openurp.app.web.NavContext
 
-trait Schooled { this: RestfulAction[_] =>
+@action("")
+class IndexAction  extends ActionSupport with ServletSupport{
+  var casConfig: CasConfig = _
 
-  def getSchool(): School = {
-    entityDao.get(classOf[School], getInt("school").get)
+  def index(): View = {
+      put("nav", NavContext.get(request))
+      forward()
   }
 
-  def getSchoolId: Int = {
-    getInt("school").get
+  def logout(): View = {
+    redirect(to(Cas.cleanup(casConfig, ActionContext.current.request, ActionContext.current.response)), null)
   }
 
-  def getDepartments(): Seq[Department] = {
-    entityDao.search(OqlBuilder.from(classOf[Department], "c").where("c.school.id=:schoolid", getSchoolId))
-  }
 }
