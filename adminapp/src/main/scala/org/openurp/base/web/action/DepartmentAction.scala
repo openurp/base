@@ -30,7 +30,7 @@ import org.beangle.webmvc.api.view.View
 class SchoolAction extends RestfulAction[School]
 
 class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
-  override protected def getQueryBuilder(): OqlBuilder[Department] = {
+  override protected def getQueryBuilder: OqlBuilder[Department] = {
     val builder: OqlBuilder[Department] = OqlBuilder.from(entityName, "department")
     builder.where("department.school=:school", getSchool)
     populateConditions(builder)

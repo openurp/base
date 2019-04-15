@@ -29,7 +29,7 @@ import org.openurp.base.code.model.UserCategory
 import org.openurp.base.model.User
 
 class UserAction extends RestfulAction[User] with SchoolSupport {
-  override protected def getQueryBuilder(): OqlBuilder[User] = {
+  override protected def getQueryBuilder: OqlBuilder[User] = {
     val builder: OqlBuilder[User] = OqlBuilder.from(entityName, "user")
     builder.where("user.school=:school",getSchool)
     populateConditions(builder)

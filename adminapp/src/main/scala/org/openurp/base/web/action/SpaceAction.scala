@@ -27,7 +27,7 @@ import org.openurp.base.model.{Building, Campus, Room}
 import org.openurp.code.asset.model.RoomType
 
 class CampusAction extends RestfulAction[Campus] with SchoolSupport{
-  override protected def getQueryBuilder(): OqlBuilder[Campus] = {
+  override protected def getQueryBuilder: OqlBuilder[Campus] = {
     val builder: OqlBuilder[Campus] = OqlBuilder.from(entityName, "campus")
     builder.where("campus.school=:school",  getSchool)
     populateConditions(builder)
@@ -42,7 +42,7 @@ class CampusAction extends RestfulAction[Campus] with SchoolSupport{
 
 @action("building")
 class BuildingAction extends RestfulAction[Building] with SchoolSupport {
-  override protected def getQueryBuilder(): OqlBuilder[Building] = {
+  override protected def getQueryBuilder: OqlBuilder[Building] = {
     val builder: OqlBuilder[Building] = OqlBuilder.from(entityName, "building")
     builder.where("building.school=:school", getSchool)
     populateConditions(builder)
@@ -91,7 +91,7 @@ class RoomAction extends RestfulAction[Room] with SchoolSupport {
     entityDao.search(OqlBuilder.from(classOf[Building], "c").where("c.school=:school", getSchool))
   }
 
-  override protected def getQueryBuilder(): OqlBuilder[Room] = {
+  override protected def getQueryBuilder: OqlBuilder[Room] = {
     val builder: OqlBuilder[Room] = OqlBuilder.from(entityName, "room")
     builder.where("room.school=:school", getSchool)
     populateConditions(builder)
