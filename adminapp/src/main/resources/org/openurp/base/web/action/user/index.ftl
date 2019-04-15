@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="通用人员信息"/]
+[@b.toolbar title="人员信息"/]
 <table class="indexpanel">
   <tr>
     <td class="index_view" >

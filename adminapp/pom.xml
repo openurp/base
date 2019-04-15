@@ -3,29 +3,60 @@
   <parent>
     <groupId>org.openurp.base</groupId>
     <artifactId>openurp-base-web-parent</artifactId>
-    <version>0.0.20</version>
+    <version>0.0.21</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-adminapp</artifactId>
-  <version>0.0.20</version>
+  <version>0.0.21</version>
   <packaging>war</packaging>
   <name>OpenURP Base Adminapp</name>
 
   <dependencies>
     <dependency>
+      <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-spring-plugin_2.12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webmvc</groupId>
+      <artifactId>beangle-webmvc-entity-plugin_2.12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.webui</groupId>
+      <artifactId>beangle-webui-bootstrap_2.12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.data</groupId>
+      <artifactId>beangle-data-transfer_2.12</artifactId>
+      <version>${beangle.data.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.openurp.app</groupId>
-      <artifactId>openurp-app-boot</artifactId>
+      <artifactId>openurp-app-web</artifactId>
       <version>${openurp.app.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.openurp.edu.base</groupId>
-      <artifactId>openurp-edu-base-api</artifactId>
+      <groupId>org.openurp.app</groupId>
+      <artifactId>openurp-app-cas</artifactId>
+      <version>${openurp.app.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openurp.base</groupId>
+      <artifactId>openurp-base-api</artifactId>
       <version>${openurp.api.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-ehcache</artifactId>
+      <version>${hibernate.version}</version>
     </dependency>
   </dependencies>
 </project>

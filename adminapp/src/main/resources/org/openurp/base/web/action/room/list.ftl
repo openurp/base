@@ -5,6 +5,7 @@
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
+    bar.addItem("${b.text('action.export')}",action.exportData("code:代码,name:名称,campus.name:校区,building.name:建筑物,roomType.name:房间类型,floor:楼层,capacity:容量",null,'fileName=房间信息'));
   [/@]
   [@b.row]
     [@b.boxcol /]
