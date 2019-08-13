@@ -15,19 +15,19 @@
   <dependencies>
     <dependency>
       <groupId>org.beangle.webmvc</groupId>
-      <artifactId>beangle-webmvc-spring-plugin_2.12</artifactId>
+      <artifactId>beangle-webmvc-spring-plugin_2.13</artifactId>
     </dependency>
     <dependency>
       <groupId>org.beangle.webmvc</groupId>
-      <artifactId>beangle-webmvc-entity-plugin_2.12</artifactId>
+      <artifactId>beangle-webmvc-entity-plugin_2.13</artifactId>
     </dependency>
     <dependency>
       <groupId>org.beangle.webui</groupId>
-      <artifactId>beangle-webui-bootstrap_2.12</artifactId>
+      <artifactId>beangle-webui-bootstrap_2.13</artifactId>
     </dependency>
     <dependency>
       <groupId>org.beangle.data</groupId>
-      <artifactId>beangle-data-transfer_2.12</artifactId>
+      <artifactId>beangle-data-transfer_2.13</artifactId>
       <version>${beangle.data.version}</version>
     </dependency>
     <dependency>
@@ -55,8 +55,11 @@
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-ehcache</artifactId>
-      <version>${hibernate.version}</version>
+      <artifactId>hibernate-jcache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.ehcache</groupId>
+      <artifactId>ehcache</artifactId>
     </dependency>
   </dependencies>
 </project>

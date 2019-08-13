@@ -12,7 +12,7 @@
     [@b.col width="15%" property="name" title="名称"][@b.a href="!info?id=${building.id}"]${building.name}[/@][/@]
     [@b.col width="15%" property="enName" title="英文名称"]${building.enName!}[/@]
     [@b.col width="10%" property="shortName" title="简称"]${building.shortName!}[/@]
-    [@b.col width="15%" property="campus" title="所属校区"]${building.campus.name}[/@]
+    [@b.col width="15%" property="campus" title="所属校区"]${(building.campus.name)!}[/@]
     [@b.col width="15%" property="beginOn" title="生效时间"]${building.beginOn!}[/@]
     [@b.col width="15%" property="endOn" title="失效时间"]${building.endOn!}[/@]
   [/@]
