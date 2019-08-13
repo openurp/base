@@ -19,12 +19,12 @@
 package org.openurp.base.web
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.code._
 import org.openurp.base.web.action._
+import org.openurp.base.web.action.code._
 
 class DefaultModule extends BindModule {
 
-  protected override def binding() {
+  protected override def binding(): Unit = {
     bind(classOf[GenderAction], classOf[CountryAction], classOf[NationAction],
       classOf[PoliticalStatusAction], classOf[LanguageAction],
       classOf[DivisionAction], classOf[FamilyRelationshipAction], classOf[IdTypeAction])
