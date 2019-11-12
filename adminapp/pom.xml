@@ -6,7 +6,6 @@
     <version>0.0.23-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-adminapp</artifactId>
   <version>0.0.23-SNAPSHOT</version>
   <packaging>war</packaging>
@@ -60,6 +59,11 @@
     <dependency>
       <groupId>org.ehcache</groupId>
       <artifactId>ehcache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.belerweb</groupId>
+      <artifactId>pinyin4j</artifactId>
+      <version>2.5.1</version>
     </dependency>
   </dependencies>
 </project>
