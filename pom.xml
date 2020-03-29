@@ -8,13 +8,13 @@
   </parent>
   <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-web-parent</artifactId>
-  <version>0.0.26-SNAPSHOT</version>
+  <version>0.0.26</version>
   <packaging>pom</packaging>
   <name>OpenURP Base Web Parent</name>
 
   <properties>
-    <openurp.app.version>0.1.31-SNAPSHOT</openurp.app.version>
-    <openurp.api.version>0.13.1-SNAPSHOT</openurp.api.version>
+    <openurp.app.version>0.1.31</openurp.app.version>
+    <openurp.api.version>0.13.1</openurp.api.version>
   </properties>
 
   <modules>
