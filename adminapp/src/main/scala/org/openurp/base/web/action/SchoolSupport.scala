@@ -18,7 +18,6 @@
  */
 package org.openurp.base.web.action
 
-import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.action.ServletSupport
 import org.beangle.webmvc.entity.action.EntityAction
@@ -28,39 +27,7 @@ trait SchoolSupport extends ServletSupport {
   this: EntityAction[_] =>
 
   def getSchool: School = {
-    val originSchoolCode = schoolCode
-    var sc = originSchoolCode
-    var s: School = null
-    while (null == s && Strings.isNotEmpty(sc)) {
-      val builder = OqlBuilder.from(classOf[School], "s")
-      builder.where("s.code=:code", sc)
-      builder.cacheable()
-      val schools = entityDao.search(builder)
-      if (schools.nonEmpty) {
-        s = schools.head
-      } else {
-        sc = Strings.substringAfter(sc, ".")
-      }
-    }
-    if (null == s) {
-      val schools = entityDao.getAll(classOf[School])
-      if (schools.size == 1) {
-        s = schools.head
-      }
-    }
-    if (null != s && originSchoolCode != s.code) {
-      addCookie("school", s.code, -1)
-    }
-    s
-  }
-
-  private def schoolCode: String = {
-    val p = getCookieValue("school")
-    if (null == p) {
-      request.getServerName
-    } else {
-      p
-    }
+    new SchoolHelper(entityDao).getSchool(request, response)
   }
 
   def getDepartments: Seq[Department] = {

@@ -18,20 +18,27 @@
  */
 package org.openurp.base.web.action
 
+import org.beangle.data.dao.EntityDao
 import org.beangle.security.realm.cas.{Cas, CasConfig}
 import org.beangle.webmvc.api.action.{ActionSupport, ServletSupport}
-import org.beangle.webmvc.api.annotation.{action, mapping}
+import org.beangle.webmvc.api.annotation.action
 import org.beangle.webmvc.api.context.ActionContext
 import org.beangle.webmvc.api.view.View
 import org.openurp.app.web.NavContext
+import org.openurp.base.model.School
 
 @action("")
-class IndexAction  extends ActionSupport with ServletSupport{
+class IndexAction extends ActionSupport with ServletSupport {
   var casConfig: CasConfig = _
 
+  var entityDao: EntityDao = _
+
   def index(): View = {
-      put("nav", NavContext.get(request))
-      forward()
+    put("nav", NavContext.get(request))
+    val school = new SchoolHelper(entityDao).getSchool(request, response)
+    put("school", school)
+    put("schools", entityDao.getAll(classOf[School]))
+    forward()
   }
 
   def logout(): View = {
