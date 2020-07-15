@@ -1,17 +1,16 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="学校类型"/]
-<table class="indexpanel">
-  <tr>
-    <td class="index_view">
+<div class="search-container">
+    <div class="search-panel">
     [@b.form name="schoolSearchForm" action="!search" target="schoollist" title="ui.searchForm" theme="search"]
       [@b.textfields names="school.code;代码"/]
       [@b.textfields names="school.name;名称"/]
       <input type="hidden" name="orderBy" value="school.code"/>
     [/@]
-    </td>
-    <td class="index_content">[@b.div id="schoollist" href="!search?orderBy=school.code"/]
-    </td>
-  </tr>
-</table>
+    </div>
+    <div class="search-list">
+      [@b.div id="schoollist" href="!search?orderBy=school.code"/]
+    </div>
+  </div>
 [@b.foot/]

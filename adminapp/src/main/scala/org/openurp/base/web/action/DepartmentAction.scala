@@ -18,16 +18,20 @@
  */
 package org.openurp.base.web.action
 
-import org.openurp.base.model.{ Department, School }
-import org.beangle.webmvc.entity.action.RestfulAction
-import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.api.annotation.action
 import org.beangle.commons.collection.Order
-import org.openurp.base.model.Building
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.ignore
 import org.beangle.webmvc.api.view.View
+import org.beangle.webmvc.entity.action.RestfulAction
+import org.openurp.base.model.{Department, School}
+import org.openurp.code.edu.model.Institution
 
-class SchoolAction extends RestfulAction[School]
+class SchoolAction extends RestfulAction[School] {
+  override def editSetting(entity: School): Unit = {
+    super.editSetting(entity)
+    put("institutions", entityDao.getAll(classOf[Institution]))
+  }
+}
 
 class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
   override protected def getQueryBuilder: OqlBuilder[Department] = {

@@ -34,8 +34,10 @@ class IndexAction extends ActionSupport with ServletSupport {
   var entityDao: EntityDao = _
 
   def index(): View = {
-    put("nav", NavContext.get(request))
+    val nav = NavContext.get(request)
+    put("nav", nav)
     val school = new SchoolHelper(entityDao).getSchool(request, response)
+    nav.params.put("school", school.id.toString)
     put("school", school)
     put("schools", entityDao.getAll(classOf[School]))
     forward()
