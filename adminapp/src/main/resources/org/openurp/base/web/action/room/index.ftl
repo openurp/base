@@ -1,9 +1,8 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="房间类型"/]
-<table class="indexpanel">
-  <tr>
-    <td class="index_view">
+[@b.toolbar title="房间信息"/]
+<div class="search-container">
+    <div class="search-panel">
     [@b.form name="roomSearchForm" action="!search" target="roomlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="room.code;代码"/]
       [@b.textfields names="room.name;名称"/]
@@ -12,9 +11,9 @@
       [@b.select name="room.building.id" label="教学楼" empty="..." items=buildings style="width:100px"/]
       <input type="hidden" name="orderBy" value="room.code"/>
     [/@]
-    </td>
-    <td class="index_content">[@b.div id="roomlist" href="!search?orderBy=room.code"/]
-    </td>
-  </tr>
-</table>
+    </div>
+    <div class="search-list">
+      [@b.div id="roomlist" href="!search?orderBy=room.code"/]
+    </div>
+  </div>
 [@b.foot/]

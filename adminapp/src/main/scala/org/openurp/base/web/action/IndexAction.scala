@@ -19,12 +19,12 @@
 package org.openurp.base.web.action
 
 import org.beangle.data.dao.EntityDao
+import org.beangle.ems.app.web.NavContext
 import org.beangle.security.realm.cas.{Cas, CasConfig}
 import org.beangle.webmvc.api.action.{ActionSupport, ServletSupport}
 import org.beangle.webmvc.api.annotation.action
 import org.beangle.webmvc.api.context.ActionContext
 import org.beangle.webmvc.api.view.View
-import org.openurp.app.web.NavContext
 import org.openurp.base.model.School
 
 @action("")
@@ -34,8 +34,10 @@ class IndexAction extends ActionSupport with ServletSupport {
   var entityDao: EntityDao = _
 
   def index(): View = {
-    put("nav", NavContext.get(request))
+    val nav = NavContext.get(request)
+    put("nav", nav)
     val school = new SchoolHelper(entityDao).getSchool(request, response)
+    nav.params.put("school", school.id.toString)
     put("school", school)
     put("schools", entityDao.getAll(classOf[School]))
     forward()

@@ -15,16 +15,17 @@
 [#assign codes=codes+{'教育类型':'/code/edu-category'}]
 [#assign codes=codes+{'用户类型':'/code/user-category'}]
 
-<ul class="nav nav-tabs" id="code_nav">
+<ul class="nav nav-tabs nav-tabs-compact" id="code_nav">
   [#list codes?keys as code]
-  <li role="presentation" [#if code_index=0]class="active"[/#if]>[@b.a href=codes[code] target="codelist"]${code}[/@]</li>
+    [#assign link_class]${(code_index==0)?string("nav-link active","nav-link")}[/#assign]
+  <li role="presentation" class="nav-item">[@b.a href=codes[code] class=link_class target="codelist"]${code}[/@]</li>
   [/#list]
 </ul>
 [@b.div id="codelist" href="/code/country"/]
 <script>
   jQuery(document).ready(function(){
-    jQuery('#code_nav>li').bind("click",function(e){
-      jQuery("#code_nav>li").removeClass("active");
+    jQuery('#code_nav>li>a').bind("click",function(e){
+      jQuery("#code_nav>li>a").removeClass("active");
       jQuery(this).addClass("active");
     });
   });

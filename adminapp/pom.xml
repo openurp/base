@@ -3,11 +3,11 @@
   <parent>
     <groupId>org.openurp.base</groupId>
     <artifactId>openurp-base-web-parent</artifactId>
-    <version>0.0.29</version>
+    <version>0.0.30</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>openurp-base-adminapp</artifactId>
-  <version>0.0.29</version>
+  <version>0.0.30</version>
   <packaging>war</packaging>
   <name>OpenURP Base Adminapp</name>
 
@@ -30,14 +30,8 @@
       <version>${beangle.data.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.openurp.app</groupId>
-      <artifactId>openurp-app-web</artifactId>
-      <version>${openurp.app.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openurp.app</groupId>
-      <artifactId>openurp-app-cas</artifactId>
-      <version>${openurp.app.version}</version>
+      <groupId>org.beangle.ems</groupId>
+      <artifactId>beangle-ems-app_2.13</artifactId>
     </dependency>
     <dependency>
       <groupId>org.openurp.base</groupId>

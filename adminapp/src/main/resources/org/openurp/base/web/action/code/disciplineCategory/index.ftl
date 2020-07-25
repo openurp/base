@@ -1,17 +1,16 @@
 [#ftl]
 [@b.head/]
-<table class="indexpanel">
-  <tr>
-    <td class="index_view" >
+<div class="search-container">
+    <div class="search-panel">
     [@b.form name="disciplineCategorySearchForm" action="!search" target="disciplineCategorylist" title="ui.searchForm" theme="search"]
       [@b.textfields names="disciplineCategory.code;代码"/]
       [@b.textfields names="disciplineCategory.name;名称"/]
       [@b.textfields names="disciplineCategory.enName;英文名称"/]
       <input type="hidden" name="orderBy" value="disciplineCategory.name"/>
     [/@]
-    </td>
-    <td class="index_content">[@b.div id="disciplineCategorylist" href="!search?orderBy=disciplineCategory.code"/]
-    </td>
-  </tr>
-</table>
+    </div>
+    <div class="search-list">
+      [@b.div id="disciplineCategorylist" href="!search?orderBy=disciplineCategory.code"/]
+    </div>
+  </div>
 [@b.foot/]
