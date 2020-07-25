@@ -6,8 +6,8 @@
       [@b.textfields names="country.code;代码"/]
       [@b.textfields names="country.name;名称"/]
       [@b.textfields names="country.enName;英文名称"/]
-      [@b.textfields names="country.alpha2Code;2位字母代码"/]
-      [@b.textfields names="country.alpha3Code;3位字母代码"/]
+      [@b.textfields names="country.alpha2Code;2位代码"/]
+      [@b.textfields names="country.alpha3Code;3位代码"/]
       <input type="hidden" name="orderBy" value="country.name"/>
     [/@]
     </div>

@@ -19,12 +19,12 @@
 package org.openurp.base.web.action
 
 import org.beangle.data.dao.EntityDao
+import org.beangle.ems.app.web.NavContext
 import org.beangle.security.realm.cas.{Cas, CasConfig}
 import org.beangle.webmvc.api.action.{ActionSupport, ServletSupport}
 import org.beangle.webmvc.api.annotation.action
 import org.beangle.webmvc.api.context.ActionContext
 import org.beangle.webmvc.api.view.View
-import org.openurp.app.web.NavContext
 import org.openurp.base.model.School
 
 @action("")

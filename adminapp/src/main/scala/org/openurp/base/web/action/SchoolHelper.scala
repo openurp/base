@@ -18,42 +18,61 @@
  */
 package org.openurp.base.web.action
 
+import java.time.LocalDate
+
 import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
 import org.beangle.commons.lang.{Numbers, Strings}
 import org.beangle.commons.web.util.CookieUtils
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.ems.app.web.EmsCookie
+import org.beangle.security.Securities
+import org.beangle.security.authc.{DefaultAccount, Profile}
 import org.beangle.webmvc.api.context.Params
 import org.openurp.base.model.School
 
 class SchoolHelper(entityDao: EntityDao) {
-  def getSchool(request: HttpServletRequest, response: HttpServletResponse): School = {
-    val originSchoolId = getSchoolId(request)
-    var sid = originSchoolId
-    Params.get("schoolId") foreach { s =>
-      sid = s
+  def getSchool(req: HttpServletRequest, res: HttpServletResponse): School = {
+    val cookie = EmsCookie.get(req, res)
+    Securities.session match {
+      case Some(s) =>
+        val account = s.principal.asInstanceOf[DefaultAccount]
+        var profile: Profile = null
+        if (account.profiles.length > 0) {
+          if (cookie.profile == 0L) {
+            profile = account.profiles(0)
+          } else {
+            profile = account.profiles.find(p => p.id == cookie.profile).getOrElse(account.profiles(0))
+          }
+          if (profile.id != cookie.profile) {
+            cookie.profile = profile.id
+            EmsCookie.update(req, res, cookie, true)
+          }
+        }
+        if (null == profile) {
+          getFirstSchool()
+        } else {
+          val pstr = profile.getProperty("school").orNull
+          if (null != pstr) {
+            if (pstr == "*") {
+              getFirstSchool()
+            } else if (Numbers.isDigits(pstr)) {
+              entityDao.get(classOf[School], pstr.toInt)
+            } else {
+              null
+            }
+          } else {
+            getFirstSchool()
+          }
+        }
+      case None => null
     }
-    var s: School = null
-
-    if (Strings.isNotEmpty(sid) && Numbers.isDigits(sid)) {
-      val builder = OqlBuilder.from(classOf[School], "s")
-      builder.where("s.id=:id", sid.toInt)
-      builder.cacheable()
-      val schools = entityDao.search(builder)
-      if (schools.nonEmpty) {
-        s = schools.head
-      }
-    }
-    if (null == s) {
-      val schools = entityDao.getAll(classOf[School])
-      s = schools.head
-    }
-    if (null != s && originSchoolId != s.id.toString) {
-      CookieUtils.addCookie(request, response, "school", s.id.toString, -1)
-    }
-    s
   }
 
-  private def getSchoolId(request: HttpServletRequest): String = {
-    CookieUtils.getCookieValue(request, "school")
+  private def getFirstSchool(): School = {
+    val query = OqlBuilder.from(classOf[School], "p")
+    query.where("p.endOn is null or p.endOn > :today", LocalDate.now)
+    query.orderBy("p.code").cacheable()
+    entityDao.search(query).head
   }
+
 }
