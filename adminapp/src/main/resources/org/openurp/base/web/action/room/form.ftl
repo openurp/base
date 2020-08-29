@@ -13,10 +13,10 @@
                style="width:200px;" items=roomTypes /]
     [@b.select name="room.department.id" label="管理部门" value="${(room.department.id)!}"
                style="width:200px;" items=departments empty="..."/]
-    [@b.textfield name="room.floor" label="楼层" value="${room.floor!}" required="true" maxlength="10"/]
+    [@b.textfield name="room.floorNo" label="楼层" value="${room.floorNo!}" required="true" maxlength="10"/]
     [@b.textfield name="room.capacity" label="容量" value="${room.capacity!}" required="true" maxlength="10"/]
     [@b.startend label="有效期限"
-      name="room.beginOn,room.endOn" required="false,false"
+      name="room.beginOn,room.endOn" required="true,false"
       start=room.beginOn end=room.endOn format="date"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]

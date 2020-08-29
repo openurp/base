@@ -15,7 +15,7 @@
     [@b.col width="15%" property="department" title="管理部门"]${(room.department.name)!}[/@]
     [@b.col width="10%" property="roomType" title="房间类型"]${(room.roomType.name)!}[/@]
     [@b.col width="15%" property="building" title="所属建筑"]${(room.building.name)!}[/@]
-    [@b.col width="5%" property="floor" title="楼层"]${room.floor!}[/@]
+    [@b.col width="5%" property="floorNo" title="楼层"]${room.floorNo!}[/@]
     [@b.col width="5%" property="capacity" title="容量"]${room.capacity!}[/@]
     [@b.col width="20%" property="beginOn" title="生效时间"]${room.beginOn!}~${room.endOn!}[/@]
   [/@]
