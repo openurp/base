@@ -30,7 +30,7 @@
   </tr>
   <tr>
     <td class="title" width="20%">楼层</td>
-    <td class="content">${room.floor}</td>
+    <td class="content">${room.floorNo}</td>
   </tr>
   <tr>
     <td class="title" width="20%">容量</td>
