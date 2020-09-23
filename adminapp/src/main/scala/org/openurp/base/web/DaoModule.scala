@@ -49,15 +49,15 @@ object DaoModule extends BindModule {
     bind("SessionFactory.default", classOf[LocalSessionFactoryBean])
       .property("properties", ref("HibernateConfig.default"))
       .property("configLocations", "classpath*:META-INF/hibernate.cfg.xml")
-      .property("ormLocations", "classpath*:META-INF/beangle/orm.xml").primary
+      .property("ormLocations", "classpath*:META-INF/beangle/orm.xml").primary()
 
-    bind("HibernateTransactionManager.default", classOf[HibernateTransactionManager]).primary
+    bind("HibernateTransactionManager.default", classOf[HibernateTransactionManager]).primary()
 
     bind("TransactionProxy.template", classOf[TransactionProxyFactoryBean]).setAbstract().property(
       "transactionAttributes",
       props("save*=PROPAGATION_REQUIRED", "update*=PROPAGATION_REQUIRED", "delete*=PROPAGATION_REQUIRED",
         "batch*=PROPAGATION_REQUIRED", "execute*=PROPAGATION_REQUIRED", "remove*=PROPAGATION_REQUIRED",
-        "*=PROPAGATION_REQUIRED,readOnly")).primary
+        "*=PROPAGATION_REQUIRED,readOnly")).primary()
 
     bind(classOf[DomainFactory])
 

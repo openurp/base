@@ -20,7 +20,7 @@ package org.openurp.base.web.action
 
 import java.time.LocalDate
 
-import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
+import jakarta.servlet.http.{HttpServletRequest, HttpServletResponse}
 import org.beangle.commons.lang.{Numbers, Strings}
 import org.beangle.commons.web.util.CookieUtils
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
