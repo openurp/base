@@ -1,0 +1,18 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改图书分类"]bar.addBack();[/@]
+[@b.tabs]
+  [@b.form action=b.rest.save(bookCategory) theme="list"]
+    [@b.textfield name="bookCategory.code" label="代码" value="${bookCategory.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="bookCategory.name" label="名称" value="${bookCategory.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="bookCategory.enName" label="英文名" value="${bookCategory.enName!}" maxlength="100"/]
+    [@b.startend label="有效期"
+      name="bookCategory.beginOn,bookCategory.endOn" required="true,false"
+      start=bookCategory.beginOn end=bookCategory.endOn format="date"/]
+    [@b.textfield name="bookCategory.remark" label="备注" value="${bookCategory.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[/@]
+[@b.foot/]

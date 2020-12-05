@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<cdi>
+  <container name="web">
+    <module class="org.openurp.base.web.action.edu.admin.DefaultModule"/>
+    <module class="org.openurp.base.web.action.edu.info.DefaultModule"/>
+    <module class="org.openurp.base.web.action.DefaultModule"/>
+    <module class="org.openurp.boot.edu.web.action.ProjectModule" />
+  </container>
+</cdi>

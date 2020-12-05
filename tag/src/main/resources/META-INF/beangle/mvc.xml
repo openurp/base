@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<mvc>
+  <static>
+    <bundle name="openurp-edu" version="0.1.0"/>
+  </static>
+</mvc>

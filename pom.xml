@@ -4,20 +4,25 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-parent</artifactId>
-    <version>0.4.0</version>
+    <version>0.4.5</version>
   </parent>
   <groupId>org.openurp.base</groupId>
   <artifactId>openurp-base-web-parent</artifactId>
-  <version>0.0.33-SNAPSHOT</version>
+  <version>0.1.10-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>OpenURP Base Web Parent</name>
+  <name>OpenURP Base Parent</name>
 
   <properties>
-    <openurp.api.version>0.18.0</openurp.api.version>
+    <openurp.api.version>0.20.0</openurp.api.version>
+    <openurp.boot.version>0.0.1</openurp.boot.version>
   </properties>
 
   <modules>
-    <module>adminapp</module>
+    <module>admin</module>
+    <module>static</module>
+    <module>tag</module>
+    <module>ws</module>
+    <module>webapp</module>
   </modules>
 
 </project>

@@ -1,0 +1,12 @@
+[#ftl]
+[@b.head/]
+[@b.tabs]
+   [@b.tab href="/edu/admin/textbook!innerIndex" label="教材信息" active="true"/]
+   [@b.tab href="/edu/admin/code/press" label="出版社" /]
+   [@b.tab href="/edu/admin/code/press-grade" label="出版社级别" /]
+   [@b.tab href="/edu/admin/code/book-category" label="图书分类" /]
+   [@b.tab href="/edu/admin/code/book-type" label="教材类型" /]
+   [@b.tab href="/edu/admin/code/book-award-type" label="教材获奖类型" /]
+[/@]
+
+[@b.foot/]

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <groupId>org.openurp.base</groupId>
+    <artifactId>openurp-base-web-parent</artifactId>
+    <version>0.1.10-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>openurp-base-static</artifactId>
+  <packaging>jar</packaging>
+  <name>Openurp Base Static</name>
+
+  <properties>
+    <bundle.symbolicName>org.openurp.base.static</bundle.symbolicName>
+    <bundle.namespace>org.openurp.base</bundle.namespace>
+    <bundle.code>openurp-base</bundle.code>
+  </properties>
+
+  <build>
+    <outputDirectory>${project.build.directory}/classes/META-INF/resources/${bundle.code}/${project.version}</outputDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${mvn.jar.version}</version>
+        <configuration>
+          <classesDirectory>${project.build.directory}/classes</classesDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>beangle-bundles-release</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${mvn.javadoc.version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
+
