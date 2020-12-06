@@ -1,0 +1,18 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改出版社级别"]bar.addBack();[/@]
+[@b.tabs]
+  [@b.form action=b.rest.save(pressGrade) theme="list"]
+    [@b.textfield name="pressGrade.code" label="代码" value="${pressGrade.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="pressGrade.name" label="名称" value="${pressGrade.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="pressGrade.enName" label="英文名" value="${pressGrade.enName!}" maxlength="100"/]
+    [@b.startend label="有效期"
+      name="pressGrade.beginOn,pressGrade.endOn" required="true,false"
+      start=pressGrade.beginOn end=pressGrade.endOn format="date"/]
+    [@b.textfield name="pressGrade.remark" label="备注" value="${pressGrade.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[/@]
+[@b.foot/]

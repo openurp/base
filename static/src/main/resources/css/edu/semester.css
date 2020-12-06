@@ -1,0 +1,140 @@
+
+.sp-text{
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  text-align:center;
+  cursor:pointer;
+  color:#444;
+  font-size:12px;
+}
+.sp-text-state-default{
+  border:1px solid #AAA;
+}
+
+.sp-text-state-highlight{
+  -moz-box-shadow:0px 0px 3px #ffd48e;
+  -webkit-box-shadow:0px 0px 3px #ffd48e;
+  box-shadow:0px 0px 3px #ffd48e;
+  border:1px solid #ffc260;
+}
+
+.semester-picker{
+  outer-border:0 none;
+  position:absolute;
+  top:0:
+  left:0;
+  width:370px;
+  z-index:200;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border:1px solid #AAA;
+  text-align:center;
+  margin-top:-1px;
+  display:none;
+  background:#FFF;
+}
+
+.semester-picker a img{
+  border:none;
+  width:14px;
+  height:18px;
+}
+.semester-picker span{
+  line-height:19px;
+  font-size:12px;
+  float:left;
+}
+
+.school_yearTb{
+  -moz-border-radius: 4px 0 0 4px;
+  -webkit-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+  width:80%;
+}
+
+.termTb{
+  -moz-border-radius: 0 4px 4px 0;
+  -webkit-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+  width:20%;
+}
+
+.semester-picker table{
+  text-align:center;
+  background:#FFF;
+  float:left;
+}
+
+.semester-picker-input{
+  float:left;
+  border:none;
+  color:#444;
+  font-size:12px;
+  height:18px;
+  width:100px;
+  padding:0;
+  text-align:center;
+  cursor:pointer;
+  background:#FFF;
+}
+.sp-input-hover{
+  float:left;
+  border:none;
+  color:#444;
+  font-size:12px;
+  height:18px;
+  text-align:center;
+  cursor:pointer;
+  background:#E3FFFE;
+}
+
+.semester-picker table tr td{
+  font-size:13px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.semester-picker .allSemester{
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.semester-picker-td-blankBorder{
+    border:1px solid #FFF;
+}
+.semester-picker .ui-state-active {
+  color:red;
+  font-weight:bold;
+  background:url("../../images/edu/activeBG.png") repeat-x scroll 50% 50% #DADADA;
+  border: 1px solid #AAA;
+  cursor:pointer;
+}
+
+.semester-picker .school_yearTb tr td{
+  width:33.33%;
+}
+
+.semester-picker .termTb tr td{
+  width:100%;
+}
+
+.semester-picker table tr td span{
+  float:none;
+}
+.semester-picker .sp-td-hover{
+  cursor:pointer;
+  font-weight:bold;
+  background:#bcd8ff;
+  border: 1px solid #1364fc;
+  color: #04438a;
+}
+
+.semester-bar{
+  background: url('../../images/edu/semesterBarBg.png') repeat-x scroll 50% 50% #DEEDF7;
+  border: 1px solid #AED0EA;
+  color: #222222;
+  height:28px;
+  font-size:0.8125rem;
+}
