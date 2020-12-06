@@ -11,7 +11,7 @@
 
   <profile name="openurp-edu-base-ws-project" package="org.openurp.base.ws.edu">
     <action suffix="WS" defaultMethod="index" />
-    <url path="/{project}" suffix="" style="plur-seo" />
+    <url path="/edu/{project}" suffix="" style="plur-seo" />
     <interceptors>
       <interceptor name="web.Interceptor.hibernate" />
       <interceptor name="web.Interceptor.cors" />

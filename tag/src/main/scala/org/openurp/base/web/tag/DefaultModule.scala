@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.web.tag
+package org.openurp.base.web.tag
 
 import org.beangle.cdi.bind.BindModule
 
 object DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
-    bind("mvc.Taglibrary.edu", classOf[EduBaseLibrary])
+    bind("mvc.Taglibrary.urp_base", classOf[BaseLibrary])
   }
 }

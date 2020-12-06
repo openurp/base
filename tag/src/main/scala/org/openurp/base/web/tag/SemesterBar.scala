@@ -16,18 +16,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.web.tag
+package org.openurp.base.web.tag
 
-import org.beangle.webmvc.view.tag.AbstractModels
+import org.beangle.webmvc.view.tag.ClosingUIBean
 import org.beangle.webmvc.view.tag.ComponentContext
-import org.beangle.webmvc.view.tag.freemarker.TagModel
 
-import jakarta.servlet.http.HttpServletRequest
+class SemesterBar(context: ComponentContext) extends ClosingUIBean(context) {
 
-class EduModels(context: ComponentContext, request: HttpServletRequest)
-  extends AbstractModels(context, request) {
+  var name: String = "semester.id"
 
-  def semester: TagModel = get(classOf[SemesterPicker])
+  var label: String = _
 
-  def semester_bar: TagModel = get(classOf[SemesterBar])
+  var required: String = "true"
+
+  var value: Object = _
+
+  var formName: String = "semesterForm"
+
+  var action: String = _
+
+  var target: String = _
+
+  override def evaluateParams(): Unit = {
+    if (null == id) {
+      generateIdIfEmpty()
+    }
+  }
 }

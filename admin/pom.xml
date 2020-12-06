@@ -19,6 +19,11 @@
     </dependency>
     <dependency>
       <groupId>org.openurp.base</groupId>
+      <artifactId>openurp-base-tag</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openurp.base</groupId>
       <artifactId>openurp-base-api</artifactId>
       <version>${openurp.api.version}</version>
     </dependency>

@@ -25,14 +25,16 @@ import org.beangle.webmvc.api.action.ActionSupport
 import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.entity.action.EntityAction
 import org.beangle.webmvc.entity.helper.QueryHelper.{PageParam, PageSizeParam}
-import org.openurp.base.edu.model.Teacher
+import org.openurp.base.edu.model.{Project, Teacher}
 
 class TeacherWS extends ActionSupport with EntityAction[Teacher] {
   @response
   def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[Teacher], "teacher")
     populateConditions(query)
-    query.where("teacher.project.id=:projectId", getInt("project").get)
+    val p = new Project
+    p.id = getInt("project").get
+    query.where(":project in elements(teacher.projects)", p)
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
     get("q") foreach { q =>
       val c = s"%${q}%"

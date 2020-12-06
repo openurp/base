@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.ws.edu
+package org.openurp.base.ws.stu
 
 import org.beangle.commons.collection.Properties
 import org.beangle.commons.collection.page.PageLimit
@@ -25,15 +25,15 @@ import org.beangle.webmvc.api.action.ActionSupport
 import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.entity.action.EntityAction
 import org.beangle.webmvc.entity.helper.QueryHelper.{PageParam, PageSizeParam}
-import org.openurp.base.edu.model.{Instructor, Semester}
+import org.openurp.base.edu.model.Semester
+import org.openurp.base.stu.model.Instructor
 
-class InstructorWS extends ActionSupport with EntityAction[Semester]  {
+class InstructorWS extends ActionSupport with EntityAction[Semester] {
 
   @response
   def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[Instructor], "instructor")
     populateConditions(query)
-    query.where("instructor.project.id=:projectId", getInt("project").get)
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
     get("q") foreach { q =>
       val c = s"%${q}%"

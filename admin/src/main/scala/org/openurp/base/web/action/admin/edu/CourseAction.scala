@@ -64,7 +64,6 @@ class CourseAction extends ProjectRestfulAction[Course] {
     put("courseCategories", getCodes(classOf[CourseCategory]))
     put("departments", findInSchool(classOf[Department]))
     put("teachingGroups", entityDao.getAll(classOf[TeachingGroup])) //FIXME for teachingGroup missing project
-
     var levels = getProject.levels.map(_.toLevel).toSet.toBuffer
     levels --= entity.levels
     put("levels", levels)

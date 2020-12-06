@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.web.tag
+package org.openurp.base.web.tag
 
 import org.beangle.ems.app.Ems
 import org.beangle.webmvc.api.context.ActionContext
@@ -58,7 +58,7 @@ class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
       }
     }
     if (url == null) {
-      url = Ems.api + s"/edu/base/${project.id}/semesters.json"
+      url = Ems.api + s"/base/edu/${project.id}/semesters.json"
     }
 
   }

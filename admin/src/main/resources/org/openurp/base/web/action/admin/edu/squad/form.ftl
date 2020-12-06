@@ -19,9 +19,9 @@
     [@b.select name="squad.stdType.id" label="学生类别" value=squad.stdType! required="true"
                style="width:200px;" items=stdTypes option="id,name" empty="..."/]
     [@b.select name="squad.instructor.id" label="辅导员" value="${(squad.instructor.id)!}"
-               style="width:300px;" href=urp.api+"/edu/base/"+project.id+"/instructors.json?q={term}" option="id,user.code+' '+data.user.name+' '+data.user.department.name" empty="..."/]
+               style="width:300px;" href=urp.api+"/base/stu/instructors.json?q={term}" option="id,user.code+' '+data.user.name+' '+data.user.department.name" empty="..."/]
     [@b.select name="squad.tutor.id" label="班导师" value="${(squad.tutor.id)!}"
-               style="width:300px;" href=urp.api+"/edu/base/"+project.id+"/teachers.json?q={term}" option="id,user.code+' '+data.user.name+' '+data.user.department.name" empty="..."/]
+               style="width:300px;" href=urp.api+"/base/edu/"+project.id+"/teachers.json?q={term}" option="id,user.code+' '+data.user.name+' '+data.user.department.name" empty="..."/]
     [@b.textfield name="squad.remark" label="备注" value="${squad.remark!}" maxlength="30"/]
     [@b.textfield name="squad.planCount" label="计划人数" value="${squad.planCount!}" /]
     [@b.textfield name="squad.stdCount" label="学籍有效人数" value="${squad.stdCount!}"/]

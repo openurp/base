@@ -7,6 +7,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>openurp-base-static</artifactId>
+  <version>0.1.10-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Openurp Base Static</name>
 
