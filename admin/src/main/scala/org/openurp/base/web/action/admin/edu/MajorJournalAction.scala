@@ -20,10 +20,10 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.model.Department
-import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
 import org.openurp.base.edu.model.MajorJournal
+import org.openurp.base.model.Department
 import org.openurp.boot.edu.helper.ProjectSupport
+import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
 
 class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport {
 
@@ -37,7 +37,10 @@ class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport
   override protected def saveAndRedirect(entity: MajorJournal): View = {
     val view = super.saveAndRedirect(entity)
     entityDao.refresh(entity)
-    entity.major.beginOn = entity.major.journals.map(_.beginOn).min
+    entityDao.refresh(entity.major)
+    if (entity.major.journals.nonEmpty) {
+      entity.major.beginOn = entity.major.journals.map(_.beginOn).min
+    }
     entityDao.saveOrUpdate(entity.major)
     entityDao.evict(entity.major)
     view
