@@ -85,6 +85,11 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
     }
     teacher.user = user
     teacher.updatedAt = Instant.now
+    teacher.school = user.school
+    val project = getProject
+    if (!teacher.projects.contains(project)) {
+      teacher.projects.add(project)
+    }
     try {
       if (Strings.isNotEmpty(person.code) && null != person.birthday) {
         teacher.person = Some(person)

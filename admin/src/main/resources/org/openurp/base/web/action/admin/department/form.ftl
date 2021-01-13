@@ -8,7 +8,9 @@
     [@b.textfield name="department.name" label="名称" value="${department.name!}" required="true" maxlength="80"/]
     [@b.textfield name="department.enName" label="英文名称" value="${department.enName!}" maxlength="100"/]
     [@b.textfield name="department.shortName" label="简称" value="${department.shortName!}" maxlength="100"/]
+    [@b.select name="campusId" multiple="true" label="校区" values=department.campuses required="false"/]
     [@b.radios label="是否教学部门"  name="department.teaching" value=department.teaching items="1:common.yes,0:common.no"/]
+    [@b.radios label="是否科研部门"  name="department.research" value=department.research items="1:common.yes,0:common.no"/]
     [@b.startend label="有效期限"
       name="department.beginOn,department.endOn" required="true,false"
       start=department.beginOn end=department.endOn format="date"/]
