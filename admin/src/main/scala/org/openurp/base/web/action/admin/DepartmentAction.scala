@@ -23,8 +23,9 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.ignore
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
+import org.openurp.base.code.model.DepartmentCategory
 import org.openurp.base.model.{Campus, Department, School}
-import org.openurp.code.edu.model.{GradingMode, Institution}
+import org.openurp.code.edu.model.Institution
 
 class SchoolAction extends RestfulAction[School] {
   override def editSetting(entity: School): Unit = {
@@ -46,6 +47,7 @@ class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
     val query = OqlBuilder.from(classOf[Campus], "c")
     query.where("c.school=:school", getSchool)
     put("campuses", entityDao.search(query))
+    put("categories", entityDao.getAll(classOf[DepartmentCategory]))
   }
 
   @ignore

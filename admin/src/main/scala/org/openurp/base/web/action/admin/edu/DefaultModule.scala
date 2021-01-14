@@ -20,6 +20,7 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.cdi.bind.BindModule
 import org.openurp.base.web.action.admin.edu.code._
+import org.openurp.base.web.helper.UrpUserHelper
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
@@ -49,5 +50,7 @@ class DefaultModule extends BindModule {
 
     bind(classOf[DegreeLevelAction], classOf[DegreeAction], classOf[StudyTypeAction],
       classOf[DisciplineCategoryAction], classOf[EducationResultAction])
+
+    bind(classOf[UrpUserHelper]).nowire("platformDataSource")
   }
 }
