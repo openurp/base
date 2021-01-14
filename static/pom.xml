@@ -3,11 +3,11 @@
   <parent>
     <groupId>org.openurp.base</groupId>
     <artifactId>openurp-base-web-parent</artifactId>
-    <version>0.1.11</version>
+    <version>0.1.12-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>openurp-base-static</artifactId>
-  <version>0.1.11</version>
+  <version>0.1.12-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Openurp Base Static</name>
 
