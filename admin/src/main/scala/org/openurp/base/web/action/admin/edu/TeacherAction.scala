@@ -18,25 +18,27 @@
  */
 package org.openurp.base.web.action.admin.edu
 
-import java.time.Instant
-
-import org.beangle.commons.bean.Properties
+import org.beangle.commons.bean.Initializing
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.api.annotation.action
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.execution.Handler
 import org.openurp.base.code.model.UserCategory
+import org.openurp.base.edu.code.model.TeacherType
+import org.openurp.base.edu.model.Teacher
+import org.openurp.base.edu.web.helper.QueryHelper
 import org.openurp.base.model.{Department, Name, Person, User}
+import org.openurp.base.web.helper.{URPUserCategory, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, EducationDegree}
 import org.openurp.code.hr.model.WorkStatus
 import org.openurp.code.job.model.ProfessionalTitle
 import org.openurp.code.person.model.{Gender, IdType}
-import org.openurp.base.edu.code.model.TeacherType
-import org.openurp.base.edu.model.Teacher
-import org.openurp.base.edu.web.helper.QueryHelper
+
+import java.time.Instant
 
 class TeacherAction extends ProjectRestfulAction[Teacher] {
+
+  var urpUserHelper: Option[UrpUserHelper] = None
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
     QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
@@ -58,6 +60,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
     val p = getProject
     teacher.projects += p
 
+    var createUser = false
     var user = populateEntity(classOf[User], "user")
     val school = p.school
     if (!user.persisted) {
@@ -67,9 +70,9 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
         user = users.head
       } else {
         user.school = school
+        createUser = true
         user.category = new UserCategory
-        //FIXME Teacher Category ID =1
-        user.category.id = 1
+        user.category.id = URPUserCategory.Teacher
       }
     }
     user.beginOn = teacher.beginOn
@@ -85,6 +88,11 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
     }
     teacher.user = user
     teacher.updatedAt = Instant.now
+    teacher.school = user.school
+    val project = getProject
+    if (!teacher.projects.contains(project)) {
+      teacher.projects.add(project)
+    }
     try {
       if (Strings.isNotEmpty(person.code) && null != person.birthday) {
         teacher.person = Some(person)
@@ -98,7 +106,13 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
       } else {
         entityDao.saveOrUpdate(user, teacher)
       }
+      if (createUser) {
+        urpUserHelper foreach { helper =>
+          helper.createTeacherUser(teacher)
+        }
+      }
       redirect("search", "info.save.success")
+
     } catch {
       case e: Exception => {
         val redirectTo = Handler.mapping.method.getName match {

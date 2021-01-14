@@ -6,6 +6,7 @@
   [@b.form action=sa theme="list"]
     [@b.textfield name="user.code" label="账号" value="${user.code!}" required="true" maxlength="30"/]
     [@b.textfield name="user.name" label="姓名" value="${user.name!}" required="true" maxlength="80"/]
+    [@b.select name="user.gender.id" label="性别" value=(user.gender)! required="true" style="width:100px;" items=genders option="id,name" empty="..."/]
     [@b.select name="user.department.id" label="所在部门" value="${(user.department.id)!}" required="true"
                style="width:200px;" items=departments empty="..."/]
     [@b.select name="user.category.id" label="人员分类" value="${(user.category.id)!}" style="width:200px;"  required="true"

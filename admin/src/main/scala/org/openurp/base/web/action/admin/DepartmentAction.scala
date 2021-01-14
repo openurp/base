@@ -23,7 +23,8 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.annotation.ignore
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.model.{Department, School}
+import org.openurp.base.code.model.DepartmentCategory
+import org.openurp.base.model.{Campus, Department, School}
 import org.openurp.code.edu.model.Institution
 
 class SchoolAction extends RestfulAction[School] {
@@ -41,10 +42,21 @@ class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 
+  override def editSetting(entity: Department): Unit = {
+    super.editSetting(entity)
+    val query = OqlBuilder.from(classOf[Campus], "c")
+    query.where("c.school=:school", getSchool)
+    put("campuses", entityDao.search(query))
+    put("categories", entityDao.getAll(classOf[DepartmentCategory]))
+  }
+
   @ignore
-  override protected def saveAndRedirect(entity: Department): View = {
-    entity.school = getSchool
-    super.saveAndRedirect(entity)
+  override protected def saveAndRedirect(depart: Department): View = {
+    depart.school = getSchool
+    depart.campuses.clear()
+    val campusIds = getAll("campusId", classOf[Int])
+    depart.campuses ++= entityDao.find(classOf[Campus], campusIds)
+    super.saveAndRedirect(depart)
   }
 
 }

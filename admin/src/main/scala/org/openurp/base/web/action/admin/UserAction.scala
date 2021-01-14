@@ -27,6 +27,7 @@ import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.base.code.model.UserCategory
 import org.openurp.base.model.User
+import org.openurp.code.person.model.Gender
 
 class UserAction extends RestfulAction[User] with SchoolSupport {
   override protected def getQueryBuilder: OqlBuilder[User] = {
@@ -38,6 +39,7 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
 
   override protected def editSetting(entity: User): Unit = {
     put("userCategories", entityDao.getAll(classOf[UserCategory]))
+    put("genders", entityDao.getAll(classOf[Gender]))
     put("departments", getDepartments)
   }
 

@@ -1,10 +1,9 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="教学日历方案"]
-  bar.addItem("学期阶段","toStage()")
-  function toStage(){
-     bg.Go("${base}/calendar-stage","_blank");
-  }
+[@b.nav class="nav-tabs nav-tabs-compact"]
+  [@b.navitem href="semester"]学年学期[/@]
+  [@b.navitem href="calendar"]日历方案[/@]
+  [@b.navitem href="calendar-stage"]学期阶段安排[/@]
 [/@]
 <div class="search-container">
     <div class="search-panel">
