@@ -7,9 +7,9 @@
   <div style="margin-left:10px;margin-top:0px;float:left;height:22px;">
   [#assign submit=tag.submit!"bg.form.submit('${tag.formName}')"/]
   [#if tag.value??]
-    [@edu.semester id=tag.id name=tag.name required=tag.required label="学年学期" value=tag.value onchange=submit/]
+    [@urp_base.semester id=tag.id name=tag.name required=tag.required label="学年学期" value=tag.value onchange=submit/]
   [#else]
-    [@edu.semester id=tag.id name=tag.name required=tag.required label="学年学期" onchange=submit/]
+    [@urp_base.semester id=tag.id name=tag.name required=tag.required label="学年学期" onchange=submit/]
   [/#if]
   </div>
   [/@]
