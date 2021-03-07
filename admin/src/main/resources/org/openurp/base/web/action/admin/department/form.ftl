@@ -1,6 +1,5 @@
 [#ftl]
 [@b.head/]
-${campuses?size}
 [@b.toolbar title="部门基本信息"]bar.addBack();[/@]
   [#assign sa][#if department.persisted]!update?id=${department.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
