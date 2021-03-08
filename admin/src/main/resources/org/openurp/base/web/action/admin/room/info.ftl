@@ -33,10 +33,6 @@
     <td class="content">${room.floorNo}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">容量</td>
-    <td class="content">${room.capacity}</td>
-  </tr>
-  <tr>
     <td class="title" width="20%">生效时间</td>
     <td class="content" >${room.beginOn!}</td>
   </tr>
