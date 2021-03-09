@@ -11,7 +11,8 @@
     [@b.textfield name="person.code" label="证件号码" value=(teacher.person.code)! maxlength="30" style="width:200px;" /]
     [@b.datepicker name="person.birthday" label="出生日期" value=(teacher.person.birthday)! comment="填写出生日期时，需要同时填写证件号，无法获取时可填工号"/]
 
-    [@b.select name="user.department.id" label="院系" value=(teacher.user.department.id)! required="true" style="width:200px;" items=departments option="id,name" empty="..."/]
+    [@b.select name="user.department.id" label="所在部门" value=(teacher.user.department.id)! required="true" style="width:200px;" items=departments option="id,name" empty="..."/]
+    [@b.select name="teacher.department.id" label="任教院系" value=(teacher.department.id)! required="true" style="width:200px;" items=departments option="id,name" empty="..."/]
     [@b.select name="teacher.teacherType.id" label="教师类型" required="true" style="width:200px;" value=(teacher.teacherType!) items=teacherTypes empty="..."/]
     [@b.select name="teacher.title.id" label="职称" required="false" value=teacher.title! items=professionalTitles empty="..."/]
     [@b.select name="teacher.degree.id" label="学位" required="false" value=teacher.degree! items=degrees empty="..."/]
