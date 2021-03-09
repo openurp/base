@@ -14,7 +14,6 @@
     [@b.select name="room.department.id" label="管理部门" value="${(room.department.id)!}"
                style="width:200px;" items=departments empty="..."/]
     [@b.textfield name="room.floorNo" label="楼层" value="${room.floorNo!}" required="true" maxlength="10"/]
-    [@b.textfield name="room.capacity" label="容量" value="${room.capacity!}" required="true" maxlength="10"/]
     [@b.startend label="有效期限"
       name="room.beginOn,room.endOn" required="true,false"
       start=room.beginOn end=room.endOn format="date"/]

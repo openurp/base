@@ -15,7 +15,7 @@
       [/@]
     [/@]
     [@b.col width="8%" property="user.gender.name" title="性别"/]
-    [@b.col width="20%" property="user.department.id" title="院系"]${(teacher.user.department.name)!}[/@]
+    [@b.col width="20%" property="department.id" title="院系"]${(teacher.department.name)!}[/@]
     [@b.col width="10%" property="teacherType.name" title="类型"/]
     [@b.col width="10%" property="title.name" title="职称"/]
     [@b.col width="11%" property="degree.name" title="学位"/]
