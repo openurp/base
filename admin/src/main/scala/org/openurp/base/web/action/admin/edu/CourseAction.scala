@@ -18,9 +18,6 @@
  */
 package org.openurp.base.web.action.admin.edu
 
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import java.time.LocalDate
-
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.transfer.excel.ExcelSchema
@@ -28,11 +25,14 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.api.view.{Stream, View}
-import org.openurp.base.model.Department
-import org.openurp.code.edu.model.{AcademicLevel, ExamMode, GradingMode}
-import org.openurp.base.edu.code.model.{CourseCategory, CourseHourType, CourseType}
+import org.openurp.base.edu.code.model.{CourseCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, TeachingGroup}
 import org.openurp.base.edu.web.helper.{CourseImportListener, QueryHelper}
+import org.openurp.base.model.Department
+import org.openurp.code.edu.model.{AcademicLevel, CourseNature, ExamMode, GradingMode, TeachingNature, TeachingNatureCategory}
+
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.LocalDate
 
 class CourseAction extends ProjectRestfulAction[Course] {
 
@@ -41,6 +41,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     put("courseCategories", getCodes(classOf[CourseCategory]))
     val departments = findInSchool(classOf[Department])
     put("departments", departments)
+    put("courseNatures", getCodes(classOf[CourseNature]))
     put("teachingGroups", entityDao.getAll(classOf[TeachingGroup])) //FIXME for teachingGroup missing project
   }
 
@@ -57,7 +58,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     QueryHelper.addTemporalOn(builder, getBoolean("active"))
   }
 
-  override def editSetting(entity: Course) = {
+  override def editSetting(entity: Course): Unit = {
     put("courseTypes", getCodes(classOf[CourseType]))
     put("examModes", getCodes(classOf[ExamMode]))
     put("gradingModes", getCodes(classOf[GradingMode]))
@@ -67,7 +68,8 @@ class CourseAction extends ProjectRestfulAction[Course] {
     var levels = getProject.levels.map(_.toLevel).toSet.toBuffer
     levels --= entity.levels
     put("levels", levels)
-    put("hourTypes", getCodes(classOf[CourseHourType]))
+    put("courseNatures", getCodes(classOf[CourseNature]))
+    put("teachingNatures", getCodes(classOf[TeachingNature]))
     if (!entity.persisted) {
       entity.project = getProject
       entity.beginOn = LocalDate.now
@@ -80,11 +82,11 @@ class CourseAction extends ProjectRestfulAction[Course] {
   protected override def saveAndRedirect(entity: Course): View = {
     val course = entity.asInstanceOf[Course]
 
-    val hourTypes = getCodes(classOf[CourseHourType])
-    hourTypes foreach { ht =>
+    val teachingNatures = getCodes(classOf[TeachingNature])
+    teachingNatures foreach { ht =>
       val creditHour = getInt("creditHour" + ht.id)
       val week = getInt("week" + ht.id)
-      course.hours find (h => h.hourType == ht) match {
+      course.hours find (h => h.teachingNature == ht) match {
         case Some(hour) =>
           if (week.isEmpty && creditHour.isEmpty) {
             course.hours -= hour
@@ -96,14 +98,14 @@ class CourseAction extends ProjectRestfulAction[Course] {
           if (!(week.isEmpty && creditHour.isEmpty)) {
             val newHour = new CourseHour()
             newHour.course = course
-            newHour.hourType = ht
+            newHour.teachingNature = ht
             newHour.weeks = week.getOrElse(0)
             newHour.creditHours = creditHour.getOrElse(0)
             course.hours += newHour
           }
       }
     }
-    val orphan = course.hours.filter(x => !hourTypes.contains(x.hourType))
+    val orphan = course.hours.filter(x => !teachingNatures.contains(x.teachingNature))
     course.hours --= orphan
     val levelIds = getAll("levelId2nd", classOf[Int])
     val newLevels = entityDao.find(classOf[AcademicLevel], levelIds)
@@ -141,6 +143,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     val courseTypes = entityDao.search(OqlBuilder.from(classOf[CourseType], "p").orderBy("p.name")).map(_.name)
     val examModes = entityDao.search(OqlBuilder.from(classOf[ExamMode], "bc").orderBy("bc.name")).map(_.name)
     val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.name")).map(_.name)
+    val natures = entityDao.search(OqlBuilder.from(classOf[CourseNature], "bc").orderBy("bc.name")).map(_.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -155,7 +158,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     sheet.add("总课时", "course.creditHours").required().decimal()
     sheet.add("周课时", "course.weekHours").required().decimal()
     sheet.add("考核方式名称", "course.examMode.name").ref(examModes).required()
-    sheet.add("是否实践课", "course.practical").bool()
+    sheet.add("课程性质", "course.nature.name").ref(natures).required()
     sheet.add("是否设置补考", "course.hasMakeup").bool()
     sheet.add("是否计算绩点", "course.calgp").bool()
 
@@ -163,6 +166,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     code.add("课程类别").data(courseTypes)
     code.add("考核方式").data(examModes)
     code.add("开课院系").data(departs)
+    code.add("课程性质").data(natures)
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "课程模板.xlsx")

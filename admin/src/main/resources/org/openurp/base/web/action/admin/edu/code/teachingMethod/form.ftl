@@ -1,0 +1,18 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改学生类别"]bar.addBack();[/@]
+[@b.tabs]
+  [@b.form action=b.rest.save(teachingMethod) theme="list"]
+    [@b.textfield name="teachingMethod.code" label="代码" value="${teachingMethod.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="teachingMethod.name" label="名称" value="${teachingMethod.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="teachingMethod.enName" label="英文名" value="${teachingMethod.enName!}" maxlength="100"/]
+    [@b.startend label="有效期"
+      name="teachingMethod.beginOn,teachingMethod.endOn" required="true,false"
+      start=teachingMethod.beginOn end=teachingMethod.endOn format="date"/]
+    [@b.textfield name="teachingMethod.remark" label="备注" value="${teachingMethod.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[/@]
+[@b.foot/]

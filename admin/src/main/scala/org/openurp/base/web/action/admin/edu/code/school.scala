@@ -20,8 +20,9 @@ package org.openurp.base.web.action.admin.edu.code
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.code.std.model.{StdAlterReason, StdAlterType}
 import org.openurp.base.edu.code.model.{BookType, CourseCategory, _}
+import org.openurp.code.edu.model.{CourseNature, TeachingMethod, TeachingNature, TeachingNatureCategory}
+import org.openurp.code.std.model.{StdAlterReason, StdAlterType}
 
 class StdLabelAction extends RestfulAction[StdLabel] {
   override def editSetting(entity: StdLabel) = {
@@ -39,12 +40,16 @@ class StdTypeAction extends RestfulAction[StdType]
 
 class CourseAbilityRateAction extends RestfulAction[CourseAbilityRate]
 
-class CourseHourTypeAction extends RestfulAction[CourseHourType] {
-  override def editSetting(entity: CourseHourType) = {
-    put("categories", CourseHourCategory.values)
+class TeachingNatureAction extends RestfulAction[TeachingNature] {
+  override def editSetting(entity: TeachingNature) = {
+    put("categories", TeachingNatureCategory.values)
     super.editSetting(entity)
   }
 }
+
+class CourseNatureAction extends RestfulAction[CourseNature]
+
+class TeachingMethodAction extends RestfulAction[TeachingMethod]
 
 class CourseTypeAction extends RestfulAction[CourseType]
 

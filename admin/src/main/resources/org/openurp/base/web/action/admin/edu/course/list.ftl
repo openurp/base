@@ -16,7 +16,7 @@
     [@b.col width="10%" property="creditHours" title="学时"]
       ${course.creditHours}
       [#if course.hours?size>1]
-        ([#list course.hours?sort_by(['hourType','code']) as ch]${ch.creditHours}[#if ch_has_next]+[/#if][/#list])
+        ([#list course.hours?sort_by(['teachingNature','code']) as ch]${ch.creditHours}[#if ch_has_next]+[/#if][/#list])
       [/#if]
     [/@]
     [@b.col width="5%" property="weekHours" title="周课时"/]
