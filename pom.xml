@@ -13,7 +13,7 @@
   <name>OpenURP Base Parent</name>
 
   <properties>
-    <openurp.api.version>0.21.2-SNAPSHOT</openurp.api.version>
+    <openurp.api.version>0.22.0</openurp.api.version>
     <openurp.boot.version>0.0.3</openurp.boot.version>
   </properties>
 
