@@ -19,8 +19,6 @@
     [@b.select name="teacher.educationDegree.id" label="学历" required="false" value=teacher.educationDegree! items=educationDegrees empty="..."/]
     [@b.select name="teacher.status.id" label="状态" required="true" value=teacher.status! items=statuses empty="..."/]
     [@b.startend label="任教时间" name="teacher.beginOn,teacher.endOn" required="true,false" start=teacher.beginOn end=teacher.endOn format="date"/]
-    [@b.radios label="是否兼职"  name="teacher.parttime" value=teacher.parttime items="1:common.yes,0:common.no" required="true"/]
-    [@b.radios label="是否返聘"  name="teacher.retired" value=teacher.retired items="1:common.yes,0:common.no" required="true"/]
     [@b.radios label="是否在编"  name="teacher.formalHr" value=teacher.formalHr items="1:common.yes,0:common.no" required="true"/]
     [@b.textfield name="teacher.remark" label="备注" value="${teacher.remark!}" maxlength="30"/]
     [@b.formfoot]
