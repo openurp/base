@@ -35,7 +35,7 @@
 
    <div class="card card-info card-primary card-outline">
       <div class="card-header">
-        <h3 class="card-title">所属院系<span class="badge badge-primary">${major.journals?size}</span></h3>
+        <h3 class="card-title">开设院系<span class="badge badge-primary">${major.journals?size}</span></h3>
       </div>
       <table class="infoTable" style="text-align:center">
         <tr>
@@ -54,7 +54,7 @@
         [/#list]
       </table>
    </div>
-
+[#if major.directions?size>0]
    <div class="card card-info card-primary card-outline">
       <div class="card-header">
         <h3 class="card-title">专业方向<span class="badge badge-primary">${major.directions?size}</span></h3>
@@ -84,4 +84,5 @@
           [/#list]
         </table>
    </div>
+[/#if]
 </div>
