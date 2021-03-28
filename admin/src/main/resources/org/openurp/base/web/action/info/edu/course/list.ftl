@@ -8,6 +8,11 @@
       [@b.form name="courseSearchForm" action="!search" class="form-inline ml-3 float-right" ]
         <div class="input-group input-group-sm ">
           <input class="form-control form-control-navbar" type="search" name="q" value="${Parameters['q']!}" aria-label="Search" placeholder="输入搜索关键词" autofocus="autofocus">
+          [#list Parameters?keys as k]
+           [#if k != 'q']
+          <input type="hidden" name="${k}" value="${Parameters[k]?html}"/>
+          [/#if]
+          [/#list]
           <div class="input-group-append">
             <button class="btn btn-navbar" type="submit" onclick="bg.form.submit(document.courseSearchForm);return false;">
               <i class="fas fa-search"></i>
