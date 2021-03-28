@@ -3,7 +3,7 @@
 [#include "../info_macros.ftl"/]
 [@info_header title="学期信息"/]
 
-<div class="container" style="display:flex;justify-content:space-around;flex-wrap:wrap">
+<div class="container-fluid" style="display:flex;justify-content:space-around;flex-wrap:wrap">
 [#list calendars as c]
 [@b.card style="width:100%" class="card-info card-primary card-outline"]
   [@b.card_header]

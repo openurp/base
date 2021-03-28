@@ -47,10 +47,10 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
 
     val ccQuery = OqlBuilder.from(classOf[Course].getName, "c")
     ccQuery.where("c.endOn is null or c.endOn > :now", LocalDate.now)
-    ccQuery.select("c.category.id,c.category.name,count(*)")
-    ccQuery.groupBy("c.category.id,c.category.code,c.category.name")
-    ccQuery.orderBy("c.category.code")
-    put("categoryStat", entityDao.search(ccQuery))
+    ccQuery.select("c.nature.id,c.nature.name,count(*)")
+    ccQuery.groupBy("c.nature.id,c.nature.code,c.nature.name")
+    ccQuery.orderBy("c.nature.code")
+    put("natureStat", entityDao.search(ccQuery))
 
     forward()
   }

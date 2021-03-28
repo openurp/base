@@ -18,8 +18,6 @@
  */
 package org.openurp.base.ws.edu
 
-import java.time.LocalDate
-
 import org.beangle.commons.collection.Properties
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.action.ActionSupport
@@ -27,20 +25,25 @@ import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.entity.action.EntityAction
 import org.openurp.base.edu.model.{Project, Semester}
 
-class SemesterWS extends ActionSupport with EntityAction[Semester]  {
+import java.time.LocalDate
+
+class SemesterWS extends ActionSupport with EntityAction[Semester] {
 
   @response
   def index: Seq[Properties] = {
     val project = entityDao.get(classOf[Project], getInt("project").get)
-    getSemesters(project)
+    getSemesters(project,getBoolean("all").getOrElse(false))
   }
 
-  private def getSemesters(project: Project): Seq[Properties] = {
+  private def getSemesters(project: Project, all: Boolean): Seq[Properties] = {
     val now = LocalDate.now
     val calendar = project.calendars.find(x => !x.beginOn.isAfter(now) && x.endOn.forall(!now.isAfter(_)))
     calendar match {
       case Some(c) =>
         val builder = OqlBuilder.from(classOf[Semester], "s").where("s.calendar =:calendar", c)
+        if (!all) {
+          builder.where("s.archived=false")
+        }
         builder.orderBy("s.beginOn").cacheable(true)
         entityDao.search(builder).map(new Properties(_, "id", "name", "code", "schoolYear"))
       case None => List.empty

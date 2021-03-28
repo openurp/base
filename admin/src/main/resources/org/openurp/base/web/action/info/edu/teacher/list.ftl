@@ -8,6 +8,11 @@
       [@b.form name="teacherSearchForm" action="!search" class="form-inline ml-3 float-right" ]
         <div class="input-group input-group-sm ">
           <input class="form-control form-control-navbar" type="search" name="q" value="${Parameters['q']!}" aria-label="Search" placeholder="输入搜索关键词" autofocus="autofocus">
+          [#list Parameters?keys as k]
+           [#if k != 'q']
+          <input type="hidden" name="${k}" value="${Parameters[k]?html}"/>
+          [/#if]
+          [/#list]
           <div class="input-group-append">
             <button class="btn btn-navbar" type="submit" onclick="bg.form.submit(document.teacherSearchForm);return false;">
               <i class="fas fa-search"></i>
@@ -23,7 +28,6 @@
              <th>姓名</th>
              <th>部门</th>
              <th>职称</th>
-             <th>是否兼职</th>
              <th>教师类型</th>
              <th>在职状态</th>
           </thead>
@@ -34,7 +38,6 @@
             <td>${teacher.user.name}</td>
             <td>${teacher.user.department.name}</td>
             <td>${(teacher.title.name)!}</td>
-            <td>${teacher.parttime?string("是","否")}</td>
             <td>${(teacher.teacherType.name)!}</td>
             <td>${(teacher.status.name)!}</td>
            </tr>

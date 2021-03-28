@@ -3,7 +3,7 @@
 [#include "../info_macros.ftl"/]
 [@info_header title="作息时间"/]
 
-<div class="container"  style="display:flex;justify-content:space-around;flex-wrap:wrap">
+<div class="container-fluid"  style="display:flex;justify-content:space-around;flex-wrap:wrap">
 [#list timesettings as ts]
 [@b.card style="width:360px"]
   [@b.card_header]

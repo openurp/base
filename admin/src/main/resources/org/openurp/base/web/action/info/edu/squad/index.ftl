@@ -2,14 +2,14 @@
 [@b.head/]
 [#include "../info_macros.ftl"/]
 [@info_header title="班级信息"/]
-<div class="container">
+<div class="container-fluid">
   <div class="row">
      <div class="col-3">
        <div class="card card-info card-primary card-outline">
          <div class="card-header">
           班级统计
          </div>
-         <div class="card-body">
+         <div class="card-body" style="padding-top: 0px;">
              <table class="table table-hover table-sm">
                <thead>
                   <th>院系</th>

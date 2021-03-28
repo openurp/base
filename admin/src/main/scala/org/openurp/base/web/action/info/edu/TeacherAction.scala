@@ -51,8 +51,8 @@ class TeacherAction extends ActionSupport with EntityAction[Teacher] with Projec
 
     val categoryQuery = OqlBuilder.from(classOf[Teacher].getName, "t")
     categoryQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
-    categoryQuery.select("sum(case when t.parttime=true then 1 else 0 end)," +
-      "sum(case when t.retired=true then 1 else 0 end)," +
+    categoryQuery.select("sum(case when t.teacherType.parttime=true then 1 else 0 end)," +
+      "sum(case when t.teacherType.retired=true then 1 else 0 end)," +
       "sum(case when t.formalHr=true then 1 else 0 end),count(*)")
     put("categoryStats", entityDao.search(categoryQuery).head)
 

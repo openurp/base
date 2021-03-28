@@ -18,11 +18,11 @@
  */
 package org.openurp.base.web.action.info.edu
 
-import java.time.LocalDate
-
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
-import org.openurp.base.edu.model.Squad
+import org.openurp.base.edu.model.{Squad, StudentState}
+
+import java.time.LocalDate
 
 class SquadAction extends ProjectRestfulAction[Squad] {
 
@@ -55,7 +55,15 @@ class SquadAction extends ProjectRestfulAction[Squad] {
       query.where("squad.code like :q or squad.name like :q", s"%${q.trim}%")
     }
     query.orderBy("squad.code")
-    put("squads", entityDao.search(query))
+    val squads = entityDao.search(query)
+    val stateQuery = OqlBuilder.from[Array[Any]](classOf[StudentState].getName, "ss")
+    stateQuery.where("ss.squad in(:squads)", squads)
+    stateQuery.where(":today between ss.beginOn and ss.endOn and ss.inschool=true",LocalDate.now)
+    stateQuery.select("ss.squad.id,count(*)")
+    stateQuery.groupBy("ss.squad.id")
+    val stats = entityDao.search(stateQuery)
+    put("stdCountMap", stats.map(x => x(0) -> x(1)).toMap)
+    put("squads", squads)
     forward()
   }
 
