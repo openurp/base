@@ -8,7 +8,7 @@
 [@b.card style="width:100%" class="card-info card-primary card-outline"]
   [@b.card_header]
     <h3 class="card-title">${c.name} (${c.firstWeekday}开始)
-    <span class="badge badge-primary">${c.semesters?size}</span>
+    <span class="badge badge-primary">${c.semesters?size}个学期</span>
     </h3>
     [@b.card_tools]
         <button type="button" class="btn btn-tool" data-card-widget="collapse">

@@ -8,7 +8,7 @@
   <div class="col-3">
     <div class="card  card-info card-primary card-outline">
       <div class="card-header">
-        专业列表
+        专业列表 <span class="badge badge-primary">${majors?size}</span>
       </div>
       <div class="card-body" style="padding-top: 0px;">
          <table class="table table-hover table-sm">
