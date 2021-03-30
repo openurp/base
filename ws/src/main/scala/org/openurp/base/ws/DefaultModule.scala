@@ -19,13 +19,18 @@
 package org.openurp.base.ws
 
 import org.beangle.cdi.bind.BindModule
+import org.openurp.code.service.impl.CodeServiceImpl
 
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
     bind(classOf[edu.TeacherWS])
     bind(classOf[stu.InstructorWS])
-    bind(classOf[edu.SemesterWS])
-    bind(classOf[UserWS])
+    bind(classOf[edu.SemesterWS], classOf[edu.ClassroomWS])
+    bind(classOf[UserWS], classOf[DepartmentWS])
+    bind(classOf[BuildingWS],classOf[CampusWS])
+    bind(classOf[CodeWS])
+
+    bind(classOf[CodeServiceImpl])
   }
 }
