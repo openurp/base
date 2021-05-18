@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.grid items=courseCategories var="courseAssessCategory"]
+[@b.grid items=courseAssessCategories var="courseAssessCategory"]
   [@b.gridbar]
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
