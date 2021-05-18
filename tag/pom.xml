@@ -3,12 +3,12 @@
   <parent>
     <groupId>org.openurp.base</groupId>
     <artifactId>openurp-base-web-parent</artifactId>
-    <version>0.1.17</version>
+    <version>0.1.18</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>openurp-base-tag</artifactId>
   <packaging>jar</packaging>
-  <name>Openurp Base Tag</name>
+  <name>OpenURP Base Tag</name>
 
   <properties>
     <bundle.symbolicName>org.openurp.base.tag</bundle.symbolicName>

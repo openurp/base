@@ -18,8 +18,6 @@
  */
 package org.openurp.base.web.action.admin.edu
 
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-
 import org.beangle.commons.codec.digest.Digests
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.ClassLoaders
@@ -30,11 +28,13 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
 import org.beangle.webmvc.api.annotation.{mapping, param, response}
 import org.beangle.webmvc.api.view.{Stream, View}
-import org.openurp.base.model.{Campus, Department}
-import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.code.model.StdType
 import org.openurp.base.edu.model._
 import org.openurp.base.edu.web.helper.{QueryHelper, SquadImportListener}
+import org.openurp.base.model.{Campus, Department}
+import org.openurp.code.edu.model.EducationLevel
+
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 
 class SquadAction extends ProjectRestfulAction[Squad] {
 
@@ -99,7 +99,6 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     Stream(ClassLoaders.getResourceAsStream("template/squad.xls").get, "application/vnd.ms-excel", "班级信息.xls")
   }
 
-
   @response
   def downloadTemplate(): Any = {
     val project = getProject
@@ -107,6 +106,8 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     val majors = entityDao.search(OqlBuilder.from(classOf[Major], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.code + " " + x.name)
     val directions = entityDao.search(OqlBuilder.from(classOf[Direction], "d").where("d.project=:project", project).orderBy("d.code")).map(x => x.code + " " + x.name)
     val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name)
+    val levels = project.levels.map(x => x.code + " " + x.name)
+    val stdTypes = project.stdTypes.map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -115,6 +116,8 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     sheet.add("班级代码", "squad.code").length(10).required().remark("≤10位")
     sheet.add("班级名称", "squad.name").length(100).required()
     sheet.add("班级英文名称", "squad.enName").length(300)
+    sheet.add("培养层次代码", "squad.level.code").ref(levels).required()
+    sheet.add("学生类别代码", "squad.stdType.code").ref(stdTypes).required()
     sheet.add("年级", "squad.grade").required()
     sheet.add("院系代码", "squad.department.code").ref(departs).required()
     sheet.add("专业代码", "squad.major.code").ref(majors).required()
@@ -122,8 +125,12 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     sheet.add("计划人数", "squad.planCount").required().decimal()
     sheet.add("辅导员工号", "squad.instructor.code")
     sheet.add("校区代码", "squad.campus.code").ref(campuses).required()
+    sheet.add("生效日期", "squad.beginOn").date().required()
+    sheet.add("失效日期", "squad.endOn").date().required()
 
     val code = schema.createScheet("数据字典")
+    code.add("培养层次代码").data(levels)
+    code.add("学生类别代码").data(stdTypes)
     code.add("院系代码").data(departs)
     code.add("专业代码").data(majors)
     code.add("专业方向代码").data(directions)

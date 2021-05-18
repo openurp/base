@@ -54,6 +54,8 @@ class TextbookAction extends ProjectRestfulAction[Textbook] {
       case false =>
         builder.where("textbook.endOn is not null and textbook.endOn <:now", LocalDate.now)
     }
+
+    builder.limit(getPageLimit)
     builder
   }
 

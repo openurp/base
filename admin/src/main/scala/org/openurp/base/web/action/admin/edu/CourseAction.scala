@@ -25,7 +25,7 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.api.view.{Stream, View}
-import org.openurp.base.edu.code.model.{CourseCategory, CourseType}
+import org.openurp.base.edu.code.model.{CourseAssessCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, TeachingGroup}
 import org.openurp.base.edu.web.helper.{CourseImportListener, QueryHelper}
 import org.openurp.base.model.Department
@@ -38,7 +38,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
 
   protected override def indexSetting(): Unit = {
     put("courseTypes", getCodes(classOf[CourseType]))
-    put("courseCategories", getCodes(classOf[CourseCategory]))
+    put("courseCategories", getCodes(classOf[CourseAssessCategory]))
     val departments = findInSchool(classOf[Department])
     put("departments", departments)
     put("courseNatures", getCodes(classOf[CourseNature]))
@@ -62,7 +62,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     put("courseTypes", getCodes(classOf[CourseType]))
     put("examModes", getCodes(classOf[ExamMode]))
     put("gradingModes", getCodes(classOf[GradingMode]))
-    put("courseCategories", getCodes(classOf[CourseCategory]))
+    put("courseCategories", getCodes(classOf[CourseAssessCategory]))
     put("departments", findInSchool(classOf[Department]))
     put("teachingGroups", entityDao.getAll(classOf[TeachingGroup])) //FIXME for teachingGroup missing project
     var levels = getProject.levels.map(_.toLevel).toSet.toBuffer
@@ -80,7 +80,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
   }
 
   protected override def saveAndRedirect(entity: Course): View = {
-    val course = entity.asInstanceOf[Course]
+    val course = entity
 
     val teachingNatures = getCodes(classOf[TeachingNature])
     teachingNatures foreach { ht =>
@@ -144,6 +144,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     val examModes = entityDao.search(OqlBuilder.from(classOf[ExamMode], "bc").orderBy("bc.name")).map(_.name)
     val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.name")).map(_.name)
     val natures = entityDao.search(OqlBuilder.from(classOf[CourseNature], "bc").orderBy("bc.name")).map(_.name)
+    val assessCategories = entityDao.search(OqlBuilder.from(classOf[CourseAssessCategory], "bc").orderBy("bc.name")).map(_.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -159,6 +160,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     sheet.add("周课时", "course.weekHours").required().decimal()
     sheet.add("考核方式名称", "course.examMode.name").ref(examModes).required()
     sheet.add("课程性质", "course.nature.name").ref(natures).required()
+    sheet.add("评教分类", "course.category.name").ref(assessCategories)
     sheet.add("是否设置补考", "course.hasMakeup").bool()
     sheet.add("是否计算绩点", "course.calgp").bool()
 

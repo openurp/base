@@ -25,7 +25,7 @@ import org.beangle.webmvc.api.action.ActionSupport
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.EntityAction
 import org.openurp.base.edu.model.Teacher
-import org.openurp.boot.edu.helper.ProjectSupport
+import org.openurp.starter.edu.helper.ProjectSupport
 
 class TeacherAction extends ActionSupport with EntityAction[Teacher] with ProjectSupport {
 

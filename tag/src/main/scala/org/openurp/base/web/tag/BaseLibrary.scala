@@ -20,14 +20,15 @@ package org.openurp.base.web.tag
 
 import org.beangle.commons.lang.annotation.description
 import org.beangle.webmvc.view.tag.AbstractTagLibrary
-
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.beangle.webmvc.api.context.ActionContext
 
 @description("Openurp Base 标签库")
 class BaseLibrary extends AbstractTagLibrary {
 
-  def getModels(req: HttpServletRequest, res: HttpServletResponse): AnyRef = {
+  override def models(): AnyRef = {
+    val req=ActionContext.current.request
     new BaseModels(this.buildComponentContext(req), req)
   }
 

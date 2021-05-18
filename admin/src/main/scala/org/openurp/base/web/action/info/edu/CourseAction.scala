@@ -26,7 +26,7 @@ import org.beangle.webmvc.api.annotation.{mapping, param}
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.EntityAction
 import org.openurp.base.edu.model.Course
-import org.openurp.boot.edu.helper.ProjectSupport
+import org.openurp.starter.edu.helper.ProjectSupport
 
 class CourseAction extends ActionSupport with EntityAction[Course] with ProjectSupport {
 

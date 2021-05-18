@@ -22,7 +22,7 @@ import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.RestfulAction
 import org.openurp.base.edu.model.MajorJournal
 import org.openurp.base.model.Department
-import org.openurp.boot.edu.helper.ProjectSupport
+import org.openurp.starter.edu.helper.ProjectSupport
 import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
 
 class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport {
