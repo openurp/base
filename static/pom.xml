@@ -9,7 +9,7 @@
   <artifactId>openurp-base-static</artifactId>
   <version>0.1.18-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>Openurp Base Static</name>
+  <name>OpenURP Base Static</name>
 
   <properties>
     <bundle.symbolicName>org.openurp.base.static</bundle.symbolicName>

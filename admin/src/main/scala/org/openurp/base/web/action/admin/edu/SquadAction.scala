@@ -99,7 +99,6 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     Stream(ClassLoaders.getResourceAsStream("template/squad.xls").get, "application/vnd.ms-excel", "班级信息.xls")
   }
 
-
   @response
   def downloadTemplate(): Any = {
     val project = getProject

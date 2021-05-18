@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>openurp-base-tag</artifactId>
   <packaging>jar</packaging>
-  <name>Openurp Base Tag</name>
+  <name>OpenURP Base Tag</name>
 
   <properties>
     <bundle.symbolicName>org.openurp.base.tag</bundle.symbolicName>

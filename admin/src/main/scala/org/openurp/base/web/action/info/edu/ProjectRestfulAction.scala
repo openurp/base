@@ -24,7 +24,7 @@ import org.beangle.data.model.Entity
 import org.beangle.webmvc.api.action.ActionSupport
 import org.beangle.webmvc.entity.action.{EntityAction, ExportSupport}
 import org.openurp.code.service.CodeService
-import org.openurp.boot.edu.helper.ProjectSupport
+import org.openurp.starter.edu.helper.ProjectSupport
 
 abstract class ProjectRestfulAction[T <: Entity[_]] extends ActionSupport
   with EntityAction[T] with ExportSupport[T] with ProjectSupport {

@@ -24,7 +24,6 @@ import org.openurp.code.sin.model.BookCategory
 import org.openurp.code.sin.model.Press
 import org.openurp.code.sin.model.PressGrade
 
-
 class GradingModeAction extends RestfulAction[GradingMode]
 
 class ExamModeAction extends RestfulAction[ExamMode]
@@ -37,7 +36,6 @@ class EducationLevelAction extends RestfulAction[EducationLevel] {
     super.editSetting(entity)
   }
 }
-
 
 class PressAction extends RestfulAction[Press] {
   override def editSetting(entity: Press) = {

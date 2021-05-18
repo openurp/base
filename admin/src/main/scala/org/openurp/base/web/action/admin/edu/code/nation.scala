@@ -43,5 +43,3 @@ class StudyTypeAction extends RestfulAction[StudyType]
 class DisciplineCategoryAction extends RestfulAction[DisciplineCategory]
 
 class EducationResultAction extends RestfulAction[EducationResult]
-
-

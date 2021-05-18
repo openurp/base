@@ -20,7 +20,7 @@ package org.openurp.base.web.action.admin.edu.code
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.entity.action.RestfulAction
-import org.openurp.base.edu.code.model.{BookType, CourseCategory, _}
+import org.openurp.base.edu.code.model.{BookType, CourseAssessCategory, _}
 import org.openurp.code.edu.model.{CourseNature, TeachingMethod, TeachingNature, TeachingNatureCategory}
 import org.openurp.code.std.model.{StdAlterReason, StdAlterType}
 
@@ -53,7 +53,7 @@ class TeachingMethodAction extends RestfulAction[TeachingMethod]
 
 class CourseTypeAction extends RestfulAction[CourseType]
 
-class CourseCategoryAction extends RestfulAction[CourseCategory]
+class CourseAssessCategoryAction extends RestfulAction[CourseAssessCategory]
 
 class StdAlterTypeAction extends RestfulAction[StdAlterType]
 
