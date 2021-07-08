@@ -18,7 +18,6 @@
  */
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.commons.bean.Initializing
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
@@ -26,9 +25,8 @@ import org.beangle.webmvc.execution.Handler
 import org.openurp.base.code.model.UserCategory
 import org.openurp.base.edu.code.model.TeacherType
 import org.openurp.base.edu.model.Teacher
-import org.openurp.base.edu.web.helper.QueryHelper
 import org.openurp.base.model.{Department, Name, Person, User}
-import org.openurp.base.web.helper.{URPUserCategory, UrpUserHelper}
+import org.openurp.base.web.helper.{QueryHelper, URPUserCategory, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, EducationDegree}
 import org.openurp.code.hr.model.WorkStatus
 import org.openurp.code.job.model.ProfessionalTitle
@@ -87,6 +85,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
       }
     }
     teacher.user = user
+    teacher.department = user.department
     teacher.updatedAt = Instant.now
     teacher.school = user.school
     val project = getProject

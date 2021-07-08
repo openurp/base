@@ -24,7 +24,7 @@ import org.beangle.commons.collection.Collections
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
 import org.openurp.base.edu.model.Classroom
-import org.openurp.base.edu.web.helper.QueryHelper
+import org.openurp.base.web.helper.QueryHelper
 import org.openurp.base.model.{Building, Campus, Department}
 import org.openurp.code.edu.model.ClassroomType
 

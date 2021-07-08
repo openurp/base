@@ -21,7 +21,7 @@ package org.openurp.base.web.action.admin.edu
 import org.beangle.data.dao.OqlBuilder
 import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
-import org.openurp.base.edu.web.helper.QueryHelper
+import org.openurp.base.web.helper.QueryHelper
 
 class MajorAction extends ProjectRestfulAction[Major] {
 

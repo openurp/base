@@ -27,8 +27,9 @@ import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.api.view.{Stream, View}
 import org.openurp.base.edu.code.model.{CourseAssessCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, TeachingGroup}
-import org.openurp.base.edu.web.helper.{CourseImportListener, QueryHelper}
+import org.openurp.base.edu.web.helper.CourseImportListener
 import org.openurp.base.model.Department
+import org.openurp.base.web.helper.QueryHelper
 import org.openurp.code.edu.model.{AcademicLevel, CourseNature, ExamMode, GradingMode, TeachingNature, TeachingNatureCategory}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}

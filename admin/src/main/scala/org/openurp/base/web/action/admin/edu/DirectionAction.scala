@@ -24,7 +24,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.api.view.View
 import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.model.{Direction, DirectionJournal, Major}
-import org.openurp.base.edu.web.helper.QueryHelper
+import org.openurp.base.web.helper.QueryHelper
 
 class DirectionAction extends ProjectRestfulAction[Direction] {
 
