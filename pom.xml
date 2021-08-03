@@ -13,8 +13,8 @@
   <name>OpenURP Base Parent</name>
 
   <properties>
-    <openurp.api.version>0.23.0</openurp.api.version>
-    <openurp.starter.version>0.0.8-SNAPSHOT</openurp.starter.version>
+    <openurp.api.version>0.23.1</openurp.api.version>
+    <openurp.starter.version>0.0.8</openurp.starter.version>
   </properties>
 
   <modules>

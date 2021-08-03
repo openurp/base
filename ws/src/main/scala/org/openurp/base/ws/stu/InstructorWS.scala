@@ -26,7 +26,7 @@ import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.entity.action.EntityAction
 import org.beangle.webmvc.entity.helper.QueryHelper.{PageParam, PageSizeParam}
 import org.openurp.base.edu.model.Semester
-import org.openurp.base.stu.model.Instructor
+import org.openurp.base.std.model.Instructor
 
 class InstructorWS extends ActionSupport with EntityAction[Semester] {
 
