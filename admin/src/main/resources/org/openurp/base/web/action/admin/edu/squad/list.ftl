@@ -5,6 +5,7 @@
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
+    bar.addItem("${b.text("action.export")}",action.exportData("code:代码,name:名称,enName:英文名,grade:年级,level.name:培养层次,department.name:院系,major.name:专业,direction.name:方向,stdType.name:学生类别,stdCount:学生人数,instructor.user.name:辅导员,beginOn:生效日期,endOn:失效日期",null,'fileName=班级信息'));
   [/@]
   [@b.row]
     [@b.boxcol name="squad.id"/]

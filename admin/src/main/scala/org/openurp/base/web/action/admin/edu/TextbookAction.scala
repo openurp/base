@@ -30,7 +30,7 @@ import org.beangle.webmvc.api.view.{Stream, View}
 import org.openurp.code.sin.model.{BookCategory, Press}
 import org.openurp.base.edu.code.model.{BookAwardType, BookType}
 import org.openurp.base.edu.model.Textbook
-import org.openurp.base.edu.web.helper.TextbookImportListener
+import org.openurp.base.web.helper.TextbookImportListener
 
 class TextbookAction extends ProjectRestfulAction[Textbook] {
 

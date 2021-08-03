@@ -28,7 +28,7 @@ import org.beangle.webmvc.api.annotation.response
 import org.beangle.webmvc.api.view.{Stream, View}
 import org.openurp.base.model.{Department, User}
 import org.openurp.base.edu.model.TeachingGroup
-import org.openurp.base.edu.web.helper.TeachingGroupImportListener
+import org.openurp.base.web.helper.TeachingGroupImportListener
 
 class TeachingGroupAction extends ProjectRestfulAction[TeachingGroup] {
 

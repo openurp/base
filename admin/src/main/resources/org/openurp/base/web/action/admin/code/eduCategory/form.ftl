@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="修改人员分类"]bar.addBack();[/@]
+[@b.toolbar title="修改教育类别"]bar.addBack();[/@]
 [@b.tabs]
   [@b.form action=b.rest.save(eduCategory) theme="list"]
     [@b.textfield name="eduCategory.code" label="代码" value="${eduCategory.code!}" required="true" maxlength="20"/]

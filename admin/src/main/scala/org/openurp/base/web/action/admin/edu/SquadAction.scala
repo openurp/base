@@ -30,7 +30,7 @@ import org.beangle.webmvc.api.annotation.{mapping, param, response}
 import org.beangle.webmvc.api.view.{Stream, View}
 import org.openurp.base.edu.code.model.StdType
 import org.openurp.base.edu.model._
-import org.openurp.base.edu.web.helper.SquadImportListener
+import org.openurp.base.web.helper.SquadImportListener
 import org.openurp.base.model.{Campus, Department}
 import org.openurp.base.web.helper.QueryHelper
 import org.openurp.code.edu.model.EducationLevel
