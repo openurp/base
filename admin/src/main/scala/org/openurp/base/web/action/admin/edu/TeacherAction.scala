@@ -1,34 +1,31 @@
 /*
- * OpenURP, Agile University Resource Planning Solution.
- *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (C) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful.
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.commons.bean.Initializing
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.api.view.View
+import org.beangle.web.action.view.View
 import org.beangle.webmvc.execution.Handler
 import org.openurp.base.code.model.UserCategory
 import org.openurp.base.edu.code.model.TeacherType
 import org.openurp.base.edu.model.Teacher
-import org.openurp.base.edu.web.helper.QueryHelper
 import org.openurp.base.model.{Department, Name, Person, User}
-import org.openurp.base.web.helper.{URPUserCategory, UrpUserHelper}
+import org.openurp.base.web.helper.{QueryHelper, URPUserCategory, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, EducationDegree}
 import org.openurp.code.hr.model.WorkStatus
 import org.openurp.code.job.model.ProfessionalTitle
@@ -87,6 +84,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
       }
     }
     teacher.user = user
+    teacher.department = user.department
     teacher.updatedAt = Instant.now
     teacher.school = user.school
     val project = getProject

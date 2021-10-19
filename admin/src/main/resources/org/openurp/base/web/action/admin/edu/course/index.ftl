@@ -12,7 +12,7 @@
             [@b.textfields names="course.name;名称"/]
             [@b.select style="width:100px" name="course.courseType.id" label="课程类别" items=courseTypes option="id,name" empty="..." /]
             [@b.select style="width:100px" name="course.nature.id" label="课程性质" items=courseNatures option="id,name" empty="..." /]
-            [@b.select style="width:100px" name="course.category.id" label="课程种类" items=courseCategories option="id,name" empty="..." /]
+            [@b.select style="width:100px" name="course.category.id" label="评教分类" items=courseCategories option="id,name" empty="..." /]
             [@b.select style="width:100px" name="course.department.id" label="所属院系" items=departments option="id,name" empty="..." /]
             [@b.select style="width:100px" name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." /]
             [#if teachingGroups?size>0]

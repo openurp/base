@@ -1,40 +1,40 @@
 /*
- * OpenURP, Agile University Resource Planning Solution.
- *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (C) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful.
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.codec.digest.Digests
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.ClassLoaders
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.data.transfer.excel.ExcelSchema
+import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
-import org.beangle.webmvc.api.annotation.{mapping, param, response}
-import org.beangle.webmvc.api.view.{Stream, View}
+import org.beangle.web.action.annotation.{mapping, param, response}
+import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.edu.code.model.StdType
 import org.openurp.base.edu.model._
-import org.openurp.base.edu.web.helper.{QueryHelper, SquadImportListener}
 import org.openurp.base.model.{Campus, Department}
+import org.openurp.base.web.helper.{QueryHelper, SquadImportListener}
 import org.openurp.code.edu.model.EducationLevel
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.{Instant, LocalDate}
 
 class SquadAction extends ProjectRestfulAction[Squad] {
 
@@ -72,18 +72,23 @@ class SquadAction extends ProjectRestfulAction[Squad] {
    */
   @mapping(value = "{id}")
   override def info(@param("id") id: String): View = {
+    val squad = entityDao.get(classOf[Squad], id.toLong)
     val builder = OqlBuilder.from(classOf[StudentState], "studentState")
     builder.where("studentState.squad.id=:id", id.toLong)
     val studentStates = entityDao.search(builder)
     val students = Collections.newBuffer[Student]
-    studentStates.foreach { studentState => students += studentState.std }
+    val today = LocalDate.now()
+    val examinDay = if (squad.endOn.isBefore(today)) squad.endOn.minusDays(30) else today
+    studentStates.foreach { ss => if (ss.within(examinDay)) students += ss.std }
+
     val status = Collections.newMap[String, StudentState]
     studentStates.foreach { studentState => status.put(studentState.std.user.code, studentState) }
-    put("students", students)
+    put("students", students.sortBy(_.user.code))
     put("status", status)
     put("urp", Ems)
     put("md5", Md5)
-    super.info(id)
+    put("squad", squad)
+    forward()
   }
 
   object Md5 {
@@ -145,6 +150,28 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     val fk = new ForeignerListener(entityDao)
     fk.addForeigerKey("code")
     setting.listeners = List(fk, new SquadImportListener(getProject, entityDao))
+  }
+
+  /** 统计班级人数
+   *
+   * @return
+   */
+  def statStdCount(): View = {
+    val squadIds = longIds("squad")
+    val squads = entityDao.find(classOf[Squad], squadIds)
+    val today = LocalDate.now()
+    var updated = 0
+    squads foreach { squad =>
+      val examinDay = if (squad.endOn.isBefore(today)) squad.endOn.minusDays(30) else today
+      val newCount = squad.stdStates.filter(x => x.within(examinDay) && x.inschool).size
+      if (newCount != squad.stdCount) {
+        squad.stdCount = newCount
+        updated += 1
+        squad.updatedAt = Instant.now
+      }
+    }
+    entityDao.saveOrUpdate(squads)
+    redirect("search", if (updated == 0) "班级人数无变化" else s"更新了${updated}个班级的人数")
   }
 
 }

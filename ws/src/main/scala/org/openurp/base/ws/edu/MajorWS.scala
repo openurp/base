@@ -15,20 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.info.edu
+package org.openurp.base.ws.edu
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.web.action.support.ActionSupport
+import org.beangle.webmvc.support.action.EntityAction
+import org.openurp.base.edu.model.{Major, Semester}
 
-class DefaultModule extends BindModule {
+class MajorWS extends ActionSupport with EntityAction[Major] {
 
-  protected override def binding(): Unit = {
-    bind(classOf[TimesettingAction])
-    bind(classOf[SemesterAction])
-    bind(classOf[MajorAction])
-    bind(classOf[ClassroomAction])
-    bind(classOf[CourseAction])
-
-    bind(classOf[SquadAction])
-    bind(classOf[TeacherAction])
-  }
 }
