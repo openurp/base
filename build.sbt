@@ -1,8 +1,9 @@
+import org.beangle.tools.sbt.Sas
 import org.openurp.parent.Settings._
 import org.openurp.parent.Dependencies._
 
 ThisBuild / organization := "org.openurp.base"
-ThisBuild / version := "0.1.19"
+ThisBuild / version := "0.1.20"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -24,7 +25,7 @@ ThisBuild / description := "OpenURP Starter"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
 val apiVer = "0.23.2"
-val starterVer = "0.0.9"
+val starterVer = "0.0.10"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
@@ -33,7 +34,6 @@ val pinyin4j = "com.belerweb" % "pinyin4j" % "2.5.1" % "test"
 lazy val root = (project in file("."))
   .settings()
   .aggregate(tag,static,admin,ws,webapp)
-
 
 lazy val tag = (project in file("tag"))
   .settings(
@@ -60,7 +60,7 @@ lazy val ws = (project in file("ws"))
   .settings(
     name := "openurp-base-ws",
     common,
-    libraryDependencies ++= Seq(openurp_base_api,openurp_stater_ws)
+    libraryDependencies ++= Seq(openurp_base_api,openurp_stater_ws,Sas.Tomcat % "test")
   )
 
 lazy val webapp = (project in file("webapp"))
@@ -68,7 +68,7 @@ lazy val webapp = (project in file("webapp"))
   .settings(
     name := "openurp-base-webapp",
     common,
-    libraryDependencies ++= Seq(pinyin4j)
+    libraryDependencies ++= Seq(pinyin4j,Sas.Tomcat % "test")
   ).dependsOn(admin)
 
 publish / skip := true
