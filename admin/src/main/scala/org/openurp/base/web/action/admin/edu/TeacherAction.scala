@@ -19,8 +19,9 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
+import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.View
-import org.beangle.webmvc.execution.Handler
+import org.beangle.webmvc.execution.MappingHandler
 import org.openurp.base.code.model.UserCategory
 import org.openurp.base.edu.code.model.TeacherType
 import org.openurp.base.edu.model.Teacher
@@ -113,7 +114,8 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
 
     } catch {
       case e: Exception => {
-        val redirectTo = Handler.mapping.method.getName match {
+        val mapping = ActionContext.current.handler.asInstanceOf[MappingHandler].mapping
+        val redirectTo = mapping.method.getName match {
           case "save" => "editNew"
           case "update" => "edit"
         }
