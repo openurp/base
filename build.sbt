@@ -3,7 +3,7 @@ import org.openurp.parent.Settings._
 import org.openurp.parent.Dependencies._
 
 ThisBuild / organization := "org.openurp.base"
-ThisBuild / version := "0.1.21-SNAPSHOT"
+ThisBuild / version := "0.1.21"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -24,12 +24,11 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Starter"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.23.2"
-val starterVer = "0.0.10"
+val apiVer = "0.23.3"
+val starterVer = "0.0.12"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
-val pinyin4j = "com.belerweb" % "pinyin4j" % "2.5.1" % "test"
 
 lazy val root = (project in file("."))
   .settings()
@@ -68,7 +67,7 @@ lazy val webapp = (project in file("webapp"))
   .settings(
     name := "openurp-base-webapp",
     common,
-    libraryDependencies ++= Seq(pinyin4j,Sas.Tomcat % "test")
+    libraryDependencies ++= Seq(Sas.Tomcat % "test")
   ).dependsOn(admin)
 
 publish / skip := true

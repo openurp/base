@@ -6,7 +6,7 @@
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("导入",action.method('importForm'));
-    bar.addItem("${b.text("action.export")}",action.exportData("isbn:ISBN,name:名称,press.name:出版社,author:作者,translator:译者,publishedOn:出版年月,edition:版次,category.name:图书分类,bookType.name:教材类型,awardType.name:获奖类型,awardOrg:奖项授予单位,series:丛书,madeInSchool:是否自编,beginOn:创建日期",null,'fileName=教材信息'));
+    bar.addItem("${b.text("action.export")}",action.exportData("isbn:ISBN,name:名称,press.name:出版社,author:作者,translator:译者,publishedOn:出版年月,edition:版次,category.name:图书分类,bookType.name:教材类型,awardType.name:获奖类型,awardOrg:奖项授予单位,series:丛书,madeInSchool:是否自编,beginOn:生效日期,endOn:停用日期",null,'fileName=教材信息'));
   [/@]
   [@b.row]
     [@b.boxcol /]
