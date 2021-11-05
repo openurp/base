@@ -17,12 +17,12 @@
 
 package org.openurp.base.web.helper
 
-import java.time.LocalDate
-
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.edu.model.{Project, Textbook}
+
+import java.time.LocalDate
 
 class TextbookImportListener(project: Project, entityDao: EntityDao) extends ImportListener {
   override def onStart(tr: ImportResult): Unit = {}
@@ -49,9 +49,6 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
         data.put("textbook.publishedOn", publishedOn)
         val query = OqlBuilder.from(classOf[Textbook], "t")
           .where("t.isbn=:isbn", isbn.toString.trim())
-          .where("t.publishedOn=:publishedOn", publishedOn)
-          .where("t.name=:name", name.toString.trim())
-          .where("t.author=:author", author.toString.trim())
         val cs = entityDao.search(query)
         if (cs.nonEmpty) {
           transfer.current = cs.head
