@@ -24,8 +24,8 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Starter"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.23.3"
-val starterVer = "0.0.12"
+val apiVer = "0.23.4"
+val starterVer = "0.0.13"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
@@ -38,7 +38,7 @@ lazy val tag = (project in file("tag"))
   .settings(
     name := "openurp-base-tag",
     common,
-    libraryDependencies ++= Seq(openurp_base_api,beangle_webmvc_support,beangle_ems_app)
+    libraryDependencies ++= Seq(openurp_base_api,beangle_webmvc_support,beangle_data_hibernate,beangle_ems_app)
   )
 
 lazy val static = (project in file("static"))
