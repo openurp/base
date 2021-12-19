@@ -4,7 +4,7 @@
 [#assign codes=codes+{'成绩记录方式':'/admin/edu/code/grading-mode'}]
 [#assign codes=codes+{'课程类别':'/admin/edu/code/course-type'}]
 [#assign codes=codes+{'课程能力等级':'/admin/edu/code/course-ability-rate'}]
-[#assign codes=codes+{'课程评教分类':'/admin/edu/code/course-assess-category'}]
+[#assign codes=codes+{'课程分类':'/admin/edu/code/course-category'}]
 [#assign codes=codes+{'课程性质':'/admin/edu/code/course-nature'}]
 [#assign codes=codes+{'授课性质':'/admin/edu/code/teaching-nature'}]
 [#assign codes=codes+{'授课方式':'/admin/edu/code/teaching-method'}]
