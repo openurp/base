@@ -6,27 +6,27 @@
 <table class="infoTable">
   <tr>
     <td class="title" width="20%">代码</td>
-    <td class="content">${courseAssessCategory.code}</td>
+    <td class="content">${courseCategory.code}</td>
   </tr>
   <tr>
     <td class="title" width="20%">名称</td>
-    <td class="content">${courseAssessCategory.name}</td>
+    <td class="content">${courseCategory.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">英文名</td>
-    <td class="content">${courseAssessCategory.enName!}</td>
+    <td class="content">${courseCategory.enName!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">生效日期</td>
-    <td class="content" >${courseAssessCategory.beginOn!}</td>
+    <td class="content" >${courseCategory.beginOn!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">失效日期</td>
-    <td class="content" >${courseAssessCategory.endOn!}</td>
+    <td class="content" >${courseCategory.endOn!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">备注</td>
-    <td class="content">${courseAssessCategory.remark!}</td>
+    <td class="content">${courseCategory.remark!}</td>
   </tr>
 </table>
 
