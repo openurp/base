@@ -7,7 +7,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
     var targetInputId="#"+options.id+"_target";
     var yearTableId="#"+options.id+"_yearTb"
     var termTableId="#"+options.id+"_termTb"
-    
+
     var yearTb = bar.find("table").first();
     var termTb = yearTb.nextUntil("table").next();
     jQuery(this).next().find(targetInputId)[0].onchange = function(){
@@ -75,7 +75,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
         }
         var year = jQuery(e).next().find(yearInputId);
         var term = jQuery(e).next().find(termInputId);
-       
+
         if(defaultTerm){
           var terms=semesters['y'+yearIndex];
           var termDom="<tbody>"
@@ -94,7 +94,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
           var terms = jQuery(e).next().find(termTableId);
           terms.empty();
           terms.append(termDom+"</tbody>");
-          
+
         }else{
           year.attr("index","-1");
           term.attr("index","-1");
@@ -121,9 +121,9 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
         jQuery(e).data("semesters",semesters);
         years.append(yearDomStr);
     }
-    
+
     getSemesters(this,options,initCallback);
-    
+
     jQuery(this).focus(function(){
         var bar = jQuery(this).next();
         if(!bar.data("barBlur")){
@@ -192,7 +192,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
         bar.show();
         bar.focus();
     })
-    
+
     if(yearTb.find("tr").length>=termTb.find("tr").length){
         yearTb.css("border-right","1px solid #DDD");
         termTb.css("border-left","0 none");
@@ -200,7 +200,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
         termTb.css("border-left","1px solid #DDD");
         yearTb.css("border-right","0 none");
     }
-    
+
     bar.find("#"+options.id+"_all").click(function(){
         var bar = jQuery(this).parents("div").first();
         bar.prev().val("全部学期");
@@ -233,12 +233,12 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
             }
             input.attr("index",tds.index(jQuery(this)));
             jQuery(this).removeClass("sp-td-hover");
-            
+
             tb.nextUntil("table").next().empty();
-            if(jQuery(this).attr("index")){                
+            if(jQuery(this).attr("index")){
                 var terms = bar.prev().data("semesters")["y"+input.attr("index")];
                 var html = "<tbody>";
-                
+
                 for(var i=0;i<terms.length;i++){
                     html+="<tr><td index='"+i+"' val='"+terms[i].id+"' class='"+(i==0?"ui-state-active":"semester-picker-td-blankBorder")+"'><span>"+terms[i].name+"</span>学期</td></tr>";
                 }
@@ -314,7 +314,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
             }
         }
     });
-    
+
     termTb.find("td").click(function(){
         if(!jQuery(this).is(":empty")){
             //TODO 多选
@@ -358,7 +358,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
             }
         }
     });
-    
+
     bar.blur(function(){
         var $this = jQuery(this);
         if($this.find("td.sp-td-hover").length==0){
@@ -374,7 +374,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
             }
         }
     });
-    
+
     if(jQuery.type(initCallback)=="string"){
         jQuery(this).next().find(targetInputId).one("initCallback",function(){
             eval(initCallback);
