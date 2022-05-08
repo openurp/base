@@ -57,7 +57,7 @@ class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
       }
     }
     if (url == null) {
-      url = Ems.api + s"/base/${project.id}/semesters.json"
+      url = Ems.api + s"/base/semesters/${project.id}.json"
     }
 
   }
