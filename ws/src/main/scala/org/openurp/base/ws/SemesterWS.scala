@@ -18,8 +18,9 @@
 package org.openurp.base.ws
 
 import org.beangle.commons.collection.Properties
+import org.beangle.commons.lang.Numbers
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.annotation.response
+import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.model.{Project, Semester}
@@ -29,9 +30,15 @@ import java.time.LocalDate
 class SemesterWS extends ActionSupport with EntityAction[Semester] {
 
   @response
-  def index: Seq[Properties] = {
-    val project = entityDao.get(classOf[Project], getInt("project").get)
-    getSemesters(project, getBoolean("all").getOrElse(false))
+  @mapping("{project}")
+  def index(@param("project") projectId: String): Seq[Properties] = {
+    if Numbers.isDigits(projectId) then
+      entityDao.find(classOf[Project], projectId.toInt) match {
+        case Some(project) => getSemesters(project, getBoolean("all").getOrElse(false))
+        case None => Seq.empty
+      }
+    else
+      Seq.empty
   }
 
   private def getSemesters(project: Project, all: Boolean): Seq[Properties] = {

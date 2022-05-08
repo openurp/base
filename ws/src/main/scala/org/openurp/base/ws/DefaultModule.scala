@@ -23,11 +23,11 @@ import org.openurp.code.service.impl.CodeServiceImpl
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
-    bind(classOf[edu.TeacherWS])
+    bind(classOf[edu.TeacherWS], classOf[edu.ClassroomWS])
     bind(classOf[std.MentorWS])
-    bind(classOf[SemesterWS], classOf[edu.ClassroomWS])
+    bind(classOf[SemesterWS])
     bind(classOf[UserWS], classOf[DepartmentWS])
-    bind(classOf[BuildingWS],classOf[CampusWS])
+    bind(classOf[BuildingWS], classOf[CampusWS])
     bind(classOf[CodeWS])
 
     bind(classOf[CodeServiceImpl])
