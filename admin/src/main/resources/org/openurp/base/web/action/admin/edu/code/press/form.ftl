@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改出版社"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(press) theme="list"]
     [@b.textfield name="press.code" label="代码" value="${press.code!}" required="true" maxlength="20"/]
     [@b.textfield name="press.name" label="名称" value="${press.name!}" required="true" maxlength="20"/]
@@ -16,5 +15,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改学科门类"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form  theme="list" action=b.rest.save(disciplineCategory)]
     [@b.textfield name="disciplineCategory.code" label="代码" value="${disciplineCategory.code!}" required="true" maxlength="20"/]
     [@b.textfield name="disciplineCategory.name" label="名称" value="${disciplineCategory.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

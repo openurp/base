@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改学籍异动类型"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if stdAlterType.persisted]!update?id=${stdAlterType.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="stdAlterType.code" label="代码" value="${stdAlterType.code!}" required="true" maxlength="20"/]
@@ -15,5 +14,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

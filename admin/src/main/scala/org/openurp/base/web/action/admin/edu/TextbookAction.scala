@@ -17,56 +17,25 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import java.time.LocalDate
-
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.doc.excel.schema.ExcelSchema
+import org.beangle.data.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
-import org.openurp.code.sin.model.{BookCategory, Press}
 import org.openurp.base.edu.code.model.{BookAwardType, BookType}
 import org.openurp.base.edu.model.Textbook
+import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TextbookImportListener
+import org.openurp.code.sin.model.{BookCategory, Press}
+
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.LocalDate
 
 class TextbookAction extends ProjectRestfulAction[Textbook] {
 
-  override protected def indexSetting(): Unit = {
-    put("project", getProject)
-    super.indexSetting()
-  }
-
-  protected override def editSetting(textbook: Textbook): Unit = {
-    put("bookTypes", getCodes(classOf[BookType]))
-    put("presses", getCodes(classOf[Press]))
-    put("awardTypes", getCodes(classOf[BookAwardType]))
-    put("categories", getCodes(classOf[BookCategory]))
-  }
-
-  override protected def getQueryBuilder: OqlBuilder[Textbook] = {
-    val builder: OqlBuilder[Textbook] = super.getQueryBuilder
-    getBoolean("active") foreach {
-      case true =>
-        builder.where("textbook.endOn is null or textbook.endOn >=:now", LocalDate.now)
-      case false =>
-        builder.where("textbook.endOn is not null and textbook.endOn <:now", LocalDate.now)
-    }
-
-    builder.limit(getPageLimit)
-    builder
-  }
-
   def innerIndex(): View = {
     forward()
-  }
-
-  protected override def saveAndRedirect(book: Textbook): View = {
-    if (null == book.beginOn) {
-      book.beginOn = LocalDate.now
-    }
-    super.saveAndRedirect(book)
   }
 
   @response
@@ -103,6 +72,38 @@ class TextbookAction extends ProjectRestfulAction[Textbook] {
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教材模板.xlsx")
+  }
+
+  override protected def indexSetting(): Unit = {
+    put("project", getProject)
+    super.indexSetting()
+  }
+
+  protected override def editSetting(textbook: Textbook): Unit = {
+    put("bookTypes", getCodes(classOf[BookType]))
+    put("presses", getCodes(classOf[Press]))
+    put("awardTypes", getCodes(classOf[BookAwardType]))
+    put("categories", getCodes(classOf[BookCategory]))
+  }
+
+  override protected def getQueryBuilder: OqlBuilder[Textbook] = {
+    val builder: OqlBuilder[Textbook] = super.getQueryBuilder
+    getBoolean("active") foreach {
+      case true =>
+        builder.where("textbook.endOn is null or textbook.endOn >=:now", LocalDate.now)
+      case false =>
+        builder.where("textbook.endOn is not null and textbook.endOn <:now", LocalDate.now)
+    }
+
+    builder.limit(getPageLimit)
+    builder
+  }
+
+  protected override def saveAndRedirect(book: Textbook): View = {
+    if (null == book.beginOn) {
+      book.beginOn = LocalDate.now
+    }
+    super.saveAndRedirect(book)
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

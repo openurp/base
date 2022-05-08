@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改建筑类型"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if building.persisted]!update?id=${building.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="building.code" label="代码" value="${building.code!}" required="true" maxlength="10"/]
@@ -17,5 +16,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

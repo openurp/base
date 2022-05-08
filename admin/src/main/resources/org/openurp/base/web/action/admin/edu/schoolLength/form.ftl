@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="学习年限"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if schoolLength.persisted]!update?id=${schoolLength.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list" action=b.rest.save(schoolLength)]
     [@b.select name="schoolLength.level.id" label="培养层次" value="${(schoolLength.level.id)!}" required="true"
@@ -17,5 +16,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改学位"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(degree) theme="list"]
     [@b.textfield name="degree.code" label="代码" value="${degree.code!}" required="true" maxlength="20"/]
     [@b.textfield name="degree.name" label="名称" value="${degree.name!}" required="true" maxlength="20"/]
@@ -16,5 +15,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

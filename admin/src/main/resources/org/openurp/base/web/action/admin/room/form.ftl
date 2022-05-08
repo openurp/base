@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改房间信息"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(room) theme="list"]
     [@b.textfield name="room.code" label="代码" value="${room.code!}" required="true" maxlength="10"/]
     [@b.textfield name="room.name" label="名称" value="${room.name!}" required="true" maxlength="80"/]
@@ -21,5 +20,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改节次信息"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if courseUnit.persisted]!update?id=${courseUnit.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="courseUnit.indexno" value="${courseUnit.indexno!}" required="true"/]
@@ -18,5 +17,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

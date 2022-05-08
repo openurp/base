@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改教师信息"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(teacher) theme="list"]
     [@b.textfield name="user.code" label="职工号" value=(teacher.user.code) required="true" style="width:100px;" maxlength="20"/]
     [@b.textfield name="user.name" label="姓名" value=(teacher.user.name) required="true" style="width:100px;" maxlength="20"/]
@@ -29,5 +28,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

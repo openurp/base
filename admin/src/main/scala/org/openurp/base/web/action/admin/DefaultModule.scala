@@ -18,7 +18,7 @@
 package org.openurp.base.web.action.admin
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.code._
+import org.openurp.base.web.action.admin.code.*
 
 class DefaultModule extends BindModule {
 
@@ -35,5 +35,8 @@ class DefaultModule extends BindModule {
     bind(classOf[DepartmentAction], classOf[SchoolAction])
     bind(classOf[UserAction])
     bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
+
+    bind(classOf[SemesterAction], classOf[CalendarAction], classOf[CalendarStageAction])
+    bind(classOf[ProjectAction], classOf[ProjectCodeAction])
   }
 }

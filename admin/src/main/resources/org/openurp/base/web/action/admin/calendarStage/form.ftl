@@ -1,0 +1,13 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改学期阶段"]bar.addBack();[/@]
+  [@b.form action=b.rest.save(calendarStage) theme="list"]
+    [@b.textfield name="calendarStage.name" label="名称" value=calendarStage.name required="true" maxlength="20"/]
+    [@b.select name="calendarStage.school.id" label="学校" value=calendarStage.school!
+                   style="width:200px;" items=schools required="true"/]
+    [@b.radios label="是否假期"  name="calendarStage.vacation" value=calendarStage.vacation! items="1:common.yes,0:common.no" required="true"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[@b.foot/]

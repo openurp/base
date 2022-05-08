@@ -20,11 +20,12 @@ package org.openurp.base.ws.edu
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.annotation.response
+import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam}
-import org.openurp.base.edu.model.{Project, Teacher}
+import org.openurp.base.edu.model.Teacher
+import org.openurp.base.model.Project
 
 class TeacherWS extends ActionSupport with EntityAction[Teacher] {
   @response

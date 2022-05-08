@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改学生类别"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if stdType.persisted]!update?id=${stdType.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="stdType.code" label="代码" value="${stdType.code!}" required="true" maxlength="20"/]
@@ -15,5 +14,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

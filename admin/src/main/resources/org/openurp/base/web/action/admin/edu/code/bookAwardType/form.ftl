@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改教材获奖类型"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(bookAwardType) theme="list"]
     [@b.textfield name="bookAwardType.code" label="代码" value="${bookAwardType.code!}" required="true" maxlength="20"/]
     [@b.textfield name="bookAwardType.name" label="名称" value="${bookAwardType.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

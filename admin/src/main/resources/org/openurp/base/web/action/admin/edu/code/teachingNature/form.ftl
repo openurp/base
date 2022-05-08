@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改课时类别代码"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(teachingNature) theme="list" ]
     [@b.textfield name="teachingNature.code" label="代码" value="${teachingNature.code!}" required="true" maxlength="20"/]
     [@b.textfield name="teachingNature.name" label="名称" value="${teachingNature.name!}" required="true" maxlength="20"/]
@@ -19,5 +18,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

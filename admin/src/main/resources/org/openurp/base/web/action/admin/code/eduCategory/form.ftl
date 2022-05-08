@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改教育类别"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(eduCategory) theme="list"]
     [@b.textfield name="eduCategory.code" label="代码" value="${eduCategory.code!}" required="true" maxlength="20"/]
     [@b.textfield name="eduCategory.name" label="名称" value="${eduCategory.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

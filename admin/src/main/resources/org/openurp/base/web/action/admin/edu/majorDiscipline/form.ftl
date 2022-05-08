@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改专业建设过程"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(majorDiscipline) theme="list"]
     [@b.select name="majorDiscipline.category.id" label="学科门类" value="${(majorDiscipline.category.id)!}" required="true"
                style="width:200px;" items=categories option="id,name" empty="..."/]
@@ -15,5 +14,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

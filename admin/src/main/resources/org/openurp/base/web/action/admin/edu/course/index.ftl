@@ -15,8 +15,8 @@
             [@b.select style="width:100px" name="course.category.id" label="评教分类" items=courseCategories option="id,name" empty="..." /]
             [@b.select style="width:100px" name="course.department.id" label="所属院系" items=departments option="id,name" empty="..." /]
             [@b.select style="width:100px" name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." /]
-            [#if teachingGroups?size>0]
-            [@b.select style="width:100px" name="course.teachingGroup.id" label="教研室" items=teachingGroups option="id,name" empty="..." /]
+            [#if teachingOffices?size>0]
+            [@b.select style="width:100px" name="course.teachingOffice.id" label="教研室" items=teachingOffices option="id,name" empty="..." /]
             [/#if]
             <input type="hidden" name="orderBy" value="course.code"/>
         [/@]

@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改课程类别"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if courseType.persisted]!update?id=${courseType.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="courseType.code" label="代码" value="${courseType.code!}" required="true" maxlength="20"/]
@@ -18,5 +17,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

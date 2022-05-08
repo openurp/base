@@ -17,13 +17,14 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import java.time.LocalDate
-
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
-import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.model.{Direction, DirectionJournal, Major}
+import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.QueryHelper
+import org.openurp.code.edu.model.EducationLevel
+
+import java.time.LocalDate
 
 class DirectionAction extends ProjectRestfulAction[Direction] {
 
