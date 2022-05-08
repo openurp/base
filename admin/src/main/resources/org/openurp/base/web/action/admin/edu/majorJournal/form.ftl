@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改专业建设过程"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(majorJournal) theme="list"]
     [@b.select name="majorJournal.level.id" label="培养层次" value="${(majorJournal.level.id)!}" required="true"
                style="width:200px;" items=levels option="id,name" empty="..."/]
@@ -16,5 +15,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

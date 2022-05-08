@@ -20,12 +20,13 @@ package org.openurp.base.ws
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.annotation.response
+import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam, populateConditions}
 import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.User
+import org.openurp.base.std.model.Student
 
 class UserWS extends ActionSupport with EntityAction[User] {
   @response
@@ -37,8 +38,11 @@ class UserWS extends ActionSupport with EntityAction[User] {
       val c = s"%${q}%"
       query.where("user.name like :c or user.code like :c", c)
     }
-    getBoolean("isTeacher") foreach{ isTeacher=>
-        query.where((if(isTeacher) "" else "not ") + " exists(from "+classOf[Teacher].getName+"  t  where t.user=user)")
+    getBoolean("isTeacher") foreach { isTeacher =>
+      query.where((if (isTeacher) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.user=user)")
+    }
+    getBoolean("isStd") foreach { isStd =>
+      query.where((if (isStd) "" else "not ") + " exists(from " + classOf[Student].getName + "  t  where t.user=user)")
     }
     val orderStr = get(Order.OrderStr).getOrElse("user.name")
     query.orderBy(orderStr)

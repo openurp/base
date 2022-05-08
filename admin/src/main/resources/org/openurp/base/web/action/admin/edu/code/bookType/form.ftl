@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改教材类型"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(bookType) theme="list"]
     [@b.textfield name="bookType.code" label="代码" value="${bookType.code!}" required="true" maxlength="20"/]
     [@b.textfield name="bookType.name" label="名称" value="${bookType.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

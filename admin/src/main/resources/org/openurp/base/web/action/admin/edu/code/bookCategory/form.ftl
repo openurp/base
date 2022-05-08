@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改图书分类"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(bookCategory) theme="list"]
     [@b.textfield name="bookCategory.code" label="代码" value="${bookCategory.code!}" required="true" maxlength="20"/]
     [@b.textfield name="bookCategory.name" label="名称" value="${bookCategory.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

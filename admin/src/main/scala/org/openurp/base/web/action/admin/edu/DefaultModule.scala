@@ -18,22 +18,21 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.edu.code._
+import org.openurp.base.web.action.admin.edu.code.*
 import org.openurp.base.web.helper.UrpUserHelper
 
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
-    bind(classOf[SquadAction], classOf[MajorAction], classOf[DirectionAction], classOf[DirectionJournalAction], classOf[MajorJournalAction], classOf[MajorDisciplineAction])
-    bind(classOf[ProjectAction], classOf[ProjectCodeAction])
+    bind(classOf[MajorAction], classOf[DirectionAction], classOf[DirectionJournalAction], classOf[MajorJournalAction], classOf[MajorDisciplineAction])
+
     bind(classOf[CourseAction], classOf[TeacherAction])
     bind(classOf[ClassroomAction])
     bind(classOf[TextbookAction])
     bind(classOf[SchoolLengthAction])
-    bind(classOf[TeachingGroupAction])
+    bind(classOf[TeachingOfficeAction])
 
-    bind(classOf[SemesterAction], classOf[CalendarAction])
-    bind(classOf[TimeSettingAction], classOf[CourseUnitAction], classOf[CalendarStageAction])
+    bind(classOf[TimeSettingAction], classOf[CourseUnitAction])
 
     //code mapping
     bind(classOf[CodeAction])

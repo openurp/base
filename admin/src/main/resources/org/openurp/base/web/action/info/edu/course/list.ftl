@@ -46,7 +46,7 @@
               [/#if]
             </td>
             <td>${course.weekHours}</td>
-            <td>${course.department.name}</td>
+            <td>${course.department.shortName!course.department.name}</td>
             <td>${(course.courseType.name)!}</td>
             <td>${(course.examMode.name)!}</td>
            </tr>

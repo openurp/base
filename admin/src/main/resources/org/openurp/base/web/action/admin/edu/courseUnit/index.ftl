@@ -9,7 +9,9 @@
     [@b.form name="courseUnitSearchForm" action="!search" target="courseUnitlist" title="ui.searchForm" theme="search"]
       [@b.textfields names="courseUnit.name;名称"/]
       [@b.textfields names="courseUnit.indexno;序号"/]
-      [@b.select name="courseUnit.setting.id" label="方案" items=settings/]
+      [#if settings?size>0]
+      [@b.select name="courseUnit.setting.id" label="方案" items=settings value=settings?first/]
+      [/#if]
       <input type="hidden" name="orderBy" value="courseUnit.indexno"/>
     [/@]
     </div>

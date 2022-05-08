@@ -26,6 +26,7 @@ import org.openurp.base.code.model.UserCategory
 import org.openurp.base.edu.code.model.TeacherType
 import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.{Department, Name, Person, User}
+import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{QueryHelper, URPUserCategory, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, EducationDegree}
 import org.openurp.code.hr.model.WorkStatus

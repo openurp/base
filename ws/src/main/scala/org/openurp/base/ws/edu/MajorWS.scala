@@ -19,7 +19,7 @@ package org.openurp.base.ws.edu
 
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
-import org.openurp.base.edu.model.{Major, Semester}
+import org.openurp.base.edu.model.Major
 
 class MajorWS extends ActionSupport with EntityAction[Major] {
 

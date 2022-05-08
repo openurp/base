@@ -1,6 +1,6 @@
 [@b.head/]
 
-[#include "../info_macros.ftl"/]
+[#include "../../info_macros.ftl"/]
 [@info_header title="作息时间"/]
 
 <div class="container-fluid"  style="display:flex;justify-content:space-around;flex-wrap:wrap">

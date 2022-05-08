@@ -20,7 +20,7 @@ package org.openurp.base.web.tag
 import org.beangle.ems.app.Ems
 import org.beangle.web.action.context.ActionContext
 import org.beangle.template.api.{ClosingUIBean,ComponentContext}
-import org.openurp.base.edu.model.{Project, Semester}
+import org.openurp.base.model.{Project, Semester}
 
 class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
 
@@ -57,7 +57,7 @@ class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
       }
     }
     if (url == null) {
-      url = Ems.api + s"/base/edu/${project.id}/semesters.json"
+      url = Ems.api + s"/base/semesters/${project.id}.json"
     }
 
   }

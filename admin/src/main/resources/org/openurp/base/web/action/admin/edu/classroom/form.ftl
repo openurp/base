@@ -2,7 +2,6 @@
 [@b.head/]
 [@b.toolbar title="修改教室"]bar.addBack();[/@]
 [#assign is_virtual][#if classroom.persisted && !classroom.roomNo??]1[#else]0[/#if][/#assign]
-[@b.tabs]
   [@b.form action=b.rest.save(classroom) theme="list" onsubmit="validVirtual"]
     [@b.textfield name="classroom.code" label="代码" value="${classroom.code!}" required="true" maxlength="20"/]
     [@b.textfield name="classroom.name" label="名称" value="${classroom.name!}" required="true" maxlength="20"/]
@@ -27,7 +26,6 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit" /]
     [/@]
   [/@]
-[/@]
 <script>
   function validVirtual(form){
      if(form['virtual_room'].value=='0'){

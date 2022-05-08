@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改通用人员信息"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if user.persisted]!update?id=${user.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="user.code" label="账号" value="${user.code!}" required="true" maxlength="30"/]
@@ -19,5 +18,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

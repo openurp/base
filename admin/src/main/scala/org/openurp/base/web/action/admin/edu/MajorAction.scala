@@ -18,16 +18,12 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
-import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
+import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.QueryHelper
+import org.openurp.code.edu.model.EducationLevel
 
 class MajorAction extends ProjectRestfulAction[Major] {
-
-  override protected def indexSetting(): Unit = {
-    put("departs", getDeparts)
-    put("levels", getCodes(classOf[EducationLevel]))
-  }
 
   override def getQueryBuilder: OqlBuilder[Major] = {
     val query = super.getQueryBuilder
@@ -50,6 +46,11 @@ class MajorAction extends ProjectRestfulAction[Major] {
     }
 
     super.editSetting(entity)
+  }
+
+  override protected def indexSetting(): Unit = {
+    put("departs", getDeparts)
+    put("levels", getCodes(classOf[EducationLevel]))
   }
 
 }

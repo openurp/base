@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改专业方向建设过程"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if directionJournal.persisted]!update?id=${directionJournal.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.select name="directionJournal.level.id" label="培养层次" value="${(directionJournal.level.id)!}" required="true"
@@ -17,5 +16,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

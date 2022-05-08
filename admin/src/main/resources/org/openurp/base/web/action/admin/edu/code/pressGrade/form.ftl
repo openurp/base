@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改出版社级别"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(pressGrade) theme="list"]
     [@b.textfield name="pressGrade.code" label="代码" value="${pressGrade.code!}" required="true" maxlength="20"/]
     [@b.textfield name="pressGrade.name" label="名称" value="${pressGrade.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

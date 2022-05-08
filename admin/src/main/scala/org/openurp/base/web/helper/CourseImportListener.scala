@@ -17,11 +17,12 @@
 
 package org.openurp.base.web.helper
 
-import java.time.{Instant, LocalDate}
-
 import org.beangle.data.dao.EntityDao
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.{Course, Project}
+import org.openurp.base.edu.model.Course
+import org.openurp.base.model.Project
+
+import java.time.{Instant, LocalDate}
 
 class CourseImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
   override def onStart(tr: ImportResult): Unit = {}

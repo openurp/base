@@ -19,8 +19,9 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
-import org.openurp.code.edu.model.DayPart
 import org.openurp.base.edu.model.{CourseUnit, TimeSetting}
+import org.openurp.base.web.action.admin.ProjectRestfulAction
+import org.openurp.code.edu.model.DayPart
 
 class TimeSettingAction extends ProjectRestfulAction[TimeSetting] {
 

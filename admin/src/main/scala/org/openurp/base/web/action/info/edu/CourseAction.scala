@@ -17,20 +17,22 @@
 
 package org.openurp.base.web.action.info.edu
 
-import java.time.LocalDate
-
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.annotation.{mapping, param}
+import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.edu.model.Course
 import org.openurp.starter.edu.helper.ProjectSupport
 
+import java.time.LocalDate
+
 class CourseAction extends ActionSupport with EntityAction[Course] with ProjectSupport {
 
   def index(): View = {
+    val project = getProject
     val dQuery = OqlBuilder.from(classOf[Course].getName, "c")
+    dQuery.where("c.project=:project", project)
     dQuery.where("c.endOn is null or c.endOn > :now", LocalDate.now)
     dQuery.select("c.department.id,c.department.name,count(*)")
     dQuery.groupBy("c.department.id,c.department.code,c.department.name")
@@ -38,6 +40,7 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
     put("departStat", entityDao.search(dQuery))
 
     val ctQuery = OqlBuilder.from(classOf[Course].getName, "c")
+    ctQuery.where("c.project=:project", project)
     ctQuery.where("c.endOn is null or c.endOn > :now", LocalDate.now)
     ctQuery.select("c.courseType.id,c.courseType.name,count(*)")
     ctQuery.groupBy("c.courseType.id,c.courseType.code,c.courseType.name")
@@ -45,6 +48,7 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
     put("typeStat", entityDao.search(ctQuery))
 
     val ccQuery = OqlBuilder.from(classOf[Course].getName, "c")
+    ccQuery.where("c.project=:project", project)
     ccQuery.where("c.endOn is null or c.endOn > :now", LocalDate.now)
     ccQuery.select("c.nature.id,c.nature.name,count(*)")
     ccQuery.groupBy("c.nature.id,c.nature.code,c.nature.name")
@@ -55,7 +59,9 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
   }
 
   def search(): View = {
+    val project = getProject
     val query = getQueryBuilder
+    query.where("course.project=:project",project)
     get("q") foreach { q =>
       query.where("course.code like :q or course.name like :q", s"%${q.trim}%")
     }

@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[#include "../info_macros.ftl"/]
+[#include "../../info_macros.ftl"/]
 [@info_header title="教师信息"/]
 <div class="container-fluid">
   <div class="row">

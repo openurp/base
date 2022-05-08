@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改学生学籍状态"]bar.addBack();[/@]
-[@b.tabs]
   [#assign sa][#if stdStatus.persisted]!update?id=${stdStatus.id!}[#else]!save[/#if][/#assign]
   [@b.form action=sa theme="list"]
     [@b.textfield name="stdStatus.code" label="代码" value="${stdStatus.code!}" required="true" maxlength="20"/]
@@ -15,5 +14,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

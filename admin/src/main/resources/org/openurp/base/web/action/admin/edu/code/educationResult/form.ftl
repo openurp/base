@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改毕结业结论"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form  theme="list" action=b.rest.save(educationResult)]
     [@b.textfield name="educationResult.code" label="代码" value="${educationResult.code!}" required="true" maxlength="20"/]
     [@b.textfield name="educationResult.name" label="名称" value="${educationResult.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

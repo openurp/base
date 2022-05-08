@@ -17,11 +17,12 @@
 
 package org.openurp.base.web.helper
 
-import java.time.Instant
-
 import org.beangle.data.dao.EntityDao
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.{Project, Squad}
+import org.openurp.base.model.Project
+import org.openurp.base.std.model.Squad
+
+import java.time.Instant
 
 /**
  * @author xinzhou

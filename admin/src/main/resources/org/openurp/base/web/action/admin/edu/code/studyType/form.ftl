@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改学习形式"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form  theme="list" action=b.rest.save(studyType)]
     [@b.textfield name="studyType.code" label="代码" value="${studyType.code!}" required="true" maxlength="20"/]
     [@b.textfield name="studyType.name" label="名称" value="${studyType.name!}" required="true" maxlength="20"/]
@@ -14,5 +13,4 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 [@b.foot/]

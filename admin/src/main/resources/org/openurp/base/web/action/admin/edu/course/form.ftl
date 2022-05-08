@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="修改课程"]bar.addBack();[/@]
-[@b.tabs]
   [@b.form action=b.rest.save(course) theme="list" onsubmit="validCreditHour"]
     [@b.textfield name="course.code" label="代码" value="${course.code!}" required="true" maxlength="20"/]
     [@b.textfield name="course.name" label="名称" value="${course.name!}" required="true" maxlength="100"/]
@@ -9,13 +8,13 @@
     [@b.select2 label="培养层次" name1st="levelId1st" name2nd="levelId2nd" style = "height:80px;width:152px"
       items1st=levels items2nd= course.levels
       option="id,name"  required="true" /]
-    [@b.select name="course.nature.id" label="课程性质" value=course.nature! items=courseNatures empty="..." required="true"/]
+    [@b.select name="course.nature.id" label="ma课程性质" value=course.nature! items=courseNatures empty="..." required="true"/]
     [@b.select name="course.courseType.id" label="课程类别" value=course.courseType! items=courseTypes empty="..." required="true"/]
     [@b.select name="course.category.id" label="评教分类" value=course.category! items=courseCategories empty="..." required="false"/]
     [@b.select name="course.department.id" label="院系" value="${(course.department.id)!}" required="true"
                style="width:200px;" items=departments option="id,name" empty="..."/]
-    [#if teachingGroups?size>0]
-      [@b.select name="course.teachingGroup.id" label="教研室" items=teachingGroups option="id,name" empty="..." required="false" /]
+    [#if teachingOffices?size>0]
+      [@b.select name="course.teachingOffice.id" label="教研室" items=teachingOffices option="id,name" empty="..." required="false" /]
     [/#if]
     [@b.textfield name="course.credits" label="学分" value="${course.credits!}" required="true" maxlength="20"/]
     [@b.textfield name="course.creditHours" label="学时" value="${course.creditHours!}" required="true"  maxlength="100"/]
@@ -48,7 +47,6 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
-[/@]
 <script>
    function validCreditHour(form){
       [#if teachingNatures?size>0]
