@@ -18,7 +18,11 @@
     [@b.col width="18%" property="major" title="专业(方向)"]${(squad.major.name)!} ${(squad.direction.name)!}[/@]
     [@b.col width="8%" property="stdType" title="学生类别"]${(squad.stdType.name)!}[/@]
     [@b.col width="5%" property="stdCount" title="人数"]${squad.stdCount!}[/@]
-    [@b.col width="8%" property="instructor" title="辅导员"]${(squad.instructor.user.name)!}[/@]
+    [@b.col width="8%" property="mentor" title="管理人员"]
+      [#if squad.mentor??]${squad.mentor.name}<sup>辅</sup>[/#if]
+      [#if squad.tutor??]${squad.tutor.name}<sup>导</sup>[/#if]
+      [#if squad.master??]${squad.master.name}<sup>班</sup>[/#if]
+    [/@]
   [/@]
 [/@]
 <form name="ImportExportForm" id="ImportExportForm" method="post" target="_blank"></form>

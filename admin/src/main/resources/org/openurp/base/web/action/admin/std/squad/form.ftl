@@ -17,12 +17,12 @@
                style="width:300px;" items=directions option=r"${item.code} ${item.name}" empty="..."/]
     [@b.select name="squad.stdType.id" label="学生类别" value=squad.stdType! required="true"
                style="width:200px;" items=stdTypes option="id,name" empty="..."/]
-    [@b.select name="squad.mentor.id" label="辅导员" value="${(squad.mentor.id)!}"
-               style="width:300px;" href=urp.api+"/base/std/mentor.json?q={term}" option="id,user.code+' '+data.user.name+' '+data.user.department.name" empty="..."/]
-    [@b.select name="squad.master.id" label="班主任" value="${(squad.master.id)!}"
-                   style="width:300px;" href=urp.api+"/base/users.json?q={term}&isStd=0" option="id,code+' '+data.name+' '+data.department.name" empty="..."/]
-    [@b.select name="squad.tutor.id" label="班导师" value="${(squad.tutor.id)!}"
-               style="width:300px;" href=urp.api+"/base/edu/"+project.id+"/teachers.json?q={term}" option="id,user.code+' '+data.user.name+' '+data.user.department.name" empty="..."/]
+    [@b.select name="squad.mentor.id" label="辅导员" value=squad.mentor!
+               style="width:300px;" href=urp.api+"/base/users.json?q={term}&isMentor=1" option="id,description" empty="..."/]
+    [@b.select name="squad.master.id" label="班主任" value=squad.master!
+                   style="width:300px;" href=urp.api+"/base/users.json?q={term}&isStd=0" option="id,description" empty="..."/]
+    [@b.select name="squad.tutor.id" label="班导师" value=squad.tutor!
+               style="width:300px;" href=urp.api+"/base/users.json?q={term}&isTeacher=1" option="id,description" empty="..."/]
     [@b.textfield name="squad.remark" label="备注" value="${squad.remark!}" maxlength="30"/]
     [@b.textfield name="squad.planCount" label="计划人数" value="${squad.planCount!}" /]
     [@b.textfield name="squad.stdCount" label="学籍有效人数" value="${squad.stdCount!}"/]
