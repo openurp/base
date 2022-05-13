@@ -24,8 +24,12 @@
   <tr>
     <td class="title" width="20%">实际/计划人数:</td>
     <td>${(squad.stdCount)!}/${(squad.planCount)!}</td>
-    <td class="title" width="20%">辅导员</td>
-    <td>[#if squad.instructor??]${squad.instructor.user.name}(${squad.instructor.user.code})[/#if]</td>
+    <td class="title" width="20%">管理人员</td>
+    <td>
+      [#if squad.mentor??]辅导员:${squad.mentor.name}(${squad.mentor.code})[/#if]
+      [#if squad.tutor??]班导师:${squad.tutor.name}(${squad.tutor.code})[/#if]
+      [#if squad.master??]班主任:${squad.master.name}(${squad.master.code})[/#if]
+    </td>
   </tr>
   <tr>
     <td class="title" width="20%">生效日期:</td>

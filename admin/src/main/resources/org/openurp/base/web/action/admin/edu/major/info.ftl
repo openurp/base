@@ -24,7 +24,7 @@
       </tr>
       <tr>
         <td class="title">学科信息</td>
-        <td class="content">[#list major.disciplines as md]${md.category.name} ${md.disciplineCode!"--"} [#if md_has_next]<br>[/#if][/#list]</td>
+        <td class="content">[#list major.disciplines as md]${md.category.name} ${md.disciplineCode!"--"} [#if md_has_next]&nbsp;[/#if][/#list]</td>
         <td class="title">学制</td>
         <td class="content">[#list major.schoolLengths as sl]${sl.level.name}(${sl.fromGrade}~${sl.toGrade!}) ${sl.normal}年(${sl.minimum}~${sl.maximum}) [#if sl_has_next]<br>[/#if][/#list]</td>
       </tr>

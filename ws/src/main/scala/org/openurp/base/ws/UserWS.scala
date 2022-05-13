@@ -26,7 +26,7 @@ import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam, populateConditions}
 import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.User
-import org.openurp.base.std.model.Student
+import org.openurp.base.std.model.{Mentor, Student}
 
 class UserWS extends ActionSupport with EntityAction[User] {
   @response
@@ -38,6 +38,9 @@ class UserWS extends ActionSupport with EntityAction[User] {
       val c = s"%${q}%"
       query.where("user.name like :c or user.code like :c", c)
     }
+    getBoolean("isMentor") foreach { isMentor =>
+      query.where((if (isMentor) "" else "not ") + " exists(from " + classOf[Mentor].getName + "  t  where t.user=user)")
+    }
     getBoolean("isTeacher") foreach { isTeacher =>
       query.where((if (isTeacher) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.user=user)")
     }
@@ -47,7 +50,7 @@ class UserWS extends ActionSupport with EntityAction[User] {
     val orderStr = get(Order.OrderStr).getOrElse("user.name")
     query.orderBy(orderStr)
     entityDao.search(query).map { t =>
-      val user = new Properties(t, "id", "code", "name")
+      val user = new Properties(t, "id", "code", "name","description")
       user.add("department", t.department, "id", "code", "name")
       user
     }
