@@ -8,7 +8,7 @@
     [@b.select2 label="培养层次" name1st="levelId1st" name2nd="levelId2nd" style = "height:80px;width:152px"
       items1st=levels items2nd= course.levels
       option="id,name"  required="true" /]
-    [@b.select name="course.nature.id" label="ma课程性质" value=course.nature! items=courseNatures empty="..." required="true"/]
+    [@b.select name="course.nature.id" label="课程性质" value=course.nature! items=courseNatures empty="..." required="true"/]
     [@b.select name="course.courseType.id" label="课程类别" value=course.courseType! items=courseTypes empty="..." required="true"/]
     [@b.select name="course.category.id" label="评教分类" value=course.category! items=courseCategories empty="..." required="false"/]
     [@b.select name="course.department.id" label="院系" value="${(course.department.id)!}" required="true"
