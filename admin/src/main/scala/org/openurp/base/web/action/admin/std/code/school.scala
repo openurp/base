@@ -15,9 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin.code
+package org.openurp.base.web.action.admin.std.code
 
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.hr.model.UserCategory
+import org.openurp.base.std.code.{StdLabel, StdLabelType}
 
-class UserCategoryAction extends RestfulAction[UserCategory]
+class StdLabelAction extends RestfulAction[StdLabel] {
+  override def editSetting(entity: StdLabel) = {
+    val query = OqlBuilder.from(classOf[StdLabelType])
+    query.orderBy("name")
+    val labelTypes = entityDao.search(query)
+    put("labelTypes", labelTypes)
+    super.editSetting(entity)
+  }
+}
+
+class StdLabelTypeAction extends RestfulAction[StdLabelType]

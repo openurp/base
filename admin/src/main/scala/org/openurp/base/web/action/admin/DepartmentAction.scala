@@ -22,7 +22,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.code.model.DepartmentCategory
+import org.openurp.code.hr.model.DepartmentCategory
 import org.openurp.base.model.{Campus, Department, School}
 import org.openurp.code.edu.model.Institution
 

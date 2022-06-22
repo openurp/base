@@ -19,21 +19,9 @@ package org.openurp.base.web.action.admin.edu.code
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.code.model.{BookType, CourseCategory, _}
+import org.openurp.base.edu.code.{BookType, CourseCategory, _}
 import org.openurp.code.edu.model.{CourseNature, TeachingMethod, TeachingNature, TeachingNatureCategory}
 import org.openurp.code.std.model.{StdAlterReason, StdAlterType}
-
-class StdLabelAction extends RestfulAction[StdLabel] {
-  override def editSetting(entity: StdLabel) = {
-    val query = OqlBuilder.from(classOf[StdLabelType])
-    query.orderBy("name")
-    val labelTypes = entityDao.search(query)
-    put("labelTypes", labelTypes)
-    super.editSetting(entity)
-  }
-}
-
-class StdLabelTypeAction extends RestfulAction[StdLabelType]
 
 class StdTypeAction extends RestfulAction[StdType]
 

@@ -18,7 +18,6 @@
 package org.openurp.base.web.helper
 
 object URPUserCategory {
-
   val Teacher = 1
   val Student = 2
   val Manager = 3

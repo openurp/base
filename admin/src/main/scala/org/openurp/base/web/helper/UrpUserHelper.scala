@@ -21,7 +21,7 @@ import javax.sql.DataSource
 import org.beangle.commons.bean.Initializing
 import org.beangle.commons.codec.digest.Digests
 import org.beangle.ems.app.datasource.AppDataSourceFactory
-import org.openurp.base.code.model.UserCategory
+import org.openurp.code.hr.model.UserCategory
 import org.openurp.base.edu.model.Teacher
 import org.springframework.jdbc.core.JdbcTemplate
 
