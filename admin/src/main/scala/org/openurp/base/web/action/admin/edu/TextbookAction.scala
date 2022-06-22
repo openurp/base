@@ -23,7 +23,7 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
-import org.openurp.base.edu.code.model.{BookAwardType, BookType}
+import org.openurp.base.edu.code.{BookAwardType, BookType}
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TextbookImportListener

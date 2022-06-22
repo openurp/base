@@ -22,8 +22,9 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.code.model.{StdLabel, StdType}
+import org.openurp.base.edu.code.StdType
 import org.openurp.base.model.*
+import org.openurp.base.std.code.StdLabel
 import org.openurp.code.edu.model.{EduCategory, EducationLevel}
 
 import scala.collection.mutable.Buffer

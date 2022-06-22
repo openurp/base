@@ -24,7 +24,7 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
-import org.openurp.base.edu.code.model.{CourseCategory, CourseType}
+import org.openurp.base.edu.code.{CourseCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, TeachingOffice}
 import org.openurp.base.model.Department
 import org.openurp.base.web.action.admin.ProjectRestfulAction

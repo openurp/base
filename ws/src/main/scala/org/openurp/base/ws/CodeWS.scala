@@ -54,7 +54,7 @@ class CodeWS extends ActionSupport {
                   if (loadClass("org.openurp.code.asset.model." + shortName).isEmpty) {
                     if (loadClass("org.openurp.code.geo.model." + shortName).isEmpty) {
                       if (loadClass("org.openurp.code.std.model." + shortName).isEmpty) {
-                        if (loadClass("org.openurp.base.edu.code.model." + shortName).isEmpty) {
+                        if (loadClass("org.openurp.base.edu.code." + shortName).isEmpty) {
                           throw new RuntimeException("cannot find code " + shortName)
                         }
                       }

@@ -27,7 +27,7 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
 import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.view.{Stream, View}
-import org.openurp.base.edu.code.model.StdType
+import org.openurp.base.edu.code.StdType
 import org.openurp.base.edu.model.{Direction, Major}
 import org.openurp.base.model.{Campus, Department}
 import org.openurp.base.std.model.{Squad, Student, StudentState}
