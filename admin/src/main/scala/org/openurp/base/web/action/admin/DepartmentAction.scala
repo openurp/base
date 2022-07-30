@@ -22,9 +22,9 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.hr.model.DepartmentCategory
 import org.openurp.base.model.{Campus, Department, School}
 import org.openurp.code.edu.model.Institution
+import org.openurp.code.hr.model.DepartmentCategory
 
 class SchoolAction extends RestfulAction[School] {
   override def editSetting(entity: School): Unit = {
@@ -41,12 +41,16 @@ class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 
-  override def editSetting(entity: Department): Unit = {
-    super.editSetting(entity)
+  override def editSetting(depart: Department): Unit = {
+    val school = getSchool
+    super.editSetting(depart)
     val query = OqlBuilder.from(classOf[Campus], "c")
-    query.where("c.school=:school", getSchool)
+    query.where("c.school=:school", school)
     put("campuses", entityDao.search(query))
     put("categories", entityDao.getAll(classOf[DepartmentCategory]))
+    val parents = entityDao.findBy(classOf[Department], "school", school).toBuffer
+    if (depart.persisted) parents.subtractOne(depart)
+    put("parents", parents)
   }
 
   @ignore

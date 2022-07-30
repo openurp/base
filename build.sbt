@@ -62,7 +62,7 @@ lazy val ws = (project in file("ws"))
   )
 
 lazy val webapp = (project in file("webapp"))
-  .enablePlugins(WarPlugin, UndertowPlugin)
+  .enablePlugins(WarPlugin, UndertowPlugin,TomcatPlugin)
   .settings(
     name := "openurp-base-webapp",
     common
