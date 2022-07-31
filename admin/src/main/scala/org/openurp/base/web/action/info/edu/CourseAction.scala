@@ -73,7 +73,7 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
 
   @mapping(value = "{id}")
   def info(@param("id") id: String): View = {
-    put(simpleEntityName, getModel[Course](entityName, convertId(id)))
+    put(simpleEntityName, entityDao.get(classOf[Course],id.toLong))
     forward()
   }
 }

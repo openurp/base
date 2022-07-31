@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.ws.edu
+package org.openurp.base.ws.std
 
+import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.jsonapi.JsonAPI
 import org.beangle.web.action.annotation.response
@@ -24,20 +25,24 @@ import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.model.Major
 import org.openurp.base.std.model.Squad
+import org.openurp.code.CodeBean
 
-class MajorWS extends ActionSupport with EntityAction[Major] {
-
+class SquadWS extends ActionSupport with EntityAction[Squad] {
   @response
   def index(): JsonAPI.Json = {
     val projectId = getInt("project", 0)
-    val query = OqlBuilder.from(classOf[Major])
-    query.where("major.project.id=:projectId", projectId)
-    val majors = entityDao.search(query)
-    QueryHelper.populate(query).limit(query).sort(query)
+    val query = OqlBuilder.from(classOf[Squad])
+    query.where("squad.project.id=:projectId", projectId)
+    populateConditions(query)
+    QueryHelper.sort(query)
+    QueryHelper.limit(query)
+    val squads = entityDao.search(query)
 
     val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(majors, "id", "code", "name", "enName")
+    context.filters.include(classOf[Squad], "id", "code", "name", "enName")
+    val resources = squads.map { g => JsonAPI.create(g, context, "") }
+    JsonAPI.newJson(resources, context)
   }
+
 }
