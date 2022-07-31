@@ -24,15 +24,15 @@ import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.model.Major
+import org.openurp.base.edu.model.Direction
 
-class MajorWS extends ActionSupport with EntityAction[Major] {
+class DirectionWS extends ActionSupport with EntityAction[Direction] {
 
   @response
   def index(): JsonAPI.Json = {
     val projectId = getInt("project", 0)
-    val query = OqlBuilder.from(classOf[Major])
-    query.where("major.project.id=:projectId", projectId)
+    val query = OqlBuilder.from(classOf[Direction])
+    query.where("direction.project.id=:projectId", projectId)
     val majors = entityDao.search(query)
     QueryHelper.populate(query).limit(query).sort(query)
 

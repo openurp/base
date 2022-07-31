@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mvc>
-  <profile name="openurp-edu-base-ws" package="org.openurp.base.ws">
+  <profile name="openurp-base-ws" package="org.openurp.base.ws">
     <action suffix="WS" defaultMethod="index" />
     <url path="/" suffix="" style="plur-seo" />
     <interceptors>
@@ -9,9 +9,18 @@
     </interceptors>
   </profile>
 
-  <profile name="openurp-edu-base-ws-project" package="org.openurp.base.ws.edu">
+  <profile name="openurp-base-ws-edu" package="org.openurp.base.ws.edu">
     <action suffix="WS" defaultMethod="index" />
     <url path="/edu/{project}" suffix="" style="plur-seo" />
+    <interceptors>
+      <interceptor name="web.Interceptor.hibernate" />
+      <interceptor name="web.Interceptor.cors" />
+    </interceptors>
+  </profile>
+
+  <profile name="openurp-base-ws-std" package="org.openurp.base.ws.std">
+    <action suffix="WS" defaultMethod="index" />
+    <url path="/std/{project}" suffix="" style="plur-seo" />
     <interceptors>
       <interceptor name="web.Interceptor.hibernate" />
       <interceptor name="web.Interceptor.cors" />

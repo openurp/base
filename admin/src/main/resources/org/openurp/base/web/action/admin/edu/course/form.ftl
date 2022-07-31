@@ -16,10 +16,10 @@
     [#if teachingOffices?size>0]
       [@b.select name="course.teachingOffice.id" label="教研室" items=teachingOffices option="id,name" empty="..." required="false" /]
     [/#if]
-    [@b.textfield name="course.credits" label="学分" value="${course.credits!}" required="true" maxlength="20"/]
-    [@b.textfield name="course.creditHours" label="学时" value="${course.creditHours!}" required="true"  maxlength="100"/]
-    [@b.textfield name="course.weekHours" label="周课时" value="${course.weekHours!}" required="true" maxlength="20"/]
-    [@b.textfield name="course.weeks" label="周数" value="${course.weeks!}" maxlength="3"/]
+    [@b.textfield name="course.credits" label="学分" onchange="autoCalcHours(this)" value=course.credits! required="true" maxlength="20"/]
+    [@b.textfield name="course.creditHours" label="学时" value=course.creditHours! required="true"  maxlength="100"/]
+    [@b.textfield name="course.weekHours" label="周课时" value=course.weekHours! required="true" maxlength="20"/]
+    [@b.textfield name="course.weeks" label="周数" value=course.weeks! maxlength="3"/]
     [#if teachingNatures?size>0]
     [@b.field label="分类课时"]
        [#assign hours={}/]
@@ -63,6 +63,20 @@
       [#else]
       return true;
       [/#if]
+   }
+   [#--根据输入的学分自动计算周课时、学时和理论学时--]
+   function autoCalcHours(creditInput){
+     var form = creditInput.form;
+     if(creditInput.value){
+       var credits = parseFloat(creditInput.value);
+       form['course.creditHours'].value =  credits*16;
+       form['course.weekHours'].value =  credits;
+       [#if teachingNatures?size>0]
+          if(!form['creditHour${teachingNatures?first.id}'].value){
+             form['creditHour${teachingNatures?first.id}'].value=form['course.creditHours'].value;
+          }
+       [/#if]
+     }
    }
 </script>
 [@b.foot/]

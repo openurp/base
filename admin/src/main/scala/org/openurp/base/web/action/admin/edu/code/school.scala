@@ -19,7 +19,8 @@ package org.openurp.base.web.action.admin.edu.code
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.code.{BookType, CourseCategory, _}
+import org.openurp.base.edu.code.*
+import org.openurp.base.std.code.StdType
 import org.openurp.code.edu.model.{CourseNature, TeachingMethod, TeachingNature, TeachingNatureCategory}
 import org.openurp.code.std.model.{StdAlterReason, StdAlterType}
 

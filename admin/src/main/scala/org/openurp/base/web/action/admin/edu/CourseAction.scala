@@ -36,25 +36,28 @@ import java.time.LocalDate
 
 class CourseAction extends ProjectRestfulAction[Course] {
 
-  override def editSetting(entity: Course): Unit = {
+  override def editSetting(c: Course): Unit = {
+    val project = getProject
     put("courseTypes", getCodes(classOf[CourseType]))
     put("examModes", getCodes(classOf[ExamMode]))
     put("gradingModes", getCodes(classOf[GradingMode]))
     put("courseCategories", getCodes(classOf[CourseCategory]))
     put("departments", findInSchool(classOf[Department]))
     put("teachingOffices", entityDao.getAll(classOf[TeachingOffice])) //FIXME for teachingOffice missing project
-    var levels = getProject.levels.map(_.toLevel).toSet.toBuffer
-    levels --= entity.levels
+    val levels = project.levels.map(_.toLevel).toSet.toBuffer
+    levels --= c.levels
     put("levels", levels)
     put("courseNatures", getCodes(classOf[CourseNature]))
     put("teachingNatures", getCodes(classOf[TeachingNature]))
-    if (!entity.persisted) {
-      entity.project = getProject
-      entity.beginOn = LocalDate.now
-      entity.levels ++= levels
+    if (!c.persisted) {
+      c.project = project
+      c.beginOn = LocalDate.now
+      c.calgp = true
+      c.hasMakeup = true
+      c.levels ++= levels
       levels.clear()
     }
-    super.editSetting(entity)
+    super.editSetting(c)
   }
 
   def newCourses(): View = {
