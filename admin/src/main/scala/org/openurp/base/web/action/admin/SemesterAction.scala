@@ -26,7 +26,7 @@ import org.openurp.base.model.{Calendar, CalendarStage, School, Semester}
 
 class CalendarAction extends RestfulAction[Calendar] {
   override protected def getQueryBuilder: OqlBuilder[Calendar] = {
-    val builder: OqlBuilder[Calendar] = OqlBuilder.from(entityName, "calendar")
+    val builder = OqlBuilder.from(classOf[Calendar], "calendar")
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }

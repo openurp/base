@@ -25,6 +25,7 @@ import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.edu.code.{BookAwardType, BookType}
 import org.openurp.base.edu.model.Textbook
+import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TextbookImportListener
 import org.openurp.code.sin.model.{BookCategory, Press}
@@ -80,6 +81,8 @@ class TextbookAction extends ProjectRestfulAction[Textbook] {
   }
 
   protected override def editSetting(textbook: Textbook): Unit = {
+    given project: Project = getProject
+
     put("bookTypes", getCodes(classOf[BookType]))
     put("presses", getCodes(classOf[Press]))
     put("awardTypes", getCodes(classOf[BookAwardType]))

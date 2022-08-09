@@ -28,7 +28,7 @@ import org.beangle.ems.app.Ems
 import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.edu.model.{Direction, Major}
-import org.openurp.base.model.{Campus, Department}
+import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.std.code.StdType
 import org.openurp.base.std.model.{Squad, Student, StudentState}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -41,6 +41,8 @@ import java.time.{Instant, LocalDate}
 class SquadAction extends ProjectRestfulAction[Squad] {
 
   protected override def indexSetting(): Unit = {
+    given project: Project = getProject
+
     put("levels", getCodes(classOf[EducationLevel]))
     put("departments", findInSchool(classOf[Department]))
     put("campuses", findInSchool(classOf[Campus]))
@@ -51,6 +53,8 @@ class SquadAction extends ProjectRestfulAction[Squad] {
   }
 
   override def editSetting(entity: Squad) = {
+    given project: Project = getProject
+
     put("levels", getCodes(classOf[EducationLevel]))
     put("departments", findInSchool(classOf[Department]))
     put("campuses", findInSchool(classOf[Campus]))
@@ -63,7 +67,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     put("stdTypes", stdTypes)
 
     super.editSetting(entity)
-    put("project", getProject)
+    put("project", project)
     put("urp", Ems)
   }
 
@@ -102,7 +106,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
   /**
    * 下载模板
    */
-  def downloadSquadStdTemp: View = {
+  def downloadSquadStdTemp(): View = {
     Stream(ClassLoaders.getResourceAsStream("template/squad.xls").get, "application/vnd.ms-excel", "班级信息.xls")
   }
 

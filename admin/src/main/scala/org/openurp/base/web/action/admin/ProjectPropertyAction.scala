@@ -15,30 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin.edu
+package org.openurp.base.web.action.admin
 
-import org.beangle.web.action.view.View
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.edu.model.EducationLevel
-import org.openurp.base.edu.model.SchoolLength
-import org.openurp.base.model.Project
-import org.openurp.starter.edu.helper.ProjectSupport
+import org.openurp.base.model.{Project, ProjectProperty}
 
-/**
- * @author duantihua
- */
-class SchoolLengthAction extends RestfulAction[SchoolLength] with ProjectSupport {
-
-  override def editSetting(entity: SchoolLength): Unit = {
-    given project: Project = getProject
-
-    put("levels", getCodes(classOf[EducationLevel]))
-  }
-
-  override protected def saveAndRedirect(entity: SchoolLength): View = {
-    val view = super.saveAndRedirect(entity)
-    entityDao.evict(entity.major)
-    view
-  }
+class ProjectPropertyAction extends RestfulAction[ProjectProperty] {
 
 }

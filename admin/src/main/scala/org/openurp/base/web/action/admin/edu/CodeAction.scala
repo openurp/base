@@ -23,7 +23,7 @@ import org.beangle.web.action.annotation.ignore
 
 class CodeAction extends ActionSupport {
 
-  def index: View = {
+  def index(): View = {
     forward()
   }
 }

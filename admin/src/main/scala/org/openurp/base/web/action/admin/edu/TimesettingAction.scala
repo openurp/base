@@ -37,7 +37,7 @@ class CourseUnitAction extends ProjectRestfulAction[CourseUnit] {
   }
 
   override protected def getQueryBuilder: OqlBuilder[CourseUnit] = {
-    val builder: OqlBuilder[CourseUnit] = OqlBuilder.from(entityName, "courseUnit")
+    val builder = OqlBuilder.from(classOf[CourseUnit], "courseUnit")
     builder.where("courseUnit.setting.project=:project", getProject)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)

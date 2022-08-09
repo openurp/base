@@ -24,9 +24,10 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
+import org.openurp.base.Properties
 import org.openurp.base.edu.code.{CourseCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, TeachingOffice}
-import org.openurp.base.model.Department
+import org.openurp.base.model.{Department, Project}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{CourseImportListener, QueryHelper}
 import org.openurp.code.edu.model.*
@@ -37,13 +38,15 @@ import java.time.LocalDate
 class CourseAction extends ProjectRestfulAction[Course] {
 
   override def editSetting(c: Course): Unit = {
-    val project = getProject
+    given project: Project = getProject
+
     put("courseTypes", getCodes(classOf[CourseType]))
     put("examModes", getCodes(classOf[ExamMode]))
     put("gradingModes", getCodes(classOf[GradingMode]))
     put("courseCategories", getCodes(classOf[CourseCategory]))
     put("departments", findInSchool(classOf[Department]))
-    put("teachingOffices", entityDao.getAll(classOf[TeachingOffice])) //FIXME for teachingOffice missing project
+
+    put("teachingOffices", entityDao.findBy(classOf[TeachingOffice], "project", project))
     val levels = project.levels.map(_.toLevel).toSet.toBuffer
     levels --= c.levels
     put("levels", levels)
@@ -57,6 +60,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
       c.levels ++= levels
       levels.clear()
     }
+    put("hoursPerCredit", getProjectProperty(Properties.CourseHoursPerCredit, 16))
     super.editSetting(c)
   }
 
@@ -70,7 +74,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
   }
 
   override def getQueryBuilder: OqlBuilder[Course] = {
-    val builder: OqlBuilder[Course] = OqlBuilder.from(entityName, simpleEntityName)
+    val builder = OqlBuilder.from(classOf[Course], simpleEntityName)
     getDate("beginOn").foreach(beginOn => {
       getDate("endOn").foreach(endOn => {
         builder.where("course.beginOn between :beginOn and :endOn", beginOn, endOn)
@@ -119,16 +123,20 @@ class CourseAction extends ProjectRestfulAction[Course] {
   }
 
   protected override def indexSetting(): Unit = {
+    given project: Project = getProject
+
     put("courseTypes", getCodes(classOf[CourseType]))
     put("courseCategories", getCodes(classOf[CourseCategory]))
     val departments = findInSchool(classOf[Department])
     put("departments", departments)
     put("courseNatures", getCodes(classOf[CourseNature]))
-    put("teachingOffices", entityDao.getAll(classOf[TeachingOffice])) //FIXME for teachingOffice missing project
+    put("teachingOffices", entityDao.findBy(classOf[TeachingOffice], "project", project))
   }
 
   protected override def saveAndRedirect(entity: Course): View = {
     val course = entity
+
+    given project: Project = getProject
 
     val teachingNatures = getCodes(classOf[TeachingNature])
     teachingNatures foreach { ht =>

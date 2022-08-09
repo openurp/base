@@ -18,7 +18,8 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
-import org.openurp.base.edu.model.{Major, MajorDiscipline}
+import org.openurp.base.edu.model.{Major, MajorDiscipline, TeachingOffice}
+import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.QueryHelper
 import org.openurp.code.edu.model.EducationLevel
@@ -49,6 +50,8 @@ class MajorAction extends ProjectRestfulAction[Major] {
   }
 
   override protected def indexSetting(): Unit = {
+    given project: Project = getProject
+
     put("departs", getDeparts)
     put("levels", getCodes(classOf[EducationLevel]))
   }
