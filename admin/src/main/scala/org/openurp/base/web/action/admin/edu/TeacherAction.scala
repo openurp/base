@@ -24,7 +24,7 @@ import org.beangle.web.action.view.View
 import org.beangle.webmvc.execution.MappingHandler
 import org.openurp.base.edu.code.TeacherType
 import org.openurp.base.edu.model.Teacher
-import org.openurp.base.model.{Department, Name, Person, User}
+import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{QueryHelper, URPUserCategory, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, EducationDegree}
@@ -43,6 +43,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
   }
 
   override def editSetting(entity: Teacher) = {
+    given project: Project = getProject
     put("departments", findInSchool(classOf[Department]))
     put("genders", entityDao.getAll(classOf[Gender]))
     put("idTypes", entityDao.getAll(classOf[IdType]))
@@ -126,6 +127,8 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
   }
 
   override protected def indexSetting(): Unit = {
+    given project: Project = getProject
+
     put("departments", findInSchool(classOf[Department]))
     put("teacherTypes", entityDao.getAll(classOf[TeacherType]))
   }

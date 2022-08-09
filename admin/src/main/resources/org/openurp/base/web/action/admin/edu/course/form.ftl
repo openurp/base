@@ -69,7 +69,7 @@
      var form = creditInput.form;
      if(creditInput.value){
        var credits = parseFloat(creditInput.value);
-       form['course.creditHours'].value =  credits*16;
+       form['course.creditHours'].value =  credits*${hoursPerCredit};
        form['course.weekHours'].value =  credits;
        [#if teachingNatures?size>0]
           if(!form['creditHour${teachingNatures?first.id}'].value){

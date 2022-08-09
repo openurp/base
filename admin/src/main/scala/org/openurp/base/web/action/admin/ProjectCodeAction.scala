@@ -26,9 +26,6 @@ class ProjectCodeAction extends RestfulAction[ProjectCode] {
   override def editSetting(entity: ProjectCode) = {
     val projects = findItems(classOf[Project])
     put("projects", projects)
-    //
-    //    val metas = findItems(classOf[CodeMeta])
-    //    put("metas", metas)
     super.editSetting(entity)
   }
 

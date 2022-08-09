@@ -24,7 +24,7 @@ import org.beangle.ems.app.Ems
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.edu.model.TeachingOffice
-import org.openurp.base.model.{Department, User}
+import org.openurp.base.model.{Department, Project, User}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TeachingOfficeImportListener
 
@@ -55,10 +55,13 @@ class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice] {
   }
 
   protected override def indexSetting(): Unit = {
+    given project: Project = getProject
     put("departments", findInSchool(classOf[Department]))
   }
 
   protected override def editSetting(g: TeachingOffice): Unit = {
+    given project: Project = getProject
+
     put("departments", findInSchool(classOf[Department]))
     put("project", getProject)
     put("urp", Ems)

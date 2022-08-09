@@ -28,12 +28,10 @@ import org.openurp.starter.edu.helper.ProjectSupport
 abstract class ProjectRestfulAction[T <: Entity[_]] extends ActionSupport
   with EntityAction[T] with ExportSupport[T] with ProjectSupport {
 
-  var codeService: CodeService = _
-
   override protected def getQueryBuilder: OqlBuilder[T] = {
-    val builder: OqlBuilder[T] = OqlBuilder.from(entityName, simpleEntityName)
+    val builder = OqlBuilder.from(entityClass, simpleEntityName)
     populateConditions(builder)
-    val entityType = entityDao.domain.getEntity(entityName).get
+    val entityType = entityDao.domain.getEntity(entityClass).get
     entityType.getProperty("project") foreach { d =>
       builder.where(simpleEntityName + ".project = :project", getProject)
     }

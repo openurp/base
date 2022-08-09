@@ -20,13 +20,14 @@ package org.openurp.base.web.action.admin.edu
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.MajorJournal
-import org.openurp.base.model.Department
+import org.openurp.base.model.{Department, Project}
 import org.openurp.starter.edu.helper.ProjectSupport
 import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
 
 class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport {
 
   override def editSetting(entity: MajorJournal) = {
+    given project: Project = getProject
     put("categories", getCodes(classOf[DisciplineCategory]))
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))

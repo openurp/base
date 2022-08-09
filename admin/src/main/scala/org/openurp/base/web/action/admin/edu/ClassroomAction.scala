@@ -23,13 +23,14 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.openurp.base.edu.model.Classroom
 import org.openurp.base.web.helper.QueryHelper
-import org.openurp.base.model.{Building, Campus, Department}
+import org.openurp.base.model.{Building, Campus, Department, Project}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.code.edu.model.ClassroomType
 
 class ClassroomAction extends ProjectRestfulAction[Classroom] {
 
   protected override def indexSetting(): Unit = {
+    given project: Project = getProject
     put("roomTypes", getCodes(classOf[ClassroomType]))
     put("campuses", findInSchool(classOf[Campus]))
   }
@@ -62,14 +63,15 @@ class ClassroomAction extends ProjectRestfulAction[Classroom] {
   }
 
   override def editSetting(entity: Classroom) = {
+    given project: Project = getProject
     if (null == entity.school) {
-      entity.school = getProject.school
+      entity.school = project.school
     }
     put("roomTypes", getCodes(classOf[ClassroomType]))
     put("campuses", findInSchool(classOf[Campus]))
     put("buildings", findInSchool(classOf[Building]))
     val departs = Collections.newBuffer[Department]
-    departs ++= getProject.departments
+    departs ++= project.departments
     departs --= entity.departs
     put("departs", departs)
   }

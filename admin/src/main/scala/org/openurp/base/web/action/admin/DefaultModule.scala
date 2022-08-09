@@ -37,6 +37,6 @@ class DefaultModule extends BindModule {
     bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
 
     bind(classOf[SemesterAction], classOf[CalendarAction], classOf[CalendarStageAction])
-    bind(classOf[ProjectAction], classOf[ProjectCodeAction])
+    bind(classOf[ProjectAction], classOf[ProjectCodeAction],classOf[ProjectPropertyAction])
   }
 }

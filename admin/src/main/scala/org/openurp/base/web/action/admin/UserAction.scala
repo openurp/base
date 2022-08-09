@@ -30,7 +30,7 @@ import org.openurp.code.person.model.Gender
 
 class UserAction extends RestfulAction[User] with SchoolSupport {
   override protected def getQueryBuilder: OqlBuilder[User] = {
-    val builder: OqlBuilder[User] = OqlBuilder.from(entityName, "user")
+    val builder = OqlBuilder.from(classOf[User], "user")
     builder.where("user.school=:school",getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)

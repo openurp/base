@@ -19,14 +19,15 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.model.Department
-import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.model.{Direction, DirectionJournal}
+import org.openurp.base.model.{Department, Project}
+import org.openurp.code.edu.model.EducationLevel
 import org.openurp.starter.edu.helper.ProjectSupport
 
 class DirectionJournalAction extends RestfulAction[DirectionJournal] with ProjectSupport {
   override def editSetting(entity: DirectionJournal) = {
-    put("directions", getCodes(classOf[Direction]))
+    given project: Project = getProject
+    put("directions", entityDao.findBy(classOf[Direction], "project", project))
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))
     super.editSetting(entity)
