@@ -36,9 +36,9 @@ class SquadAction extends AbstractInfoAction[Squad] {
 
     val ctQuery = OqlBuilder.from(classOf[Squad].getName, "t")
     ctQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
-    ctQuery.select("t.grade,count(*)")
-    ctQuery.groupBy("t.grade")
-    ctQuery.orderBy("t.grade")
+    ctQuery.select("t.grade.code,count(*)")
+    ctQuery.groupBy("t.grade.code")
+    ctQuery.orderBy("t.grade.code")
     put("gradeStat", entityDao.search(ctQuery))
 
     forward()
