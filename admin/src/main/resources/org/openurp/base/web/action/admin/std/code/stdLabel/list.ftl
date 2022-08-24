@@ -11,7 +11,7 @@
     [@b.col width="15%" property="code" title="代码"]${stdLabel.code}[/@]
     [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${stdLabel.id}"]${stdLabel.name}[/@][/@]
     [@b.col width="10%" property="labelType" title="标签类型"]${(stdLabel.labelType.name)!}[/@]
-    [@b.col width="15%" property="enName" title="英文名"]${stdLabel.enName!}[/@]
+    [@b.col property="enName" title="英文名"]${stdLabel.enName!}[/@]
     [@b.col width="20%" property="beginOn" title="生效日期"]${stdLabel.beginOn!}[/@]
     [@b.col width="20%" property="endOn" title="失效日期"]${stdLabel.endOn!}[/@]
   [/@]

@@ -25,7 +25,7 @@ import org.beangle.webmvc.support.action.{EntityAction, ExportSupport}
 import org.openurp.code.service.CodeService
 import org.openurp.starter.edu.helper.ProjectSupport
 
-abstract class ProjectRestfulAction[T <: Entity[_]] extends ActionSupport
+abstract class AbstractInfoAction[T <: Entity[_]] extends ActionSupport
   with EntityAction[T] with ExportSupport[T] with ProjectSupport {
 
   override protected def getQueryBuilder: OqlBuilder[T] = {

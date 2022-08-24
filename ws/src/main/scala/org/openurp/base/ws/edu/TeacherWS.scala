@@ -38,16 +38,14 @@ class TeacherWS extends ActionSupport with EntityAction[Teacher] {
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
     get("q") foreach { q =>
       val c = s"%${q}%"
-      query.where("teacher.user.name like :c or teacher.user.code like :c", c)
+      query.where("teacher.staff.name like :c or teacher.staff.code like :c", c)
     }
-    val orderStr = get(Order.OrderStr).getOrElse("teacher.user.name")
+    val orderStr = get(Order.OrderStr).getOrElse("teacher.name")
     query.orderBy(orderStr)
 
     entityDao.search(query).map { t =>
-      val teacher = new Properties(t, "id")
-      val user = new Properties(t.user, "id", "code", "name")
-      user.add("department", t.user.department, "id", "code", "name")
-      teacher.put("user", user)
+      val teacher = new Properties(t, "id","code", "name")
+      teacher.add("department", t.department, "id", "code", "name")
       teacher
     }
   }

@@ -23,8 +23,6 @@ import org.openurp.code.edu.model.{ DisciplineCategory, EduCategory, Institution
 
 class InstitutionAction extends RestfulAction[Institution]
 
-class DisciplineCategoryAction extends RestfulAction[DisciplineCategory]
-
 class RoomTypeAction extends RestfulAction[RoomType]
 
 class EduCategoryAction extends RestfulAction[EduCategory]

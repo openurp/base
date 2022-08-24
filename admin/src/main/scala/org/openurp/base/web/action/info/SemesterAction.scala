@@ -26,7 +26,7 @@ import org.openurp.base.model.Semester
 import java.time.LocalDate
 import scala.collection.mutable
 
-class SemesterAction extends ProjectRestfulAction[Semester] {
+class SemesterAction extends AbstractInfoAction[Semester] {
 
   def index(): View = {
     val calendar = getProject.calendar

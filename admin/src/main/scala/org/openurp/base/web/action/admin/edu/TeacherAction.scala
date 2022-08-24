@@ -18,119 +18,98 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.lang.Strings
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{Operation, OqlBuilder}
+import org.beangle.data.excel.schema.ExcelSchema
+import org.beangle.data.transfer.importer.ImportSetting
+import org.beangle.data.transfer.importer.listener.ForeignerListener
+import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
-import org.beangle.web.action.view.View
-import org.beangle.webmvc.execution.MappingHandler
-import org.openurp.base.edu.code.TeacherType
+import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, URPUserCategory, UrpUserHelper}
-import org.openurp.code.edu.model.{Degree, EducationDegree}
-import org.openurp.code.hr.model.{UserCategory, WorkStatus}
-import org.openurp.code.job.model.ProfessionalTitle
-import org.openurp.code.person.model.{Gender, IdType}
+import org.openurp.base.web.helper.{QueryHelper, TeacherImportListener}
+import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
+import org.openurp.code.job.model.TutorType
 
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.Instant
 
 class TeacherAction extends ProjectRestfulAction[Teacher] {
 
-  var urpUserHelper: Option[UrpUserHelper] = None
-
   override def getQueryBuilder: OqlBuilder[Teacher] = {
+    put("tutorTypes", codeService.get(classOf[TutorType]))
     QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
   }
 
-  override def editSetting(entity: Teacher) = {
+  override def editSetting(teacher: Teacher) = {
     given project: Project = getProject
+
+    put("tutorTypes", codeService.get(classOf[TutorType]))
     put("departments", findInSchool(classOf[Department]))
-    put("genders", entityDao.getAll(classOf[Gender]))
-    put("idTypes", entityDao.getAll(classOf[IdType]))
-    put("teacherTypes", entityDao.getAll(classOf[TeacherType]))
-    put("professionalTitles", entityDao.getAll(classOf[ProfessionalTitle]))
-    put("degrees", entityDao.getAll(classOf[Degree]))
-    put("educationDegrees", entityDao.getAll(classOf[EducationDegree]))
-    put("statuses", entityDao.getAll(classOf[WorkStatus]))
-    super.editSetting(entity)
+    put("campuses", findInSchool(classOf[Campus]))
+    if (!teacher.persisted) {
+      val query = OqlBuilder.from(classOf[Staff], "s")
+      query.where("not exists(from " + classOf[Teacher].getName + " t where t.staff=s)")
+      query.where("s.school = :school", project.school)
+      query.orderBy("s.code")
+      put("staffs", entityDao.search(query))
+    }
+    super.editSetting(teacher)
   }
 
   override protected def saveAndRedirect(teacher: Teacher): View = {
-    val p = getProject
-    teacher.projects += p
-
-    var createUser = false
-    var user = populateEntity(classOf[User], "user")
-    val school = p.school
-    if (!user.persisted) {
-      val userQuery = OqlBuilder.from(classOf[User], "user").where("user.code=:code", user.code).where("user.school =:school", school)
-      val users = entityDao.search(userQuery)
-      if (users.size == 1) {
-        user = users.head
-      } else {
-        user.school = school
-        createUser = true
-        user.category = new UserCategory
-        user.category.id = URPUserCategory.Teacher
-      }
-    }
-    user.beginOn = teacher.beginOn
-    user.endOn = teacher.endOn
-    user.updatedAt = Instant.now
-
-    var person = populateEntity(classOf[Person], "person")
-    if (!person.persisted && Strings.isNotEmpty(person.code)) {
-      val people = entityDao.findBy(classOf[Person], "code", List(person.code))
-      if (people.size == 1) {
-        person = people.head
-      }
-    }
-    teacher.user = user
-    teacher.department = user.department
-    teacher.updatedAt = Instant.now
-    teacher.school = user.school
     val project = getProject
     if (!teacher.projects.contains(project)) {
       teacher.projects.add(project)
     }
-    try {
-      if (Strings.isNotEmpty(person.code) && null != person.birthday) {
-        teacher.person = Some(person)
-        if (null == person.name) {
-          person.name = new Name
-        }
-        person.name.formatedName = user.name
-        person.updatedAt = Instant.now
-        person.gender = user.gender
-        entityDao.saveOrUpdate(user, person, teacher)
-      } else {
-        entityDao.saveOrUpdate(user, teacher)
-      }
-      if (createUser) {
-        urpUserHelper foreach { helper =>
-          helper.createTeacherUser(teacher)
-        }
-      }
-      redirect("search", "info.save.success")
+    val campusIds = intIds("campus")
+    val campuses = if campusIds.isEmpty then List.empty[Campus] else entityDao.find(classOf[Campus], campusIds)
+    teacher.campuses.filter(campuses.contains)
+    teacher.campuses.addAll(campuses)
 
-    } catch {
-      case e: Exception => {
-        val mapping = ActionContext.current.handler.asInstanceOf[MappingHandler].mapping
-        val redirectTo = mapping.method.getName match {
-          case "save" => "editNew"
-          case "update" => "edit"
-        }
-        logger.info("save forwad failure", e)
-        redirect(redirectTo, "info.save.failure")
-      }
+    if (!teacher.persisted) {
+      teacher.id = teacher.staff.id //assigned id
     }
+    val staff = entityDao.get(classOf[Staff], teacher.staff.id)
+    teacher.name = staff.name
+    entityDao.saveOrUpdate(teacher)
+    redirect("search", "info.save.success")
   }
 
   override protected def indexSetting(): Unit = {
     given project: Project = getProject
 
+    put("tutorTypes", codeService.get(classOf[TutorType]))
     put("departments", findInSchool(classOf[Department]))
-    put("teacherTypes", entityDao.getAll(classOf[TeacherType]))
   }
 
+  @response
+  def downloadTemplate(): Any = {
+    given project: Project = getProject
+
+    val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.code")).map(x => x.code + " " + x.name)
+    val tutorTypes = codeService.get(classOf[TutorType]).map(x => x.code + " " + x.name)
+
+    val schema = new ExcelSchema()
+    val sheet = schema.createScheet("数据模板")
+    sheet.title("教师信息模板")
+    sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
+    sheet.add("教师工号", "teacher.staff.code").length(10).required().remark("≤10位")
+    sheet.add("教学所在部门", "teacher.department.code").ref(departs).required()
+    if tutorTypes.nonEmpty then sheet.add("导师类别", "teacher.tutorType.code").ref(tutorTypes)
+    sheet.add("任教起始日期", "teacher.beginOn").date()
+    sheet.add("教师资格证号码", "teacher.tqcNumber").length(20)
+    sheet.add("其他职业资格证书和等级说明", "teacher.oqc").length(100)
+
+    val os = new ByteArrayOutputStream()
+    schema.generate(os)
+    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教师信息.xlsx")
+  }
+
+  protected override def configImport(setting: ImportSetting): Unit = {
+    val fl = new ForeignerListener(entityDao)
+    fl.addForeigerKey("name")
+    setting.listeners = List(fl, new TeacherImportListener(entityDao, getProject))
+  }
 }

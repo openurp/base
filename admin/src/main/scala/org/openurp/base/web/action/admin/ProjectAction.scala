@@ -31,12 +31,12 @@ import scala.collection.mutable.Buffer
 class ProjectAction extends RestfulAction[Project] {
 
   override def editSetting(entity: Project): Unit = {
-
-    val school = entity.school
-
     val schools = findItems(classOf[School])
+    var school = entity.school
+    if (null == school) {
+      school = schools.head
+    }
     put("schools", schools)
-
     val calendars = findInSchool(classOf[Calendar], school)
     put("calendars", calendars)
 

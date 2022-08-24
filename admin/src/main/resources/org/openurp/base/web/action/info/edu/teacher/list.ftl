@@ -21,6 +21,7 @@
         </div>
       [/@]
     </div>
+    [#assign displayTutorType = tutorTypes?size >0/]
     <div class="card-body">
         <table class="table table-hover table-sm">
           <thead>
@@ -29,17 +30,19 @@
              <th>部门</th>
              <th>职称</th>
              <th>教师类型</th>
+             [#if displayTutorType]<th>导师类别</th>[/#if]
              <th>在职状态</th>
           </thead>
           <tbody>
           [#list teachers as teacher]
            <tr>
-            <td>${teacher.user.code}</td>
-            <td>${teacher.user.name}</td>
-            <td>${teacher.user.department.name}</td>
-            <td>${(teacher.title.name)!}</td>
-            <td>${(teacher.teacherType.name)!}</td>
-            <td>${(teacher.status.name)!}</td>
+            <td>${teacher.staff.code}</td>
+            <td>${teacher.name}</td>
+            <td>${teacher.department.name}</td>
+            <td>${(teacher.staff.title.name)!}</td>
+            <td>${(teacher.staff.staffType.name)!}</td>
+            [#if displayTutorType]<td>${(teacher.tutorType.name)!}</td>[/#if]
+            <td>${(teacher.staff.status.name)!}</td>
            </tr>
            [/#list]
           </tbody>

@@ -19,15 +19,12 @@ package org.openurp.base.web.helper
 
 import org.beangle.data.dao.EntityDao
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.Course
+import org.openurp.base.edu.model.{Course, CourseLevel}
 import org.openurp.base.model.Project
 
 import java.time.{Instant, LocalDate}
 
 class CourseImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
-  override def onStart(tr: ImportResult): Unit = {}
-
-  override def onFinish(tr: ImportResult): Unit = {}
 
   override def onItemStart(tr: ImportResult): Unit = {
     transfer.curData.get("course.code") foreach { code =>
@@ -43,7 +40,8 @@ class CourseImportListener(entityDao: EntityDao, project: Project) extends Impor
     course.project = project
     course.updatedAt = Instant.now
     if (course.levels.isEmpty) {
-      course.levels.addAll(project.levels.map(_.toLevel).toSet)
+      val cls = project.levels.map { x => new CourseLevel(course, x) }
+      course.levels.addAll(cls)
     }
     if (null == course.beginOn) {
       course.beginOn = LocalDate.now

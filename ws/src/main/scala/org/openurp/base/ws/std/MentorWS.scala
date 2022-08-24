@@ -35,13 +35,11 @@ class MentorWS extends ActionSupport with EntityAction[Mentor] {
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
     get("q") foreach { q =>
       val c = s"%${q}%"
-      query.where("mentor.user.name like :c or mentor.user.code like :c", c)
+      query.where("mentor.name like :c or mentor.code like :c", c)
     }
     entityDao.search(query).map { t =>
-      val mentor = new Properties(t, "id")
-      val user = new Properties(t.user, "id", "code", "name")
-      user.add("department", t.user.department, "id", "code", "name")
-      mentor.put("user", user)
+      val mentor = new Properties(t, "id","code", "name")
+      mentor.add("department", t.department, "id", "code", "name")
       mentor
     }
   }

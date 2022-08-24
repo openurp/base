@@ -30,7 +30,7 @@ import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.edu.model.{Direction, Major}
 import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.std.code.StdType
-import org.openurp.base.std.model.{Squad, Student, StudentState}
+import org.openurp.base.std.model.{Grade, Squad, Student, StudentState}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{QueryHelper, SquadImportListener}
 import org.openurp.code.edu.model.EducationLevel
@@ -66,6 +66,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     val stdTypes = getCodes(classOf[StdType])
     put("stdTypes", stdTypes)
 
+    put("grades", findInProject(classOf[Grade]))
     super.editSetting(entity)
     put("project", project)
     put("urp", Ems)
@@ -88,8 +89,8 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     studentStates.foreach { ss => if (ss.within(examinDay)) students += ss.std }
 
     val status = Collections.newMap[String, StudentState]
-    studentStates.foreach { studentState => status.put(studentState.std.user.code, studentState) }
-    put("students", students.sortBy(_.user.code))
+    studentStates.foreach { studentState => status.put(studentState.std.code, studentState) }
+    put("students", students.sortBy(_.code))
     put("status", status)
     put("urp", Ems)
     put("md5", Md5)
@@ -114,6 +115,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
   def downloadTemplate(): Any = {
     val project = getProject
     val departs = project.departments.map(x => x.code + " " + x.name)
+    val grades = entityDao.search(OqlBuilder.from(classOf[Grade], "m").where("m.project=:project", project).orderBy("m.code")).map(x =>x.name)
     val majors = entityDao.search(OqlBuilder.from(classOf[Major], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.code + " " + x.name)
     val directions = entityDao.search(OqlBuilder.from(classOf[Direction], "d").where("d.project=:project", project).orderBy("d.code")).map(x => x.code + " " + x.name)
     val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name)
@@ -129,7 +131,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     sheet.add("班级英文名称", "squad.enName").length(300)
     sheet.add("培养层次代码", "squad.level.code").ref(levels).required()
     sheet.add("学生类别代码", "squad.stdType.code").ref(stdTypes).required()
-    sheet.add("年级", "squad.grade").required()
+    sheet.add("年级", "grade.name").ref(grades).required()
     sheet.add("院系代码", "squad.department.code").ref(departs).required()
     sheet.add("专业代码", "squad.major.code").ref(majors).required()
     sheet.add("专业方向代码", "squad.direction.code").ref(directions)
@@ -140,15 +142,6 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     sheet.add("校区代码", "squad.campus.code").ref(campuses).required()
     sheet.add("生效日期", "squad.beginOn").date().required()
     sheet.add("失效日期", "squad.endOn").date().required()
-
-    val code = schema.createScheet("数据字典")
-    code.add("培养层次代码").data(levels)
-    code.add("学生类别代码").data(stdTypes)
-    code.add("院系代码").data(departs)
-    code.add("专业代码").data(majors)
-    code.add("专业方向代码").data(directions)
-    code.add("校区代码").data(campuses)
-
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "班级模板.xlsx")

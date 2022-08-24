@@ -1,21 +1,19 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="修改教师信息"]bar.addBack();[/@]
+<style>
+ .title{
+   max-width:100px;
+ }
+</style>
+[@b.toolbar title="新增教师信息"]bar.addBack();[/@]
   [@b.form action=b.rest.save(teacher) theme="list"]
-    [@b.textfield name="user.code" label="职工号" value="" required="true" style="width:100px;" maxlength="20"/]
-    [@b.textfield name="user.name" label="姓名" value="" required="true" style="width:100px;" maxlength="20"/]
-    [@b.select name="user.gender.id" label="性别" value="" required="true" style="width:100px;" items=genders option="id,name" empty="..."/]
-    [@b.select name="person.idType.id" label="证件类型" value="" style="width:100px;" items=idTypes option="id,name" empty="..."/]
-    [@b.textfield name="person.code" label="证件号码" value="" maxlength="30" style="width:200px;" /]
-    [@b.datepicker name="person.birthday" label="出生日期" value="" /]
-
-    [@b.select name="user.department.id" label="院系" value="" required="true" style="width:200px;" items=departments option="id,name" empty="..."/]
-    [@b.select name="teacher.teacherType.id" label="教师类型" value="" required="true" style="width:200px;" items=teacherTypes option="id,name" empty="..."/]
-    [@b.select name="teacher.title.id" label="职称" required="false" style="width:200px;" value=(teacher.title!) items=professionalTitles empty="..."/]
-    [@b.select name="teacher.status.id" label="状态" required="true" style="width:200px;" value=(teacher.status!) items=statuses empty="..."/]
-
-    [@b.startend label="任教时间" name="teacher.beginOn,teacher.endOn" required="true,false" format="date"/]
-    [@b.textfield name="teacher.remark" label="备注" value="${teacher.remark!}" maxlength="30"/]
+    [@b.select name="teacher.staff.id" label="职工号" required="true" style="width:400px;" items=staffs option=r"${item.code} ${item.name} ${item.department.name}"chosenMin="1"/]
+    [@b.select name="teacher.department.id" label="院系" value=teacher.department! required="true" style="width:200px;" items=departments option="id,name" empty="..."/]
+    [@b.select name="campus.id" label="任教校区" values=teacher.campuses items=campuses required="false" chosenMin="1" multiple="true" style="width:300px;"/]
+    [@b.textfield name="teacher.tqcNumber" label="教师资格证号码" value=teacher.tqcNumber! maxlength="30"/]
+    [@b.textarea name="teacher.oqc" label="其他职业资格证书和等级说明" value=teacher.oqc! maxlength="400" rows="5" cols="80" placeholder="证书 等级 每个一行"/]
+    [@b.startend label="任教时间" name="teacher.beginOn,teacher.endOn" required="true,false" start=teacher.beginOn end=teacher.endOn format="date"/]
+    [@b.textfield name="teacher.remark" label="备注" value=teacher.remark! maxlength="30"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]

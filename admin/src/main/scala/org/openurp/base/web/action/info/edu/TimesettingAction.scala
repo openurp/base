@@ -20,9 +20,9 @@ package org.openurp.base.web.action.info.edu
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.openurp.base.edu.model.TimeSetting
-import org.openurp.base.web.action.info.ProjectRestfulAction
+import org.openurp.base.web.action.info.AbstractInfoAction
 
-class TimesettingAction extends ProjectRestfulAction[TimeSetting] {
+class TimesettingAction extends AbstractInfoAction[TimeSetting] {
 
   def index(): View = {
     val query = OqlBuilder.from(classOf[TimeSetting], "ts")

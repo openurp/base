@@ -39,13 +39,13 @@ class UserWS extends ActionSupport with EntityAction[User] {
       query.where("user.name like :c or user.code like :c", c)
     }
     getBoolean("isMentor") foreach { isMentor =>
-      query.where((if (isMentor) "" else "not ") + " exists(from " + classOf[Mentor].getName + "  t  where t.user=user)")
+      query.where((if (isMentor) "" else "not ") + " exists(from " + classOf[Mentor].getName + "  t  where t.staff.code=user.code)")
     }
     getBoolean("isTeacher") foreach { isTeacher =>
-      query.where((if (isTeacher) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.user=user)")
+      query.where((if (isTeacher) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.staff.code=user.code)")
     }
     getBoolean("isStd") foreach { isStd =>
-      query.where((if (isStd) "" else "not ") + " exists(from " + classOf[Student].getName + "  t  where t.user=user)")
+      query.where((if (isStd) "" else "not ") + " exists(from " + classOf[Student].getName + "  t  where t.code=user.code)")
     }
     val orderStr = get(Order.OrderStr).getOrElse("user.name")
     query.orderBy(orderStr)

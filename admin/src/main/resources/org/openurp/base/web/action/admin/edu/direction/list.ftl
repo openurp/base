@@ -12,7 +12,7 @@
     [@b.col width="15%" property="name" title="名称"][@b.a href="!info?id=${direction.id}"]${direction.name}[/@][/@]
     [@b.col width="23%" property="enName" title="英文名"]${direction.engName!}[/@]
     [@b.col width="15%" property="major" title="专业"]${direction.major.name!}[/@]
-    [@b.col width="20%" title="院系"]
+    [@b.col title="院系"]
     [#assign departs = [] /]
     [#list direction.journals as j][#if !(j.endOn??) && !departs?seq_contains(j.depart)][#assign departs = departs+[j.depart]][/#if][/#list]
     [#list departs as d]${d.name}[#if d_has_next] [/#if][/#list]

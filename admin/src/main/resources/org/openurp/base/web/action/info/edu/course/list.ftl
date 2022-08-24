@@ -38,7 +38,7 @@
            <tr>
             <td>${course.code}</td>
             <td>${course.name}</td>
-            <td>${course.credits}</td>
+            <td>${course.defaultCredits}</td>
             <td>
              ${course.creditHours}
               [#if course.hours?size>1]

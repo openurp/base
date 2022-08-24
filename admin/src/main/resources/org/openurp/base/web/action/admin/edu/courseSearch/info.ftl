@@ -23,7 +23,7 @@
   </tr>
   <tr>
     <td class="title" width="20%">学分:</td>
-    <td class="content">${course.credits!}</td>
+    <td class="content">${course.defaultCredits!}</td>
     <td class="title" width="20%">学时:</td>
     <td class="content">${course.creditHours!}</td>
   </tr>

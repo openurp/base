@@ -10,7 +10,7 @@
     [@b.boxcol /]
     [@b.col width="15%" property="code" title="代码"]${examStatus.code}[/@]
     [@b.col width="15%" property="name" title="名称"][@b.a href="!info?id=${examStatus.id}"]${examStatus.name}[/@][/@]
-    [@b.col width="15%" property="enName" title="英文名"]${examStatus.enName!}[/@]
+    [@b.col property="enName" title="英文名"]${examStatus.enName!}[/@]
     [@b.col width="8%" property="attended" title="是否参加考试"]${(examStatus.attended?string("是","否"))!}[/@]
     [@b.col width="8%" property="hasDeferred" title="是否缓考"]${(examStatus.hasDeferred?string("是","否"))!}[/@]
     [@b.col width="9%" property="cheating" title="是否有作弊行为"]${(examStatus.cheating?string("是","否"))!}[/@]

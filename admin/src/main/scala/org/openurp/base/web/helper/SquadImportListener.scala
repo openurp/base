@@ -17,10 +17,10 @@
 
 package org.openurp.base.web.helper
 
-import org.beangle.data.dao.EntityDao
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.model.Project
-import org.openurp.base.std.model.Squad
+import org.openurp.base.std.model.{Grade, Squad}
 
 import java.time.Instant
 
@@ -31,8 +31,20 @@ class SquadImportListener(project: Project, entityDao: EntityDao) extends Import
   override def onItemFinish(tr: ImportResult): Unit = {
     val squad = tr.transfer.current.asInstanceOf[Squad]
     squad.project = project
-    squad.updatedAt = Instant.now
-    entityDao.saveOrUpdate(squad)
+    tr.transfer.curData.get("grade.name") foreach { grade =>
+      val query = OqlBuilder.from(classOf[Grade], "g")
+      query.where("g.project=:project", project)
+      query.where("g.name=:name", grade)
+      entityDao.search(query).headOption match {
+        case Some(g) => squad.grade = g
+        case None => tr.addFailure("不存在的年级", grade)
+      }
+    }
+    //FIXME missing full final check
+    if (null != squad.grade && null != squad.level) {
+      squad.updatedAt = Instant.now
+      entityDao.saveOrUpdate(squad)
+    }
   }
 
   /**

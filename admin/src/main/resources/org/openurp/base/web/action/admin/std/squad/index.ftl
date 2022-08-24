@@ -10,7 +10,7 @@
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="searchForm" action="!search" target="squadlist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="squad.grade;年级"/]
+      [@b.textfields names="squad.grade.name;年级"/]
       [@b.textfields names="squad.code;代码"/]
       [@b.textfields names="squad.name;名称"/]
       [@b.select style="width:100px" name="squad.department.id" label="所属院系" items=departments option="id,name" empty="..." /]

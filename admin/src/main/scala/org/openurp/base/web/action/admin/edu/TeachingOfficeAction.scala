@@ -46,9 +46,6 @@ class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice] {
     sheet.add("院系代码", "teachingOffice.department.code").ref(departs).required()
     sheet.add("负责人工号", "teachingOffice.director.code")
 
-    val code = schema.createScheet("数据字典")
-    code.add("院系代码").data(departs)
-
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教研室模板.xlsx")

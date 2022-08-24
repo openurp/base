@@ -27,9 +27,9 @@ class DefaultModule extends BindModule {
       classOf[PoliticalStatusAction], classOf[LanguageAction],
       classOf[DivisionAction], classOf[FamilyRelationshipAction], classOf[IdTypeAction])
 
-    bind(classOf[CodeAction])
+    bind(classOf[CodeAction],classOf[StaffAction])
 
-    bind(classOf[InstitutionAction], classOf[DisciplineCategoryAction], classOf[RoomTypeAction])
+    bind(classOf[InstitutionAction], classOf[RoomTypeAction])
     bind(classOf[UserCategoryAction], classOf[EduCategoryAction])
 
     bind(classOf[DepartmentAction], classOf[SchoolAction])

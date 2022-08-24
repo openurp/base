@@ -65,11 +65,6 @@ class TextbookAction extends ProjectRestfulAction[Textbook] {
     sheet.add("丛书", "textbook.series").length(100)
     sheet.add("价格", "textbook.price").decimal()
 
-    val code = schema.createScheet("数据字典")
-    code.add("出版社").data(presses)
-    code.add("图书分类").data(categories)
-    code.add("教材类型").data(bookTypes)
-    code.add("获奖级别").data(awardTypes)
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教材模板.xlsx")

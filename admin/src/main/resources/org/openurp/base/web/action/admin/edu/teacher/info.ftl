@@ -5,12 +5,12 @@
 [/@]
 <table class="infoTable">
   <tr>
-    <td class="title" width="20%">代码</td>
-    <td class="content">${teacher.user.code}</td>
+    <td class="title" width="20%">工号</td>
+    <td class="content">${teacher.code}</td>
   </tr>
   <tr>
-    <td class="title" width="20%">名称</td>
-    <td class="content">${teacher.user.name}</td>
+    <td class="title" width="20%">姓名</td>
+    <td class="content">${teacher.name}</td>
   </tr>
   <tr>
     <td class="title" width="20%">生效日期</td>

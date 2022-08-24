@@ -4,10 +4,18 @@
   [@b.form action=b.rest.save(course) theme="list" onsubmit="validCreditHour"]
     [@b.textfield name="course.code" label="代码" value="${course.code!}" required="true" maxlength="20"/]
     [@b.textfield name="course.name" label="名称" value="${course.name!}" required="true" maxlength="100"/]
-    [@b.textfield name="course.enName" label="英文名" value="${course.enName!}" maxlength="200" style="width:400px"/]
-    [@b.select2 label="培养层次" name1st="levelId1st" name2nd="levelId2nd" style = "height:80px;width:152px"
-      items1st=levels items2nd= course.levels
-      option="id,name"  required="true" /]
+    [@b.textfield name="course.enName" label="英文名" value="${course.enName!}" maxlength="200" style="width:500px"/]
+    [@b.field label="培养层次"]
+      [#list levels?sort_by("code") as level]
+        [#assign findMatched=false/]
+        [#list course.levels as cl]
+          [#if cl.level=level][#assign findMatched=true /][#assign matchedLevel=cl /][#break/][/#if]
+        [/#list]
+        [#if levelCreditSupported]<input type="text" name="level${level.id}.credits" value="[#if findMatched]${matchedLevel.credits!}[/#if]" style="width:50px" placeholder="学分"/>[/#if]
+        <input type="checkbox" id="level${level.id}" value="${level.id}" name="levelId" [#if findMatched]checked="checked"[/#if]/>
+        <label for="level${level.id}">${level.name}</label>
+      [/#list]
+    [/@]
     [@b.select name="course.nature.id" label="课程性质" value=course.nature! items=courseNatures empty="..." required="true"/]
     [@b.select name="course.courseType.id" label="课程类别" value=course.courseType! items=courseTypes empty="..." required="true"/]
     [@b.select name="course.category.id" label="评教分类" value=course.category! items=courseCategories empty="..." required="false"/]
@@ -16,7 +24,7 @@
     [#if teachingOffices?size>0]
       [@b.select name="course.teachingOffice.id" label="教研室" items=teachingOffices option="id,name" empty="..." required="false" /]
     [/#if]
-    [@b.textfield name="course.credits" label="学分" onchange="autoCalcHours(this)" value=course.credits! required="true" maxlength="20"/]
+    [@b.textfield name="course.defaultCredits" label="学分" onchange="autoCalcHours(this)" value=course.defaultCredits! required="true" maxlength="20"/]
     [@b.textfield name="course.creditHours" label="学时" value=course.creditHours! required="true"  maxlength="100"/]
     [@b.textfield name="course.weekHours" label="周课时" value=course.weekHours! required="true" maxlength="20"/]
     [@b.textfield name="course.weeks" label="周数" value=course.weeks! maxlength="3"/]

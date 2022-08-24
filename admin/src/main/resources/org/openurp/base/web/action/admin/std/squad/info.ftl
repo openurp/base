@@ -47,17 +47,17 @@
       <td width="25%" style="background-color:#e8eefa;">
         <table width="100%">
           <tr>
-            <td rowspan="3" width="80px"><img src="${urp.api}/platform/user/avatars/${md5.digest(student.user.code)}.jpg" width="40px" height="46px"/></td>
+            <td rowspan="3" width="80px"><img src="${urp.api}/platform/user/avatars/${md5.digest(student.code)}.jpg" width="40px" height="46px"/></td>
           </tr>
           <tr>
-            <td>${(student.user.code)!}</td>
+            <td>${(student.code)!}</td>
           </tr>
           <tr>
              <td>
                ${(student.person.name)!}&nbsp;
                ${(student.person.gender.name)!}&nbsp;
-               [#if status[student.user.code]?? && !status[student.user.code].inschool]
-                   <font color="red">${(status[student.user.code].status.name)!}</font>
+               [#if status[student.code]?? && !status[student.code].inschool]
+                   <font color="red">${(status[student.code].status.name)!}</font>
                [/#if]
              </td>
           </tr>

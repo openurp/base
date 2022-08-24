@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
+import org.beangle.web.action.view.View
 import org.openurp.base.edu.model.{Major, MajorDiscipline, TeachingOffice}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -37,15 +38,19 @@ class MajorAction extends ProjectRestfulAction[Major] {
     QueryHelper.addTemporalOn(query, getBoolean("active"))
   }
 
+  override def saveAndRedirect(entity: Major): View = {
+    val view = super.saveAndRedirect(entity)
+    entityDao.evict(classOf[Major])
+    view
+  }
+
   override def editSetting(entity: Major) = {
     put("projects", List(getProject))
     val disciplines = entityDao.getAll(classOf[MajorDiscipline])
     put("disciplines", disciplines)
-
     if (null == entity.project) {
       entity.project = getProject
     }
-
     super.editSetting(entity)
   }
 

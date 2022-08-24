@@ -18,12 +18,12 @@
 package org.openurp.base.web.action.info.edu
 
 import java.time.LocalDate
-
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.edu.model.Teacher
+import org.openurp.code.job.model.TutorType
 import org.openurp.starter.edu.helper.ProjectSupport
 
 class TeacherAction extends ActionSupport with EntityAction[Teacher] with ProjectSupport {
@@ -36,30 +36,30 @@ class TeacherAction extends ActionSupport with EntityAction[Teacher] with Projec
   def index(): View = {
     val dQuery = OqlBuilder.from(classOf[Teacher].getName, "t")
     dQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
-    dQuery.select("t.user.department.id,t.user.department.name,count(*)")
-    dQuery.groupBy("t.user.department.id,t.user.department.code,t.user.department.name")
-    dQuery.orderBy("t.user.department.code")
+    dQuery.select("t.department.id,t.department.name,count(*)")
+    dQuery.groupBy("t.department.id,t.department.code,t.department.name")
+    dQuery.orderBy("t.department.code")
     put("departStat", entityDao.search(dQuery))
 
     val ctQuery = OqlBuilder.from(classOf[Teacher].getName, "t")
     ctQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
-    ctQuery.select("t.teacherType.id,t.teacherType.name,count(*)")
-    ctQuery.groupBy("t.teacherType.id,t.teacherType.code,t.teacherType.name")
-    ctQuery.orderBy("t.teacherType.code")
+    ctQuery.select("t.staff.staffType.id,t.staff.staffType.name,count(*)")
+    ctQuery.groupBy("t.staff.staffType.id,t.staff.staffType.code,t.staff.staffType.name")
+    ctQuery.orderBy("t.staff.staffType.code")
     put("typeStat", entityDao.search(ctQuery))
 
     val categoryQuery = OqlBuilder.from(classOf[Teacher].getName, "t")
     categoryQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
-    categoryQuery.select("sum(case when t.teacherType.parttime=true then 1 else 0 end)," +
-      "sum(case when t.teacherType.retired=true then 1 else 0 end)," +
-      "sum(case when t.formalHr=true then 1 else 0 end),count(*)")
+    categoryQuery.select("sum(case when t.staff.parttime=true then 1 else 0 end)," +
+      "sum(case when t.staff.external=true then 1 else 0 end)," +
+      "sum(case when t.staff.formalHr=true then 1 else 0 end),count(*)")
     put("categoryStats", entityDao.search(categoryQuery).head)
 
     val titleQuery = OqlBuilder.from(classOf[Teacher].getName, "t")
     titleQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
-    titleQuery.select("t.title.id,t.title.name,count(*)")
-    titleQuery.groupBy("t.title.id,t.title.code,t.title.name")
-    titleQuery.orderBy("t.title.code")
+    titleQuery.select("t.staff.title.id,t.staff.title.name,count(*)")
+    titleQuery.groupBy("t.staff.title.id,t.staff.title.code,t.staff.title.name")
+    titleQuery.orderBy("t.staff.title.code")
     put("titleStat", entityDao.search(titleQuery))
     forward()
   }
@@ -67,9 +67,10 @@ class TeacherAction extends ActionSupport with EntityAction[Teacher] with Projec
   def search(): View = {
     val query = getQueryBuilder
     get("q") foreach { q =>
-      query.where("teacher.user.code like :q or teacher.user.name like :q", s"%${q.trim}%")
+      query.where("teacher.staff.code like :q or teacher.staff.name like :q", s"%${q.trim}%")
     }
-    query.orderBy("teacher.user.code")
+    query.orderBy("teacher.staff.code")
+    put("tutorTypes", codeService.get(classOf[TutorType]))
     put("teachers", entityDao.search(query))
     forward()
   }

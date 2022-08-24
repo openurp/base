@@ -17,13 +17,17 @@
 
 package org.openurp.base.web.helper
 
-import javax.sql.DataSource
 import org.beangle.commons.bean.Initializing
 import org.beangle.commons.codec.digest.Digests
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.datasource.AppDataSourceFactory
-import org.openurp.code.hr.model.UserCategory
 import org.openurp.base.edu.model.Teacher
+import org.openurp.base.model.{Staff, User}
+import org.openurp.code.hr.model.UserCategory
 import org.springframework.jdbc.core.JdbcTemplate
+
+import java.time.Instant
+import javax.sql.DataSource
 
 class UrpUserHelper extends Initializing {
 
@@ -36,7 +40,43 @@ class UrpUserHelper extends Initializing {
     platformDataSource = ds.result
   }
 
-  def createTeacherUser(teacher: Teacher): Unit = {
+  def createStaffUser(staff: Staff, entityDao: EntityDao): User = {
+    var userCode: String = staff.code
+    if (staff.persisted) {
+      val existQuery = OqlBuilder.from[String](classOf[Staff].getName, "t").select("t.code")
+      existQuery.where("t.id = :staffId", staff.id)
+      entityDao.search(existQuery).headOption foreach { code =>
+        userCode = code
+      }
+    }
+
+    val userQuery = OqlBuilder.from(classOf[User], "user").where("user.code=:code", userCode)
+      .where("user.school =:school", staff.school)
+    val users = entityDao.search(userQuery)
+    val user =
+      if (users.size == 1) {
+        users.head
+      } else {
+        val u = new User
+        u.school = staff.school
+        u.category = UserCategory(URPUserCategory.Teacher)
+        u
+      }
+    user.beginOn = staff.beginOn
+    user.endOn = staff.endOn
+    user.updatedAt = Instant.now
+    user.gender = staff.gender
+    user.department = staff.department
+    user.code = staff.code
+    user.name = staff.name
+    user.mobile = staff.mobile
+    user.email = staff.email
+    user.updatedAt = Instant.now
+
+    user
+  }
+
+  def createStaffAccount(staff: Staff): Unit = {
     val category = new UserCategory()
     category.id = URPUserCategory.Teacher
     val password = "123456"
@@ -44,7 +84,7 @@ class UrpUserHelper extends Initializing {
     val orgId = template.queryForObject("select id from cfg.orgs", classOf[Integer])
     val domainId = template.queryForObject("select id from cfg.domains", classOf[Integer])
     val teacherRoleId = template.queryForObject("select id from usr.roles where domain_id=? and name=?", classOf[Long], domainId, "教师")
-    createAccount(orgId, domainId, teacher.user.code, teacher.user.name, password, category.id, teacherRoleId)
+    createAccount(orgId, domainId, staff.code, staff.name, password, category.id, teacherRoleId)
   }
 
   private def createAccount(orgId: Int, domainId: Int, code: String, name: String, password: String, categoryId: Int, roleId: Long): Unit = {

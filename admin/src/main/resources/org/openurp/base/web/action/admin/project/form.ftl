@@ -6,8 +6,7 @@
   [@b.form action=b.rest.save(project) theme="list"]
     [@b.textfield name="project.name" label="名称" value="${project.name!}" required="true" maxlength="20"/]
     [@b.textfield name="project.code" label="代码" value="${project.code!}" required="true" maxlength="20"/]
-    [@b.select name="project.school.id" label="适用学校" value="${(project.school.id)!}" required="true"
-               style="width:200px;" items=schools option="id,name" empty="..." disabled="true"/]
+    [@b.select name="project.school.id" label="适用学校" value="${(project.school.id)!}" required="true" items=schools/]
     [@b.select2 label="校区列表" name1st="campusesId1st" name2nd="campusesId2nd"
       items1st=campuses items2nd= project.campuses
       option="id,name"/]

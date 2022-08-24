@@ -23,9 +23,9 @@ import org.beangle.web.action.annotation.mapping
 import org.beangle.web.action.view.View
 import org.openurp.base.model.Building
 import org.openurp.base.edu.model.Classroom
-import org.openurp.base.web.action.info.ProjectRestfulAction
+import org.openurp.base.web.action.info.AbstractInfoAction
 
-class ClassroomAction extends ProjectRestfulAction[Classroom] {
+class ClassroomAction extends AbstractInfoAction[Classroom] {
 
   def index(): View = {
     val project = getProject

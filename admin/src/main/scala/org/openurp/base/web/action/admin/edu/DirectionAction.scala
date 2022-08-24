@@ -31,6 +31,7 @@ class DirectionAction extends ProjectRestfulAction[Direction] {
 
   override def indexSetting() = {
     given project: Project = getProject
+
     put("departs", getDeparts)
     put("levels", getCodes(classOf[EducationLevel]))
   }
@@ -48,6 +49,7 @@ class DirectionAction extends ProjectRestfulAction[Direction] {
 
   override def editSetting(entity: Direction) = {
     given project: Project = getProject
+
     val majors = findInProject(classOf[Major])
     put("majors", majors)
     super.editSetting(entity)
@@ -69,7 +71,9 @@ class DirectionAction extends ProjectRestfulAction[Direction] {
         entity.journals += dj
       }
     }
-    super.saveAndRedirect(entity)
+    val view = super.saveAndRedirect(entity)
+    entityDao.evict(classOf[Direction])
+    view
   }
 
 }

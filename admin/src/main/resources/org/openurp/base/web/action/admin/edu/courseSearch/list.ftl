@@ -5,7 +5,7 @@
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"/]
     [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${course.id}"]${course.name}[/@][/@]
-    [@b.col width="5%" property="credits" title="学分"/]
+    [@b.col width="5%" property="defaultCredits" title="学分"/]
     [@b.col width="5%" property="creditHours" title="学时"/]
     [@b.col width="5%" property="weekHours" title="周课时"/]
     [@b.col width="5%" property="weeks" title="周数"/]

@@ -15,15 +15,15 @@
     <td class="content">${course.enName!}</td>
     <td class="title" width="20%">培养层次:</td>
     <td class="content">
-      [#list course.levels as level]
-        ${level.name}
-        [#if level_has_next],[/#if]
+      [#list course.levels as l]
+        ${l.level.name}[#if l.credits??]<sup>${l.credits}</sup>[/#if]
+        [#if l_has_next],[/#if]
       [/#list]
     </td>
   </tr>
   <tr>
     <td class="title" width="20%">学分:</td>
-    <td class="content">${course.credits!}</td>
+    <td class="content">${course.defaultCredits!}</td>
     <td class="title" width="20%">学时:</td>
     <td class="content">${course.creditHours!}</td>
   </tr>

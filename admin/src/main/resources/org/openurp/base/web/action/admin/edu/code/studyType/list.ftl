@@ -10,7 +10,7 @@
     [@b.boxcol /]
     [@b.col width="15%" property="code" title="代码"]${studyType.code}[/@]
     [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${studyType.id}"]${studyType.name}[/@][/@]
-    [@b.col width="15%" property="enName" title="英文名"]${studyType.enName!}[/@]
+    [@b.col property="enName" title="英文名"]${studyType.enName!}[/@]
     [@b.col width="20%" property="beginOn" title="生效日期"]${studyType.beginOn!}[/@]
     [@b.col width="20%" property="endOn" title="失效日期"]${studyType.endOn!}[/@]
   [/@]

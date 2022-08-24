@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="专业信息维护"/]
+[#include "nav.ftl"/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="majorSearchForm" action="!search" target="majorlist" title="ui.searchForm" theme="search"]
@@ -12,7 +12,6 @@
       <input type="hidden" name="orderBy" value="major.code"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="majorlist" href="!search?active=1&orderBy=major.code"/]
-  </div>
+    <div class="search-list">[@b.div id="majorlist" href="!search?active=1&orderBy=major.code"/]</div>
 </div>
 [@b.foot/]

@@ -22,9 +22,9 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.mapping
 import org.beangle.web.action.view.View
 import org.openurp.base.edu.model.Major
-import org.openurp.base.web.action.info.ProjectRestfulAction
+import org.openurp.base.web.action.info.AbstractInfoAction
 
-class MajorAction extends ProjectRestfulAction[Major] {
+class MajorAction extends AbstractInfoAction[Major] {
 
   def index(): View = {
     val project = getProject

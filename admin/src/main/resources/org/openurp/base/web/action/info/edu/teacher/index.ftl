@@ -15,7 +15,7 @@
               <span class="badge badge-primary">兼职${categoryStats[0]}</span>
               [/#if]
               [#if categoryStats[1]>0]
-              <span class="badge badge-danger">返聘${categoryStats[1]}</span>
+              <span class="badge badge-danger">外聘${categoryStats[1]}</span>
               [/#if]
               [#if categoryStats[2]>0]
               <span class="badge badge-primary">在编${categoryStats[2]}</span>
@@ -30,7 +30,7 @@
                <tbody>
                [#list departStat as stat]
                <tr>
-                <td width="80%">[@b.a href="!search?teacher.user.department.id="+stat[0] target="course_list"]${stat[1]}[/@]</td>
+                <td width="80%">[@b.a href="!search?teacher.department.id="+stat[0] target="course_list"]${stat[1]}[/@]</td>
                 <td width="20%">${stat[2]}</td>
                </tr>
                [/#list]

@@ -10,7 +10,7 @@
     [@b.boxcol /]
     [@b.col width="6%" property="code" title="代码"]${major.code}[/@]
     [@b.col width="21%" property="name" title="名称"][@b.a href="!info?id=${major.id}"]${major.name}[/@][/@]
-    [@b.col width="40%" title="院系"]
+    [@b.col title="院系"]
     [#assign departs = [] /]
     [#list major.journals as j][#if major.endOn?? || !(j.endOn??)] [#if !departs?seq_contains(j.depart)][#assign departs = departs+[j.depart]][/#if][/#if][/#list]
     [#list departs as d]${d.name}[#if d_has_next] [/#if][/#list]

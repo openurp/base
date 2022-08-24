@@ -10,7 +10,7 @@
     [@b.boxcol /]
     [@b.col width="15%" property="code" title="代码"]${courseAbilityRate.code}[/@]
     [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${courseAbilityRate.id}"]${courseAbilityRate.name}[/@][/@]
-    [@b.col width="15%" property="enName" title="英文名"]${courseAbilityRate.enName!}[/@]
+    [@b.col property="enName" title="英文名"]${courseAbilityRate.enName!}[/@]
     [@b.col width="20%" property="beginOn" title="生效日期"]${courseAbilityRate.beginOn!}[/@]
     [@b.col width="20%" property="endOn" title="失效日期"]${courseAbilityRate.endOn!}[/@]
   [/@]

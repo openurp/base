@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="专业方向"/]
+[#include "../major/nav.ftl"/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="directionSearchForm" action="!search" target="directionlist" title="ui.searchForm" theme="search"]

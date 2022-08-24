@@ -20,11 +20,11 @@ package org.openurp.base.web.action.info.std
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.openurp.base.std.model.{Squad, StudentState}
-import org.openurp.base.web.action.info.ProjectRestfulAction
+import org.openurp.base.web.action.info.AbstractInfoAction
 
 import java.time.LocalDate
 
-class SquadAction extends ProjectRestfulAction[Squad] {
+class SquadAction extends AbstractInfoAction[Squad] {
 
   def index(): View = {
     val dQuery = OqlBuilder.from(classOf[Squad].getName, "t")

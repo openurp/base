@@ -27,17 +27,19 @@ import org.openurp.starter.edu.helper.ProjectSupport
 class DirectionJournalAction extends RestfulAction[DirectionJournal] with ProjectSupport {
   override def editSetting(entity: DirectionJournal) = {
     given project: Project = getProject
+
     put("directions", entityDao.findBy(classOf[Direction], "project", project))
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))
     super.editSetting(entity)
   }
 
-  override protected def saveAndRedirect(entity: DirectionJournal): View = {
-    val view = super.saveAndRedirect(entity)
-    entity.direction.beginOn = entity.direction.journals.map(_.beginOn).min
-    entityDao.saveOrUpdate(entity.direction)
-    entityDao.evict(entity.direction)
+  override protected def saveAndRedirect(dj: DirectionJournal): View = {
+    val view = super.saveAndRedirect(dj)
+    entityDao.evict(classOf[Direction])
+    val direction = entityDao.get(classOf[Direction], dj.direction.id)
+    direction.beginOn = direction.journals.map(_.beginOn).min
+    entityDao.saveOrUpdate(direction)
     view
   }
 }

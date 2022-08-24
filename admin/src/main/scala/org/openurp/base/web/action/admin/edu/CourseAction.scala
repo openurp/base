@@ -24,9 +24,9 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
-import org.openurp.base.Properties
+import org.openurp.base.Features
 import org.openurp.base.edu.code.{CourseCategory, CourseType}
-import org.openurp.base.edu.model.{Course, CourseHour, TeachingOffice}
+import org.openurp.base.edu.model.{Course, CourseHour, CourseLevel, TeachingOffice}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{CourseImportListener, QueryHelper}
@@ -47,9 +47,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     put("departments", findInSchool(classOf[Department]))
 
     put("teachingOffices", entityDao.findBy(classOf[TeachingOffice], "project", project))
-    val levels = project.levels.map(_.toLevel).toSet.toBuffer
-    levels --= c.levels
-    put("levels", levels)
+    val levels = project.levels
     put("courseNatures", getCodes(classOf[CourseNature]))
     put("teachingNatures", getCodes(classOf[TeachingNature]))
     if (!c.persisted) {
@@ -57,10 +55,17 @@ class CourseAction extends ProjectRestfulAction[Course] {
       c.beginOn = LocalDate.now
       c.calgp = true
       c.hasMakeup = true
-      c.levels ++= levels
-      levels.clear()
+      levels foreach { l =>
+        val cl = new CourseLevel
+        cl.course = c
+        cl.level = l
+        c.levels += cl
+      }
     }
-    put("hoursPerCredit", getProjectProperty(Properties.CourseHoursPerCredit, 16))
+    put("courseLevels", c.levels.map(_.level))
+    put("levels", project.levels)
+    put("levelCreditSupported", getProjectProperty(Features.CourseLevelCreditSupported, false))
+    put("hoursPerCredit", getProjectProperty(Features.CourseHoursPerCredit, 16))
     super.editSetting(c)
   }
 
@@ -88,11 +93,11 @@ class CourseAction extends ProjectRestfulAction[Course] {
 
   @response
   def downloadTemplate(): Any = {
-    val courseTypes = entityDao.search(OqlBuilder.from(classOf[CourseType], "p").orderBy("p.name")).map(_.name)
-    val examModes = entityDao.search(OqlBuilder.from(classOf[ExamMode], "bc").orderBy("bc.name")).map(_.name)
-    val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.name")).map(_.name)
-    val natures = entityDao.search(OqlBuilder.from(classOf[CourseNature], "bc").orderBy("bc.name")).map(_.name)
-    val categories = entityDao.search(OqlBuilder.from(classOf[CourseCategory], "bc").orderBy("bc.name")).map(_.name)
+    val courseTypes = codeService.get(classOf[CourseType]).map(x => x.code + " " + x.name)
+    val examModes = codeService.get(classOf[ExamMode]).map(x => x.code + " " + x.name)
+    val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.name")).map(x => x.code + " " + x.name)
+    val natures = codeService.get(classOf[CourseNature]).map(x => x.code + " " + x.name)
+    val categories = codeService.get(classOf[CourseCategory]).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -101,22 +106,17 @@ class CourseAction extends ProjectRestfulAction[Course] {
     sheet.add("课程代码", "course.code").length(10).required().remark("≤10位")
     sheet.add("课程名称", "course.name").length(100).required()
     sheet.add("课程英文名称", "course.enName").length(300)
-    sheet.add("课程类别", "course.courseType.name").ref(courseTypes).required()
-    sheet.add("开课院系", "course.department.name").ref(departs).required()
-    sheet.add("学分", "course.credits").required().decimal()
+    sheet.add("课程类别", "course.courseType.code").ref(courseTypes).required()
+    sheet.add("开课院系", "course.department.code").ref(departs).required()
+    sheet.add("学分", "course.defaultCredits").required().decimal()
     sheet.add("总课时", "course.creditHours").required().decimal()
     sheet.add("周课时", "course.weekHours").required().decimal()
-    sheet.add("考核方式名称", "course.examMode.name").ref(examModes).required()
-    sheet.add("课程性质", "course.nature.name").ref(natures).required()
-    sheet.add("评教分类", "course.category.name").ref(categories)
+    sheet.add("考核方式名称", "course.examMode.code").ref(examModes).required()
+    sheet.add("课程性质", "course.nature.code").ref(natures).required()
+    sheet.add("评教分类", "course.category.code").ref(categories)
     sheet.add("是否设置补考", "course.hasMakeup").bool()
     sheet.add("是否计算绩点", "course.calgp").bool()
 
-    val code = schema.createScheet("数据字典")
-    code.add("课程类别").data(courseTypes)
-    code.add("考核方式").data(examModes)
-    code.add("开课院系").data(departs)
-    code.add("课程性质").data(natures)
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "课程模板.xlsx")
@@ -163,13 +163,19 @@ class CourseAction extends ProjectRestfulAction[Course] {
     }
     val orphan = course.hours.filter(x => !teachingNatures.contains(x.teachingNature))
     course.hours --= orphan
-    val levelIds = getAll("levelId2nd", classOf[Int])
-    val newLevels = entityDao.find(classOf[AcademicLevel], levelIds)
-    val removed = course.levels filter { x => !newLevels.contains(x) }
+    val levelIds = getAll("levelId", classOf[Int])
+    val newLevels = entityDao.find(classOf[EducationLevel], levelIds)
+    val removed = course.levels filter { x => !newLevels.contains(x.level) }
     course.levels.subtractAll(removed)
     newLevels foreach { l =>
-      if (!course.levels.contains(l))
-        course.levels += l
+      val courseLevel = course.levels.find(_.level == l) match {
+        case None =>
+          val cl = new CourseLevel(course, l)
+          course.levels += cl
+          cl
+        case Some(cl) => cl
+      }
+      courseLevel.credits = getFloat(s"level${l.id}.credits")
     }
 
     course.gradingModes.clear()
