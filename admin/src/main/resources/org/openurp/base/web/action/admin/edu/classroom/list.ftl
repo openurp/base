@@ -5,6 +5,7 @@
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
+    bar.addItem("导入",action.method('importForm'));
     bar.addItem("${b.text("action.export")}",action.exportData("code:代码,name:名称,roomNo:房间号,roomType.name:教室类型,building.name:教学楼,campus.name:校区,capacity:容量,courseCapacity:上课容量,examCapacity:考试容量,beginOn:生效日期,endOn:失效日期",null,'fileName=教室信息'));
   [/@]
   [@b.row]

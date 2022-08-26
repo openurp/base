@@ -82,9 +82,7 @@ class StaffAction extends ProjectRestfulAction[Staff] {
       val mentors = entityDao.findBy(classOf[Mentor], "staff", staff)
       mentors foreach (t => t.name = staff.name)
       entityDao.saveOrUpdate(mentors)
-
-      urpUserHelper.createStaffUser(staff, entityDao)
-      urpUserHelper.createStaffAccount(staff)
+      urpUserHelper.createStaffUser(staff)
       redirect("search", "info.save.success")
     } catch {
       case e: Exception => {

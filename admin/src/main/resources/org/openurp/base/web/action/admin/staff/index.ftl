@@ -1,10 +1,6 @@
 [#ftl]
 [@b.head/]
 [@b.toolbar title="教职工信息"]
-  bar.addItem("导入","importForm()")
-  function importForm(){
-    bg.form.submit(document.searchForm,"${b.url('!importForm')}","_blank")
-  }
 [/@]
 <div class="search-container">
     <div class="search-panel">

@@ -17,20 +17,27 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import java.time.{Instant, LocalDate}
 import org.beangle.commons.collection.Collections
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.view.View
+import org.beangle.data.excel.schema.ExcelSchema
+import org.beangle.data.transfer.importer.ImportSetting
+import org.beangle.data.transfer.importer.listener.ForeignerListener
+import org.beangle.web.action.annotation.response
+import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.edu.model.Classroom
-import org.openurp.base.web.helper.QueryHelper
 import org.openurp.base.model.{Building, Campus, Department, Project}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
+import org.openurp.base.web.helper.{ClassroomImportListener, QueryHelper}
 import org.openurp.code.edu.model.ClassroomType
+
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.{Instant, LocalDate}
 
 class ClassroomAction extends ProjectRestfulAction[Classroom] {
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
+
     put("roomTypes", getCodes(classOf[ClassroomType]))
     put("campuses", findInSchool(classOf[Campus]))
   }
@@ -64,6 +71,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom] {
 
   override def editSetting(entity: Classroom) = {
     given project: Project = getProject
+
     if (null == entity.school) {
       entity.school = project.school
     }
@@ -76,4 +84,36 @@ class ClassroomAction extends ProjectRestfulAction[Classroom] {
     put("departs", departs)
   }
 
+  @response
+  def downloadTemplate(): Any = {
+    given project: Project = getProject
+
+    val classroomTypes = codeService.get(classOf[ClassroomType]).map(x => x.code + " " + x.name)
+    val campuses = findInSchool(classOf[Campus]).map(x => x.code + " " + x.name)
+    val buildings = findInSchool(classOf[Building]).map(x => x.code + " " + x.name)
+
+    val schema = new ExcelSchema()
+    val sheet = schema.createScheet("数据模板")
+    sheet.title("教室信息模板")
+    sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
+    sheet.add("教室代码", "classroom.code").length(10).required().remark("≤10位")
+    sheet.add("教室名称", "classroom.name").length(100).required()
+    sheet.add("教室英文名称", "classroom.enName").length(300)
+    sheet.add("房间号", "classroom.roomNo").length(300)
+    sheet.add("校区", "classroom.campus.code").ref(campuses).required()
+    sheet.add("教学楼", "classroom.building.code").ref(buildings).required()
+    sheet.add("教室类型", "classroom.roomType.code").ref(classroomTypes).required()
+    sheet.add("总容量", "classroom.capacity").required().decimal()
+    sheet.add("听课容量", "classroom.courseCapacity").required().decimal()
+    sheet.add("考试容量", "classroom.examCapacity").required().decimal()
+    val os = new ByteArrayOutputStream()
+    schema.generate(os)
+    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教室模板.xlsx")
+  }
+
+  protected override def configImport(setting: ImportSetting): Unit = {
+    val fl = new ForeignerListener(entityDao)
+    fl.addForeigerKey("name")
+    setting.listeners = List(fl, new ClassroomImportListener(entityDao, getProject))
+  }
 }

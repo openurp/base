@@ -19,33 +19,28 @@ package org.openurp.base.web.helper
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.{Course, CourseLevel}
+import org.openurp.base.edu.model.Classroom
 import org.openurp.base.model.Project
 
 import java.time.{Instant, LocalDate}
 
-class CourseImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
-
+class ClassroomImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("course.code") foreach { code =>
-      val query = OqlBuilder.from(classOf[Course], "c")
-      query.where("c.code =:code and c.project=:project", code, project)
-      val cs = entityDao.search(query)
-      if (cs.nonEmpty) transfer.current = cs.head
+    transfer.curData.get("classroom.code") foreach { code =>
+      val query = OqlBuilder.from(classOf[Classroom], "c")
+      query.where("c.code =:code and c.school=:school", code, project.school)
+      entityDao.search(query).foreach { cl =>
+        transfer.current = cl
+      }
     }
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val course = transfer.current.asInstanceOf[Course]
-    course.project = project
-    course.updatedAt = Instant.now
-    if (course.levels.isEmpty) {
-      val cls = project.levels.map { x => new CourseLevel(course, x) }
-      course.levels.addAll(cls)
-    }
-    if (null == course.beginOn) {
-      course.beginOn = LocalDate.now
-    }
-    entityDao.saveOrUpdate(course)
+    val classroom = transfer.current.asInstanceOf[Classroom]
+    classroom.projects.add(project)
+    classroom.updatedAt = Instant.now
+    classroom.school = project.school
+    if (null == classroom.beginOn) classroom.beginOn = LocalDate.now
+    entityDao.saveOrUpdate(classroom)
   }
 }

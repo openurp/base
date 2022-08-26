@@ -21,16 +21,14 @@ import org.beangle.data.dao.EntityDao
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.model.{Project, Staff}
 
-import java.time.Instant
+import java.time.{Instant, LocalDate}
 
 class StaffImportListener(entityDao: EntityDao, project: Project, urpUserHelper: UrpUserHelper) extends ImportListener {
 
   override def onItemStart(tr: ImportResult): Unit = {
     transfer.curData.get("staff.code") foreach { code =>
       val cs = entityDao.findBy(classOf[Staff], "code", List(code))
-      if (cs.nonEmpty) {
-        transfer.current = cs.head
-      }
+      if (cs.nonEmpty) transfer.current = cs.head
     }
   }
 
@@ -38,8 +36,8 @@ class StaffImportListener(entityDao: EntityDao, project: Project, urpUserHelper:
     val staff = transfer.current.asInstanceOf[Staff]
     staff.school = project.school
     staff.updatedAt = Instant.now
+    if (null == staff.beginOn) staff.beginOn = LocalDate.now.minusDays(1)
     entityDao.saveOrUpdate(staff)
-    urpUserHelper.createStaffUser(staff, entityDao)
-    urpUserHelper.createStaffAccount(staff)
+    urpUserHelper.createStaffUser(staff)
   }
 }
