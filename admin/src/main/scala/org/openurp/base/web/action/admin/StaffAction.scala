@@ -31,7 +31,7 @@ import org.openurp.base.model.*
 import org.openurp.base.std.model.Mentor
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.action.admin.code.PoliticalStatusAction
-import org.openurp.base.web.helper.{QueryHelper, StaffImportListener, URPUserCategory, UrpUserHelper}
+import org.openurp.base.web.helper.{QueryHelper, StaffImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
 import org.openurp.code.hr.model.{StaffType, UserCategory, WorkStatus}
 import org.openurp.code.job.model.ProfessionalTitle

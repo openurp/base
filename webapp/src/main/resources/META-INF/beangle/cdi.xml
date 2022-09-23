@@ -7,6 +7,6 @@
     <module class="org.openurp.base.web.action.info.edu.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.std.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.DefaultModule"/>
-    <module class="org.openurp.starter.edu.action.ProjectModule" />
+    <module class="org.openurp.starter.web.ProjectModule"/>
   </container>
 </cdi>

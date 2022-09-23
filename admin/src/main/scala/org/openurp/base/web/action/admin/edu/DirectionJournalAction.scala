@@ -22,7 +22,7 @@ import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Direction, DirectionJournal}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.code.edu.model.EducationLevel
-import org.openurp.starter.edu.helper.ProjectSupport
+import org.openurp.starter.web.support.ProjectSupport
 
 class DirectionJournalAction extends RestfulAction[DirectionJournal] with ProjectSupport {
   override def editSetting(entity: DirectionJournal) = {

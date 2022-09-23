@@ -64,8 +64,8 @@ class CourseAction extends ProjectRestfulAction[Course] {
     }
     put("courseLevels", c.levels.map(_.level))
     put("levels", project.levels)
-    put("levelCreditSupported", getProjectProperty(Features.CourseLevelCreditSupported, false))
-    put("hoursPerCredit", getProjectProperty(Features.CourseHoursPerCredit, 16))
+    put("levelCreditSupported", getProjectProperty(Features.EduCourseLevelCreditSupported, false))
+    put("hoursPerCredit", getProjectProperty(Features.EduCourseHoursPerCredit, 16))
     super.editSetting(c)
   }
 

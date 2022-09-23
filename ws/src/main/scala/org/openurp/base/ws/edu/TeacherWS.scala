@@ -40,11 +40,16 @@ class TeacherWS extends ActionSupport with EntityAction[Teacher] {
       val c = s"%${q}%"
       query.where("teacher.staff.name like :c or teacher.staff.code like :c", c)
     }
+    getBoolean("isTutor") match {
+      case None => query.where("teacher.tutorType is not null")
+      case Some(result) =>
+        if (result) query.where("teacher.tutorType is not null")
+    }
     val orderStr = get(Order.OrderStr).getOrElse("teacher.name")
     query.orderBy(orderStr)
 
     entityDao.search(query).map { t =>
-      val teacher = new Properties(t, "id","code", "name")
+      val teacher = new Properties(t, "id", "code", "name", "description")
       teacher.add("department", t.department, "id", "code", "name")
       teacher
     }

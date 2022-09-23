@@ -20,6 +20,7 @@ package org.openurp.base.web.helper
 import org.beangle.commons.bean.Initializing
 import org.beangle.commons.codec.digest.Digests
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.ems.app.Ems
 import org.beangle.ems.app.datasource.AppDataSourceFactory
 import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.{Staff, User}
@@ -40,11 +41,14 @@ class UrpUserHelper extends Initializing {
     val ds = new AppDataSourceFactory()
     ds.name = "platform"
     ds.init()
-    userRepo = new DefaultUserRepo(entityDao, ds.result)
+    userRepo = new DefaultUserRepo(entityDao, ds.result, Ems.hostname)
   }
 
   def createStaffUser(staff: Staff): User = {
     userRepo.createUser(staff)
   }
 
+  def createAccount(user: User): Unit = {
+    userRepo.createAccount(user)
+  }
 }

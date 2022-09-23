@@ -22,7 +22,7 @@ import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.model.SchoolLength
 import org.openurp.base.model.Project
-import org.openurp.starter.edu.helper.ProjectSupport
+import org.openurp.starter.web.support.ProjectSupport
 
 /**
  * @author duantihua

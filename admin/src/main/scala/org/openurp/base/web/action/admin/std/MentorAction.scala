@@ -25,9 +25,10 @@ import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.execution.MappingHandler
 import org.openurp.base.model.*
+import org.openurp.base.service.UserCategories
 import org.openurp.base.std.model.Mentor
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, URPUserCategory, UrpUserHelper}
+import org.openurp.base.web.helper.{QueryHelper, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
 import org.openurp.code.hr.model.{UserCategory, WorkStatus}
 import org.openurp.code.job.model.ProfessionalTitle
@@ -72,7 +73,7 @@ class MentorAction extends ProjectRestfulAction[Mentor] {
       } else {
         val u = new User
         u.school = school
-        u.category = UserCategory(URPUserCategory.Manager)
+        u.category = UserCategory(UserCategories.Manager)
         u
       }
     user.beginOn = mentor.beginOn

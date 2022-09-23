@@ -26,6 +26,7 @@
     [@b.textfield label="全职工作单位"  name="staff.organization" value=staff.organization! required="false" /]
     [@b.email label="电子邮件"  name="staff.email" value=staff.email! required="false" /]
     [@b.textfield label="移动电话"  name="staff.mobile" value=staff.mobile! required="false" /]
+    [@b.textfield label="个人主页"  name="staff.homepage" value=staff.homepage! required="false" maxlength="150" style="width:400px"/]
     [@b.startend label="在校时间" name="staff.beginOn,staff.endOn" required="true,false" start=staff.beginOn end=staff.endOn format="date"/]
     [@b.select name="staff.status.id" label="在职状态" value=staff.status! required="true"  items=statuses/]
     [@b.textfield name="staff.remark" label="备注" value=staff.remark! maxlength="30"/]

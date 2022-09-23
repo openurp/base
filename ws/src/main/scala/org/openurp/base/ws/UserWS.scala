@@ -47,6 +47,9 @@ class UserWS extends ActionSupport with EntityAction[User] {
     getBoolean("isStd") foreach { isStd =>
       query.where((if (isStd) "" else "not ") + " exists(from " + classOf[Student].getName + "  t  where t.code=user.code)")
     }
+    getBoolean("isTutor") foreach { isTutor =>
+      query.where((if (isTutor) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.staff.code=user.code and t.tutorType is not null)")
+    }
     val orderStr = get(Order.OrderStr).getOrElse("user.name")
     query.orderBy(orderStr)
     entityDao.search(query).map { t =>

@@ -17,21 +17,24 @@
 
 package org.openurp.base.web.action.admin
 
-import java.time.LocalDate
-
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.hr.model.UserCategory
 import org.openurp.base.model.User
+import org.openurp.base.web.helper.UrpUserHelper
+import org.openurp.code.hr.model.UserCategory
 import org.openurp.code.person.model.Gender
 
+import java.time.LocalDate
+
 class UserAction extends RestfulAction[User] with SchoolSupport {
+  var urpUserHelper: UrpUserHelper = _
+
   override protected def getQueryBuilder: OqlBuilder[User] = {
     val builder = OqlBuilder.from(classOf[User], "user")
-    builder.where("user.school=:school",getSchool)
+    builder.where("user.school=:school", getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
@@ -48,9 +51,11 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
   }
 
   @ignore
-  override protected def saveAndRedirect(entity: User): View = {
-    entity.school = getSchool
-    entity.beginOn = LocalDate.now
-    super.saveAndRedirect(entity)
+  override protected def saveAndRedirect(user: User): View = {
+    user.school = getSchool
+    user.beginOn = LocalDate.now
+    entityDao.saveOrUpdate(user)
+    urpUserHelper.createAccount(user)
+    super.saveAndRedirect(user)
   }
 }
