@@ -8,7 +8,7 @@
   [/@]
   [@b.row]
     [@b.boxcol /]
-    [@b.col width="50%" property="name" title="名称"][@b.a href="!info?id=${calendarStage.id}"]${calendarStage.name}[/@][/@]
+    [@b.col property="name" title="名称"][@b.a href="!info?id=${calendarStage.id}"]${calendarStage.name}[/@][/@]
     [@b.col width="45%" property="vacation" title="是否假期"]${calendarStage.vacation?string("","")}[/@]
   [/@]
 [/@]

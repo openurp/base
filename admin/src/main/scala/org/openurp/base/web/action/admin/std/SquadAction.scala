@@ -63,8 +63,8 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     put("majors", majors)
     val directions = findInProject(classOf[Direction])
     put("directions", directions)
-    val stdTypes = getCodes(classOf[StdType])
-    put("stdTypes", stdTypes)
+    put("stdTypes", project.stdTypes)
+    put("eduTypes", project.eduTypes)
 
     put("grades", findInProject(classOf[Grade]))
     super.editSetting(entity)
@@ -115,7 +115,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
   def downloadTemplate(): Any = {
     val project = getProject
     val departs = project.departments.map(x => x.code + " " + x.name)
-    val grades = entityDao.search(OqlBuilder.from(classOf[Grade], "m").where("m.project=:project", project).orderBy("m.code")).map(x =>x.name)
+    val grades = entityDao.search(OqlBuilder.from(classOf[Grade], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.name)
     val majors = entityDao.search(OqlBuilder.from(classOf[Major], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.code + " " + x.name)
     val directions = entityDao.search(OqlBuilder.from(classOf[Direction], "d").where("d.project=:project", project).orderBy("d.code")).map(x => x.code + " " + x.name)
     val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name)

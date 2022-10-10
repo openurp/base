@@ -13,7 +13,7 @@
     [@b.col width="12%" property="isbn" title="ISBN"]
       <span style="font-size:0.8em"> ${(textbook.isbn)!}</span>
     [/@]
-    [@b.col width="35%" property="name" title="名称"]
+    [@b.col property="name" title="名称"]
       <span [#if textbook.name?length > 25]style="font-size:0.8em"[/#if]>
       [@b.a href="!info?id=${textbook.id}"]${textbook.name}[/@]
       [#if textbook.madeInSchool]<sup>自编</sup>[/#if]

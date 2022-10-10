@@ -9,7 +9,7 @@
   [@b.row]
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"]${building.code}[/@]
-    [@b.col width="15%" property="name" title="名称"][@b.a href="!info?id=${building.id}"]${building.name}[/@][/@]
+    [@b.col property="name" title="名称"][@b.a href="!info?id=${building.id}"]${building.name}[/@][/@]
     [@b.col width="15%" property="enName" title="英文名称"]${building.enName!}[/@]
     [@b.col width="10%" property="shortName" title="简称"]${building.shortName!}[/@]
     [@b.col width="15%" property="campus" title="所属校区"]${(building.campus.name)!}[/@]

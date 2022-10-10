@@ -11,7 +11,7 @@
   [@b.row]
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"]${classroom.code}[/@]
-    [@b.col width="20%" property="name" title="名称"]
+    [@b.col property="name" title="名称"]
        [@b.a href="!info?id=${classroom.id}"]${classroom.name}
          [#if !classroom.roomNo??]<sup>虚拟</sup>[/#if]
        [/@]
