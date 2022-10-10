@@ -14,17 +14,17 @@
     [@b.col width="23%" property="name" title="名称"][@b.a href="!info?id=${squad.id}"]${squad.name}[/@][/@]
     [@b.col width="5%" property="grade" title="年级"]${squad.grade!}[/@]
     [@b.col width="6%" property="level" title="培养层次"]${(squad.level.name)!}[/@]
-    [@b.col width="15%" property="department" title="院系"]${(squad.department.name)!}[/@]
+    [@b.col width="12%" property="department" title="院系"]${squad.department.shortName!squad.department.name}[/@]
     [@b.col width="18%" property="major" title="专业(方向)"]${(squad.major.name)!} ${(squad.direction.name)!}[/@]
     [@b.col width="8%" property="stdType" title="学生类别"]${(squad.stdType.name)!}[/@]
     [@b.col width="5%" property="stdCount" title="人数"]${squad.stdCount!}[/@]
     [@b.col property="mentor" title="管理人员"]
+      <span style="font-size:0.8em">
       [#if squad.mentor??]${squad.mentor.name}<sup>辅</sup>[/#if]
       [#if squad.tutor??]${squad.tutor.name}<sup>导</sup>[/#if]
       [#if squad.master??]${squad.master.name}<sup>班</sup>[/#if]
+      </span>
     [/@]
   [/@]
 [/@]
-<form name="ImportExportForm" id="ImportExportForm" method="post" target="_blank"></form>
-
 [@b.foot/]
