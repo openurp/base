@@ -73,7 +73,7 @@
   </div>
 <script>
   function infoStd(stdId){
-    bg.Go("${base}/studentSearch!info.action?studentId="+stdId,"_blank");
+    bg.Go("${b.base}/studentSearch!info.action?studentId="+stdId,"_blank");
   }
 </script>
 [@b.foot /]
