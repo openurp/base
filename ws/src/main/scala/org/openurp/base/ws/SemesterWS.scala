@@ -19,7 +19,7 @@ package org.openurp.base.ws
 
 import org.beangle.commons.collection.Properties
 import org.beangle.commons.lang.Numbers
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
@@ -28,7 +28,7 @@ import org.openurp.base.model.{Project, Semester}
 import java.time.LocalDate
 
 class SemesterWS extends ActionSupport with EntityAction[Semester] {
-
+  var entityDao: EntityDao = _
   @response
   @mapping("{project}")
   def index(@param("project") projectId: String): Seq[Properties] = {

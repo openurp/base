@@ -18,7 +18,7 @@
 package org.openurp.base.web.action.info
 
 import org.beangle.commons.collection.Order
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.model.Entity
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.{EntityAction, ExportSupport}
@@ -27,6 +27,8 @@ import org.openurp.starter.web.support.ProjectSupport
 
 abstract class AbstractInfoAction[T <: Entity[_]] extends ActionSupport
   with EntityAction[T] with ExportSupport[T] with ProjectSupport {
+
+  var entityDao: EntityDao = _
 
   override protected def getQueryBuilder: OqlBuilder[T] = {
     val builder = OqlBuilder.from(entityClass, simpleEntityName)

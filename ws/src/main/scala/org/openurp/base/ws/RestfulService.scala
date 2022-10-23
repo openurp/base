@@ -17,6 +17,7 @@
 
 package org.openurp.base.ws
 
+import org.beangle.data.dao.EntityDao
 import org.beangle.data.model.Entity
 import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.context.Params
@@ -24,6 +25,8 @@ import org.beangle.web.action.support.{ActionSupport, MimeSupport}
 import org.beangle.webmvc.support.action.EntityAction
 
 class RestfulService[T <: Entity[_]] extends ActionSupport with EntityAction[T] with MimeSupport {
+
+  var entityDao: EntityDao = _
 
   @response
   def index(): Any = {

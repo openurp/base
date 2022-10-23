@@ -19,7 +19,7 @@ package org.openurp.base.ws
 
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
@@ -29,6 +29,8 @@ import org.openurp.base.model.User
 import org.openurp.base.std.model.{Mentor, Student}
 
 class UserWS extends ActionSupport with EntityAction[User] {
+  var entityDao: EntityDao = _
+
   @response
   def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[User], "user")
@@ -53,7 +55,7 @@ class UserWS extends ActionSupport with EntityAction[User] {
     val orderStr = get(Order.OrderStr).getOrElse("user.name")
     query.orderBy(orderStr)
     entityDao.search(query).map { t =>
-      val user = new Properties(t, "id", "code", "name","description")
+      val user = new Properties(t, "id", "code", "name", "description")
       user.add("department", t.department, "id", "code", "name")
       user
     }

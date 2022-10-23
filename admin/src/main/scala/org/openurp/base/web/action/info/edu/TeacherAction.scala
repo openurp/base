@@ -17,8 +17,7 @@
 
 package org.openurp.base.web.action.info.edu
 
-import java.time.LocalDate
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.EntityAction
@@ -26,7 +25,11 @@ import org.openurp.base.edu.model.Teacher
 import org.openurp.code.job.model.TutorType
 import org.openurp.starter.web.support.ProjectSupport
 
+import java.time.LocalDate
+
 class TeacherAction extends ActionSupport with EntityAction[Teacher] with ProjectSupport {
+
+  var entityDao: EntityDao = _
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
     val builder = super.getQueryBuilder

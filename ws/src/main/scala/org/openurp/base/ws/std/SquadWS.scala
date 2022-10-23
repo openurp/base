@@ -18,7 +18,7 @@
 package org.openurp.base.ws.std
 
 import org.beangle.commons.collection.Order
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.jsonapi.JsonAPI
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
@@ -29,6 +29,8 @@ import org.openurp.base.std.model.Squad
 import org.openurp.code.CodeBean
 
 class SquadWS extends ActionSupport with EntityAction[Squad] {
+  var entityDao: EntityDao = _
+
   @response
   def index(): JsonAPI.Json = {
     val projectId = getInt("project", 0)

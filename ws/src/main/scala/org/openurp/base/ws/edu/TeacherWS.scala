@@ -19,7 +19,7 @@ package org.openurp.base.ws.edu
 
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
@@ -28,6 +28,8 @@ import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.Project
 
 class TeacherWS extends ActionSupport with EntityAction[Teacher] {
+  var entityDao: EntityDao = _
+
   @response
   def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[Teacher], "teacher")

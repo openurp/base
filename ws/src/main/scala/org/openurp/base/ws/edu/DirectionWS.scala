@@ -17,7 +17,7 @@
 
 package org.openurp.base.ws.edu
 
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.jsonapi.JsonAPI
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
@@ -27,6 +27,8 @@ import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.Direction
 
 class DirectionWS extends ActionSupport with EntityAction[Direction] {
+
+  var entityDao: EntityDao = _
 
   @response
   def index(): JsonAPI.Json = {

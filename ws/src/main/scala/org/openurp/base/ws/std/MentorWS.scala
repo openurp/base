@@ -19,7 +19,7 @@ package org.openurp.base.ws.std
 
 import org.beangle.commons.collection.Properties
 import org.beangle.commons.collection.page.PageLimit
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
@@ -27,6 +27,8 @@ import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam}
 import org.openurp.base.std.model.Mentor
 
 class MentorWS extends ActionSupport with EntityAction[Mentor] {
+
+  var entityDao: EntityDao = _
 
   @response
   def index(): Seq[Properties] = {
@@ -38,7 +40,7 @@ class MentorWS extends ActionSupport with EntityAction[Mentor] {
       query.where("mentor.name like :c or mentor.code like :c", c)
     }
     entityDao.search(query).map { t =>
-      val mentor = new Properties(t, "id","code", "name")
+      val mentor = new Properties(t, "id", "code", "name")
       mentor.add("department", t.department, "id", "code", "name")
       mentor
     }
