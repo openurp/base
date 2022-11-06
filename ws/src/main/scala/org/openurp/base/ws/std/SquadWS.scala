@@ -20,6 +20,7 @@ package org.openurp.base.ws.std
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.jsonapi.JsonAPI
+import org.beangle.data.jsonapi.JsonAPI.Context
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.support.ActionSupport
@@ -41,10 +42,11 @@ class SquadWS extends ActionSupport with EntityAction[Squad] {
     QueryHelper.limit(query)
     val squads = entityDao.search(query)
 
-    val context = JsonAPI.context(ActionContext.current.params)
+    given context: Context = JsonAPI.context(ActionContext.current.params)
+
     context.filters.include(classOf[Squad], "id", "code", "name", "enName")
-    val resources = squads.map { g => JsonAPI.create(g, context, "") }
-    JsonAPI.newJson(resources, context)
+    val resources = squads.map { g => JsonAPI.create(g, "") }
+    JsonAPI.newJson(resources)
   }
 
 }
