@@ -114,13 +114,13 @@ class SquadAction extends ProjectRestfulAction[Squad] {
   @response
   def downloadTemplate(): Any = {
     val project = getProject
-    val departs = project.departments.map(x => x.code + " " + x.name)
+    val departs = project.departments.map(x => x.code + " " + x.name).toSeq.sorted
     val grades = entityDao.search(OqlBuilder.from(classOf[Grade], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.name)
     val majors = entityDao.search(OqlBuilder.from(classOf[Major], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.code + " " + x.name)
     val directions = entityDao.search(OqlBuilder.from(classOf[Direction], "d").where("d.project=:project", project).orderBy("d.code")).map(x => x.code + " " + x.name)
-    val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name)
-    val levels = project.levels.map(x => x.code + " " + x.name)
-    val stdTypes = project.stdTypes.map(x => x.code + " " + x.name)
+    val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name).toSeq.sorted
+    val levels = project.levels.map(x => x.code + " " + x.name).toSeq.sorted
+    val stdTypes = project.stdTypes.map(x => x.code + " " + x.name).toSeq.sorted
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")

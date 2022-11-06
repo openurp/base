@@ -35,7 +35,7 @@ class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice] {
   @response
   def downloadTemplate(): Any = {
     val project = getProject
-    val departs = project.departments.map(x => x.code + " " + x.name)
+    val departs = project.departments.map(x => x.code + " " + x.name).toSeq.sorted
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
