@@ -59,4 +59,10 @@ class DirectionJournalAction extends RestfulAction[DirectionJournal] with Projec
     entityDao.saveOrUpdate(direction)
     view
   }
+
+  override protected def removeAndRedirect(entities: Seq[DirectionJournal]): View = {
+    val view = super.removeAndRedirect(entities)
+    entityDao.evict(classOf[Direction])
+    view
+  }
 }
