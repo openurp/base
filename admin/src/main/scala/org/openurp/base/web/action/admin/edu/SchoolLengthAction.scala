@@ -22,6 +22,7 @@ import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.code.edu.model.EducationLevel
 import org.openurp.base.edu.model.SchoolLength
 import org.openurp.base.model.Project
+import org.openurp.base.std.model.Grade
 import org.openurp.starter.web.support.ProjectSupport
 
 /**
@@ -32,6 +33,7 @@ class SchoolLengthAction extends RestfulAction[SchoolLength] with ProjectSupport
   override def editSetting(entity: SchoolLength): Unit = {
     given project: Project = getProject
 
+    put("grades",findInProject(classOf[Grade]))
     put("levels", getCodes(classOf[EducationLevel]))
   }
 

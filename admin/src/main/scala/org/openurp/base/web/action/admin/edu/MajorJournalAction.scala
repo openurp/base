@@ -17,17 +17,35 @@
 
 package org.openurp.base.web.action.admin.edu
 
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.MajorJournal
 import org.openurp.base.model.{Department, Project}
-import org.openurp.starter.web.support.ProjectSupport
+import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
+import org.openurp.starter.web.support.ProjectSupport
 
 class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport {
 
+  override def search(): View = {
+    val journals = entityDao.search(getQueryBuilder)
+    put("majorJournals", journals)
+
+    getLong("majorJournal.major.id") foreach { majorId =>
+      val query = OqlBuilder.from[Array[Any]](classOf[Student].getName, "std")
+      query.where("std.state.major.id=:majorId", majorId)
+        .groupBy("std.level.id,std.state.department.id")
+        .select("std.level.id,std.state.department.id,count(*)")
+      val stats = entityDao.search(query)
+      put("stdCountMap",stats.map(x=>(s"${x(0)}_${x(1)}",x(2))).toMap)
+    }
+    forward()
+  }
+
   override def editSetting(entity: MajorJournal) = {
     given project: Project = getProject
+
     put("categories", getCodes(classOf[DisciplineCategory]))
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))

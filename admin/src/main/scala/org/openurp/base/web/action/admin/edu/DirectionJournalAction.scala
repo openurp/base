@@ -17,10 +17,12 @@
 
 package org.openurp.base.web.action.admin.edu
 
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Direction, DirectionJournal}
 import org.openurp.base.model.{Department, Project}
+import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.EducationLevel
 import org.openurp.starter.web.support.ProjectSupport
 
@@ -32,6 +34,21 @@ class DirectionJournalAction extends RestfulAction[DirectionJournal] with Projec
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))
     super.editSetting(entity)
+  }
+
+  override def search(): View = {
+    val journals = entityDao.search(getQueryBuilder)
+    put("directionJournals", journals)
+
+    getLong("directionJournal.direction.id") foreach { directionId =>
+      val query = OqlBuilder.from[Array[Any]](classOf[Student].getName, "std")
+      query.where("std.state.direction.id=:directionId", directionId)
+        .groupBy("std.level.id,std.state.department.id")
+        .select("std.level.id,std.state.department.id,count(*)")
+      val stats = entityDao.search(query)
+      put("stdCountMap", stats.map(x => (s"${x(0)}_${x(1)}", x(2))).toMap)
+    }
+    forward()
   }
 
   override protected def saveAndRedirect(dj: DirectionJournal): View = {
