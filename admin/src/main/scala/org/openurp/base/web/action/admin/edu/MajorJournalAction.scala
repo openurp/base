@@ -20,7 +20,7 @@ package org.openurp.base.web.action.admin.edu
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.model.MajorJournal
+import org.openurp.base.edu.model.{Major, MajorJournal}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
@@ -38,7 +38,7 @@ class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport
         .groupBy("std.level.id,std.state.department.id")
         .select("std.level.id,std.state.department.id,count(*)")
       val stats = entityDao.search(query)
-      put("stdCountMap",stats.map(x=>(s"${x(0)}_${x(1)}",x(2))).toMap)
+      put("stdCountMap", stats.map(x => (s"${x(0)}_${x(1)}", x(2))).toMap)
     }
     forward()
   }
@@ -65,11 +65,8 @@ class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport
   }
 
   override protected def removeAndRedirect(entities: Seq[MajorJournal]): View = {
-    val majors = entities.map(_.major).toSet
     val view = super.removeAndRedirect(entities)
-    majors foreach { m =>
-      entityDao.evict(m)
-    }
+    entityDao.evict(classOf[Major])
     view
   }
 }
