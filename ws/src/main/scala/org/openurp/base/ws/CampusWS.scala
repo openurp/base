@@ -32,7 +32,7 @@ class CampusWS extends ActionSupport with EntityAction[Campus] with MimeSupport 
   @response(cacheable = true)
   def index(): Any = {
     val query = OqlBuilder.from(classOf[Campus])
-    query.orderBy("campuses.code")
+    query.orderBy("campus.code")
     query.cacheable()
     val grades = entityDao.search(query)
 

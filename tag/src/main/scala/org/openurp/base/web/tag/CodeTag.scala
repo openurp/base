@@ -28,6 +28,12 @@ class CodeTag(context: ComponentContext) extends Select(context) {
   var `type`: String = _
   var project: Project = _
 
+  var cache: String = "true"
+
+  def cacheable: Boolean = {
+    cache == "true"
+  }
+
   override def evaluateParams(): Unit = {
     if (null == this.href) this.href = Ems.api + s"/base/code/${`type`}.json"
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
