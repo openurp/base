@@ -17,11 +17,14 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.lang.annotation.description
+import org.beangle.webmvc.view.tag.AbstractTagLibrary
+import org.beangle.web.action.context.ActionContext
 
-object DefaultModule extends BindModule {
+@description("Openurp Base 标签库")
+class BaseTagLibrary extends AbstractTagLibrary {
 
-  protected override def binding(): Unit = {
-    bind("mvc.Taglibrary.base", classOf[BaseTagLibrary])
+  override def models(): AnyRef = {
+    new BaseModels(this.getComponentContext())
   }
 }

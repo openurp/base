@@ -17,12 +17,20 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.template.api.{AbstractModels, ComponentContext, Tag}
 import jakarta.servlet.http.HttpServletRequest
+import org.beangle.template.api.{AbstractModels, ComponentContext, Tag}
 
 class BaseModels(context: ComponentContext) extends AbstractModels(context) {
 
   def semester: Tag = get(classOf[SemesterPicker])
 
   def semester_bar: Tag = get(classOf[SemesterBar])
+
+  def code: Tag = get(classOf[CodeTag])
+
+  def staff: Tag = get(classOf[StaffTag])
+
+  def grade: Tag = get(classOf[GradeTag])
+
+  def campus: Tag = get(classOf[CampusTag])
 }

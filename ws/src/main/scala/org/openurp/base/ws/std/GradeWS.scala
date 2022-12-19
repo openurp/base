@@ -15,30 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.ws.edu
+package org.openurp.base.ws.std
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.jsonapi.JsonAPI
+import org.beangle.data.jsonapi.JsonAPI.Context
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.support.ActionSupport
+import org.beangle.web.action.util.CacheControl
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.model.Major
+import org.openurp.base.std.model.Grade
 
-class MajorWS extends ActionSupport with EntityAction[Major] {
-
+class GradeWS extends ActionSupport with EntityAction[Grade] {
   var entityDao: EntityDao = _
 
-  @response
+  @response(cacheable = true)
   def index(): JsonAPI.Json = {
     val projectId = getInt("project", 0)
-    val query = OqlBuilder.from(classOf[Major])
-    query.where("major.project.id=:projectId", projectId)
-    QueryHelper.populate(query).limit(query).sort(query)
-    val majors = entityDao.search(query)
+    val query = OqlBuilder.from(classOf[Grade])
+    query.where("grade.project.id=:projectId", projectId)
+    query.orderBy("grade.code desc")
+    query.cacheable()
+    val grades = entityDao.search(query)
 
     val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(majors, "id", "code", "name", "enName")
+    context.mkJson(grades, "id", "code", "name")
   }
+
 }

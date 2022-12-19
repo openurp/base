@@ -17,6 +17,26 @@
 
 package org.openurp.base.ws
 
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.data.jsonapi.JsonAPI
+import org.beangle.web.action.annotation.response
+import org.beangle.web.action.context.ActionContext
+import org.beangle.web.action.support.{ActionSupport, MimeSupport}
+import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.model.Campus
 
-class CampusWS extends RestfulService[Campus]
+class CampusWS extends ActionSupport with EntityAction[Campus] with MimeSupport {
+
+  var entityDao: EntityDao = _
+
+  @response(cacheable = true)
+  def index(): Any = {
+    val query = OqlBuilder.from(classOf[Campus])
+    query.orderBy("campuses.code")
+    query.cacheable()
+    val grades = entityDao.search(query)
+
+    val context = JsonAPI.context(ActionContext.current.params)
+    context.mkJson(grades, "id", "code", "name")
+  }
+}

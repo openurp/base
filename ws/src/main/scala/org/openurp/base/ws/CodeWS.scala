@@ -17,101 +17,47 @@
 
 package org.openurp.base.ws
 
+import org.beangle.commons.bean.Initializing
 import org.beangle.commons.collection.Collections
-import org.beangle.commons.lang.{Chars, ClassLoaders}
-import org.beangle.web.action.support.ActionSupport
+import org.beangle.commons.lang.Strings.unCamel
+import org.beangle.commons.lang.{Chars, ClassLoaders, Strings}
+import org.beangle.commons.text.inflector.en.EnNounPluralizer
+import org.beangle.data.dao.EntityDao
+import org.beangle.data.jsonapi.JsonAPI
+import org.beangle.data.orm.OrmEntityType
 import org.beangle.web.action.annotation.{action, mapping, param, response}
+import org.beangle.web.action.context.ActionContext
+import org.beangle.web.action.support.ActionSupport
+import org.beangle.web.action.util.CacheControl
 import org.openurp.code.Code
 import org.openurp.code.service.CodeService
 
 @action("code")
-class CodeWS extends ActionSupport {
+class CodeWS extends ActionSupport, Initializing {
   var codeService: CodeService = _
+  var entityDao: EntityDao = _
+  private var clazzes: Map[String, Class[_ <: Code]] = _
 
-  var clazzes = Collections.newMap[String, Class[_ <: Code]]
+  override def init(): Unit = {
+    val entities = entityDao.domain.entities
+    val codeEntities = entities.map(_._2.asInstanceOf[OrmEntityType]).filter(x => classOf[Code].isAssignableFrom(x.clazz))
+    clazzes = codeEntities.map(oet => (nomalize(oet.entityName), oet.clazz.asSubclass(classOf[Code]))).toMap
+  }
 
-  @response
+  private def nomalize(name: String): String = {
+    val loc = name.lastIndexOf('.')
+    val shortName = if (loc < 0) name else name.substring(loc + 1)
+    EnNounPluralizer.pluralize(unCamel(shortName, '-'))
+  }
+
+  @response(cacheable = true )
   @mapping("{code}")
-  def index(@param("code") code: String): Any = {
-    put("properties", List(classOf[Code] -> List("id", "name", "code", "enName")))
-    codeService.get(load(camel(code)))
-  }
-
-  /**
-   * load class
-   * @param shortName
-   * @return
-   */
-  private def load(shortName: String): Class[_ <: Code] = {
-    clazzes.get(shortName) match {
-      case Some(clz) => clz
-      case None =>
-        if (loadClass("org.openurp.code.edu.model." + shortName).isEmpty) {
-          if (loadClass("org.openurp.code.person.model." + shortName).isEmpty) {
-            if (loadClass("org.openurp.code.hr.model." + shortName).isEmpty) {
-              if (loadClass("org.openurp.code.job.model." + shortName).isEmpty) {
-                if (loadClass("org.openurp.code.sin.model." + shortName).isEmpty) {
-                  if (loadClass("org.openurp.code.asset.model." + shortName).isEmpty) {
-                    if (loadClass("org.openurp.code.geo.model." + shortName).isEmpty) {
-                      if (loadClass("org.openurp.code.std.model." + shortName).isEmpty) {
-                        if (loadClass("org.openurp.base.edu.code." + shortName).isEmpty) {
-                          throw new RuntimeException("cannot find code " + shortName)
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        clazzes(shortName)
+  def index(@param("code") code: String): JsonAPI.Json = {
+    val datas = clazzes.get(code) match {
+      case Some(clazz) => codeService.get(clazz)
+      case None => List.empty
     }
-  }
-
-  /**
-   * load class and put in cache
-   * @param className
-   * @return
-   */
-  private def loadClass(className: String): Option[Class[_ <: Code]] = {
-    ClassLoaders.get(className) match {
-      case Some(r) =>
-        val clz = r.asInstanceOf[Class[_ <: Code]]
-        clazzes.put(clz.getSimpleName, clz)
-        Some(clz)
-      case None => None
-    }
-  }
-
-  /**
-   * course-categories => CourseCategory
-   * @param code
-   * @return
-   */
-  private def camel(code: String): String = {
-    var cn = code
-    if (cn.endsWith("ies")) {
-      cn = cn.substring(0, cn.length - 3) + "y"
-    } else if (cn.endsWith("ses")) {
-      cn = cn.substring(0, cn.length - 2)
-    } else if (cn.endsWith("es") || cn.endsWith("s")) {
-      cn = cn.substring(0, cn.length - 1)
-    }
-    var i = 0
-    val chars = cn.toCharArray()
-    val results = Collections.newBuffer[Char]
-    var captilize = true
-    while (i < chars.length) {
-      val c = chars(i)
-      if (Chars.isAsciiAlpha(c)) {
-        results += (if (captilize) c.toUpper else c)
-        captilize = false
-      } else {
-        captilize = true
-      }
-      i += 1
-    }
-    new String(results.toArray)
+    val context = JsonAPI.context(ActionContext.current.params)
+    context.mkJson(datas, "id", "code", "name", "enName")
   }
 }

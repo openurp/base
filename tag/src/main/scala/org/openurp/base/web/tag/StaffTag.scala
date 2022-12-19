@@ -17,11 +17,20 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.ems.app.Ems
+import org.beangle.template.api.ComponentContext
+import org.beangle.web.action.context.ActionContext
+import org.beangle.webmvc.view.tag.Select
+import org.openurp.base.model.Project
 
-object DefaultModule extends BindModule {
+class StaffTag(context: ComponentContext) extends Select(context) {
 
-  protected override def binding(): Unit = {
-    bind("mvc.Taglibrary.base", classOf[BaseTagLibrary])
+  var project: Project = _
+
+  override def evaluateParams(): Unit = {
+    if (null == this.href) this.href = Ems.api + "/base/staffs.json?q={term}"
+    if (null == this.option) this.option = "id,description"
+    if (null == project) ProjectHelper.getProject foreach { p => project = p }
+    super.evaluateParams()
   }
 }

@@ -14,7 +14,7 @@
       [@b.textfields names="squad.code;代码"/]
       [@b.textfields names="squad.name;名称"/]
       [@b.select style="width:100px" name="squad.department.id" label="所属院系" items=departments option="id,name" empty="..." /]
-      [@b.select style="width:100px" name="squad.level.id" label="培养层次" items=levels option="id,name" empty="..." /]
+      [@base.code type="education-levels" name="squad.level.id" label="培养层次" empty="..." /]
       [@b.select style="width:100px" name="squad.campus.id" label="校区" items=campuses option="id,name" empty="..." /]
       <input type="hidden" name="orderBy" value="squad.code desc"/>
       [@b.select style="width:100px" name="active" value="1" label="是否有效" items={"1":"是", "0":"否"} empty="..." /]

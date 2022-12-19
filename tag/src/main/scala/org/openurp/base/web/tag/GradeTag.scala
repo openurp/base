@@ -17,14 +17,19 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.commons.lang.annotation.description
-import org.beangle.webmvc.view.tag.AbstractTagLibrary
-import org.beangle.web.action.context.ActionContext
+import org.beangle.ems.app.Ems
+import org.beangle.template.api.ComponentContext
+import org.beangle.webmvc.view.tag.Select
+import org.openurp.base.model.Project
 
-@description("Openurp Base 标签库")
-class BaseLibrary extends AbstractTagLibrary {
+class GradeTag (context: ComponentContext) extends Select(context) {
 
-  override def models(): AnyRef = {
-    new BaseModels(this.getComponentContext())
+  var project: Project = _
+
+  override def evaluateParams(): Unit = {
+    if (null == this.option) this.option = "id,name"
+    if (null == project) ProjectHelper.getProject foreach { p => project = p }
+    if (null == this.href) this.href = Ems.api + s"/base/std/${project.id}/grades.json"
+    super.evaluateParams()
   }
 }

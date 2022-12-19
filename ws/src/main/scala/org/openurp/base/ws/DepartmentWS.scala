@@ -25,13 +25,10 @@ class SchoolWS extends RestfulService[School]
 
 class DepartmentWS extends RestfulService[Department] {
 
-  @response
+  @response(cacheable = true)
   override def index(): Any = {
     put("properties", List(classOf[Department] -> List("id", "code", "name", "shortName")))
-    getInt("page") match {
-      case Some(p) => entityDao.search(getQueryBuilder)
-      case None => entityDao.search(getQueryBuilder.limit(null))
-    }
+    entityDao.search(getQueryBuilder.limit(null))
   }
 
   @response

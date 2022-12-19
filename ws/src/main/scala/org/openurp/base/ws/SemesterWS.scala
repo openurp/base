@@ -29,7 +29,7 @@ import java.time.LocalDate
 
 class SemesterWS extends ActionSupport with EntityAction[Semester] {
   var entityDao: EntityDao = _
-  @response
+  @response(cacheable = true)
   @mapping("{project}")
   def index(@param("project") projectId: String): Seq[Properties] = {
     if Numbers.isDigits(projectId) then

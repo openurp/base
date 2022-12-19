@@ -17,11 +17,16 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.web.action.context.ActionContext
+import org.openurp.base.model.Project
 
-object DefaultModule extends BindModule {
+object ProjectHelper {
 
-  protected override def binding(): Unit = {
-    bind("mvc.Taglibrary.base", classOf[BaseTagLibrary])
+  def getProject: Option[Project] = {
+    val p: Any = ActionContext.current.attribute("project")
+    p match {
+      case pjt: Project => Some(pjt)
+      case _ => None
+    }
   }
 }

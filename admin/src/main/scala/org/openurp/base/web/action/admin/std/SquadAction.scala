@@ -43,7 +43,6 @@ class SquadAction extends ProjectRestfulAction[Squad] {
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
 
-    put("levels", getCodes(classOf[EducationLevel]))
     put("departments", findInSchool(classOf[Department]))
     put("campuses", findInSchool(classOf[Campus]))
   }
@@ -55,7 +54,6 @@ class SquadAction extends ProjectRestfulAction[Squad] {
   override def editSetting(entity: Squad) = {
     given project: Project = getProject
 
-    put("levels", getCodes(classOf[EducationLevel]))
     put("departments", findInSchool(classOf[Department]))
     put("campuses", findInSchool(classOf[Campus]))
 
@@ -63,10 +61,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
     put("majors", majors)
     val directions = findInProject(classOf[Direction])
     put("directions", directions)
-    put("stdTypes", project.stdTypes)
-    put("eduTypes", project.eduTypes)
 
-    put("grades", findInProject(classOf[Grade]))
     super.editSetting(entity)
     put("project", project)
     put("urp", Ems)
