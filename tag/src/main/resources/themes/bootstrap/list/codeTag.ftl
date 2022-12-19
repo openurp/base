@@ -7,7 +7,7 @@ ${tag.body}
 </select>[#if tag.comment??]<label class="comment">${tag.comment}</label>[/#if]
 <script type="text/javascript">
   [#if tag.cacheable]
-  if(typeof sessionStorage.getItem("code.${tag.type}") !== "undefined"){
+  if(sessionStorage.getItem("code.${tag.type}") != null){
     beangle.select.fillin("${tag.id}",beangle.data.parseCsv(sessionStorage.getItem("code.${tag.type}")),"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
   }else{
     jQuery.ajax({

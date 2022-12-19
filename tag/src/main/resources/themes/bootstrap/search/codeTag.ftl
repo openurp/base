@@ -5,19 +5,14 @@ ${tag.body}
 [#if tag.empty??]<option value="">${tag.empty}</option>[/#if][#rt/]
 </select>[#if tag.comment??]<label class="comment">${tag.comment}</label>[/#if]
 <script type="text/javascript">
-  var localCodes = sessionStorage.getItem("code.${tag.type}");
-  var selected="";
-  [#list tag.values as v]
-    selected=[#if v?is_hash]"${v[tag.keyName]!}"[#else]"${v}"[/#if]
-  [/#list]
-  if(localCodes){
-    beangle.select.fillin("${tag.id}",beangle.data.parseCsv(localCodes),selected,"${tag.keyName}","${tag.valueName}");
+  if(sessionStorage.getItem("code.${tag.type}") != null){
+    beangle.select.fillin("${tag.id}",beangle.data.parseCsv(sessionStorage.getItem("code.${tag.type}")),"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
   }else{
     jQuery.ajax({
       url: "${tag.href}",
       headers:{"Accept":"application/json"},
       success:function (obj){
-        var rows = beangle.select.fillin("${tag.id}",obj,selected,"${tag.keyName}","${tag.valueName}");
+        var rows = beangle.select.fillin("${tag.id}",obj,"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
         sessionStorage.setItem("code.${tag.type}",beangle.data.toCsv(rows));
       }
     });
