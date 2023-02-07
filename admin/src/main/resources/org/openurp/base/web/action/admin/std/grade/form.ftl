@@ -5,6 +5,7 @@
     [@b.textfield name="grade.code" label="代码" value="${grade.code!}" required="true" maxlength="20" placeholder="yyyyMM 或者 yyyy"/]
     [@b.textfield name="grade.name" label="名称" value="${grade.name!}" required="true" maxlength="20" placeholder="yyyy-MM 或者 yyyy" comment="采用入学年份或者入学年月的形式"/]
     [@b.textfield name="grade.enName" label="英文名" value="${grade.enName!}" maxlength="100"/]
+    [@b.startend label="入学毕业日期" name="grade.beginOn,grade.endOn" required="true" start=grade.beginOn end=grade.endOn format="date"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
