@@ -11,6 +11,7 @@
     [@b.col width="15%" property="code" title="代码"]${grade.code}[/@]
     [@b.col property="name" title="名称"][@b.a href="!info?id=${grade.id}"]${grade.name}[/@][/@]
     [@b.col width="40%" property="enName" title="英文名"]${grade.enName!}[/@]
+    [@b.col property="beginOn" title="入学毕业日期"]${grade.beginOn}~${grade.endOn}[/@]
   [/@]
 [/@]
 [@b.foot/]

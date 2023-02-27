@@ -45,6 +45,7 @@
                style="width:200px;" items=examModes option="id,name" empty="..."/]
     [@b.select2 label="成绩记录方式" name1st="gradingModeId1st" name2nd="gradingModeId2nd" style = "height:80px;width:152px"
       items1st=gradingModes items2nd= course.gradingModes  option="id,name" /]
+    [@base.course name="prerequisiteId" label="先修课程" values=course.prerequisites required="false" multiple="true" style="width:400px;"/]
     [@b.radios label="是否计算绩点"  name="course.calgp" value=course.calgp items="1:common.yes,0:common.no" required="true"/]
     [@b.radios label="是否设置补考"  name="course.hasMakeup" value=course.hasMakeup items="1:common.yes,0:common.no" required="true"/]
     [@b.startend label="有效期"  name="course.beginOn,course.endOn" required="true,false"

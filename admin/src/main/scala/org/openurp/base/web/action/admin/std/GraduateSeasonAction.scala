@@ -17,15 +17,25 @@
 
 package org.openurp.base.web.action.admin.std
 
-import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.std.code.*
-import org.openurp.base.web.helper.UrpUserHelper
+import org.beangle.commons.lang.Strings
+import org.beangle.data.dao.OqlBuilder
+import org.beangle.web.action.view.View
+import org.openurp.base.std.model.GraduateSeason
+import org.openurp.base.web.action.admin.ProjectRestfulAction
 
-class DefaultModule extends BindModule {
+class GraduateSeasonAction extends ProjectRestfulAction[GraduateSeason] {
+  override def getQueryBuilder: OqlBuilder[GraduateSeason] = {
+    val query = super.getQueryBuilder
+    query.where("graduateSeason.project=:project", getProject)
+    query
+  }
 
-  protected override def binding(): Unit = {
-    bind(classOf[SquadAction])
-    bind(classOf[StdLabelAction], classOf[StdLabelTypeAction])
-    bind(classOf[GradeAction],classOf[GraduateSeasonAction])
+  override protected def saveAndRedirect(grade: GraduateSeason): View = {
+    val project = getProject
+    if (!grade.persisted) {
+      val code = project.id.toString + grade.graduateYear
+      grade.id = code.toLong
+    }
+    super.saveAndRedirect(grade)
   }
 }

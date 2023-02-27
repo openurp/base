@@ -18,10 +18,12 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.collection.Order
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
+import org.beangle.ems.app.Ems
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.openurp.base.Features
@@ -36,8 +38,18 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
 
 class CourseAction extends ProjectRestfulAction[Course] {
+  protected override def indexSetting(): Unit = {
+    given project: Project = getProject
 
-  override def editSetting(c: Course): Unit = {
+    put("courseTypes", getCodes(classOf[CourseType]))
+    put("courseCategories", getCodes(classOf[CourseCategory]))
+    val departments = findInSchool(classOf[Department])
+    put("departments", departments)
+    put("courseNatures", getCodes(classOf[CourseNature]))
+    put("teachingOffices", entityDao.findBy(classOf[TeachingOffice], "project", project))
+  }
+
+  protected override def editSetting(c: Course): Unit = {
     given project: Project = getProject
 
     put("courseTypes", getCodes(classOf[CourseType]))
@@ -66,6 +78,7 @@ class CourseAction extends ProjectRestfulAction[Course] {
     put("levels", project.levels)
     put("levelCreditSupported", getProjectProperty(Features.EduCourseLevelCreditSupported, false))
     put("hoursPerCredit", getProjectProperty(Features.EduCourseHoursPerCredit, 16))
+    put("project", project)
     super.editSetting(c)
   }
 
@@ -122,17 +135,6 @@ class CourseAction extends ProjectRestfulAction[Course] {
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "课程模板.xlsx")
   }
 
-  protected override def indexSetting(): Unit = {
-    given project: Project = getProject
-
-    put("courseTypes", getCodes(classOf[CourseType]))
-    put("courseCategories", getCodes(classOf[CourseCategory]))
-    val departments = findInSchool(classOf[Department])
-    put("departments", departments)
-    put("courseNatures", getCodes(classOf[CourseNature]))
-    put("teachingOffices", entityDao.findBy(classOf[TeachingOffice], "project", project))
-  }
-
   protected override def saveAndRedirect(entity: Course): View = {
     val course = entity
 
@@ -182,6 +184,10 @@ class CourseAction extends ProjectRestfulAction[Course] {
     val gradingModeIds = getAll("gradingModeId2nd", classOf[Int])
     course.gradingModes ++= entityDao.find(classOf[GradingMode], gradingModeIds)
 
+    val prerequisiteIds = Strings.splitToLong(get("prerequisiteId").getOrElse(""))
+    val ps = entityDao.find(classOf[Course], prerequisiteIds)
+    course.prerequisites.clear()
+    course.prerequisites ++= ps
     super.saveAndRedirect(entity)
   }
 

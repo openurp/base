@@ -48,8 +48,16 @@
   <tr>
     <td class="title" width="20%">成绩记录方式:</td>
     <td class="content">${(course.markStyle.name)!}</td>
-   <td class="title" width="20%">是否计算绩点:</td>
-   <td class="content">${(course.calgp?string("是","否"))!}</td>
+    <td class="title" width="20%">是否计算绩点:</td>
+    <td class="content">${(course.calgp?string("是","否"))!}</td>
+  </tr>
+  <tr>
+    <td class="title" width="20%">先修课程:</td>
+    <td class="content" colspan="3">
+    [#list course.prerequisites as p]
+      ${p.code} ${p.name}
+    [/#list]
+    </td>
   </tr>
   <tr>
     <td class="title" width="20%">生效日期:</td>
