@@ -36,13 +36,11 @@ class DefaultModule extends BindModule {
 
     //code mapping
     bind(classOf[CodeAction])
-    bind(classOf[StdTypeAction])
     bind(classOf[CourseAbilityRateAction], classOf[CourseTypeAction])
     bind(classOf[TeachingNatureAction], classOf[GradingModeAction])
     bind(classOf[CourseCategoryAction])
     bind(classOf[ExamModeAction], classOf[ExamStatusAction])
     bind(classOf[EducationLevelAction])
-    bind(classOf[StdAlterTypeAction], classOf[StdAlterReasonAction])
 
     bind(classOf[CourseNatureAction], classOf[TeachingMethodAction])
     bind(classOf[PressAction], classOf[BookTypeAction], classOf[BookAwardTypeAction])

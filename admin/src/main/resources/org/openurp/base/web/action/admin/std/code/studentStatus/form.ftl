@@ -1,0 +1,17 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改学籍状态"]bar.addBack();[/@]
+  [#assign sa][#if studentStatus.persisted]!update?id=${studentStatus.id!}[#else]!save[/#if][/#assign]
+  [@b.form action=sa theme="list"]
+    [@b.textfield name="studentStatus.code" label="代码" value="${studentStatus.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="studentStatus.name" label="名称" value="${studentStatus.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="studentStatus.enName" label="英文名" value="${studentStatus.enName!}" maxlength="100"/]
+    [@b.startend label="有效期"
+      name="studentStatus.beginOn,studentStatus.endOn" required="true,false"
+      start=studentStatus.beginOn end=studentStatus.endOn format="date"/]
+    [@b.textfield name="studentStatus.remark" label="备注" value="${studentStatus.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[@b.foot/]

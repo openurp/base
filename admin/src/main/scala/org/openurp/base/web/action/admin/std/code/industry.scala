@@ -15,21 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin.std
+package org.openurp.base.web.action.admin.std.code
 
-import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.std.code
-import org.openurp.base.web.helper.UrpUserHelper
+import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.code.std.model.{StdAlterReason, StdAlterType, StudentStatus}
 
-class DefaultModule extends BindModule {
+class StudentStatusAction extends RestfulAction[StudentStatus]
 
-  protected override def binding(): Unit = {
-    bind(classOf[SquadAction])
-    bind(classOf[GradeAction], classOf[GraduateSeasonAction])
+class StdAlterTypeAction extends RestfulAction[StdAlterType]
 
-    bind(classOf[CodeAction])
-    bind(classOf[code.StdLabelAction], classOf[code.StdLabelTypeAction])
-    bind(classOf[code.StudentStatusAction], classOf[code.StdTypeAction])
-    bind(classOf[code.StdAlterTypeAction], classOf[code.StdAlterReasonAction])
-  }
-}
+class StdAlterReasonAction extends RestfulAction[StdAlterReason]

@@ -17,19 +17,13 @@
 
 package org.openurp.base.web.action.admin.std
 
-import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.std.code
-import org.openurp.base.web.helper.UrpUserHelper
+import org.beangle.web.action.annotation.ignore
+import org.beangle.web.action.support.ActionSupport
+import org.beangle.web.action.view.View
 
-class DefaultModule extends BindModule {
+class CodeAction extends ActionSupport {
 
-  protected override def binding(): Unit = {
-    bind(classOf[SquadAction])
-    bind(classOf[GradeAction], classOf[GraduateSeasonAction])
-
-    bind(classOf[CodeAction])
-    bind(classOf[code.StdLabelAction], classOf[code.StdLabelTypeAction])
-    bind(classOf[code.StudentStatusAction], classOf[code.StdTypeAction])
-    bind(classOf[code.StdAlterTypeAction], classOf[code.StdAlterReasonAction])
+  def index(): View = {
+    forward()
   }
 }

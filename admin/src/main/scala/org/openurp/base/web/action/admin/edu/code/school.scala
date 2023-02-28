@@ -24,8 +24,6 @@ import org.openurp.base.std.code.StdType
 import org.openurp.code.edu.model.{CourseNature, TeachingMethod, TeachingNature, TeachingNatureCategory}
 import org.openurp.code.std.model.{StdAlterReason, StdAlterType}
 
-class StdTypeAction extends RestfulAction[StdType]
-
 class CourseAbilityRateAction extends RestfulAction[CourseAbilityRate]
 
 class TeachingNatureAction extends RestfulAction[TeachingNature] {
@@ -42,10 +40,6 @@ class TeachingMethodAction extends RestfulAction[TeachingMethod]
 class CourseTypeAction extends RestfulAction[CourseType]
 
 class CourseCategoryAction extends RestfulAction[CourseCategory]
-
-class StdAlterTypeAction extends RestfulAction[StdAlterType]
-
-class StdAlterReasonAction extends RestfulAction[StdAlterReason]
 
 class BookTypeAction extends RestfulAction[BookType]
 

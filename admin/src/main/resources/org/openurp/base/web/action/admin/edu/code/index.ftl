@@ -11,11 +11,6 @@
 [#assign codes=codes+{'考核方式':'/admin/edu/code/exam-mode'}]
 [#assign codes=codes+{'考试情况':'/admin/edu/code/exam-status'}]
 [#assign codes=codes+{'培养层次':'/admin/edu/code/education-level'}]
-[#assign codes=codes+{'学籍异动类型':'/admin/edu/code/std-alter-type'}]
-[#assign codes=codes+{'学籍异动原因':'/admin/edu/code/std-alter-reason'}]
-[#assign codes=codes+{'学生标签':'/admin/edu/code/std-label'}]
-[#assign codes=codes+{'学生标签分类':'/admin/edu/code/std-label-type'}]
-[#assign codes=codes+{'学生类别':'/admin/edu/code/std-type'}]
 
 [#assign gbcodes={}]
 [#assign gbcodes=gbcodes+{'学位层次':'/admin/edu/code/degree-level'}]
