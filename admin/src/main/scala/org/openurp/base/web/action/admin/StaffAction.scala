@@ -73,6 +73,7 @@ class StaffAction extends ProjectRestfulAction[Staff] {
     staff.school = p.school
     staff.updatedAt = Instant.now
     try {
+      urpUserHelper.createStaffUser(staff)
       entityDao.saveOrUpdate(staff)
       //sychronize name to teacher/mentor/tutor
       val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
@@ -82,7 +83,6 @@ class StaffAction extends ProjectRestfulAction[Staff] {
       val mentors = entityDao.findBy(classOf[Mentor], "staff", staff)
       mentors foreach (t => t.name = staff.name)
       entityDao.saveOrUpdate(mentors)
-      urpUserHelper.createStaffUser(staff)
       redirect("search", "info.save.success")
     } catch {
       case e: Exception => {
