@@ -17,9 +17,10 @@
 
 package org.openurp.base.web.helper
 
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.TeachingOffice
+import org.openurp.base.edu.model.{Teacher, TeachingOffice}
 import org.openurp.base.model.Project
 
 import java.time.{Instant, LocalDate}
@@ -28,40 +29,41 @@ import java.time.{Instant, LocalDate}
  * @author chaostone
  */
 class TeachingOfficeImportListener(project: Project, entityDao: EntityDao) extends ImportListener {
-  override def onItemFinish(tr: ImportResult): Unit = {
-    val tg = tr.transfer.current.asInstanceOf[TeachingOffice]
-    //    tg.project = project
-    tg.updatedAt = Instant.now
-    if (null == tg.beginOn) {
-      tg.beginOn = LocalDate.now
-    }
-    entityDao.saveOrUpdate(tg)
-  }
-
-  /**
-   * 结束转换
-   */
-  override def onStart(tr: ImportResult): Unit = {
-  }
-
-  /**
-   * 结束转换
-   */
-  override def onFinish(tr: ImportResult): Unit = {}
 
   /**
    * 开始转换单个项目
    */
   override def onItemStart(tr: ImportResult): Unit = {
     val query = OqlBuilder.from(classOf[TeachingOffice], "tg")
-    //FIXME project not ready
-    //    query.where("tg.project=:project", project)
+    query.where("tg.project=:project", project)
     query.where("tg.code=:code", tr.transfer.curData.getOrElse("teachingOffice.code", ""))
 
     val groups = entityDao.search(query)
     if (groups.size == 1) {
       tr.transfer.current = groups.head
     }
+    val directorCode = tr.transfer.curData.getOrElse("director.code", "").toString
+    val tg = tr.transfer.current.asInstanceOf[TeachingOffice]
+    if (Strings.isBlank(directorCode)) {
+      tg.director = None
+    } else {
+      val teachers = entityDao.findBy(classOf[Teacher], "staff.school" -> project.school, "staff.code" -> directorCode)
+      if (teachers.size == 1) {
+        tg.director = teachers.headOption
+      } else {
+        tr.addFailure("错误的教师工号", directorCode)
+      }
+    }
+  }
+
+  override def onItemFinish(tr: ImportResult): Unit = {
+    val tg = tr.transfer.current.asInstanceOf[TeachingOffice]
+    tg.project = project
+    tg.updatedAt = Instant.now
+    if (null == tg.beginOn) {
+      tg.beginOn = LocalDate.now
+    }
+    entityDao.saveOrUpdate(tg)
   }
 
 }

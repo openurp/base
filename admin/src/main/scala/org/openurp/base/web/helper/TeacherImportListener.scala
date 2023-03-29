@@ -20,7 +20,7 @@ package org.openurp.base.web.helper
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.edu.model.Teacher
-import org.openurp.base.model.{Project, Staff}
+import org.openurp.base.model.{Project, Staff, User}
 
 import java.time.Instant
 
@@ -46,6 +46,9 @@ class TeacherImportListener(entityDao: EntityDao, project: Project) extends Impo
       if (!teacher.persisted) teacher.id = staff.id
       if (null == teacher.beginOn) teacher.beginOn = staff.beginOn
       teacher.projects += project
+
+      val users = entityDao.findBy(classOf[User], "school" -> teacher.staff.school, "code" -> staff.code)
+      teacher.user = users.head
       entityDao.saveOrUpdate(teacher)
     }
   }

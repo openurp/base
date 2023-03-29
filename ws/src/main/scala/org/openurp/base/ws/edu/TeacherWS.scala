@@ -43,9 +43,10 @@ class TeacherWS extends ActionSupport with EntityAction[Teacher] {
       query.where("teacher.staff.name like :c or teacher.staff.code like :c", c)
     }
     getBoolean("isTutor") match {
-      case None => query.where("teacher.tutorType is not null")
+      case None =>
       case Some(result) =>
         if (result) query.where("teacher.tutorType is not null")
+        else query.where("teacher.tutorType is null")
     }
     val orderStr = get(Order.OrderStr).getOrElse("teacher.name")
     query.orderBy(orderStr)

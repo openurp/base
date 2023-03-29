@@ -27,6 +27,7 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
 import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.view.{Stream, View}
+import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.openurp.base.edu.model.{Direction, Major}
 import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.std.code.StdType
@@ -38,7 +39,7 @@ import org.openurp.code.edu.model.EducationLevel
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.{Instant, LocalDate}
 
-class SquadAction extends ProjectRestfulAction[Squad] {
+class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], ImportSupport[Squad] {
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
@@ -153,7 +154,7 @@ class SquadAction extends ProjectRestfulAction[Squad] {
    * @return
    */
   def statStdCount(): View = {
-    val squadIds = longIds("squad")
+    val squadIds = getLongIds("squad")
     val squads = entityDao.find(classOf[Squad], squadIds)
     val today = LocalDate.now()
     var updated = 0

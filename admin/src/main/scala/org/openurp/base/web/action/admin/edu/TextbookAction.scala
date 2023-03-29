@@ -23,6 +23,7 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
+import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.openurp.base.edu.code.{BookAwardType, BookType}
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.model.Project
@@ -33,7 +34,7 @@ import org.openurp.code.sin.model.{BookCategory, Press}
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
 
-class TextbookAction extends ProjectRestfulAction[Textbook] {
+class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textbook], ImportSupport[Textbook] {
 
   def innerIndex(): View = {
     forward()

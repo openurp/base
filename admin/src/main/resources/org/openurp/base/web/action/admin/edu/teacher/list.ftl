@@ -6,6 +6,7 @@
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("导入",action.method('importForm'));
+    bar.addItem("${b.text('action.export')}",action.exportData("staff.code:工号,name:姓名,department.name:院系,staff.title.name:职称,office.name:教研室,tqcNumber:教师资格证号码,oqc:其他职业资格证书和等级说明,beginOn:任教起始,tutorType.name:导师类别",null,'fileName=教师信息'));
   [/@]
   [@b.row]
     [@b.boxcol /]

@@ -25,7 +25,8 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.{Stream, View}
-import org.openurp.base.edu.model.Teacher
+import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
+import org.openurp.base.edu.model.{Teacher, TeachingOffice}
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{QueryHelper, TeacherImportListener}
@@ -35,7 +36,7 @@ import org.openurp.code.job.model.TutorType
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.Instant
 
-class TeacherAction extends ProjectRestfulAction[Teacher] {
+class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher], ImportSupport[Teacher] {
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
     put("tutorTypes", codeService.get(classOf[TutorType]))
@@ -55,6 +56,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
       query.orderBy("s.code")
       put("staffs", entityDao.search(query))
     }
+    put("teachingOffices", findInProject(classOf[TeachingOffice]))
     super.editSetting(teacher)
   }
 
@@ -63,7 +65,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
     if (!teacher.projects.contains(project)) {
       teacher.projects.add(project)
     }
-    val campusIds = intIds("campus")
+    val campusIds = getIntIds("campus")
     val campuses = if campusIds.isEmpty then List.empty[Campus] else entityDao.find(classOf[Campus], campusIds)
     teacher.campuses.filter(campuses.contains)
     teacher.campuses.addAll(campuses)
@@ -73,6 +75,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
     }
     val staff = entityDao.get(classOf[Staff], teacher.staff.id)
     teacher.name = staff.name
+    teacher.user = entityDao.findBy(classOf[User], "school" -> staff.school, "code" -> staff.code).head
     entityDao.saveOrUpdate(teacher)
     redirect("search", "info.save.success")
   }
@@ -82,6 +85,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
 
     put("tutorTypes", codeService.get(classOf[TutorType]))
     put("departments", findInSchool(classOf[Department]))
+    put("teachingOffices", findInProject(classOf[TeachingOffice]))
   }
 
   @response
@@ -90,6 +94,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
 
     val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.code")).map(x => x.code + " " + x.name)
     val tutorTypes = codeService.get(classOf[TutorType]).map(x => x.code + " " + x.name)
+    val teachingOffices = findInProject(classOf[TeachingOffice]).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -98,6 +103,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher] {
     sheet.add("教师工号", "teacher.staff.code").length(10).required().remark("≤10位")
     sheet.add("教学所在部门", "teacher.department.code").ref(departs).required()
     if tutorTypes.nonEmpty then sheet.add("导师类别", "teacher.tutorType.code").ref(tutorTypes)
+    if teachingOffices.nonEmpty then sheet.add("所在教研室", "teacher.office.code").ref(teachingOffices)
     sheet.add("任教起始日期", "teacher.beginOn").date()
     sheet.add("教师资格证号码", "teacher.tqcNumber").length(20)
     sheet.add("其他职业资格证书和等级说明", "teacher.oqc").length(100)

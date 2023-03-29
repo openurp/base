@@ -17,24 +17,19 @@
 
 package org.openurp.base.web.tag
 
-import jakarta.servlet.http.HttpServletRequest
-import org.beangle.template.api.{AbstractModels, ComponentContext, Tag}
+import org.beangle.ems.app.Ems
+import org.beangle.template.api.ComponentContext
+import org.beangle.webmvc.view.tag.Select
+import org.openurp.base.model.Project
 
-class BaseModels(context: ComponentContext) extends AbstractModels(context) {
+class TeacherTag(context: ComponentContext) extends Select(context) {
 
-  def semester: Tag = get(classOf[SemesterPicker])
+  var project: Project = _
 
-  def semester_bar: Tag = get(classOf[SemesterBar])
-
-  def code: Tag = get(classOf[CodeTag])
-
-  def staff: Tag = get(classOf[StaffTag])
-
-  def teacher: Tag = get(classOf[TeacherTag])
-
-  def grade: Tag = get(classOf[GradeTag])
-
-  def campus: Tag = get(classOf[CampusTag])
-
-  def course: Tag = get(classOf[CourseTag])
+  override def evaluateParams(): Unit = {
+    if (null == project) ProjectHelper.getProject foreach { p => project = p }
+    if (null == this.href) this.href = Ems.api + s"/base/edu/${project.id}/teachers.json?q={term}"
+    if (null == this.option) this.option = "id,description"
+    super.evaluateParams()
+  }
 }

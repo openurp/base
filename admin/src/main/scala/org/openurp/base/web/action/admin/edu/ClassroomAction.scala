@@ -24,6 +24,7 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
+import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.openurp.base.edu.model.Classroom
 import org.openurp.base.model.{Building, Campus, Department, Project}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -33,7 +34,7 @@ import org.openurp.code.edu.model.ClassroomType
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.{Instant, LocalDate}
 
-class ClassroomAction extends ProjectRestfulAction[Classroom] {
+class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Classroom], ImportSupport[Classroom] {
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject

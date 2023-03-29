@@ -11,6 +11,9 @@
       [#if tutorTypes?size>0]
       [@b.select name="teacher.tutorType.id" label="导师类别" items=tutorTypes empty="..." /]
       [/#if]
+      [#if teachingOffices?size>0]
+      [@b.select name="teacher.office.id" label="教研室" items=teachingOffices empty="..." /]
+      [/#if]
       [@b.select style="width:100px" name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." /]
       <input type="hidden" name="orderBy" value="teacher.staff.code"/>
     [/@]

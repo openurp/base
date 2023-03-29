@@ -26,6 +26,7 @@ import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.execution.MappingHandler
+import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.*
 import org.openurp.base.std.model.Mentor
@@ -40,7 +41,7 @@ import org.openurp.code.person.model.{Gender, IdType, Nation, PoliticalStatus}
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.Instant
 
-class StaffAction extends ProjectRestfulAction[Staff] {
+class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], ImportSupport[Staff] {
 
   var urpUserHelper: UrpUserHelper = _
 
