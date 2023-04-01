@@ -13,7 +13,7 @@
     [@b.select name="teacher.department.id" label="院系" value=teacher.department! required="true" style="width:200px;" items=departments option="id,name" empty="..."/]
     [@b.select name="campus.id" label="任教校区" values=teacher.campuses items=campuses required="false" chosenMin="1" multiple="true" style="width:300px;"/]
     [#if teachingOffices?size>0]
-    [@b.select name="teacher.office.id" label="教研室" items=teachingOffices empty="..." /]
+    [@b.select name="teacher.office.id" label="教研室" items=teachingOffices value=teacher.office! empty="..." /]
     [/#if]
     [#if tutorTypes?size>0]
     [@b.select name="teacher.tutorType.id" label="导师类别" items=tutorTypes empty="..." required="false"/]
