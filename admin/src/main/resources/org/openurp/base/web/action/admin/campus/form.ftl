@@ -7,7 +7,7 @@
     [@b.textfield name="campus.enName" label="英文名称" value="${campus.enName!}" maxlength="100"/]
     [@b.textfield name="campus.shortName" label="简称" value="${campus.shortName!}" maxlength="100"/]
     [@b.startend label="有效期限"
-      name="campus.beginOn,campus.endOn" required="false,false"
+      name="campus.beginOn,campus.endOn" required="true,false"
       start=campus.beginOn end=campus.endOn format="date"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]

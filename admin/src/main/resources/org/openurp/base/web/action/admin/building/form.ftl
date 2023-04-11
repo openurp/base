@@ -10,7 +10,7 @@
     [@b.select name="building.campus.id" label="所属校区" value="${(building.campus.id)!}"
                style="width:200px;" items=campuses empty="..." required="true"/]
     [@b.startend label="有效期限"
-      name="building.beginOn,building.endOn" required="false,false"
+      name="building.beginOn,building.endOn" required="true,false"
       start=building.beginOn end=building.endOn format="date"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]

@@ -29,7 +29,7 @@ import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.openurp.base.edu.model.{Teacher, TeachingOffice}
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, TeacherImportListener}
+import org.openurp.base.web.helper.{QueryHelper, TeacherImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
 import org.openurp.code.job.model.TutorType
 
@@ -37,6 +37,7 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.Instant
 
 class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher], ImportSupport[Teacher] {
+  var urpUserHelper: UrpUserHelper = _
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
     put("tutorTypes", codeService.get(classOf[TutorType]))
@@ -77,6 +78,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     teacher.name = staff.name
     teacher.user = entityDao.findBy(classOf[User], "school" -> staff.school, "code" -> staff.code).head
     entityDao.saveOrUpdate(teacher)
+    urpUserHelper.createTeacherUser(teacher)
     redirect("search", "info.save.success")
   }
 

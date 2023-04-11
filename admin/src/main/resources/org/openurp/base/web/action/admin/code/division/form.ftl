@@ -6,7 +6,7 @@
     [@b.textfield name="division.name" label="名称" value="${division.name!}" required="true" maxlength="20"/]
     [@b.textfield name="division.enName" label="英文名称" value="${division.enName!}" maxlength="100"/]
     [@b.startend label="有效期限"
-      name="division.beginOn,division.endOn" required="false,false"
+      name="division.beginOn,division.endOn" required="true,false"
       start=division.beginOn end=division.endOn format="date"/]
     [@b.textfield name="division.remark" label="备注" value="${division.remark!}" maxlength="3"/]
     [@b.formfoot]

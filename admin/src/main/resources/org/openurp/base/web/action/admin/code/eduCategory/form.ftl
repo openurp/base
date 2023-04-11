@@ -6,7 +6,7 @@
     [@b.textfield name="eduCategory.name" label="名称" value="${eduCategory.name!}" required="true" maxlength="20"/]
     [@b.textfield name="eduCategory.enName" label="英文名称" value="${eduCategory.enName!}" maxlength="100"/]
     [@b.startend label="有效期限"
-      name="eduCategory.beginOn,eduCategory.endOn" required="false,false"
+      name="eduCategory.beginOn,eduCategory.endOn" required="true,false"
       start=eduCategory.beginOn end=eduCategory.endOn format="date"/]
     [@b.textfield name="eduCategory.remark" label="备注" value="${eduCategory.remark!}" maxlength="3"/]
     [@b.formfoot]

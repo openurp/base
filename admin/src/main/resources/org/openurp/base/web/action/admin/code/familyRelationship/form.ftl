@@ -6,7 +6,7 @@
     [@b.textfield name="familyRelationship.name" label="名称" value="${familyRelationship.name!}" required="true" maxlength="20"/]
     [@b.textfield name="familyRelationship.enName" label="英文名称" value="${familyRelationship.enName!}" maxlength="100"/]
     [@b.startend label="有效期限"
-      name="familyRelationship.beginOn,familyRelationship.endOn" required="false,false"
+      name="familyRelationship.beginOn,familyRelationship.endOn" required="true,false"
       start=familyRelationship.beginOn end=familyRelationship.endOn format="date"/]
     [@b.textfield name="familyRelationship.remark" label="备注" value="${familyRelationship.remark!}" maxlength="3"/]
     [@b.formfoot]

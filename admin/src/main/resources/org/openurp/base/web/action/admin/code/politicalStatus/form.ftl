@@ -6,7 +6,7 @@
     [@b.textfield name="politicalStatus.name" label="名称" value=politicalStatus.name! required="true" maxlength="200"/]
     [@b.textfield name="politicalStatus.enName" label="英文名称" value=politicalStatus.enName! maxlength="200"/]
     [@b.startend label="有效期限"
-      name="politicalStatus.beginOn,politicalStatus.endOn" required="false,false"
+      name="politicalStatus.beginOn,politicalStatus.endOn" required="true,false"
       start=politicalStatus.beginOn end=politicalStatus.endOn format="date"/]
     [@b.textfield name="politicalStatus.remark" label="备注" value=politicalStatus.remark! maxlength="30"/]
     [@b.formfoot]

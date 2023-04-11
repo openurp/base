@@ -48,6 +48,10 @@ class UrpUserHelper extends Initializing {
     userRepo.createUser(staff)
   }
 
+  def createTeacherUser(teacher: Teacher): User = {
+    userRepo.createUser(teacher)
+  }
+
   def createAccount(user: User): Unit = {
     userRepo.createAccount(user)
   }

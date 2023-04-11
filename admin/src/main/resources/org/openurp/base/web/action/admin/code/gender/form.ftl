@@ -6,7 +6,7 @@
     [@b.textfield name="gender.name" label="名称" value="${gender.name!}" required="true" maxlength="20"/]
     [@b.textfield name="gender.enName" label="英文名称" value="${gender.enName!}" maxlength="100"/]
     [@b.startend label="有效期限"
-      name="gender.beginOn,gender.endOn" required="false,false"
+      name="gender.beginOn,gender.endOn" required="true,false"
       start=gender.beginOn end=gender.endOn format="date"/]
     [@b.textfield name="gender.remark" label="备注" value="${gender.remark!}" maxlength="3"/]
     [@b.formfoot]
