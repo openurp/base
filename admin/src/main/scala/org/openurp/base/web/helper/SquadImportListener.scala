@@ -28,24 +28,6 @@ import java.time.Instant
  * @author xinzhou
  */
 class SquadImportListener(project: Project, entityDao: EntityDao) extends ImportListener {
-  override def onItemFinish(tr: ImportResult): Unit = {
-    val squad = tr.transfer.current.asInstanceOf[Squad]
-    squad.project = project
-    tr.transfer.curData.get("grade.name") foreach { grade =>
-      val query = OqlBuilder.from(classOf[Grade], "g")
-      query.where("g.project=:project", project)
-      query.where("g.name=:name", grade)
-      entityDao.search(query).headOption match {
-        case Some(g) => squad.grade = g
-        case None => tr.addFailure("不存在的年级", grade)
-      }
-    }
-    //FIXME missing full final check
-    if (null != squad.grade && null != squad.level) {
-      squad.updatedAt = Instant.now
-      entityDao.saveOrUpdate(squad)
-    }
-  }
 
   /**
    * 结束转换
@@ -68,4 +50,24 @@ class SquadImportListener(project: Project, entityDao: EntityDao) extends Import
     }
   }
 
+  override def onItemFinish(tr: ImportResult): Unit = {
+    val squad = tr.transfer.current.asInstanceOf[Squad]
+    squad.project = project
+    tr.transfer.curData.get("grade.name") foreach { grade =>
+      val query = OqlBuilder.from(classOf[Grade], "g")
+      query.where("g.project=:project", project)
+      query.where("g.name=:name", grade)
+      entityDao.search(query).headOption match {
+        case Some(g) => squad.grade = g
+        case None => tr.addFailure("不存在的年级", grade)
+      }
+    }
+    //FIXME missing full final check
+    if (null != squad.grade && null != squad.level) {
+      squad.updatedAt = Instant.now
+      entityDao.saveOrUpdate(squad)
+    } else {
+      tr.addFailure("层次或年级缺失", squad.code)
+    }
+  }
 }

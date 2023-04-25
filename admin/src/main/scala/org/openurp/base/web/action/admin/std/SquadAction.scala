@@ -117,6 +117,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name).toSeq.sorted
     val levels = project.levels.map(x => x.code + " " + x.name).toSeq.sorted
     val stdTypes = project.stdTypes.map(x => x.code + " " + x.name).toSeq.sorted
+    val endTypes =project.eduTypes.map(x => x.code + " " + x.name).toSeq.sorted
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -126,6 +127,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     sheet.add("班级名称", "squad.name").length(100).required()
     sheet.add("班级英文名称", "squad.enName").length(300)
     sheet.add("培养层次代码", "squad.level.code").ref(levels).required()
+    sheet.add("培养类型代码", "squad.eduType.code").ref(endTypes).required()
     sheet.add("学生类别代码", "squad.stdType.code").ref(stdTypes).required()
     sheet.add("年级", "grade.name").ref(grades).required()
     sheet.add("院系代码", "squad.department.code").ref(departs).required()

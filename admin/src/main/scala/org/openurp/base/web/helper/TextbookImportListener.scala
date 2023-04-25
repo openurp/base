@@ -63,7 +63,7 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
   override def onItemFinish(tr: ImportResult): Unit = {
     val book = transfer.current.asInstanceOf[Textbook]
     book.project = project
-    book.beginOn = LocalDate.now
+    if (null == book.beginOn) book.beginOn = LocalDate.now
     entityDao.saveOrUpdate(book)
   }
 }

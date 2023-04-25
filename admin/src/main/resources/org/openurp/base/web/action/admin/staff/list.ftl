@@ -5,6 +5,11 @@
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
+    bar.addItem("${b.text("action.export")}",action.exportData("code:工号,name:姓名,gender.name:性别,department.name:部门"+
+                ",idType.name:证件类型,idNumber:证件号码,birthday:出生日期,nation.name:民族,politicalStatus:政治面貌,email:电子邮件"+
+                ",mobile:联系手机,staffType.name:类别,title.name:职称,educationDegree.name:最高学历,degreeLevel.name:学位层次,degree.name:最高学位"+
+                ",degreeAwardBy:最高学位授予单位,status.name:在职状态,organization:全职工作单位,formalHr:是否在编,external:是否外聘"+
+                ",parttime:是否兼职,beginOn:生效日期",null,'fileName=教职工信息'));
     bar.addItem("导入",action.method('importForm'));
   [/@]
   [@b.row]

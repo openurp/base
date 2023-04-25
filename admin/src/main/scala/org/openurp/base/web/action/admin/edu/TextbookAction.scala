@@ -42,10 +42,10 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
 
   @response
   def downloadTemplate(): Any = {
-    val presses = entityDao.search(OqlBuilder.from(classOf[Press], "p").orderBy("p.name")).map(_.name)
-    val categories = entityDao.search(OqlBuilder.from(classOf[BookCategory], "bc").orderBy("bc.name")).map(_.name)
-    val bookTypes = entityDao.search(OqlBuilder.from(classOf[BookType], "bt").orderBy("bt.name")).map(_.name)
-    val awardTypes = entityDao.search(OqlBuilder.from(classOf[BookAwardType], "bat").orderBy("bat.name")).map(_.name)
+    val presses = entityDao.search(OqlBuilder.from(classOf[Press], "p").orderBy("p.name")).map(x => x.code + " " + x.name)
+    val categories = entityDao.search(OqlBuilder.from(classOf[BookCategory], "bc").orderBy("bc.name")).map(x => x.code + " " + x.name)
+    val bookTypes = entityDao.search(OqlBuilder.from(classOf[BookType], "bt").orderBy("bt.name")).map(x => x.code + " " + x.name)
+    val awardTypes = entityDao.search(OqlBuilder.from(classOf[BookAwardType], "bat").orderBy("bat.name")).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -55,13 +55,13 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     sheet.add("名称", "textbook.name").length(100).required()
     sheet.add("作者", "textbook.author").length(50).required()
     sheet.add("译者", "textbook.translator").length(50)
-    sheet.add("出版社", "textbook.press.name").ref(presses)
+    sheet.add("出版社", "textbook.press.code").ref(presses).required()
     sheet.add("版次", "textbook.edition").length(20).required()
     sheet.add("出版年月日", "textbook.publishedOn").date().required()
     sheet.add("是否自编", "textbook.madeInSchool").bool()
-    sheet.add("教材类型", "textbook.bookType.name").ref(bookTypes)
-    sheet.add("图书分类", "textbook.category.name").ref(categories)
-    sheet.add("获奖级别", "textbook.awardType.name").ref(awardTypes)
+    sheet.add("教材类型", "textbook.bookType.code").ref(bookTypes)
+    sheet.add("图书分类", "textbook.category.code").ref(categories)
+    sheet.add("获奖级别", "textbook.awardType.code").ref(awardTypes)
     sheet.add("颁奖单位", "textbook.awardOrg").length(50)
     sheet.add("丛书", "textbook.series").length(100)
     sheet.add("价格", "textbook.price").decimal()
