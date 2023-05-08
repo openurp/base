@@ -15,28 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin
+package org.openurp.base.web.action.info
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.code.*
+import org.openurp.base.web.action.info.profile.StaffAction
 
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
-    bind(classOf[GenderAction], classOf[CountryAction], classOf[NationAction],
-      classOf[PoliticalStatusAction], classOf[LanguageAction],
-      classOf[DivisionAction], classOf[FamilyRelationshipAction], classOf[IdTypeAction])
-
-    bind(classOf[CodeAction], classOf[StaffAction])
-
-    bind(classOf[InstitutionAction], classOf[RoomTypeAction])
-    bind(classOf[UserCategoryAction], classOf[EduCategoryAction])
-
-    bind(classOf[DepartmentAction], classOf[SchoolAction])
-    bind(classOf[UserAction])
-    bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
-
-    bind(classOf[SemesterAction], classOf[CalendarAction], classOf[CalendarStageAction])
-    bind(classOf[ProjectAction], classOf[ProjectCodeAction], classOf[ProjectPropertyAction])
+    bind(classOf[SemesterAction])
+    bind(classOf[StaffAction])
   }
 }

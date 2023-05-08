@@ -3,9 +3,11 @@
   <container>
     <module class="org.openurp.base.web.action.admin.edu.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.std.DefaultModule"/>
+    <module class="org.openurp.base.web.action.admin.profile.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.edu.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.std.DefaultModule"/>
+    <module class="org.openurp.base.web.action.info.profile.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.DefaultModule"/>
     <module class="org.openurp.starter.web.ProjectModule"/>
   </container>

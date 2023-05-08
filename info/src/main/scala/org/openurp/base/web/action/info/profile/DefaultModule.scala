@@ -15,13 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.info
+package org.openurp.base.web.action.info.profile
 
 import org.beangle.cdi.bind.BindModule
 
 class DefaultModule extends BindModule {
-
   protected override def binding(): Unit = {
-    bind(classOf[SemesterAction])
+    bind(classOf[StaffAction])
   }
 }

@@ -23,15 +23,16 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.31.2"
+val apiVer = "0.31.3-SNAPSHOT"
 val starterVer = "0.2.14"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
+val beangle_data_orm = "org.beangle.data" %% "beangle-data-orm" % "5.6.14-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .settings()
-  .aggregate(tag, static, admin, ws, webapp)
+  .aggregate(tag, static, admin, info, ws, webapp)
 
 lazy val tag = (project in file("tag"))
   .settings(
@@ -53,6 +54,13 @@ lazy val admin = (project in file("admin"))
     libraryDependencies ++= Seq(openurp_stater_web)
   ).dependsOn(tag)
 
+lazy val info = (project in file("info"))
+  .settings(
+    name := "openurp-base-info",
+    common,
+    libraryDependencies ++= Seq(openurp_stater_web)
+  ).dependsOn(tag)
+
 lazy val ws = (project in file("ws"))
   .enablePlugins(WarPlugin, UndertowPlugin)
   .settings(
@@ -66,6 +74,6 @@ lazy val webapp = (project in file("webapp"))
   .settings(
     name := "openurp-base-webapp",
     common
-  ).dependsOn(admin)
+  ).dependsOn(admin, info)
 
 publish / skip := true
