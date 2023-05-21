@@ -33,6 +33,8 @@ class DefaultModule extends BindModule {
     bind(classOf[BuildingWS], classOf[CampusWS])
     bind(classOf[CodeWS])
 
+    bind(classOf[profile.CourseWS], classOf[profile.StaffWS])
+
     bind(classOf[CodeServiceImpl])
   }
 }

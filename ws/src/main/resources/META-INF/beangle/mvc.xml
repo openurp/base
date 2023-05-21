@@ -26,4 +26,13 @@
       <interceptor name="web.Interceptor.cors" />
     </interceptors>
   </profile>
+
+  <profile name="openurp-base-ws-profile" package="org.openurp.base.ws.profile">
+    <action suffix="WS" defaultMethod="index" />
+    <url path="/profile" suffix="" style="plur-seo" />
+    <interceptors>
+      <interceptor name="web.Interceptor.hibernate" />
+      <interceptor name="web.Interceptor.cors" />
+    </interceptors>
+  </profile>
 </mvc>
