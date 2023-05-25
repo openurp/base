@@ -11,9 +11,10 @@
         [#list course.levels as cl]
           [#if cl.level=level][#assign findMatched=true /][#assign matchedLevel=cl /][#break/][/#if]
         [/#list]
-        [#if levelCreditSupported]<input type="text" name="level${level.id}.credits" value="[#if findMatched]${matchedLevel.credits!}[/#if]" style="width:50px" placeholder="学分"/>[/#if]
         <input type="checkbox" id="level${level.id}" value="${level.id}" name="levelId" [#if findMatched]checked="checked"[/#if]/>
         <label for="level${level.id}">${level.name}</label>
+        [#if levelCreditSupported]<input type="text" name="level${level.id}.credits" value="[#if findMatched]${matchedLevel.credits!}[/#if]" style="width:50px" placeholder="学分"/>[/#if]
+        [#if level_has_next]&nbsp;[/#if]
       [/#list]
     [/@]
     [@b.select name="course.nature.id" label="课程性质" value=course.nature! items=courseNatures empty="..." required="true"/]

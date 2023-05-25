@@ -33,7 +33,7 @@
               <tbody>
               [#list gradeStat as stat]
                <tr>
-                <td>[@b.a href="!search?squad.grade="+stat[0] target="squad_list"]${stat[0]}[/@]</td>
+                <td>[@b.a href="!search?squad.grade.code="+stat[0] target="squad_list"]${stat[0]}[/@]</td>
                 <td>${stat[1]}</td>
                </tr>
                [/#list]
