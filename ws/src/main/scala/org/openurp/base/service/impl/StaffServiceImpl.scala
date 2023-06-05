@@ -22,6 +22,7 @@ import org.beangle.commons.logging.Logging
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.datasource.AppDataSourceFactory
+import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.Staff
 import org.openurp.base.service.UserRepo
 
@@ -38,9 +39,17 @@ class StaffServiceImpl extends Logging, Initializing {
   }
 
   def createActiveUsers(): Unit = {
-    val query = OqlBuilder.from(classOf[Staff], "staff")
-    query.where("staff.endOn is null")
-    val staffs = entityDao.search(query)
+    val query =OqlBuilder.from(classOf[Teacher],"teacher")
+    query.where("teacher.endOn is null")
+    val teachers= entityDao.search(query)
+    teachers.foreach { teacher =>
+      userRepo.createUser(teacher)
+    }
+
+    val query2 = OqlBuilder.from(classOf[Staff], "staff")
+    query2.where("staff.endOn is null")
+    query2.where(s"not exists(from ${classOf[Teacher].getName} t where t.staff=staff)")
+    val staffs = entityDao.search(query2)
     staffs.foreach { staff =>
       userRepo.createUser(staff)
     }
