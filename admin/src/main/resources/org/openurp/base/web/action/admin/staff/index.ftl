@@ -8,6 +8,9 @@
       [@b.textfields names="staff.code;工号"/]
       [@b.textfields names="staff.name;姓名"/]
       [@b.select name="staff.department.id" label="部门" items=departments empty="..." style="width:100px"/]
+      [@b.select name="staff.title.id" label="职称" items=titles empty="..." style="width:100px"/]
+      [@b.select name="staff.status.id" label="状态" items=statuses empty="..." style="width:100px"/]
+      [@b.select name="staff.formalHr" label="是否在编" items={"1":"是", "0":"否"} empty="..." /]
       [@b.select style="width:100px" name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." /]
       <input type="hidden" name="orderBy" value="staff.code"/>
     [/@]

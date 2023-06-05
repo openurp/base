@@ -2,5 +2,6 @@
 <cdi>
   <container>
     <module class="org.openurp.base.ws.DefaultModule"/>
+    <module class="org.openurp.base.ws.SchedulerModule"/>
   </container>
 </cdi>

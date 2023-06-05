@@ -49,6 +49,15 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
   }
 
+  override protected def indexSetting(): Unit = {
+    given project: Project = getProject
+
+    put("departments", findInSchool(classOf[Department]))
+    put("staffTypes", entityDao.getAll(classOf[StaffType]))
+    put("statuses", codeService.get(classOf[WorkStatus]))
+    put("titles", codeService.get(classOf[ProfessionalTitle]))
+  }
+
   override def editSetting(staff: Staff) = {
     given project: Project = getProject
 
@@ -96,13 +105,6 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
         redirect(redirectTo, "info.save.failure")
       }
     }
-  }
-
-  override protected def indexSetting(): Unit = {
-    given project: Project = getProject
-
-    put("departments", findInSchool(classOf[Department]))
-    put("staffTypes", entityDao.getAll(classOf[StaffType]))
   }
 
   override protected def removeAndRedirect(entities: Seq[Staff]): View = {
