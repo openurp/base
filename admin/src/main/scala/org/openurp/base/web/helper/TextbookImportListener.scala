@@ -32,10 +32,9 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
 
   override def onItemStart(tr: ImportResult): Unit = {
     val data = transfer.curData
-    //按照isbn,name,author,publishedOn作为业务主键
-    for (isbn <- data.get("textbook.isbn"); author <- data.get("textbook.author");
-         name <- data.get("textbook.name"); p <- data.get("textbook.publishedOn")) {
-      val publishedOnStr = p match {
+    val isbn = data("textbook.isbn")
+    data.get("textbook.publishedOn") foreach { p =>
+      val publishedOnStr = p match
         case s: String =>
           if (s.length < "xxxx-x-x".length) {
             s + "-01"
@@ -44,26 +43,28 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
           }
         case d: java.util.Date => new java.sql.Date(d.getTime).toLocalDate.toString
         case _ => p.toString
-      }
       try {
         val publishedOn = LocalDate.parse(publishedOnStr)
         data.put("textbook.publishedOn", publishedOn)
-        val query = OqlBuilder.from(classOf[Textbook], "t")
-          .where("t.isbn=:isbn", isbn.toString.trim())
-        val cs = entityDao.search(query)
-        if (cs.nonEmpty) {
-          transfer.current = cs.head
-        }
       } catch {
         case e: Throwable => tr.addFailure("错误的出版日期格式", p)
       }
     }
+    val query = OqlBuilder.from(classOf[Textbook], "t")
+      .where("t.isbn=:isbn", isbn.toString.trim())
+    val cs = entityDao.search(query)
+    if cs.nonEmpty then transfer.current = cs.head
+
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
     val book = transfer.current.asInstanceOf[Textbook]
     book.project = project
     if (null == book.beginOn) book.beginOn = LocalDate.now
-    entityDao.saveOrUpdate(book)
+    if (book.press.isEmpty) {
+      tr.addFailure("缺少出版社信息", book.isbn.get + transfer.curData.getOrElse("textbook.press.code", "空"))
+    } else {
+      entityDao.saveOrUpdate(book)
+    }
   }
 }
