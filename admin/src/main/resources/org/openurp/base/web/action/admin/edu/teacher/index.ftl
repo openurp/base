@@ -8,6 +8,8 @@
       [@b.textfields names="teacher.staff.code;工号"/]
       [@b.textfields names="teacher.staff.name;姓名"/]
       [@b.select name="teacher.department.id" label="院系" items=departments empty="..." /]
+      [@b.select name="teacher.staff.title.id" label="职称" items=titles empty="..." style="width:100px"/]
+      [@b.select name="teacher.staff.status.id" label="状态" items=statuses empty="..." style="width:100px"/]
       [#if tutorTypes?size>0]
       [@b.select name="teacher.tutorType.id" label="导师类别" items=tutorTypes empty="..." /]
       [/#if]

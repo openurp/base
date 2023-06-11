@@ -31,13 +31,24 @@ import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{QueryHelper, TeacherImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
-import org.openurp.code.job.model.TutorType
+import org.openurp.code.hr.model.WorkStatus
+import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.Instant
 
 class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher], ImportSupport[Teacher] {
   var urpUserHelper: UrpUserHelper = _
+
+  override protected def indexSetting(): Unit = {
+    given project: Project = getProject
+
+    put("tutorTypes", codeService.get(classOf[TutorType]))
+    put("departments", findInSchool(classOf[Department]))
+    put("teachingOffices", findInProject(classOf[TeachingOffice]))
+    put("statuses", codeService.get(classOf[WorkStatus]))
+    put("titles", codeService.get(classOf[ProfessionalTitle]))
+  }
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
     put("tutorTypes", codeService.get(classOf[TutorType]))
@@ -80,14 +91,6 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     entityDao.saveOrUpdate(teacher)
     urpUserHelper.createTeacherUser(teacher)
     redirect("search", "info.save.success")
-  }
-
-  override protected def indexSetting(): Unit = {
-    given project: Project = getProject
-
-    put("tutorTypes", codeService.get(classOf[TutorType]))
-    put("departments", findInSchool(classOf[Department]))
-    put("teachingOffices", findInProject(classOf[TeachingOffice]))
   }
 
   @response

@@ -20,7 +20,7 @@
         <span title="${staff.beginOn!}~${staff.endOn!}">${staff.name}[#if staff.external]<sup>外聘</sup>[/#if][#if staff.parttime]<sup>兼职</sup>[/#if]</span>
       [/@]
     [/@]
-    [@b.col width="7%" property="gender.name" title="性别"/]
+    [@b.col width="6%" property="gender.name" title="性别"/]
     [@b.col property="department.name" title="部门"]${(staff.department.name)!}[/@]
     [@b.col width="10%" property="staffType.name" title="类别"]${(staff.staffType.name)!}[/@]
     [@b.col width="10%" property="title.name" title="职称"]${(staff.title.name)!}[/@]
