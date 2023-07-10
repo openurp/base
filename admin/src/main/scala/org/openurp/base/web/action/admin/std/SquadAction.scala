@@ -117,7 +117,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name).toSeq.sorted
     val levels = project.levels.map(x => x.code + " " + x.name).toSeq.sorted
     val stdTypes = project.stdTypes.map(x => x.code + " " + x.name).toSeq.sorted
-    val endTypes =project.eduTypes.map(x => x.code + " " + x.name).toSeq.sorted
+    val endTypes = project.eduTypes.map(x => x.code + " " + x.name).toSeq.sorted
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -161,8 +161,8 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     val today = LocalDate.now()
     var updated = 0
     squads foreach { squad =>
-      val examinDay = if (squad.endOn.isBefore(today)) squad.endOn.minusDays(30) else today
-      val newCount = squad.stdStates.filter(x => x.within(examinDay) && x.inschool).size
+      val examinDay = squad.endOn.minusDays(30)
+      val newCount = squad.stdStates.count(x => x.within(examinDay) && x.inschool)
       if (newCount != squad.stdCount) {
         squad.stdCount = newCount
         updated += 1
