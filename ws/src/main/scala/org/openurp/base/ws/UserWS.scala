@@ -34,6 +34,7 @@ class UserWS extends ActionSupport with EntityAction[User] {
   @response
   def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[User], "user")
+    if (!getBoolean("all", false)) query.where("user.endOn is null")
     populateConditions(query)
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
     get("q") foreach { q =>
