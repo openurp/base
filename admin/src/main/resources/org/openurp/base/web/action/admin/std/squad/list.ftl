@@ -5,7 +5,10 @@
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
-    bar.addItem("统计人数",action.multi("statStdCount"));
+    var m=bar.addMenu("统计人数",action.multi("statStdCount"));
+    m.addItem("学生名单维护",action.single("assign"));
+    m.addItem("自动指定学生",action.multi("autoAssign"));
+    bar.addItem("单个复制",action.single("copy"));
     bar.addItem("${b.text("action.export")}",action.exportData("code:代码,name:名称,enName:英文名,grade.name:年级,level.name:培养层次,department.name:院系,major.name:专业,direction.name:方向,stdType.name:学生类别,stdCount:学生人数,planCount:计划人数,mentor.name:辅导员,master.name:班主任,tutor.name:班导师,beginOn:生效日期,endOn:失效日期",null,'fileName=班级信息'));
   [/@]
   [@b.row]

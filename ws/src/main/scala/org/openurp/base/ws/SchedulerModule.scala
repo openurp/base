@@ -18,18 +18,17 @@
 package org.openurp.base.ws
 
 import org.beangle.cdi.bind.BindModule
-import org.beangle.cdi.bind.Binding.ReferenceValue
-import org.beangle.commons.lang.JVM
-import org.beangle.commons.lang.reflect.Reflections
-import org.openurp.base.service.impl.{DaoJob, SquadServiceImpl, StaffServiceImpl}
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.openurp.base.service.impl.{DaoJob, SquadStdCountUpdater, StaffAccountUpdater, StaffServiceImpl}
+import org.openurp.base.std.model.Squad
+import org.openurp.base.std.service.impl.SquadServiceImpl
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler
 import org.springframework.scheduling.config.{CronTask, ScheduledTaskRegistrar}
 
-import java.time.Instant
+import java.time.LocalDate
 import java.util as ju
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
 
 class SchedulerModule extends BindModule {
 
@@ -48,22 +47,5 @@ class SchedulerModule extends BindModule {
     bind(classOf[StaffAccountUpdater])
     bindTask(classOf[SquadStdCountUpdater], "0 0 7,11,15 * * *")
     bindTask(classOf[StaffAccountUpdater], "0 0 7 * * *")
-  }
-
-}
-
-class SquadStdCountUpdater extends DaoJob {
-  var squadService: SquadServiceImpl = _
-
-  override def execute(): Unit = {
-    squadService.autoStatStdCount()
-  }
-}
-
-class StaffAccountUpdater extends DaoJob {
-  var staffService: StaffServiceImpl = _
-
-  override def execute(): Unit = {
-    staffService.createActiveUsers()
   }
 }

@@ -19,8 +19,8 @@ package org.openurp.base.ws.edu
 
 import org.beangle.data.model.Entity
 import org.beangle.web.action.annotation.response
+import org.beangle.webmvc.support.action.RestfulService
 import org.openurp.base.edu.model.Classroom
-import org.openurp.base.ws.RestfulService
 
 class ClassroomWS extends RestfulService[Classroom] {
   @response

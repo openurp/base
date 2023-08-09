@@ -17,27 +17,20 @@
 
 package org.openurp.base.web.action.admin.std
 
-import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{Operation, OqlBuilder}
 import org.beangle.data.excel.schema.ExcelSchema
+import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.web.action.annotation.response
-import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.{Stream, View}
-import org.beangle.webmvc.execution.MappingHandler
+import org.beangle.webmvc.support.action.ImportSupport
 import org.openurp.base.model.*
-import org.openurp.base.service.UserCategories
 import org.openurp.base.std.model.Mentor
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, UrpUserHelper}
-import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
-import org.openurp.code.hr.model.{UserCategory, WorkStatus}
-import org.openurp.code.job.model.ProfessionalTitle
-import org.openurp.code.person.model.{Gender, IdType}
+import org.openurp.base.web.helper.{MentorImportListener, QueryHelper, UrpUserHelper}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import java.time.Instant
 
-class MentorAction extends ProjectRestfulAction[Mentor] {
+class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor] {
 
   var urpUserHelper: Option[UrpUserHelper] = None
 
@@ -45,46 +38,28 @@ class MentorAction extends ProjectRestfulAction[Mentor] {
     QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
   }
 
-  override def editSetting(entity: Mentor) = {
+  override def editSetting(mentor: Mentor) = {
     given project: Project = getProject
 
-    put("departments", findInSchool(classOf[Department]))
-    put("genders", codeService.get(classOf[Gender]))
-    super.editSetting(entity)
+    if (!mentor.persisted) {
+      val query = OqlBuilder.from(classOf[Staff], "s")
+      query.where("not exists(from " + classOf[Mentor].getName + " t where t.staff=s)")
+      query.where("s.school = :school", project.school)
+      query.orderBy("s.code")
+      put("staffs", entityDao.search(query))
+    }
+    super.editSetting(mentor)
   }
 
   override protected def saveAndRedirect(mentor: Mentor): View = {
     val p = getProject
-    var userCode: String = mentor.code
-    if (mentor.persisted) {
-      val existQuery = OqlBuilder.from[String](classOf[Mentor].getName, "t").select("t.code")
-      existQuery.where("t.id=:teacherId", mentor.id)
-      entityDao.search(existQuery).headOption foreach { code =>
-        userCode = code
-      }
+    val staff = entityDao.get(classOf[Staff], mentor.staff.id)
+    if (!mentor.persisted) {
+      mentor.id = mentor.staff.id
     }
-
-    val school = p.school
-    val userQuery = OqlBuilder.from(classOf[User], "user").where("user.code=:code", userCode).where("user.school =:school", school)
-    val users = entityDao.search(userQuery)
-    val user =
-      if (users.size == 1) {
-        users.head
-      } else {
-        val u = new User
-        u.school = school
-        u.category = UserCategory(UserCategories.Manager)
-        u
-      }
-    user.beginOn = mentor.beginOn
-    user.endOn = mentor.endOn
-    user.updatedAt = Instant.now
-    user.gender = mentor.gender
-    user.department = mentor.department
-    user.code = mentor.code
-    user.name = mentor.name
-
-    entityDao.saveOrUpdate(  mentor)
+    mentor.projects += p
+    mentor.name = staff.name
+    entityDao.saveOrUpdate(mentor)
     redirect("search", "info.save.success")
   }
 
@@ -107,21 +82,19 @@ class MentorAction extends ProjectRestfulAction[Mentor] {
   def downloadTemplate(): Any = {
     given project: Project = getProject
 
-    val genders = getCodes(classOf[Gender]).map(x => x.code + " " + x.name)
-    val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.code")).map(x => x.code + " " + x.name)
-
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
     sheet.title("辅导员信息模板")
     sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
-    sheet.add("辅导员工号", "teacher.code").length(10).required().remark("≤10位")
-    sheet.add("辅导员姓名", "teacher.name").length(100).required()
-    sheet.add("性别", "teacher.gender.code").ref(genders).required()
-    sheet.add("所在院系", "teacher.department.code").ref(departs).required()
-    sheet.add("任教起始日期", "teacher.beginOn").date().required()
+    sheet.add("辅导员工号", "mentor.staff.code").length(10).required().remark("≤10位")
+    sheet.add("任教起始日期", "mentor.beginOn").date().required()
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "辅导员信息.xlsx")
+  }
+
+  protected override def configImport(setting: ImportSetting): Unit = {
+    setting.listeners = List(new MentorImportListener(entityDao, getProject))
   }
 }

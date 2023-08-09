@@ -7,13 +7,13 @@
     [@b.textfield name="squad.name" label="名称" value="${squad.name!}" required="true" maxlength="100" style="width:300px"/]
     [@b.textfield name="squad.enName" label="英文名" value="${squad.enName!}" maxlength="150" style="width:500px"/]
     [@b.textfield name="squad.shortName" label="简称" value="${squad.shortName!}" maxlength="100" /]
-    [@base.campus name="squad.campus.id" label="校区" value=squad.campus! required="true" empty="..."/]
+    [@base.campus name="squad.campus.id" label="校区" value=squad.campus! required="false" empty="..."/]
     [@b.select name="squad.department.id" label="院系" value="${(squad.department.id)!}" required="true"
                style="width:200px;" items=departments option="id,name" empty="..."/]
     [@base.code type="education-levels" name="squad.level.id" label="培养层次" value=squad.level! required="true" empty="..."/]
     [@base.code type="education-types" name="squad.eduType.id" label="培养类型" value=squad.eduType! required="true" empty="..."/]
-    [@base.code type="std-types" name="squad.stdType.id" label="学生类别" value=squad.stdType! required="true" empty="..."/]
-    [@b.select name="squad.major.id" label="专业" value=squad.major! required="true"
+    [@base.code type="std-types" name="squad.stdType.id" label="学生类别" value=squad.stdType! required="false" empty="..."/]
+    [@b.select name="squad.major.id" label="专业" value=squad.major! required="false"
                style="width:300px;" items=majors option=r"${item.code} ${item.name}" empty="..."/]
     [@b.select name="squad.direction.id" label="方向" value=squad.direction!
                style="width:300px;" items=directions option=r"${item.code} ${item.name}" empty="..."/]

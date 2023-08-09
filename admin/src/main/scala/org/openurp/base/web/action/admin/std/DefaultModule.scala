@@ -18,13 +18,13 @@
 package org.openurp.base.web.action.admin.std
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.std.code
-import org.openurp.base.web.helper.UrpUserHelper
+import org.openurp.base.std.service.impl.SquadServiceImpl
 
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
-    bind(classOf[SquadAction])
+    bind(classOf[SquadServiceImpl])
+    bind(classOf[SquadAction], classOf[MentorAction])
     bind(classOf[GradeAction], classOf[GraduateSeasonAction])
 
     bind(classOf[CodeAction])

@@ -19,6 +19,7 @@ package org.openurp.base.ws
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.response
+import org.beangle.webmvc.support.action.RestfulService
 import org.openurp.base.model.{Department, School}
 
 class SchoolWS extends RestfulService[School]

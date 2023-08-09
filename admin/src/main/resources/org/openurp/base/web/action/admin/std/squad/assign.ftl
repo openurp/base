@@ -1,6 +1,7 @@
 [#ftl/]
 [@b.head/]
-[@b.toolbar title="班级信息"]bar.addBack();[/@]
+[@b.toolbar title="班级学生名单调配"]bar.addBack();[/@]
+[@b.messages slash="3"/]
 <table class="infoTable" style="width:90%;margin:10px auto auto;">
   <colgroup>
     <col width="7%"/>
@@ -59,7 +60,12 @@
   </tr>
 </table>
 
-  <div style="width:90%;margin:auto;">
+<div style="width:90%;margin:auto;">
+  [@b.form name="actionForm" action="!addStudent"]
+    <input name="squad.id" value="${squad.id}" type="hidden"/>
+    [@b.textfield name="codes" label="学号"/]
+    [@b.submit value="添加"/]
+  [/@]
   [#list students?chunk(4) as row]
     <table align="center" width="100%" style="border-bottom:1px solid #A6C9E2;">
      <tr>
@@ -81,6 +87,7 @@
                [#if student.state.status.id != 1]
                    <font color="red">${student.state.status.name}</font>
                [/#if]
+               [@b.a href="!removeStudent?squad.id=${squad.id}&student.id=${student.id}" class="text-danger"]移出[/@]
              </td>
           </tr>
          </table>

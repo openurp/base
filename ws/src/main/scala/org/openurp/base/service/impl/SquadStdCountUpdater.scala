@@ -18,33 +18,22 @@
 package org.openurp.base.service.impl
 
 import org.beangle.commons.logging.Logging
-import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.data.dao.OqlBuilder
 import org.openurp.base.std.model.Squad
+import org.openurp.base.std.service.SquadService
 
-import java.time.{Instant, LocalDate}
+import java.time.LocalDate
 
-class SquadServiceImpl extends Logging {
+class SquadStdCountUpdater extends DaoJob, Logging {
+  var squadService: SquadService = _
 
-  var entityDao: EntityDao = _
-
-  def autoStatStdCount(): Int = {
-    val today=LocalDate.now()
+  override def execute(): Unit = {
+    val today = LocalDate.now()
 
     val query = OqlBuilder.from(classOf[Squad], "s")
     query.where("s.endOn >= :today", today)
     val squads = entityDao.search(query)
-    var updated = 0
-    squads foreach { squad =>
-      val examinDay = if (squad.endOn.isBefore(today)) squad.endOn.minusDays(30) else today
-      val newCount = squad.stdStates.filter(x => x.within(examinDay) && x.inschool).size
-      if (newCount != squad.stdCount) {
-        squad.stdCount = newCount
-        updated += 1
-        squad.updatedAt = Instant.now
-      }
-    }
-    entityDao.saveOrUpdate(squads)
-    if updated > 0 then logger.info(s"auto stat ${updated} squads std count.")
-    updated
+    val updated = squadService.statStdCount(squads)
+    if updated > 0 then logger.info(s"auto stat ${updated} squads stdcount.")
   }
 }
