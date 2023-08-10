@@ -30,6 +30,8 @@ val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starter
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
 val beangle_ems_app = "org.beangle.ems" % "beangle-ems-app_3" % "4.6.23-SNAPSHOT"
 val beangle_security_core = "org.beangle.security" % "beangle-security-core_3" % "4.3.10-SNAPSHOT"
+val beangle_webmvc_core = "org.beangle.webmvc" % "beangle-webmvc-core_3" % "0.9.8-SNAPSHOT"
+val beangle_webmvc_view = "org.beangle.webmvc" % "beangle-webmvc-view_3" % "0.9.8-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .settings()
@@ -74,7 +76,7 @@ lazy val webapp = (project in file("webapp"))
   .enablePlugins(WarPlugin, UndertowPlugin, TomcatPlugin)
   .settings(
     name := "openurp-base-webapp",
-    libraryDependencies ++= Seq(beangle_ems_app,beangle_security_core),
+    libraryDependencies ++= Seq(beangle_ems_app,beangle_security_core,beangle_webmvc_core,beangle_webmvc_view),
     common
   ).dependsOn(admin, info)
 

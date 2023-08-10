@@ -14,7 +14,7 @@
   [@b.row]
     [@b.boxcol name="squad.id"/]
     [@b.col width="9%" property="code" title="代码"]${squad.code}[/@]
-    [@b.col width="23%" property="name" title="名称"][@b.a href="!info?id=${squad.id}"]${squad.name}[/@][/@]
+    [@b.col width="23%" property="name" title="名称"][@b.a href="!info?id=${squad.id}"]<div class="text-ellipsis" title="${squad.name}">${squad.name}</div>[/@][/@]
     [@b.col width="5%" property="grade" title="年级"]${squad.grade!}[/@]
     [@b.col width="6%" property="level" title="培养层次"]${(squad.level.name)!}[/@]
     [@b.col width="12%" property="department" title="院系"]${squad.department.shortName!squad.department.name}[/@]
