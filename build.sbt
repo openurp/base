@@ -2,7 +2,7 @@ import org.openurp.parent.Dependencies.*
 import org.openurp.parent.Settings.*
 
 ThisBuild / organization := "org.openurp.base"
-ThisBuild / version := "0.4.6-SNAPSHOT"
+ThisBuild / version := "0.4.6"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -23,15 +23,11 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.34.1-SNAPSHOT"
-val starterVer = "0.3.8-SNAPSHOT"
+val apiVer = "0.34.1"
+val starterVer = "0.3.8"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
-val beangle_ems_app = "org.beangle.ems" % "beangle-ems-app_3" % "4.6.23-SNAPSHOT"
-val beangle_security_core = "org.beangle.security" % "beangle-security-core_3" % "4.3.10-SNAPSHOT"
-val beangle_webmvc_core = "org.beangle.webmvc" % "beangle-webmvc-core_3" % "0.9.8-SNAPSHOT"
-val beangle_webmvc_view = "org.beangle.webmvc" % "beangle-webmvc-view_3" % "0.9.8-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .settings()
@@ -76,7 +72,6 @@ lazy val webapp = (project in file("webapp"))
   .enablePlugins(WarPlugin, UndertowPlugin, TomcatPlugin)
   .settings(
     name := "openurp-base-webapp",
-    libraryDependencies ++= Seq(beangle_ems_app,beangle_security_core,beangle_webmvc_core,beangle_webmvc_view),
     common
   ).dependsOn(admin, info)
 
