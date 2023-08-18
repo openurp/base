@@ -138,7 +138,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     stds foreach { std =>
       if (std.state.get.squad.isEmpty) {
         std.state.get.squad = Some(squad)
-        squad.stdCount -= 1
+        squad.stdCount += 1
       }
     }
     entityDao.saveOrUpdate(squad, stds)
