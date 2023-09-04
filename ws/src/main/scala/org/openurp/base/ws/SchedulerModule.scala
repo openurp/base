@@ -34,18 +34,18 @@ class SchedulerModule extends BindModule {
 
   protected def bindTask[T <: Runnable](clazz: Class[T], expression: String): Unit = {
     val taskName = clazz.getName
-    bind(taskName + "Task", classOf[CronTask]).constructor(ref(taskName), expression)
+    bind(taskName + "Task", classOf[CronTask]).constructor(ref(taskName), expression).lazyInit(false)
   }
 
   protected override def binding(): Unit = {
     bind(classOf[SquadServiceImpl])
     bind(classOf[StaffServiceImpl])
-    bind(classOf[ConcurrentTaskScheduler]).property("scheduledExecutor", new ScheduledThreadPoolExecutor(4))
-    bind(classOf[ScheduledTaskRegistrar]).nowire("triggerTasksList")
+    bind(classOf[ConcurrentTaskScheduler])
+    bind(classOf[ScheduledTaskRegistrar]).nowire("triggerTasks", "triggerTasksList")
 
-    bind(classOf[SquadStdCountUpdater])
-    bind(classOf[StaffAccountUpdater])
+    bind(classOf[SquadStdCountUpdater]).lazyInit(false)
+    bind(classOf[StaffAccountUpdater]).lazyInit(false)
     bindTask(classOf[SquadStdCountUpdater], "0 0 7,11,15 * * *")
-    bindTask(classOf[StaffAccountUpdater], "0 0 7 * * *")
+    bindTask(classOf[StaffAccountUpdater], "0 0 7,11,15 * * *")
   }
 }

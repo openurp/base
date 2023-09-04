@@ -6,7 +6,7 @@
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("导入",action.method('importForm'));
-    bar.addItem("${b.text("action.export")}",action.exportData("code:代码,name:课程名称,enName:英文名,credits:学分,creditHours:学时,weekHours:周课时,department.name:所属院系,courseType.name:课程类型,category.name:课程分类,examMode.name:考核方式,hasMakeup:是否有补考,calgp:是否计算绩点,beginOn:生效日期,endOn:失效日期",null,'fileName=课程信息'));
+    bar.addItem("${b.text("action.export")}",action.exportData("code:代码,name:课程名称,enName:英文名,defaultCredits:学分,creditHours:学时,weekHours:周课时,department.name:所属院系,courseType.name:课程类型,category.name:课程分类,examMode.name:考核方式,hasMakeup:是否有补考,calgp:是否计算绩点,beginOn:生效日期,endOn:失效日期",null,'fileName=课程信息'));
   [/@]
   [@b.row]
     [@b.boxcol /]

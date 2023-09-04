@@ -17,10 +17,13 @@
 
 package org.openurp.base.service.impl
 
-class StaffAccountUpdater extends DaoJob {
+import org.beangle.commons.logging.Logging
+
+class StaffAccountUpdater extends DaoJob, Logging {
   var staffService: StaffServiceImpl = _
 
   override def execute(): Unit = {
+    logger.info("starting sync staff and teacher to account")
     staffService.createActiveUsers()
   }
 }
