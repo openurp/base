@@ -8,7 +8,7 @@
 <div class="search-container">
     <div class="search-panel">
       [@b.form name="courseSearchForm" action="!search" target="courselist" title="ui.searchForm" theme="search"]
-        [@b.textfields names="course.code;代码"/]
+        [@b.textfield name="course.code" label="代码" maxlength="2000"/]
         [@b.textfields names="course.name;名称"/]
         [@base.code type="course-types" name="course.courseType.id" label="课程类别" empty="..." /]
         [@base.code type="course-natures" name="course.nature.id" label="课程性质" empty="..." /]

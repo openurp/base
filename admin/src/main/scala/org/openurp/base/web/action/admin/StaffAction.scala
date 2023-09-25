@@ -17,7 +17,6 @@
 
 package org.openurp.base.web.action.admin
 
-import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{Operation, OqlBuilder}
 import org.beangle.data.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
@@ -30,11 +29,9 @@ import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.*
 import org.openurp.base.std.model.Mentor
-import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.action.admin.code.PoliticalStatusAction
 import org.openurp.base.web.helper.{QueryHelper, StaffImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
-import org.openurp.code.hr.model.{StaffType, UserCategory, WorkStatus}
+import org.openurp.code.hr.model.{StaffType, WorkStatus}
 import org.openurp.code.job.model.ProfessionalTitle
 import org.openurp.code.person.model.{Gender, IdType, Nation, PoliticalStatus}
 
@@ -78,15 +75,18 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
   }
 
   override protected def saveAndRedirect(staff: Staff): View = {
-    val p = getProject
+    given p: Project = getProject
 
     staff.school = p.school
     staff.updatedAt = Instant.now
     try {
       urpUserHelper.createStaffUser(staff)
       entityDao.saveOrUpdate(staff)
-      //sychronize name to teacher/mentor/tutor
+      //synchronize name to teacher/mentor/tutor
       val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
+      if (getProjectProperty("base.teacher.same_depart_with_staff", false)) {
+        teachers foreach (t => t.department = staff.department)
+      }
       teachers foreach (t => t.name = staff.name)
       entityDao.saveOrUpdate(teachers)
 
@@ -101,7 +101,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
           case "save" => "editNew"
           case "update" => "edit"
         }
-        logger.info("save forwad failure", e)
+        logger.info("save forward failure", e)
         redirect(redirectTo, "info.save.failure")
       }
     }

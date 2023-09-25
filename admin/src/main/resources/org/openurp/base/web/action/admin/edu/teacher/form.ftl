@@ -16,7 +16,7 @@
     [@b.select name="teacher.office.id" label="教研室" items=teachingOffices value=teacher.office! empty="..." /]
     [/#if]
     [#if tutorTypes?size>0]
-    [@b.select name="teacher.tutorType.id" label="导师类别" items=tutorTypes empty="..." required="false"/]
+    [@b.select name="teacher.tutorType.id" label="导师类别" items=tutorTypes value=teacher.tutorType! empty="..." required="false"/]
     [/#if]
     [@b.textfield name="teacher.tqcNumber" label="教师资格证号码" value=teacher.tqcNumber! maxlength="30"/]
     [@b.textarea name="teacher.oqc" label="其他职业资格证书和等级说明" value=teacher.oqc! maxlength="400" rows="5" cols="80" placeholder="证书 等级 每个一行"/]

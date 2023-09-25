@@ -23,7 +23,6 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
-import org.beangle.ems.app.Ems
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
@@ -36,7 +35,7 @@ import org.openurp.base.web.helper.{CourseImportListener, QueryHelper}
 import org.openurp.code.edu.model.*
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import java.time.LocalDate
+import java.time.{Instant, LocalDate}
 
 class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], ImportSupport[Course] {
   protected override def indexSetting(): Unit = {
@@ -81,6 +80,19 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     put("hoursPerCredit", getProjectProperty(Features.EduCourseHoursPerCredit, 16))
     put("project", project)
     super.editSetting(c)
+  }
+
+  def activate(): View = {
+    val courses = entityDao.find(classOf[Course], getLongIds("course"))
+    val isActivate = getBoolean("isActivate", true)
+    if (isActivate) {
+      courses.foreach { c => c.endOn = None; c.updatedAt = Instant.now }
+    } else {
+      val yesterday = LocalDate.now.minusDays(1)
+      courses.foreach { c => c.endOn = Some(yesterday); c.updatedAt = Instant.now }
+    }
+    entityDao.saveOrUpdate(courses)
+    redirect("search", "操作成功")
   }
 
   def newCourses(): View = {

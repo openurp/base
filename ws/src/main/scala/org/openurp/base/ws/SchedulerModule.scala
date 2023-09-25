@@ -46,6 +46,6 @@ class SchedulerModule extends BindModule {
     bind(classOf[SquadStdCountUpdater]).lazyInit(false)
     bind(classOf[StaffAccountUpdater]).lazyInit(false)
     bindTask(classOf[SquadStdCountUpdater], "0 0 7,11,15 * * *")
-    bindTask(classOf[StaffAccountUpdater], "0 0 7,11,15 * * *")
+    bindTask(classOf[StaffAccountUpdater], "0 0 7,11,12,15 * * *")
   }
 }
