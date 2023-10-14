@@ -15,44 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.ws
+package org.openurp.base.ws.std
 
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.data.jsonapi.JsonAPI
 import org.beangle.web.action.annotation.response
+import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam}
-import org.openurp.base.edu.model.Teacher
-import org.openurp.base.model.{Staff, User}
-import org.openurp.base.std.model.{Mentor, Student}
+import org.openurp.base.std.model.Student
 
-class StaffWS extends ActionSupport with EntityAction[User] {
+class StudentWS extends ActionSupport with EntityAction[Student] {
   var entityDao: EntityDao = _
 
   @response
-  def index(): Seq[Properties] = {
-    val query = OqlBuilder.from(classOf[Staff], "staff")
+  def index(): JsonAPI.Json = {
+    val query = OqlBuilder.from(classOf[Student], "std")
     populateConditions(query)
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
     get("q") foreach { q =>
       val c = s"%$q%"
-      query.where("staff.name like :c or staff.code like :c", c)
+      query.where("std.name like :c or std.code like :c", c)
     }
-    getBoolean("isMentor") foreach { isMentor =>
-      query.where((if (isMentor) "" else "not ") + " exists(from " + classOf[Mentor].getName + "  t  where t.staff=staff)")
-    }
-    getBoolean("isTeacher") foreach { isTeacher =>
-      query.where((if (isTeacher) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.staff=staff)")
-    }
-    getBoolean("isTutor") foreach { isTutor =>
-      query.where((if (isTutor) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.staff=staff and t.tutorType is not null)")
-    }
-    val orderStr = get(Order.OrderStr).getOrElse("staff.name")
+    val orderStr = get(Order.OrderStr).getOrElse("std.code desc")
     query.orderBy(orderStr)
-    entityDao.search(query).map { t =>
-      new Properties(t, "id", "code", "name", "description")
-    }
+    val context = JsonAPI.context(ActionContext.current.params)
+    context.mkJson(entityDao.search(query), "id", "code", "name", "description")
   }
+
 }

@@ -21,7 +21,7 @@ ${tag.body}
     },
     function (obj){
       var is_restapi = Array.isArray(obj);
-      var datas = is_restapi?obj:obj.datas;
+      var datas = is_restapi?obj:obj.data;
       var items=[]
       jQuery.each(datas,function(i,data){
         var title = is_restapi?data.${tag.valueName}:data.attributes.${tag.valueName}

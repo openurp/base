@@ -26,7 +26,7 @@ class DefaultModule extends BindModule {
     bind(classOf[edu.DirectionWS], classOf[edu.CourseWS])
 
     bind(classOf[std.MentorWS], classOf[std.SquadWS])
-    bind(classOf[std.GradeWS])
+    bind(classOf[std.GradeWS],classOf[std.StudentWS])
 
     bind(classOf[SemesterWS])
     bind(classOf[UserWS], classOf[DepartmentWS], classOf[StaffWS])
