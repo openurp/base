@@ -17,17 +17,15 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.commons.io.IOs
-import org.beangle.commons.lang.ClassLoaders
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
-import org.beangle.web.action.annotation.response
+import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.openurp.base.edu.code.{BookAwardType, BookType}
-import org.openurp.base.edu.model.Textbook
+import org.openurp.base.edu.model.{Course, Textbook}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TextbookImportListener
@@ -85,6 +83,7 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     put("presses", getCodes(classOf[Press]))
     put("awardTypes", getCodes(classOf[BookAwardType]))
     put("categories", getCodes(classOf[BookCategory]))
+    if (!textbook.persisted) textbook.beginOn = LocalDate.now()
   }
 
   override protected def getQueryBuilder: OqlBuilder[Textbook] = {
@@ -101,10 +100,27 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
   }
 
   protected override def saveAndRedirect(book: Textbook): View = {
-    if (null == book.beginOn) {
-      book.beginOn = LocalDate.now
+    if null == book.beginOn then book.beginOn = LocalDate.now
+    if (entityDao.duplicate(classOf[Textbook], book.id, Map("isbn" -> book.isbn))) {
+      addError("ISBN 重复")
+      put("textbook", book)
+      editSetting(book)
+      forward("form")
+    } else {
+      super.saveAndRedirect(book)
     }
-    super.saveAndRedirect(book)
+  }
+
+
+  @mapping(value = "{id}")
+  override def info(@param("id") id: String): View = {
+    val textbook = entityDao.get(classOf[Textbook], id.toLong)
+    val cq = OqlBuilder.from(classOf[Course], "c")
+    cq.where(":book in elements(c.textbooks)", textbook)
+    val courses = entityDao.search(cq)
+    put("textbook", textbook)
+    put("courses", entityDao.search(cq))
+    forward()
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

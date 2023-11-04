@@ -17,7 +17,7 @@
       [#assign typeExamCapacity=typeExamCapacity+{r.roomType.name:r.examCapacity+typeExamCapacity[r.roomType.name]!0} /]
     [/#list]
     <div class="card-body">
-        <table class="table table-hover table-sm">
+        <table class="table table-hover table-sm table-striped">
           <thead>
              <th>教室类型</th>
              <th>教室数</th>
@@ -39,7 +39,7 @@
          </table>
     </div>
     <div class="card-body">
-        <table class="table table-hover table-sm">
+        <table class="table table-hover table-sm table-striped">
           <thead>
              <th>代码</th>
              <th>名称</th>

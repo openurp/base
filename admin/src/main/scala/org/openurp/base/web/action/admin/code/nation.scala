@@ -18,14 +18,10 @@
 package org.openurp.base.web.action.admin.code
 
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.person.model.PoliticalStatus
-import org.openurp.code.geo.model.Country
-import org.openurp.code.person.model.Nation
-import org.openurp.code.geo.model.Division
 import org.openurp.code.edu.model.Language
-import org.openurp.code.person.model.FamilyRelationship
-import org.openurp.code.person.model.Gender
-import org.openurp.code.person.model.IdType
+import org.openurp.code.geo.model.{Country, Division}
+import org.openurp.code.hr.model.{StaffType, WorkStatus}
+import org.openurp.code.person.model.*
 
 class GenderAction extends RestfulAction[Gender]
 

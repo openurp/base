@@ -25,5 +25,6 @@ class DefaultModule extends BindModule {
   protected override def binding(): Unit = {
     bind(classOf[SemesterAction])
     bind(classOf[StaffAction])
+    bind(classOf[CodeAction])
   }
 }

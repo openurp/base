@@ -51,6 +51,16 @@
     <td class="content" >${textbook.price!}</td>
   </tr>
   <tr>
+    <td class="title" width="20%">采用课程:</td>
+    <td class="content" colspan="3">
+      <ul style="padding-left: 1rem;list-style: decimal;margin:0px;">
+      [#list courses as p]
+        <li>[@b.a href="course!info?id="+p.id]${p.name}[/@] ${p.code!} ${p.defaultCredits}学分</li>
+      [/#list]
+      </ul>
+    </td>
+  </tr>
+  <tr>
     <td class="title" width="20%">备注:</td>
     <td class="content" colspan="3">${textbook.remark!}</td>
   </tr>

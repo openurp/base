@@ -19,13 +19,14 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
-import org.openurp.base.edu.model.{Major, MajorDiscipline, TeachingOffice}
+import org.beangle.webmvc.support.action.ExportSupport
+import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.QueryHelper
 import org.openurp.code.edu.model.EducationLevel
 
-class MajorAction extends ProjectRestfulAction[Major] {
+class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
 
   override def getQueryBuilder: OqlBuilder[Major] = {
     val query = super.getQueryBuilder

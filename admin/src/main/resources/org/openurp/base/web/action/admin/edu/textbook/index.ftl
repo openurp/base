@@ -8,5 +8,4 @@
    [@b.tab href="/admin/edu/code/book-type" label="教材类型" /]
    [@b.tab href="/admin/edu/code/book-award-type" label="教材获奖类型" /]
 [/@]
-
 [@b.foot/]

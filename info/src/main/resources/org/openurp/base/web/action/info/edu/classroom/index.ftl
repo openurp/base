@@ -19,7 +19,7 @@
           [@b.a href="!building?id="+building[1] target="classroom_info"]
              ${building[2]}
              [#if !displayCampuses?seq_contains(building[0])]
-             [#assign displayCampuses=displayCampuses+[building[0]]/] <span style="font-size:0.8rem;color: #999;">${building[0]}</span>[/#if]
+             [#assign displayCampuses=displayCampuses+[building[0]]/] <span class="text-muted" style="font-size:0.8rem;">${building[0]}</span>[/#if]
           [/@]
            </td>
           <td>${building[3]}</td>

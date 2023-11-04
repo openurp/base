@@ -60,6 +60,16 @@
     </td>
   </tr>
   <tr>
+    <td class="title" width="20%">默认教材:</td>
+    <td class="content" colspan="3">
+      <ul style="padding-left: 1rem;list-style: decimal;margin:0px;">
+      [#list course.textbooks as p]
+        <li>[@b.a href="textbook!info?id="+p.id]${p.name}[/@] ${p.author!}，ISBN:${p.isbn}，版次：${p.edition!}，出版年月：${p.publishedOn?string('yyyy-MM')}</li>
+      [/#list]
+      </ul>
+    </td>
+  </tr>
+  <tr>
     <td class="title" width="20%">生效日期:</td>
     <td class="content" >${course.beginOn!}~${course.endOn!}</td>
     <td class="title" width="20%">备注:</td>

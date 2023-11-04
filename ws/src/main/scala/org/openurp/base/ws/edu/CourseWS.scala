@@ -41,6 +41,6 @@ class CourseWS extends ActionSupport with EntityAction[Course] {
     }
     val courses = entityDao.search(query)
     val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(courses, "id", "code", "name", "enName")
+    context.mkJson(courses, "id", "code", "name", "enName","description")
   }
 }

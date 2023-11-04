@@ -15,7 +15,7 @@
           <i class="fas fa-minus"></i>
         </button>
     [/@]
-    <span class="float-right" style="font-size:0.8rem;color: #999;" >有效期:${c.beginOn?string("yyyy-MM-dd")}~${(c.endOn?string("yyyy-MM-dd"))!}</span>
+    <span class="float-right text-muted" style="font-size:0.8rem;" >有效期:${c.beginOn?string("yyyy-MM-dd")}~${(c.endOn?string("yyyy-MM-dd"))!}</span>
   [/@]
   [@b.card_body]
     <div class="row">

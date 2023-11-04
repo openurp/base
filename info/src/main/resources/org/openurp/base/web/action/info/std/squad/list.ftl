@@ -22,7 +22,7 @@
       [/@]
     </div>
     <div class="card-body">
-        <table class="table table-hover table-sm">
+        <table class="table table-hover table-sm table-striped">
           <thead>
              <th>代码</th>
              <th>名称</th>

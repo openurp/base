@@ -1,0 +1,16 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="教职工来源类型"]bar.addBack();[/@]
+  [@b.form action=b.rest.save(staffType) theme="list"]
+    [@b.textfield name="staffType.code" label="代码" value="${staffType.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="staffType.name" label="名称" value="${staffType.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="staffType.enName" label="英文名" value="${staffType.enName!}" maxlength="100"/]
+    [@b.startend label="有效期"
+      name="staffType.beginOn,staffType.endOn" required="true,false"
+      start=staffType.beginOn end=staffType.endOn format="date"/]
+    [@b.textfield name="staffType.remark" label="备注" value="${staffType.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[@b.foot/]

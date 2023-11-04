@@ -18,10 +18,8 @@
 package org.openurp.base.web.action.admin.edu.code
 
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.edu.model.{AcademicLevel, EducationLevel, ExamMode, ExamStatus, GradingMode}
-import org.openurp.code.sin.model.BookCategory
-import org.openurp.code.sin.model.Press
-import org.openurp.code.sin.model.PressGrade
+import org.openurp.code.edu.model.*
+import org.openurp.code.sin.model.{BookCategory, Press, PressGrade}
 
 class GradingModeAction extends RestfulAction[GradingMode]
 
@@ -45,3 +43,11 @@ class PressAction extends RestfulAction[Press] {
 class BookCategoryAction extends RestfulAction[BookCategory]
 
 class PressGradeAction extends RestfulAction[PressGrade]
+
+class ExamTypeAction extends RestfulAction[ExamType]
+
+class GradeTypeAction extends RestfulAction[GradeType] {
+  override def editSetting(entity: GradeType) = {
+    put("examTypes", entityDao.getAll(classOf[ExamType]))
+  }
+}

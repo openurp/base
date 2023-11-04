@@ -36,6 +36,7 @@ abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T] wit
       builder.where(simpleEntityName + ".project = :project", getProject)
     }
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
+    builder.tailOrder(simpleEntityName + ".id")
   }
 
   override protected def saveAndRedirect(entity: T): View = {

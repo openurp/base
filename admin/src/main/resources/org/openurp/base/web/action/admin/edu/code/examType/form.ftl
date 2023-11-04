@@ -1,0 +1,17 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改考试类型"]bar.addBack();[/@]
+  [@b.form action=b.rest.save(examType) theme="list"]
+    [@b.textfield name="examType.code" label="代码" value="${examType.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="examType.name" label="名称" value="${examType.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="examType.enName" label="英文名" value="${examType.enName!}" maxlength="100"/]
+    [@b.radios label="是否是缓考"  name="examType.forDeferred" value=examType.forDeferred items="1:common.yes,0:common.no"/]
+    [@b.startend label="有效期"
+      name="examType.beginOn,examType.endOn" required="true,false"
+      start=examType.beginOn end=examType.endOn format="date"/]
+    [@b.textfield name="examType.remark" label="备注" value="${examType.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[@b.foot/]

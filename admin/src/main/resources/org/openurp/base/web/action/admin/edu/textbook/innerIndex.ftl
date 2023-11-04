@@ -1,5 +1,5 @@
 [#ftl]
-<div class="search-container">
+<div class="search-container" id="textbook-search-container">
     <div class="search-panel">
     [@b.form name="textbookSearchForm" action="!search" target="textbooklist" title="ui.searchForm" theme="search"]
       [@b.textfields names="textbook.isbn;ISBN"/]

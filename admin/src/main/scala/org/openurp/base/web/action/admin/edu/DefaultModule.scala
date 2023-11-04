@@ -48,6 +48,7 @@ class DefaultModule extends BindModule {
 
     bind(classOf[DegreeLevelAction], classOf[DegreeAction], classOf[StudyTypeAction],
       classOf[DisciplineCategoryAction], classOf[EducationResultAction])
+    bind(classOf[ExamTypeAction], classOf[GradeTypeAction])
 
     bind(classOf[UrpUserHelper]).nowire("platformDataSource")
   }

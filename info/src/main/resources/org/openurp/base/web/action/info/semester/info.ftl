@@ -16,7 +16,7 @@
      [#list weekDates as wd]
      [#assign day_str= wd?string("dd")/]
      <td [#if wd_index=0 || wd_index==6]class="title"[/#if] style="text-align:center;[#if day_str="01"]font-weight: bold;[/#if]">
-     <span [#if wd<semester.beginOn]style="color: #999;"[/#if]>
+     <span [#if wd<semester.beginOn]class="text-muted"[/#if]>
      [#if day_str=="01"]${wd?string("yy-MM-dd")}[#else]${day_str}[/#if]
      </span>
      </td>

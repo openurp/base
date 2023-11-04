@@ -23,7 +23,7 @@
     </div>
     [#assign displayTutorType = tutorTypes?size >0/]
     <div class="card-body">
-        <table class="table table-hover table-sm">
+        <table class="table table-hover table-sm table-striped">
           <thead>
              <th>工号</th>
              <th>姓名</th>

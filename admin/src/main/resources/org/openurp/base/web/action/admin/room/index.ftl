@@ -4,7 +4,7 @@
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="roomSearchForm" action="!search" target="roomlist" title="ui.searchForm" theme="search"]
-      [@b.textfields names="room.code;代码"/]
+      [@b.textfield name="room.code" label="代码" maxlength="5000"/]
       [@b.textfields names="room.name;名称"/]
       [@b.select name="room.campus.id" label="所属校区" items=campuses empty="..." style="width:100px"/]
       [@b.select name="room.roomType.id" label="房间类型" empty="..." items=roomTypes style="width:100px"/]

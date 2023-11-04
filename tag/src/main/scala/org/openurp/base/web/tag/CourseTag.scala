@@ -30,7 +30,7 @@ class CourseTag(context: ComponentContext) extends Select(context) {
   override def evaluateParams(): Unit = {
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     if (null == this.href) this.href = Ems.api + s"/base/edu/${project.id}/courses.json?q={term}"
-    if (null == this.option) this.option = "id,name"
+    if (null == this.option) this.option = "id,description"
     super.evaluateParams()
   }
 }

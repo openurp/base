@@ -37,13 +37,15 @@
       <div class="card-header">
         <h3 class="card-title">开设院系<span class="badge badge-primary">${major.journals?size}</span></h3>
       </div>
-      <table class="infoTable" style="text-align:center">
-        <tr>
-         <td style="background-color:#F5EDDB" width="8%">序号</td>
-         <td style="background-color:#F5EDDB">院系</td>
-         <td style="background-color:#F5EDDB">学历层次</td>
-         <td style="background-color:#F5EDDB">有效期</td>
-        </tr>
+      <table  class="table table-hover table-sm table-striped" style="text-align:center">
+        <thead>
+          <tr>
+           <th style="background-color:#F5EDDB" width="8%">序号</th>
+           <th style="background-color:#F5EDDB">院系</th>
+           <th style="background-color:#F5EDDB">学历层次</th>
+           <th style="background-color:#F5EDDB">有效期</th>
+          </tr>
+        </thead>
         [#list major.journals?sort_by(["depart","code"]) as mj]
         <tr>
           <td>${mj_index+1}</td>
@@ -59,15 +61,17 @@
       <div class="card-header">
         <h3 class="card-title">专业方向<span class="badge badge-primary">${major.directions?size}</span></h3>
       </div>
-        <table class="infoTable" style="text-align:center">
-          <tr>
-           <td style="background-color:#F5EDDB" width="8%">代码</td>
-           <td style="background-color:#F5EDDB" width="20%">名称</td>
-           <td style="background-color:#F5EDDB" width="34%">英文名</td>
-           <td style="background-color:#F5EDDB" width="15%">院系</td>
-           <td style="background-color:#F5EDDB" width="8%">层次</td>
-           <td style="background-color:#F5EDDB" width="15%">有效期</td>
-          </tr>
+        <table class="table table-hover table-sm table-striped" style="text-align:center">
+          <thead>
+            <tr>
+             <th style="background-color:#F5EDDB" width="8%">代码</th>
+             <th style="background-color:#F5EDDB" width="20%">名称</th>
+             <th style="background-color:#F5EDDB" width="34%">英文名</th>
+             <th style="background-color:#F5EDDB" width="15%">院系</th>
+             <th style="background-color:#F5EDDB" width="8%">层次</th>
+             <th style="background-color:#F5EDDB" width="15%">有效期</th>
+            </tr>
+          </thead>
           [#list major.directions?sort_by("code") as d]
           <tr>
             <td>${d.code}</td>
