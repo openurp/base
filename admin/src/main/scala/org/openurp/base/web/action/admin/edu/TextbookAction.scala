@@ -111,7 +111,6 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     }
   }
 
-
   @mapping(value = "{id}")
   override def info(@param("id") id: String): View = {
     val textbook = entityDao.get(classOf[Textbook], id.toLong)
