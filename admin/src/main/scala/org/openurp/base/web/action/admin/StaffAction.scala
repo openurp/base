@@ -80,8 +80,14 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     staff.school = p.school
     staff.updatedAt = Instant.now
     try {
-      urpUserHelper.createStaffUser(staff)
+      var oldCode: Option[String] = None
+      if (staff.persisted) {
+        val existQuery = OqlBuilder.from[String](classOf[Staff].getName, "t").select("t.code")
+        existQuery.where("t.id = :staffId", staff.id)
+        entityDao.search(existQuery).headOption foreach { code => oldCode = Some(code) }
+      }
       entityDao.saveOrUpdate(staff)
+      urpUserHelper.createStaffUser(staff, oldCode)
       //synchronize name to teacher/mentor/tutor
       val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
       if (getProjectProperty("base.teacher.same_depart_with_staff", false)) {

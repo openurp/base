@@ -18,7 +18,6 @@
 package org.openurp.base.web.helper
 
 import org.beangle.commons.bean.Initializing
-import org.beangle.commons.codec.digest.Digests
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.datasource.AppDataSourceFactory
@@ -26,11 +25,6 @@ import org.openurp.base.edu.model.Teacher
 import org.openurp.base.model.{Staff, User}
 import org.openurp.base.service.UserRepo
 import org.openurp.base.service.impl.DefaultUserRepo
-import org.openurp.code.hr.model.UserCategory
-import org.springframework.jdbc.core.JdbcTemplate
-
-import java.time.Instant
-import javax.sql.DataSource
 
 class UrpUserHelper extends Initializing {
 
@@ -44,8 +38,8 @@ class UrpUserHelper extends Initializing {
     userRepo = new DefaultUserRepo(entityDao, ds.result, Ems.hostname)
   }
 
-  def createStaffUser(staff: Staff): User = {
-    userRepo.createUser(staff)
+  def createStaffUser(staff: Staff, oldCode: Option[String]): User = {
+    userRepo.createUser(staff, oldCode)
   }
 
   def createTeacherUser(teacher: Teacher): User = {
@@ -54,5 +48,22 @@ class UrpUserHelper extends Initializing {
 
   def createAccount(user: User): Unit = {
     userRepo.createAccount(user)
+  }
+
+  def createActiveUsers(): Unit = {
+    val query = OqlBuilder.from(classOf[Teacher], "teacher")
+    query.where("teacher.endOn is null")
+    val teachers = entityDao.search(query)
+    teachers.foreach { teacher =>
+      userRepo.createUser(teacher)
+    }
+
+    val query2 = OqlBuilder.from(classOf[Staff], "staff")
+    query2.where("staff.endOn is null")
+    query2.where(s"not exists(from ${classOf[Teacher].getName} t where t.staff=staff)")
+    val staffs = entityDao.search(query2)
+    staffs.foreach { staff =>
+      userRepo.createUser(staff, None)
+    }
   }
 }

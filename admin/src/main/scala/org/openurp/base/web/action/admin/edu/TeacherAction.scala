@@ -72,6 +72,13 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     super.editSetting(teacher)
   }
 
+  def createAccount(): View = {
+    val res = ActionContext.current.response
+    urpUserHelper.createActiveUsers()
+    res.getWriter.println("ok")
+    null
+  }
+
   override protected def saveAndRedirect(teacher: Teacher): View = {
     val project = getProject
     if (!teacher.projects.contains(project)) {

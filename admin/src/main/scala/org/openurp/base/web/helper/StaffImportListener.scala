@@ -38,6 +38,6 @@ class StaffImportListener(entityDao: EntityDao, project: Project, urpUserHelper:
     staff.updatedAt = Instant.now
     if (null == staff.beginOn) staff.beginOn = LocalDate.now.minusDays(1)
     entityDao.saveOrUpdate(staff)
-    urpUserHelper.createStaffUser(staff)
+    urpUserHelper.createStaffUser(staff, None)
   }
 }

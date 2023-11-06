@@ -39,9 +39,9 @@ class StaffServiceImpl extends Logging, Initializing {
   }
 
   def createActiveUsers(): Unit = {
-    val query =OqlBuilder.from(classOf[Teacher],"teacher")
+    val query = OqlBuilder.from(classOf[Teacher], "teacher")
     query.where("teacher.endOn is null")
-    val teachers= entityDao.search(query)
+    val teachers = entityDao.search(query)
     teachers.foreach { teacher =>
       userRepo.createUser(teacher)
     }
@@ -51,7 +51,7 @@ class StaffServiceImpl extends Logging, Initializing {
     query2.where(s"not exists(from ${classOf[Teacher].getName} t where t.staff=staff)")
     val staffs = entityDao.search(query2)
     staffs.foreach { staff =>
-      userRepo.createUser(staff)
+      userRepo.createUser(staff, None)
     }
   }
 }
