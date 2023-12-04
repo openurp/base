@@ -7,24 +7,15 @@
     [@b.textfield name="project.name" label="名称" value="${project.name!}" required="true" maxlength="20"/]
     [@b.textfield name="project.code" label="代码" value="${project.code!}" required="true" maxlength="20"/]
     [@b.select name="project.school.id" label="适用学校" value="${(project.school.id)!}" required="true" items=schools/]
-    [@b.select2 label="校区列表" name1st="campusesId1st" name2nd="campusesId2nd"
-      items1st=campuses items2nd= project.campuses
-      option="id,name"/]
-    [@b.select2 label="院系列表" name1st="departmentsId1st" name2nd="departmentsId2nd"
-      items1st=departments items2nd= project.departments
-      option="id,name"/]
-    [@b.select2 label="培养层次列表" name1st="levelsId1st" name2nd="levelId2nd"
-      items1st=levels items2nd= project.levels
-      option="id,name"/]
-    [@b.select2 label="学生分类列表" name1st="labelsId1st" name2nd="labelsId2nd"
-      items1st=labels items2nd= project.stdLabels
-      option="id,name"/]
-    [@b.select2 label="学生类别列表" name1st="typesId1st" name2nd="typesId2nd"
-      items1st=types items2nd= project.stdTypes
-      option="id,name"/]
-    [@b.select name="project.calendar.id" label="使用校历" value= project.calendar! required="true" items=calendars  /]
+    [@b.select label="校区列表" name="campus.id" items=campuses values=project.campuses required="true" width="400px" multiple="true"/]
+    [@b.select label="院系列表" name="department.id" items=departments values=project.departments required="true" width="800px" multiple="true"/]
+    [@b.select label="培养类型" name="eduType.id" items=eduTypes values=project.eduTypes width="400px" required="true"  multiple="true"/]
+    [@b.select label="培养层次" name="level.id" items=levels values=project.levels width="400px" required="true"  multiple="true"/]
+    [@b.select label="学生分类" name="stdLabel.id" items=stdLabels values=project.stdLabels width="400px" required="false"  multiple="true"/]
+    [@b.select label="学生类别" name="stdType.id" items=stdTypes values=project.stdTypes required="false"  multiple="true"/]
+    [@b.select label="使用校历" name="project.calendar.id" value= project.calendar! required="true" items=calendars /]
     [@b.radios label="是否辅修"  name="project.minor" value=project.minor items="1:common.yes,0:common.no"/]
-    [@b.select name="project.category.id" label="类型" value="${(project.category.id)!}" required="true"
+    [@b.select label="类型" name="project.category.id" value=project.category! required="true"
                style="width:200px;" items=eduCategories empty="..."/]
     [@b.textarea name="project.description" label="描述" value="${project.description!}" required="true" maxlength="2000" /]
     [@b.startend label="有效期"
@@ -36,11 +27,11 @@
   [/@]
   [/@]
   [#if project.persisted]
+  [@b.tab label="项目配置"]
+    [@b.div href="project-property!search?projectProperty.project.id=${project.id}&orderBy=projectProperty.name asc"/]
+  [/@]
   [@b.tab label="基础代码配置"]
     [@b.div href="project-code!search?projectCode.project.id=${project.id}"/]
-  [/@]
-  [@b.tab label="项目配置"]
-    [@b.div href="project-property!search?projectProperty.project.id=${project.id}"/]
   [/@]
   [/#if]
 [/@]

@@ -26,7 +26,7 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
-import org.openurp.base.Features
+import org.openurp.base.service.Features
 import org.openurp.base.edu.code.{CourseCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, CourseLevel, TeachingOffice}
 import org.openurp.base.model.{Department, Project}
@@ -76,8 +76,8 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     }
     put("courseLevels", c.levels.map(_.level))
     put("levels", project.levels)
-    put("levelCreditSupported", getProjectProperty(Features.EduCourseLevelCreditSupported, false))
-    put("hoursPerCredit", getProjectProperty(Features.EduCourseHoursPerCredit, 16))
+    put("levelCreditSupported", getConfig(Features.EduCourseLevelCreditSupported))
+    put("hoursPerCredit", getConfig(Features.EduCourseHoursPerCredit))
     put("project", project)
     super.editSetting(c)
   }

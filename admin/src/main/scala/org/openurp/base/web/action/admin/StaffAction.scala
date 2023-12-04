@@ -90,7 +90,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
       urpUserHelper.createStaffUser(staff, oldCode)
       //synchronize name to teacher/mentor/tutor
       val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
-      if (getProjectProperty("base.teacher.same_depart_with_staff", false)) {
+      if (getConfig("edu.teacher.same_depart_with_staff", false)) {
         teachers foreach (t => t.department = staff.department)
       }
       teachers foreach (t => t.name = staff.name)

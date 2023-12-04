@@ -17,10 +17,20 @@
 
 package org.openurp.base.web.action.admin
 
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.model.{Project, ProjectProperty}
+import org.openurp.base.model.ProjectProperty
+import org.openurp.base.service.Feature
 
 class ProjectPropertyAction extends RestfulAction[ProjectProperty] {
 
+  protected override def saveAndRedirect(property: ProjectProperty): View = {
+    //must convert and validate
+    try {
+      val converted = Feature.convert(property.value, property.typeName)
+    } catch {
+      case e: Throwable => throw new IllegalArgumentException(s"不能把${property.value}转换成${property.typeName}类型")
+    }
+    super.saveAndRedirect(property)
+  }
 }

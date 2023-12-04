@@ -22,17 +22,21 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.edu.code.EducationType
 import org.openurp.base.model.*
 import org.openurp.base.std.code.{StdLabel, StdType}
 import org.openurp.code.edu.model.{EduCategory, EducationLevel}
+import org.openurp.code.service.CodeService
 
 import scala.collection.mutable.Buffer
 
 class ProjectAction extends RestfulAction[Project] {
 
-  override def editSetting(entity: Project): Unit = {
-    val schools = findItems(classOf[School])
-    var school = entity.school
+  var codeService: CodeService = _
+
+  override def editSetting(project: Project): Unit = {
+    val schools = entityDao.getAll(classOf[School])
+    var school = project.school
     if (null == school) {
       school = schools.head
     }
@@ -40,29 +44,14 @@ class ProjectAction extends RestfulAction[Project] {
     val calendars = findInSchool(classOf[Calendar], school)
     put("calendars", calendars)
 
-    val campuses = findInSchool(classOf[Campus], school)
-    put("campuses", campuses.subtractAll(entity.campuses))
-
-    val departments = findInSchool(classOf[Department], school)
-    put("departments", departments.subtractAll(entity.departments))
-
-    val levels = findItems(classOf[EducationLevel])
-    put("levels", levels.subtractAll(entity.levels))
-
-    val labels = findItems(classOf[StdLabel])
-    put("labels", labels.subtractAll(entity.stdLabels))
-
-    val types = findItems(classOf[StdType])
-    put("types", types.subtractAll(entity.stdTypes))
-
-    put("eduCategories", this.entityDao.getAll(classOf[EduCategory]))
-
-    super.editSetting(entity)
-  }
-
-  private def findItems[T <: Entity[_]](clazz: Class[T]): Buffer[T] = {
-    val query = OqlBuilder.from(clazz)
-    entityDao.search(query).toBuffer
+    put("campuses", findInSchool(classOf[Campus], school))
+    put("departments", findInSchool(classOf[Department], school))
+    put("levels", codeService.get(classOf[EducationLevel]))
+    put("stdLabels", codeService.get(classOf[StdLabel]))
+    put("stdTypes", codeService.get(classOf[StdType]))
+    put("eduCategories", codeService.get(classOf[EduCategory]))
+    put("eduTypes", codeService.get(classOf[EducationType]))
+    super.editSetting(project)
   }
 
   private def findInSchool[T <: Entity[_]](clazz: Class[T], school: School): Buffer[T] = {
@@ -72,25 +61,30 @@ class ProjectAction extends RestfulAction[Project] {
   }
 
   protected override def saveAndRedirect(project: Project): View = {
-    val newCampuses = entityDao.find(classOf[Campus], getAll("campusesId2nd", classOf[Int]))
+    val ids = getAll("campus.id", classOf[Int])
+    val newCampuses = entityDao.find(classOf[Campus], getIntIds("campus"))
     project.campuses --= Collections.subtract(project.campuses, newCampuses)
     project.campuses ++= Collections.subtract(newCampuses, project.campuses)
 
     project.departments.clear()
-    val departmentIds = getAll("departmentsId2nd", classOf[Int])
-    project.departments ++= entityDao.find(classOf[Department], departmentIds)
+    project.departments ++= entityDao.find(classOf[Department], getIntIds("department"))
 
-    val newLevels = entityDao.find(classOf[EducationLevel], getAll("levelId2nd", classOf[Int]))
+    val newLevels = entityDao.find(classOf[EducationLevel], getIntIds("level"))
     project.levels --= Collections.subtract(project.levels, newLevels)
     project.levels ++= Collections.subtract(newLevels, project.levels)
 
-    val newLabels = entityDao.find(classOf[StdLabel], getAll("labelsId2nd", classOf[Int]))
+    val newLabels = entityDao.find(classOf[StdLabel], getIntIds("stdLabel"))
     project.stdLabels --= Collections.subtract(project.stdLabels, newLabels)
     project.stdLabels ++= Collections.subtract(newLabels, project.stdLabels)
 
-    val newTypes = entityDao.find(classOf[StdType], getAll("typesId2nd", classOf[Int]))
+    val newTypes = entityDao.find(classOf[StdType], getIntIds("stdType"))
     project.stdTypes --= Collections.subtract(project.stdTypes, newTypes)
     project.stdTypes ++= Collections.subtract(newTypes, project.stdTypes)
+
+
+    val newEduTypes = entityDao.find(classOf[EducationType], getIntIds("eduType"))
+    project.eduTypes --= Collections.subtract(project.eduTypes, newEduTypes)
+    project.eduTypes ++= Collections.subtract(newEduTypes, project.eduTypes)
 
     super.saveAndRedirect(project)
   }
