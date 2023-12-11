@@ -60,7 +60,7 @@ class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport
       entity.major.beginOn = entity.major.journals.map(_.beginOn).min
     }
     entityDao.saveOrUpdate(entity.major)
-    entityDao.evict(entity.major)
+    entityDao.evict(classOf[Major])
     view
   }
 

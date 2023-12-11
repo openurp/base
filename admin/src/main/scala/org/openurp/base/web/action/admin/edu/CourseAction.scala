@@ -17,6 +17,7 @@
 
 package org.openurp.base.web.action.admin.edu
 
+import org.beangle.commons.activation.MediaTypes
 import org.beangle.commons.collection.Order
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
@@ -26,10 +27,10 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
-import org.openurp.base.service.Features
 import org.openurp.base.edu.code.{CourseCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, CourseLevel, TeachingOffice}
 import org.openurp.base.model.{Department, Project}
+import org.openurp.base.service.Features
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{CourseImportListener, QueryHelper}
 import org.openurp.code.edu.model.*
@@ -145,7 +146,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "课程模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "课程模板.xlsx")
   }
 
   protected override def saveAndRedirect(entity: Course): View = {

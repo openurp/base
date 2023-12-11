@@ -16,12 +16,13 @@
  */
 
 package org.openurp.base.web.action.admin.edu
+
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.edu.model.DisciplineCategory
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
+import org.openurp.code.edu.model.DisciplineCategory
 
 /**
  * @author xinzhou
@@ -42,16 +43,14 @@ class MajorDisciplineAction extends RestfulAction[MajorDiscipline] {
 
   override protected def saveAndRedirect(entity: MajorDiscipline): View = {
     val view = super.saveAndRedirect(entity)
-    entityDao.evict(entity.major)
+    entityDao.evict(classOf[Major])
     view
   }
 
   override protected def removeAndRedirect(entities: Seq[MajorDiscipline]): View = {
     val majors = entities.map(_.major).toSet
     val view = super.removeAndRedirect(entities)
-    majors foreach { m =>
-      entityDao.evict(m)
-    }
+    entityDao.evict(classOf[Major])
     view
   }
 }
