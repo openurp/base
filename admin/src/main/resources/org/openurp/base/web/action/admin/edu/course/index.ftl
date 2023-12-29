@@ -17,11 +17,11 @@
         [#if teachingOffices?size>0]
         [@b.select style="width:100px" name="course.teachingOffice.id" label="教研室" items=teachingOffices option="id,name" empty="..." /]
         [/#if]
-        [@b.select name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." /]
+        [@b.select name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." value="1" /]
         <input type="hidden" name="orderBy" value="course.code"/>
       [/@]
     </div>
-    <div class="search-list">[@b.div id="courselist" href="!search?orderBy=course.code asc"/]
+    <div class="search-list">[@b.div id="courselist" href="!search?orderBy=course.code asc&active=1"/]
   </div>
 </div>
 [@b.foot/]

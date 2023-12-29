@@ -40,14 +40,14 @@
     <td class="content">${(course.courseType.name)!}</td>
   </tr>
    <tr>
-    <td class="title" width="20%">评教分类:</td>
+    <td class="title" width="20%">课程分类:</td>
     <td class="content">${(course.category.name)!}</td>
     <td class="title" width="20%">考试方式:</td>
     <td class="content">${(course.examMode.name)!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">成绩记录方式:</td>
-    <td class="content">${(course.markStyle.name)!}</td>
+    <td class="content">[#list course.gradingModes as gradingMode]${gradingMode.name}[#sep],[/#list]</td>
     <td class="title" width="20%">是否计算绩点:</td>
     <td class="content">${(course.calgp?string("是","否"))!}</td>
   </tr>

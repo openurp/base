@@ -77,8 +77,8 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     }
     put("courseLevels", c.levels.map(_.level))
     put("levels", project.levels)
-    put("levelCreditSupported", getConfig(Features.EduCourseLevelCreditSupported))
-    put("hoursPerCredit", getConfig(Features.EduCourseHoursPerCredit))
+    put("levelCreditSupported", getConfig(Features.Edu.CourseLevelCreditSupported))
+    put("hoursPerCredit", getConfig(Features.Edu.CourseHoursPerCredit))
     put("project", project)
     super.editSetting(c)
   }
@@ -143,6 +143,8 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     sheet.add("评教分类", "course.category.code").ref(categories)
     sheet.add("是否设置补考", "course.hasMakeup").bool()
     sheet.add("是否计算绩点", "course.calgp").bool()
+    sheet.add("设立日期", "course.beginOn").date().required()
+    sheet.add("有效期至", "course.endOn").date()
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
