@@ -19,16 +19,16 @@ package org.openurp.base.web.helper
 
 import org.beangle.data.dao.EntityDao
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.model.{Project, Staff}
-import org.openurp.base.std.model.Mentor
+import org.openurp.base.hr.model.{Mentor, Staff}
+import org.openurp.base.model.Project
 
-class MentorImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class MentorImportListener(entityDao: EntityDao, project: Project, urpUserHelper: UrpUserHelper) extends ImportListener {
   override def onItemStart(tr: ImportResult): Unit = {
     transfer.curData.get("staff.code") foreach { code =>
       val staffs = entityDao.findBy(classOf[Staff], "code" -> code, "school" -> project.school)
       if (staffs.size == 1) {
         val mentor =
-          entityDao.find(classOf[Mentor], staffs.head.id) match {
+          entityDao.findBy(classOf[Mentor], "staff" -> staffs.head).headOption match {
             case None =>
               val m = new Mentor()
               m.staff = staffs.head

@@ -26,8 +26,7 @@ class DefaultModule extends BindModule {
   protected override def binding(): Unit = {
     bind(classOf[MajorAction], classOf[DirectionAction], classOf[DirectionJournalAction], classOf[MajorJournalAction], classOf[MajorDisciplineAction])
 
-    bind(classOf[CourseAction], classOf[TeacherAction])
-    bind(classOf[ClassroomAction])
+    bind(classOf[CourseAction])
     bind(classOf[TextbookAction])
     bind(classOf[SchoolLengthAction])
     bind(classOf[TeachingOfficeAction])

@@ -19,7 +19,8 @@ package org.openurp.base.web.helper
 
 import org.beangle.data.dao.EntityDao
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.model.{Project, Staff}
+import org.openurp.base.hr.model.Staff
+import org.openurp.base.model.Project
 
 import java.time.{Instant, LocalDate}
 

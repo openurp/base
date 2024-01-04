@@ -28,7 +28,7 @@ class TeacherTag(context: ComponentContext) extends Select(context) {
 
   override def evaluateParams(): Unit = {
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
-    if (null == this.href) this.href = Ems.api + s"/base/edu/${project.id}/teachers.json?q={term}"
+    if (null == this.href) this.href = Ems.api + s"/base/hr/teachers.json?q={term}&projectId=${project.id}"
     if (null == this.option) this.option = "id,description"
     super.evaluateParams()
   }

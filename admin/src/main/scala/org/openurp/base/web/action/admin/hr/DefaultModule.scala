@@ -26,5 +26,13 @@ class DefaultModule extends BindModule {
     bind(classOf[CodeAction])
     bind(classOf[StaffTypeAction], classOf[WorkStatusAction], classOf[StaffSourceTypeAction])
     bind(classOf[ProfessionalGradeAction], classOf[ProfessionalTitleAction])
+
+    bind(classOf[StaffAction], classOf[TeacherAction])
+    bind(classOf[MentorAction])
+    bind(classOf[ProfileAction])
+
+    bind(classOf[OfficialAction], classOf[SecretaryAction])
+
+    bind(classOf[MyAction])
   }
 }

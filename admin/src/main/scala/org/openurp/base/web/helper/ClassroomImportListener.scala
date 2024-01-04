@@ -19,8 +19,8 @@ package org.openurp.base.web.helper
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.Classroom
 import org.openurp.base.model.Project
+import org.openurp.base.space.model.Classroom
 
 import java.time.{Instant, LocalDate}
 

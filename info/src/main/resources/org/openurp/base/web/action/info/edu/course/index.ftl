@@ -24,6 +24,14 @@
                  <td width="20%">${stat[2]}</td>
                 </tr>
                 [/#list]
+               [#if otherDepartStat?size >1]
+               <tr>
+                <td width="80%">[@b.a href="!search?course.department.teaching=0" target="course_list"]其他部门[/@]</td>
+                <td width="20%">[#assign otherDepartCnt=0/][#list otherDepartStat as s][#assign otherDepartCnt=otherDepartCnt+s[2] /][/#list]
+                  ${otherDepartCnt}
+                </td>
+               </tr>
+               [/#if]
                </tbody>
              </table>
            </div>

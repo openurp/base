@@ -21,8 +21,8 @@ import org.beangle.commons.bean.Initializing
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.datasource.AppDataSourceFactory
-import org.openurp.base.edu.model.Teacher
-import org.openurp.base.model.{Staff, User}
+import org.openurp.base.hr.model.{Staff, Teacher}
+import org.openurp.base.model.User
 import org.openurp.base.service.UserRepo
 import org.openurp.base.service.impl.DefaultUserRepo
 

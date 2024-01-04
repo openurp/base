@@ -18,13 +18,13 @@
 package org.openurp.base.web.action.info
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.info.profile.StaffAction
+import org.openurp.base.web.action.info.hr.ProfileAction
 
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
     bind(classOf[SemesterAction])
-    bind(classOf[StaffAction])
+    bind(classOf[ProfileAction])
     bind(classOf[CodeAction])
   }
 }

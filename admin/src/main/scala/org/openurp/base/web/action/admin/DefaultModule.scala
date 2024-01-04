@@ -19,6 +19,8 @@ package org.openurp.base.web.action.admin
 
 import org.beangle.cdi.bind.BindModule
 import org.openurp.base.web.action.admin.code.*
+import org.openurp.base.web.action.admin.hr.StaffAction
+import org.openurp.base.web.action.admin.space.RoomAction
 
 class DefaultModule extends BindModule {
 
@@ -27,14 +29,14 @@ class DefaultModule extends BindModule {
       classOf[PoliticalStatusAction], classOf[LanguageAction],
       classOf[DivisionAction], classOf[FamilyRelationshipAction], classOf[IdTypeAction])
 
-    bind(classOf[CodeAction], classOf[StaffAction])
+    bind(classOf[CodeAction])
 
     bind(classOf[InstitutionAction], classOf[RoomTypeAction])
     bind(classOf[UserCategoryAction], classOf[EduCategoryAction])
 
     bind(classOf[DepartmentAction], classOf[SchoolAction])
     bind(classOf[UserAction])
-    bind(classOf[CampusAction], classOf[RoomAction], classOf[BuildingAction])
+    bind(classOf[CampusAction])
 
     bind(classOf[SemesterAction], classOf[CalendarAction], classOf[CalendarStageAction])
     bind(classOf[ProjectAction], classOf[ProjectCodeAction], classOf[ProjectPropertyAction])

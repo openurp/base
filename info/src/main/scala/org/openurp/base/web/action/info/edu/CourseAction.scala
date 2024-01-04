@@ -32,13 +32,23 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
 
   def index(): View = {
     val project = getProject
-    val dQuery = OqlBuilder.from(classOf[Course].getName, "c")
-    dQuery.where("c.project=:project", project)
-    dQuery.where("c.endOn is null or c.endOn > :now", LocalDate.now)
-    dQuery.select("c.department.id,c.department.name,count(*)")
-    dQuery.groupBy("c.department.id,c.department.code,c.department.name")
-    dQuery.orderBy("c.department.code")
-    put("departStat", entityDao.search(dQuery))
+    val dQuery1 = OqlBuilder.from(classOf[Course].getName, "c")
+    dQuery1.where("c.project=:project", project)
+    dQuery1.where("c.department.teaching=true")
+    dQuery1.where("c.endOn is null or c.endOn > :now", LocalDate.now)
+    dQuery1.select("c.department.id,c.department.name,count(*)")
+    dQuery1.groupBy("c.department.id,c.department.code,c.department.name")
+    dQuery1.orderBy("c.department.code")
+    put("departStat", entityDao.search(dQuery1))
+
+    val dQuery2 = OqlBuilder.from(classOf[Course].getName, "c")
+    dQuery2.where("c.project=:project", project)
+    dQuery2.where("c.department.teaching=false")
+    dQuery2.where("c.endOn is null or c.endOn > :now", LocalDate.now)
+    dQuery2.select("c.department.id,c.department.name,count(*)")
+    dQuery2.groupBy("c.department.id,c.department.code,c.department.name")
+    dQuery2.orderBy("c.department.code")
+    put("otherDepartStat", entityDao.search(dQuery2))
 
     val ctQuery = OqlBuilder.from(classOf[Course].getName, "c")
     ctQuery.where("c.project=:project", project)

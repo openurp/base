@@ -22,8 +22,7 @@ import org.beangle.commons.logging.Logging
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.datasource.AppDataSourceFactory
-import org.openurp.base.edu.model.Teacher
-import org.openurp.base.model.Staff
+import org.openurp.base.hr.model.{Staff, Teacher}
 import org.openurp.base.service.UserRepo
 
 class StaffServiceImpl extends Logging, Initializing {

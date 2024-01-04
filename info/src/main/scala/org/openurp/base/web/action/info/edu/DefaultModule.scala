@@ -18,14 +18,14 @@
 package org.openurp.base.web.action.info.edu
 
 import org.beangle.cdi.bind.BindModule
+import org.openurp.base.web.action.info.hr.TeacherAction
+import org.openurp.base.web.action.info.space.ClassroomAction
 
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
     bind(classOf[TimesettingAction])
     bind(classOf[MajorAction])
-    bind(classOf[ClassroomAction])
     bind(classOf[CourseAction])
-    bind(classOf[TeacherAction])
   }
 }

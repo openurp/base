@@ -20,7 +20,8 @@ package org.openurp.base.web.helper
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.{Teacher, TeachingOffice}
+import org.openurp.base.edu.model.TeachingOffice
+import org.openurp.base.hr.model.Teacher
 import org.openurp.base.model.Project
 
 import java.time.{Instant, LocalDate}

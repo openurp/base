@@ -81,7 +81,6 @@ class ProjectAction extends RestfulAction[Project] {
     project.stdTypes --= Collections.subtract(project.stdTypes, newTypes)
     project.stdTypes ++= Collections.subtract(newTypes, project.stdTypes)
 
-
     val newEduTypes = entityDao.find(classOf[EducationType], getIntIds("eduType"))
     project.eduTypes --= Collections.subtract(project.eduTypes, newEduTypes)
     project.eduTypes ++= Collections.subtract(newEduTypes, project.eduTypes)
