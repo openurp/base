@@ -18,10 +18,11 @@
 package org.openurp.base.web.action.admin.std.code
 
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.std.model.{StdAlterReason, StdAlterType, StudentStatus}
 
-class StudentStatusAction extends RestfulAction[StudentStatus]
+class StudentStatusAction extends CodeRestfulAction[StudentStatus]
 
-class StdAlterTypeAction extends RestfulAction[StdAlterType]
+class StdAlterTypeAction extends CodeRestfulAction[StdAlterType]
 
-class StdAlterReasonAction extends RestfulAction[StdAlterReason]
+class StdAlterReasonAction extends CodeRestfulAction[StdAlterReason]

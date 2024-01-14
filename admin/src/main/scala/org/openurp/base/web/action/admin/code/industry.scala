@@ -18,11 +18,13 @@
 package org.openurp.base.web.action.admin.code
 
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.asset.model.RoomType
-import org.openurp.code.edu.model.{ DisciplineCategory, EduCategory, Institution }
+import org.openurp.code.edu.model.{DisciplineCategory, EduCategory, Institution}
+import org.openurp.code.hr.model.DepartmentCategory
 
-class InstitutionAction extends RestfulAction[Institution]
+class InstitutionAction extends CodeRestfulAction[Institution]
 
-class RoomTypeAction extends RestfulAction[RoomType]
+class EduCategoryAction extends CodeRestfulAction[EduCategory]
 
-class EduCategoryAction extends RestfulAction[EduCategory]
+class DepartmentCategoryAction extends CodeRestfulAction[DepartmentCategory]

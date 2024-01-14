@@ -26,6 +26,8 @@ import org.openurp.base.model.{Campus, Department, School}
 import org.openurp.code.edu.model.Institution
 import org.openurp.code.hr.model.DepartmentCategory
 
+import java.time.LocalDate
+
 class SchoolAction extends RestfulAction[School] {
   override def editSetting(entity: School): Unit = {
     super.editSetting(entity)
@@ -34,6 +36,11 @@ class SchoolAction extends RestfulAction[School] {
 }
 
 class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
+  override protected def indexSetting(): Unit = {
+    put("categories", entityDao.getAll(classOf[DepartmentCategory]))
+    super.indexSetting()
+  }
+
   override protected def getQueryBuilder: OqlBuilder[Department] = {
     val builder = OqlBuilder.from(classOf[Department], "department")
     builder.where("department.school=:school", getSchool)
@@ -44,6 +51,8 @@ class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
   override def editSetting(depart: Department): Unit = {
     val school = getSchool
     super.editSetting(depart)
+    if !depart.persisted then depart.beginOn = LocalDate.now
+
     val query = OqlBuilder.from(classOf[Campus], "c")
     query.where("c.school=:school", school)
     put("campuses", entityDao.search(query))

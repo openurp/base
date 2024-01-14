@@ -25,12 +25,14 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.ImportSupport
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.{Official, Staff}
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{OfficialImportListener, QueryHelper}
+import org.openurp.base.web.helper.OfficialImportListener
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.LocalDate
 
 /** 教学秘书
  */
@@ -44,20 +46,23 @@ class OfficialAction extends ProjectRestfulAction[Official], ImportSupport[Offic
   }
 
   override def getQueryBuilder: OqlBuilder[Official] = {
-    QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
+    val query = super.getQueryBuilder
+    QueryHelper.addActive(query, getBoolean("active"))
+    query
   }
 
-  override def editSetting(Official: Official) = {
+  override def editSetting(official: Official) = {
     given project: Project = getProject
 
     put("departments", entityDao.findBy(classOf[Department], "school", project.school))
-    if (!Official.persisted) {
+    if (!official.persisted) {
       val query = OqlBuilder.from(classOf[Staff], "s")
       query.where("s.school = :school", project.school)
       query.orderBy("s.code")
       put("staffs", entityDao.search(query))
+      official.beginOn = LocalDate.now
     }
-    super.editSetting(Official)
+    super.editSetting(official)
   }
 
   override protected def saveAndRedirect(official: Official): View = {

@@ -6,11 +6,12 @@
       [@b.textfields names="eduCategory.code;代码"/]
       [@b.textfields names="eduCategory.name;名称"/]
       [@b.textfields names="eduCategory.enName;英文名称"/]
-      <input type="hidden" name="orderBy" value="eduCategory.name"/>
+      [@b.select label="是否有效"  name="active" items={"1":"是","0":"否"} value="1" empty="..."/]
+      <input type="hidden" name="orderBy" value="eduCategory.code"/>
     [/@]
     </div>
     <div class="search-list">
-      [@b.div id="eduCategorylist" href="!search?orderBy=eduCategory.code"/]
+      [@b.div id="eduCategorylist" href="!search?orderBy=eduCategory.code&active=1"/]
     </div>
   </div>
 [@b.foot/]

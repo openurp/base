@@ -19,24 +19,30 @@ package org.openurp.base.web.action.admin.space
 
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.annotation.{action, ignore}
+import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.model.Campus
 import org.openurp.base.space.model.Building
 import org.openurp.base.web.action.admin.SchoolSupport
-import org.openurp.code.asset.model.RoomType
+import org.openurp.code.asset.model.BuildingType
+
+import java.time.LocalDate
 
 class BuildingAction extends RestfulAction[Building] with SchoolSupport {
   override protected def getQueryBuilder: OqlBuilder[Building] = {
     val builder = OqlBuilder.from(classOf[Building], "building")
     builder.where("building.school=:school", getSchool)
     populateConditions(builder)
+    QueryHelper.addActive(builder, getBoolean("active"))
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 
-  override protected def editSetting(entity: Building): Unit = {
+  override protected def editSetting(building: Building): Unit = {
     put("campuses", getCampuses)
+    put("buildingTypes", codeService.get(classOf[BuildingType]))
+    if !building.persisted then building.beginOn = LocalDate.now
   }
 
   override protected def indexSetting(): Unit = {

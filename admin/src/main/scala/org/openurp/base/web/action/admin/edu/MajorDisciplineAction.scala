@@ -24,14 +24,17 @@ import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.code.edu.model.DisciplineCategory
 
+import java.time.LocalDate
+
 /**
  * @author xinzhou
  */
 class MajorDisciplineAction extends RestfulAction[MajorDiscipline] {
 
-  override def editSetting(entity: MajorDiscipline): Unit = {
+  override def editSetting(discipline: MajorDiscipline): Unit = {
     put("majors", findItems(classOf[Major]))
     put("categories", findItems(classOf[DisciplineCategory]))
+    if !discipline.persisted then discipline.beginOn = LocalDate.now
   }
 
   private def findItems[T <: Entity[_]](clazz: Class[T]): Seq[T] = {

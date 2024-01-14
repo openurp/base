@@ -21,26 +21,29 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.code.*
 import org.openurp.base.std.code.StdType
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.edu.model.{CourseNature, TeachingMethod, TeachingNature, TeachingNatureCategory}
 import org.openurp.code.std.model.{StdAlterReason, StdAlterType}
 
-class CourseAbilityRateAction extends RestfulAction[CourseAbilityRate]
+class CourseAbilityRateAction extends CodeRestfulAction[CourseAbilityRate]
 
-class TeachingNatureAction extends RestfulAction[TeachingNature] {
+class TeachingNatureAction extends CodeRestfulAction[TeachingNature] {
   override def editSetting(entity: TeachingNature) = {
     put("categories", TeachingNatureCategory.values)
     super.editSetting(entity)
   }
 }
 
-class CourseNatureAction extends RestfulAction[CourseNature]
+class CourseNatureAction extends CodeRestfulAction[CourseNature]
 
-class TeachingMethodAction extends RestfulAction[TeachingMethod]
+class TeachingMethodAction extends CodeRestfulAction[TeachingMethod]
 
-class CourseTypeAction extends RestfulAction[CourseType]
+class CourseTypeAction extends CodeRestfulAction[CourseType]
 
-class CourseCategoryAction extends RestfulAction[CourseCategory]
+class CourseCategoryAction extends CodeRestfulAction[CourseCategory]
 
-class BookTypeAction extends RestfulAction[BookType]
+class BookTypeAction extends CodeRestfulAction[BookType]
 
-class BookAwardTypeAction extends RestfulAction[BookAwardType]
+class BookAwardTypeAction extends CodeRestfulAction[BookAwardType]
+
+class EducationTypeAction extends CodeRestfulAction[EducationType]

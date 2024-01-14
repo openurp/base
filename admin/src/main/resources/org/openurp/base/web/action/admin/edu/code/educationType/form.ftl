@@ -1,0 +1,16 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改培养类型"]bar.addBack();[/@]
+  [@b.form  theme="list" action=b.rest.save(educationType)]
+    [@b.textfield name="educationType.code" label="代码" value="${educationType.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="educationType.name" label="名称" value="${educationType.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="educationType.enName" label="英文名" value="${educationType.enName!}" maxlength="100"/]
+    [@b.startend label="有效期"
+      name="educationType.beginOn,educationType.endOn" required="true,false"
+      start=educationType.beginOn end=educationType.endOn format="date"/]
+    [@b.textfield name="educationType.remark" label="备注" value="${educationType.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[@b.foot/]

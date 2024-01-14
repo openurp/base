@@ -26,14 +26,17 @@ import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.EducationLevel
 import org.openurp.starter.web.support.ProjectSupport
 
+import java.time.LocalDate
+
 class DirectionJournalAction extends RestfulAction[DirectionJournal] with ProjectSupport {
-  override def editSetting(entity: DirectionJournal) = {
+  override def editSetting(journal: DirectionJournal) = {
     given project: Project = getProject
 
     put("directions", entityDao.findBy(classOf[Direction], "project", project))
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))
-    super.editSetting(entity)
+    if !journal.persisted then journal.beginOn = LocalDate.now
+    super.editSetting(journal)
   }
 
   override def search(): View = {

@@ -5,6 +5,7 @@
     [@b.textfield name="gradingMode.code" label="代码" value="${gradingMode.code!}" required="true" maxlength="20"/]
     [@b.textfield name="gradingMode.name" label="名称" value="${gradingMode.name!}" required="true" maxlength="20"/]
     [@b.textfield name="gradingMode.enName" label="英文名" value="${gradingMode.enName!}" maxlength="100"/]
+    [@b.radios label="是否数字格式"  name="gradingMode.numerical" value=gradingMode.numerical items="1:common.yes,0:common.no"/]
     [@b.startend label="有效期"
       name="gradingMode.beginOn,gradingMode.endOn" required="true,false"
       start=gradingMode.beginOn end=gradingMode.endOn format="date"/]

@@ -6,11 +6,12 @@
       [@b.textfields names="roomType.code;代码"/]
       [@b.textfields names="roomType.name;名称"/]
       [@b.textfields names="roomType.enName;英文名称"/]
-      <input type="hidden" name="orderBy" value="roomType.name"/>
+      [@b.select label="是否有效"  name="active" items={"1":"是","0":"否"} value="1" empty="..."/]
+      <input type="hidden" name="orderBy" value="roomType.code"/>
     [/@]
     </div>
     <div class="search-list">
-      [@b.div id="roomTypelist" href="!search?orderBy=roomType.code"/]
+      [@b.div id="roomTypelist" href="!search?orderBy=roomType.code&active=1"/]
     </div>
   </div>
 [@b.foot/]

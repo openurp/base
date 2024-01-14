@@ -25,10 +25,11 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.space.model.{Building, Classroom}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{ClassroomImportListener, QueryHelper}
+import org.openurp.base.web.helper.ClassroomImportListener
 import org.openurp.code.edu.model.ClassroomType
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
@@ -45,7 +46,8 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
 
   override def getQueryBuilder: OqlBuilder[Classroom] = {
     val builder = super.getQueryBuilder
-    QueryHelper.addTemporalOn(builder, getBoolean("active"))
+    builder.where("classroom.school=:school", getProject.school)
+    QueryHelper.addActive(builder, getBoolean("active"))
     getBoolean("virtual") foreach { virtual =>
       builder.where(if (virtual) "classroom.roomNo is null" else "classroom.roomNo is not null")
     }
@@ -64,24 +66,33 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
       if (!entity.departs.contains(l))
         entity.departs += l
     }
+    val projectIds = getAll("roomProjectId",classOf[Int])
+    val newProjects = entityDao.find(classOf[Project], projectIds)
+    entity.projects.clear()
+    entity.projects.addAll(newProjects)
+
     val project = getProject
     entity.school = project.school
-    entity.projects += project
+    if (!entity.projects.contains(project)) entity.projects.addOne(project)
     super.saveAndRedirect(entity)
   }
 
-  override def editSetting(entity: Classroom) = {
+  override def editSetting(classroom: Classroom) = {
     given project: Project = getProject
 
-    if (null == entity.school) {
-      entity.school = project.school
+    if (null == classroom.school) {
+      classroom.school = project.school
+    }
+    if(!classroom.persisted){
+      classroom.beginOn = LocalDate.now()
     }
     put("roomTypes", getCodes(classOf[ClassroomType]))
     put("campuses", findInSchool(classOf[Campus]))
     put("buildings", findInSchool(classOf[Building]))
     val departs = Collections.newBuffer[Department]
     departs ++= project.departments
-    departs --= entity.departs
+    departs --= classroom.departs
+    put("projects", entityDao.findBy(classOf[Project], "school", project.school))
     put("departs", departs)
   }
 

@@ -13,6 +13,7 @@
 [#assign codes=codes+{'考试类型':'/admin/edu/code/exam-type'}]
 [#assign codes=codes+{'考试情况':'/admin/edu/code/exam-status'}]
 [#assign codes=codes+{'培养层次':'/admin/edu/code/education-level'}]
+[#assign codes=codes+{'培养类型':'/admin/edu/code/education-type'}]
 
 [#assign gbcodes={}]
 [#assign gbcodes=gbcodes+{'学位层次':'/admin/edu/code/degree-level'}]

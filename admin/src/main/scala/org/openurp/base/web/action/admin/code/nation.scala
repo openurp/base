@@ -18,23 +18,24 @@
 package org.openurp.base.web.action.admin.code
 
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.edu.model.Language
 import org.openurp.code.geo.model.{Country, Division}
 import org.openurp.code.hr.model.{StaffType, WorkStatus}
 import org.openurp.code.person.model.*
 
-class GenderAction extends RestfulAction[Gender]
+class GenderAction extends CodeRestfulAction[Gender]
 
-class CountryAction extends RestfulAction[Country]
+class CountryAction extends CodeRestfulAction[Country]
 
-class NationAction extends RestfulAction[Nation]
+class NationAction extends CodeRestfulAction[Nation]
 
-class PoliticalStatusAction extends RestfulAction[PoliticalStatus]
+class PoliticalStatusAction extends CodeRestfulAction[PoliticalStatus]
 
-class LanguageAction extends RestfulAction[Language]
+class LanguageAction extends CodeRestfulAction[Language]
 
-class DivisionAction extends RestfulAction[Division]
+class DivisionAction extends CodeRestfulAction[Division]
 
-class FamilyRelationshipAction extends RestfulAction[FamilyRelationship]
+class FamilyRelationshipAction extends CodeRestfulAction[FamilyRelationship]
 
-class IdTypeAction extends RestfulAction[IdType]
+class IdTypeAction extends CodeRestfulAction[IdType]

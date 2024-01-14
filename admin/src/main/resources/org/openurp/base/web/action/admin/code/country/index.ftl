@@ -8,11 +8,12 @@
       [@b.textfields names="country.enName;英文名称"/]
       [@b.textfields names="country.alpha2Code;2位代码"/]
       [@b.textfields names="country.alpha3Code;3位代码"/]
-      <input type="hidden" name="orderBy" value="country.name"/>
+      [@b.select label="是否有效"  name="active" items={"1":"是","0":"否"} value="1" empty="..."/]
+      <input type="hidden" name="orderBy" value="country.code"/>
     [/@]
     </div>
     <div class="search-list">
-      [@b.div id="countrylist" href="!search?orderBy=country.code"/]
+      [@b.div id="countrylist" href="!search?orderBy=country.code&active=1"/]
     </div>
   </div>
 [@b.foot/]

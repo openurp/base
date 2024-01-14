@@ -5,6 +5,7 @@
     [@b.textfield name="graduateSeason.code" label="代码" value=graduateSeason.code! required="true" maxlength="20" placeholder="yyyy"/]
     [@b.textfield name="graduateSeason.name" label="名称" value=graduateSeason.name! required="true" maxlength="20" placeholder="yyyy届"/]
     [@b.textfield name="graduateSeason.graduateYear" label="毕业年份" value=graduateSeason.graduateYear! maxlength="100"/]
+    [@b.textfield name="graduateSeason.president" label="校长姓名" value=graduateSeason.president! maxlength="50"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]

@@ -20,8 +20,9 @@ package org.openurp.base.web.action.admin.std.code
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.std.code.{StdLabel, StdLabelType, StdType}
+import org.openurp.base.web.action.admin.CodeRestfulAction
 
-class StdLabelAction extends RestfulAction[StdLabel] {
+class StdLabelAction extends CodeRestfulAction[StdLabel] {
   override def editSetting(entity: StdLabel) = {
     val query = OqlBuilder.from(classOf[StdLabelType])
     query.orderBy("name")
@@ -31,6 +32,6 @@ class StdLabelAction extends RestfulAction[StdLabel] {
   }
 }
 
-class StdLabelTypeAction extends RestfulAction[StdLabelType]
+class StdLabelTypeAction extends CodeRestfulAction[StdLabelType]
 
-class StdTypeAction extends RestfulAction[StdType]
+class StdTypeAction extends CodeRestfulAction[StdType]

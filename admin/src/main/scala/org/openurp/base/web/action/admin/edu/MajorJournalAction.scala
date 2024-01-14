@@ -26,6 +26,8 @@ import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
 import org.openurp.starter.web.support.ProjectSupport
 
+import java.time.LocalDate
+
 class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport {
 
   override def search(): View = {
@@ -43,13 +45,14 @@ class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport
     forward()
   }
 
-  override def editSetting(entity: MajorJournal) = {
+  override def editSetting(journal: MajorJournal) = {
     given project: Project = getProject
 
     put("categories", getCodes(classOf[DisciplineCategory]))
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))
-    super.editSetting(entity)
+    if !journal.persisted then journal.beginOn = LocalDate.now
+    super.editSetting(journal)
   }
 
   override protected def saveAndRedirect(entity: MajorJournal): View = {

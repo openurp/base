@@ -5,10 +5,11 @@
     [@b.form name="courseAbilityRateSearchForm" action="!search" target="courseAbilityRatelist" title="ui.searchForm" theme="search"]
       [@b.textfields names="courseAbilityRate.code;代码"/]
       [@b.textfields names="courseAbilityRate.name;名称"/]
+      [@b.select label="是否有效"  name="active" items={"1":"是","0":"否"} value="1" empty="..."/]
       <input type="hidden" name="orderBy" value="courseAbilityRate.code"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="courseAbilityRatelist" href="!search?orderBy=courseAbilityRate.code"/]
+    <div class="search-list">[@b.div id="courseAbilityRatelist" href="!search?orderBy=courseAbilityRate.code&active=1"/]
   </div>
 </div>
 [@b.foot/]

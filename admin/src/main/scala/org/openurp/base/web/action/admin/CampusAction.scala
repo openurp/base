@@ -26,12 +26,19 @@ import org.openurp.base.model.Campus
 import org.openurp.base.space.model.Room
 import org.openurp.code.asset.model.RoomType
 
+import java.time.LocalDate
+
 class CampusAction extends RestfulAction[Campus] with SchoolSupport {
   override protected def getQueryBuilder: OqlBuilder[Campus] = {
     val builder = OqlBuilder.from(classOf[Campus], "campus")
     builder.where("campus.school=:school", getSchool)
     populateConditions(builder)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
+  }
+
+  protected override def editSetting(campus: Campus): Unit = {
+    if !campus.persisted then campus.beginOn = LocalDate.now
+    super.editSetting(campus)
   }
 
   @ignore

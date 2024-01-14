@@ -19,10 +19,10 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.{Direction, DirectionJournal, Major}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.QueryHelper
 import org.openurp.code.edu.model.EducationLevel
 
 import java.time.LocalDate
@@ -44,15 +44,17 @@ class DirectionAction extends ProjectRestfulAction[Direction] {
     getInt("level.id") foreach { d =>
       query.where("exists(from direction.journals as dj where dj.level.id=:levelId)", d)
     }
-    QueryHelper.addTemporalOn(query, getBoolean("active"))
+    QueryHelper.addActive(query, getBoolean("active"))
+    query
   }
 
-  override def editSetting(entity: Direction) = {
+  override def editSetting(direction: Direction) = {
     given project: Project = getProject
 
+    if !direction.persisted then direction.beginOn = LocalDate.now
     val majors = findInProject(classOf[Major])
     put("majors", majors)
-    super.editSetting(entity)
+    super.editSetting(direction)
   }
 
   protected override def saveAndRedirect(entity: Direction): View = {

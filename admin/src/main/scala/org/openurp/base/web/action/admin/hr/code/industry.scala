@@ -18,10 +18,11 @@
 package org.openurp.base.web.action.admin.hr.code
 
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.hr.model.{StaffSourceType, StaffType, WorkStatus}
 
-class StaffTypeAction extends RestfulAction[StaffType]
+class StaffTypeAction extends CodeRestfulAction[StaffType]
 
-class WorkStatusAction extends RestfulAction[WorkStatus]
+class WorkStatusAction extends CodeRestfulAction[WorkStatus]
 
-class StaffSourceTypeAction extends RestfulAction[StaffSourceType]
+class StaffSourceTypeAction extends CodeRestfulAction[StaffSourceType]

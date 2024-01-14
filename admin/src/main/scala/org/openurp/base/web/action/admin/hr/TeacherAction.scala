@@ -26,11 +26,12 @@ import org.beangle.web.action.annotation.response
 import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.{Course, TeachingOffice}
 import org.openurp.base.hr.model.{Staff, Teacher}
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, TeacherImportListener, UrpUserHelper}
+import org.openurp.base.web.helper.{TeacherImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
 import org.openurp.code.hr.model.WorkStatus
 import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
@@ -53,7 +54,9 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
     put("tutorTypes", codeService.get(classOf[TutorType]))
-    QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
+    val query = super.getQueryBuilder
+    QueryHelper.addActive(query, getBoolean("active"))
+    query
   }
 
   override def editSetting(teacher: Teacher) = {
@@ -68,8 +71,10 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
       query.where("s.school = :school", project.school)
       query.orderBy("s.code")
       put("staffs", entityDao.search(query))
+      teacher.beginOn = LocalDate.now
     }
     put("teachingOffices", findInProject(classOf[TeachingOffice]))
+    put("projects", entityDao.findBy(classOf[Project], "school", project.school))
     super.editSetting(teacher)
   }
 
@@ -95,9 +100,12 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
 
   override protected def saveAndRedirect(teacher: Teacher): View = {
     val project = getProject
-    if (!teacher.projects.contains(project)) {
-      teacher.projects.add(project)
-    }
+    val projectIds = getAll("teacherProjectId", classOf[Int])
+    val newProjects = entityDao.find(classOf[Project], projectIds)
+    teacher.projects.clear()
+    teacher.projects.addAll(newProjects)
+    if (!teacher.projects.contains(project)) teacher.projects.addOne(project)
+
     val campusIds = getIntIds("campus")
     val campuses = if campusIds.isEmpty then List.empty[Campus] else entityDao.find(classOf[Campus], campusIds)
     teacher.campuses.filter(campuses.contains)

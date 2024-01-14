@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="修改学生类别"]bar.addBack();[/@]
+[@b.toolbar title="修改课程性质"]bar.addBack();[/@]
   [@b.form action=b.rest.save(courseNature) theme="list"]
     [@b.textfield name="courseNature.code" label="代码" value="${courseNature.code!}" required="true" maxlength="20"/]
     [@b.textfield name="courseNature.name" label="名称" value="${courseNature.name!}" required="true" maxlength="20"/]

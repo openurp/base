@@ -23,14 +23,14 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.36.0"
-val starterVer = "0.3.20"
+val apiVer = "0.36.1"
+val starterVer = "0.3.21"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
 
-val ojdbc11 = "com.oracle.database.jdbc" % "ojdbc11" % "23.2.0.0"
-val orai18n = "com.oracle.database.nls" % "orai18n" % "23.2.0.0"
+val ojdbc11 = "com.oracle.database.jdbc" % "ojdbc11" % "23.3.0.23.09"
+val orai18n = "com.oracle.database.nls" % "orai18n" % "23.3.0.23.09"
 
 lazy val root = (project in file("."))
   .settings()

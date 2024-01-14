@@ -15,34 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.helper
+package org.openurp.base.web.action.admin
+
+import org.beangle.data.dao.OqlBuilder
+import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.support.helper.QueryHelper
+import org.openurp.code.CodeBean
 
 import java.time.LocalDate
 
-import org.beangle.data.dao.OqlBuilder
-import org.beangle.data.model.Entity
-
-/**
- * 查询条件辅助类
- *
- * @author zhouqi 2017年5月9日
- *
- */
-object QueryHelper {
-
-  def addTemporalOn[T <: Entity[_]](builder: OqlBuilder[T], active: Option[Boolean]): OqlBuilder[T] = {
-    active.foreach { active =>
-      if (active) {
-        builder.where(
-          builder.alias + ".beginOn <= :now and (" + builder.alias + ".endOn is null or " + builder.alias + ".endOn >= :now)",
-          LocalDate.now())
-      } else {
-        builder.where(
-          "not (" + builder.alias + ".beginOn <= :now and (" + builder.alias + ".endOn is null or " + builder.alias + ".endOn >= :now))",
-          LocalDate.now())
-      }
-    }
-
+abstract class CodeRestfulAction[T <: CodeBean] extends RestfulAction[T] {
+  override protected def getQueryBuilder: OqlBuilder[T] = {
+    val builder = super.getQueryBuilder
+    QueryHelper.addActive(builder, getBoolean("active"))
     builder
   }
+
+  override protected def editSetting(entity: T) = {
+    if (!entity.persisted) {
+      entity.beginOn = LocalDate.now
+    }
+  }
+
+
 }

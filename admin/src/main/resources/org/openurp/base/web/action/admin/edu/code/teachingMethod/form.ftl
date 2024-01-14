@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="修改学生类别"]bar.addBack();[/@]
+[@b.toolbar title="修改授课方式"]bar.addBack();[/@]
   [@b.form action=b.rest.save(teachingMethod) theme="list"]
     [@b.textfield name="teachingMethod.code" label="代码" value="${teachingMethod.code!}" required="true" maxlength="20"/]
     [@b.textfield name="teachingMethod.name" label="名称" value="${teachingMethod.name!}" required="true" maxlength="20"/]

@@ -9,7 +9,7 @@
     <div class="search-panel">
     [@b.form name="stageSearchForm" action="!search" target="stagelist" title="ui.searchForm" theme="search"]
       [@b.textfields names="calendarStage.name;名称"/]
-      <input type="hidden" name="orderBy" value="calendarStage.name"/>
+      <input type="hidden" name="orderBy" value="calendarStage.code"/>
     [/@]
     </div>
     <div class="search-list">[@b.div id="stagelist" href="!search?orderBy=calendarStage.id"/]

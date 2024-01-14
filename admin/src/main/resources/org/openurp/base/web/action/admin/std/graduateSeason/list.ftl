@@ -11,6 +11,7 @@
     [@b.col width="15%" property="code" title="代码"]${graduateSeason.code}[/@]
     [@b.col property="name" title="名称"/]
     [@b.col width="20%" property="graduateYear" title="毕业年份"/]
+    [@b.col width="20%" property="president" title="校长姓名"/]
   [/@]
 [/@]
 [@b.foot/]

@@ -17,7 +17,6 @@
 
 package org.openurp.base.web.tag
 
-import jakarta.servlet.http.HttpServletRequest
 import org.beangle.template.api.{AbstractModels, ComponentContext, Tag}
 
 class BaseModels(context: ComponentContext) extends AbstractModels(context) {

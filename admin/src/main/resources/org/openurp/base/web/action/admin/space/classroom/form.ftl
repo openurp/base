@@ -15,8 +15,9 @@
     [@b.select name="classroom.roomType.id" label="教室类型" value="${(classroom.roomType.id)!}"
                style="width:200px;" items=roomTypes option="id,name" empty="..."  required="true"/]
     [@b.textfield name="classroom.capacity" label="最大容量" required="true"  value=classroom.capacity! maxlength="20"/]
-    [@b.textfield name="classroom.courseCapacity" label="上课容量" required="true"  value="${classroom.courseCapacity!}" maxlength="20"/]
-    [@b.textfield name="classroom.examCapacity" label="考试容量"  required="true" value="${classroom.examCapacity!}" maxlength="20"/]
+    [@b.textfield name="classroom.courseCapacity" label="上课容量" required="true"  value=classroom.courseCapacity! maxlength="20"/]
+    [@b.textfield name="classroom.examCapacity" label="考试容量"  required="true" value=classroom.examCapacity! maxlength="20"/]
+    [@b.select name="roomProjectId" label="使用项目" required="true" items=projects values=classroom.projects! multiple="true"/]
     [@b.select2 label="使用部门" name1st="departId1st" name2nd="departId2nd" style = "height:100px;width:152px"
       items1st=departs items2nd= classroom.departs
       option="id,name"  required="true" /]

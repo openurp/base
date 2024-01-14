@@ -8,7 +8,7 @@
       <input type="hidden" name="orderBy" value="graduateSeason.code"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="graduateSeasonList" href="!search?orderBy=graduateSeason.code"/]
+    <div class="search-list">[@b.div id="graduateSeasonList" href="!search?orderBy=graduateSeason.code&active=1"/]
   </div>
 </div>
 [@b.foot/]

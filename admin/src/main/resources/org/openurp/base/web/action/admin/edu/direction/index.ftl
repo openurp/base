@@ -13,7 +13,7 @@
       <input type="hidden" name="orderBy" value="direction.code"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="directionlist" href="!search?active=1&orderBy=direction.code"/]
+    <div class="search-list">[@b.div id="directionlist" href="!search?orderBy=direction.code&active=1"/]
   </div>
 </div>
 [@b.foot/]

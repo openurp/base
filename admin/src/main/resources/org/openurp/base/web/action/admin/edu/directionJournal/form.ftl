@@ -7,7 +7,7 @@
                style="width:200px;" items=levels option="id,name" empty="..."/]
     [@b.select name="directionJournal.depart.id" label="院系" value="${(directionJournal.depart.id)!}" required="true"
                style="width:200px;" items=departs option="id,name" empty="..."/]
-    [@b.startend label="生效失效日期"
+    [@b.startend label="有效期"
       name="directionJournal.beginOn,directionJournal.endOn" required="true,false"
       start=directionJournal.beginOn end=directionJournal.endOn format="date"/]
     [@b.textfield name="directionJournal.remark" label="备注" value="${directionJournal.remark!}" maxlength="30"/]

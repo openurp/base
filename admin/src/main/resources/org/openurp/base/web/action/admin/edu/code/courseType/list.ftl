@@ -11,7 +11,7 @@
     [@b.col width="10%" property="code" title="代码"]${courseType.code}[/@]
     [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${courseType.id}"]${courseType.name}[/@][/@]
     [@b.col property="enName" title="英文名"]${courseType.enName!}[/@]
-    [@b.col width="8%" property="theoretical" title="是否实践课"]${(courseType.practical?string("是","否"))!}[/@]
+    [@b.col width="8%" property="practical" title="是否实践课"]${(courseType.practical?string("是","否"))!}[/@]
     [@b.col width="8%" property="major" title="是否专业课"]${(courseType.major?string("是","否"))!}[/@]
     [@b.col width="9%" property="optional" title="是否选修课"]${(courseType.optional?string("是","否"))!}[/@]
     [@b.col width="20%" property="beginOn" title="有效期"]${courseType.beginOn!}~${courseType.endOn!}[/@]

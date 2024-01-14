@@ -26,26 +26,27 @@ import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.execution.MappingHandler
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
-import org.openurp.base.hr.model.Teacher
-import org.openurp.base.hr.model.Staff
+import org.beangle.webmvc.support.helper.QueryHelper
+import org.openurp.base.hr.model.{Mentor, Staff, Teacher}
 import org.openurp.base.model.*
-import org.openurp.base.hr.model.Mentor
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, StaffImportListener, UrpUserHelper}
+import org.openurp.base.web.helper.{StaffImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
 import org.openurp.code.hr.model.{StaffType, WorkStatus}
 import org.openurp.code.job.model.ProfessionalTitle
 import org.openurp.code.person.model.{Gender, IdType, Nation, PoliticalStatus}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import java.time.Instant
+import java.time.{Instant, LocalDate}
 
 class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], ImportSupport[Staff] {
 
   var urpUserHelper: UrpUserHelper = _
 
   override def getQueryBuilder: OqlBuilder[Staff] = {
-    QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
+    val query = super.getQueryBuilder
+    QueryHelper.addActive(query, getBoolean("active"))
+    query
   }
 
   override protected def indexSetting(): Unit = {
@@ -73,6 +74,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("educationDegrees", codeService.get(classOf[EducationDegree]))
     put("degreeLevels", codeService.get(classOf[DegreeLevel]))
 
+    if !staff.persisted then staff.beginOn = LocalDate.now
     super.editSetting(staff)
   }
 

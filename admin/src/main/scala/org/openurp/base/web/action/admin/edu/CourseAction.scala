@@ -27,12 +27,13 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.code.{CourseCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, CourseLevel, TeachingOffice}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.service.Features
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{CourseImportListener, QueryHelper}
+import org.openurp.base.web.helper.CourseImportListener
 import org.openurp.code.edu.model.*
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
@@ -115,7 +116,8 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     populateConditions(builder)
     builder.where(simpleEntityName + ".project = :project", getProject)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
-    QueryHelper.addTemporalOn(builder, getBoolean("active"))
+    QueryHelper.addActive(builder, getBoolean("active"))
+    builder
   }
 
   @response

@@ -18,36 +18,39 @@
 package org.openurp.base.web.action.admin.edu.code
 
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.edu.model.*
 import org.openurp.code.sin.model.{BookCategory, Press, PressGrade}
 
-class GradingModeAction extends RestfulAction[GradingMode]
+class GradingModeAction extends CodeRestfulAction[GradingMode]
 
-class ExamModeAction extends RestfulAction[ExamMode]
+class ExamModeAction extends CodeRestfulAction[ExamMode]
 
-class ExamStatusAction extends RestfulAction[ExamStatus]
+class ExamStatusAction extends CodeRestfulAction[ExamStatus]
 
-class EducationLevelAction extends RestfulAction[EducationLevel] {
+class EducationLevelAction extends CodeRestfulAction[EducationLevel] {
   override protected def editSetting(entity: EducationLevel): Unit = {
     put("levels", entityDao.getAll(classOf[AcademicLevel]))
     super.editSetting(entity)
   }
 }
 
-class PressAction extends RestfulAction[Press] {
-  override def editSetting(entity: Press) = {
+class PressAction extends CodeRestfulAction[Press] {
+  override def editSetting(press: Press) = {
     put("grades", entityDao.getAll(classOf[PressGrade]))
+    super.editSetting(press)
   }
 }
 
-class BookCategoryAction extends RestfulAction[BookCategory]
+class BookCategoryAction extends CodeRestfulAction[BookCategory]
 
-class PressGradeAction extends RestfulAction[PressGrade]
+class PressGradeAction extends CodeRestfulAction[PressGrade]
 
-class ExamTypeAction extends RestfulAction[ExamType]
+class ExamTypeAction extends CodeRestfulAction[ExamType]
 
-class GradeTypeAction extends RestfulAction[GradeType] {
+class GradeTypeAction extends CodeRestfulAction[GradeType] {
   override def editSetting(entity: GradeType) = {
     put("examTypes", entityDao.getAll(classOf[ExamType]))
+    super.editSetting(entity)
   }
 }

@@ -20,11 +20,13 @@ package org.openurp.base.web.action.admin.edu
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.ExportSupport
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.QueryHelper
 import org.openurp.code.edu.model.EducationLevel
+
+import java.time.LocalDate
 
 class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
 
@@ -36,7 +38,8 @@ class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
     getInt("level.id") foreach { d =>
       query.where("exists(from major.journals as mj where mj.level.id=:levelId)", d)
     }
-    QueryHelper.addTemporalOn(query, getBoolean("active"))
+    QueryHelper.addActive(query, getBoolean("active"))
+    query
   }
 
   override def saveAndRedirect(entity: Major): View = {
@@ -45,14 +48,15 @@ class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
     view
   }
 
-  override def editSetting(entity: Major) = {
+  override def editSetting(major: Major) = {
     put("projects", List(getProject))
+    if !major.persisted then major.beginOn = LocalDate.now
     val disciplines = entityDao.getAll(classOf[MajorDiscipline])
     put("disciplines", disciplines)
-    if (null == entity.project) {
-      entity.project = getProject
+    if (null == major.project) {
+      major.project = getProject
     }
-    super.editSetting(entity)
+    super.editSetting(major)
   }
 
   override protected def indexSetting(): Unit = {

@@ -9,7 +9,7 @@
       <input type="hidden" name="orderBy" value="project.code"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="projectlist" href="!search?orderBy=project.code"/]
+    <div class="search-list">[@b.div id="projectlist" href="!search?orderBy=project.code&active=1"/]
   </div>
 </div>
 [@b.foot/]

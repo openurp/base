@@ -23,7 +23,12 @@ import org.openurp.base.web.action.admin.code.*
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
+    bind(classOf[CodeAction])
     bind(classOf[RoomAction], classOf[BuildingAction])
     bind(classOf[ClassroomAction])
+
+    bind(classOf[code.BuildingTypeAction])
+    bind(classOf[code.RoomTypeAction])
+    bind(classOf[code.ClassroomTypeAction])
   }
 }

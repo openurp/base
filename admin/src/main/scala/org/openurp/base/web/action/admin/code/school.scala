@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.code
 
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.hr.model.UserCategory
 
-class UserCategoryAction extends RestfulAction[UserCategory]
+class UserCategoryAction extends CodeRestfulAction[UserCategory]

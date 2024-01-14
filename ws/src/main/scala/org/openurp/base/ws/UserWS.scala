@@ -23,7 +23,7 @@ import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
-import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam, populateConditions}
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.{Mentor, Staff, Teacher}
 import org.openurp.base.model.User
 import org.openurp.base.std.model.Student
@@ -35,8 +35,8 @@ class UserWS extends ActionSupport with EntityAction[User] {
   def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[User], "user")
     if (!getBoolean("all", false)) query.where("user.endOn is null")
-    populateConditions(query)
-    query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
+    QueryHelper.populate(query)
+    query.limit(PageLimit(getInt(QueryHelper.PageParam, 1), getInt(QueryHelper.PageSizeParam, 100)))
     get("q") foreach { q =>
       val c = s"%${q}%"
       query.where("user.name like :c or user.code like :c", c)

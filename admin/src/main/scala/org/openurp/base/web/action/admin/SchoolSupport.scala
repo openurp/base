@@ -21,9 +21,12 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.support.ServletSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.model.{Department, School}
+import org.openurp.code.service.CodeService
 
 trait SchoolSupport extends ServletSupport {
   this: EntityAction[_] =>
+
+  var codeService: CodeService = _
 
   def getSchool: School = {
     new SchoolHelper(entityDao).getSchool(request, response)

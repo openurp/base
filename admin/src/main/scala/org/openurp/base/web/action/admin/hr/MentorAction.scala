@@ -24,19 +24,23 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.ImportSupport
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.{Mentor, Staff}
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{MentorImportListener, QueryHelper, UrpUserHelper}
+import org.openurp.base.web.helper.{MentorImportListener, UrpUserHelper}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.LocalDate
 
 class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor] {
 
   var urpUserHelper: UrpUserHelper = _
 
   override def getQueryBuilder: OqlBuilder[Mentor] = {
-    QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
+    val query = super.getQueryBuilder
+    QueryHelper.addActive(query, getBoolean("active"))
+    query
   }
 
   override def editSetting(mentor: Mentor): Unit = {
@@ -48,6 +52,7 @@ class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor] {
       query.where("s.school = :school", project.school)
       query.orderBy("s.code")
       put("staffs", entityDao.search(query))
+      mentor.beginOn = LocalDate.now()
     }
     super.editSetting(mentor)
   }

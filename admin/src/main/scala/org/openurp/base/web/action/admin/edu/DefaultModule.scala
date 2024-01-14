@@ -39,7 +39,7 @@ class DefaultModule extends BindModule {
     bind(classOf[TeachingNatureAction], classOf[GradingModeAction])
     bind(classOf[CourseCategoryAction])
     bind(classOf[ExamModeAction], classOf[ExamStatusAction])
-    bind(classOf[EducationLevelAction])
+    bind(classOf[EducationLevelAction],classOf[EducationTypeAction])
 
     bind(classOf[CourseNatureAction], classOf[TeachingMethodAction])
     bind(classOf[PressAction], classOf[BookTypeAction], classOf[BookAwardTypeAction])

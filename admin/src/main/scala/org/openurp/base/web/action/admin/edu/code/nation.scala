@@ -24,10 +24,11 @@ import org.openurp.code.edu.model.EducationResult
 import org.openurp.code.edu.model.StudyType
 import org.openurp.code.edu.model.DisciplineCategory
 import org.beangle.data.dao.OqlBuilder
+import org.openurp.base.web.action.admin.CodeRestfulAction
 
-class DegreeLevelAction extends RestfulAction[DegreeLevel]
+class DegreeLevelAction extends CodeRestfulAction[DegreeLevel]
 
-class DegreeAction extends RestfulAction[Degree] {
+class DegreeAction extends CodeRestfulAction[Degree] {
   override def editSetting(entity: Degree) = {
     val query = OqlBuilder.from(classOf[DegreeLevel])
     query.orderBy("name")
@@ -37,8 +38,8 @@ class DegreeAction extends RestfulAction[Degree] {
   }
 }
 
-class StudyTypeAction extends RestfulAction[StudyType]
+class StudyTypeAction extends CodeRestfulAction[StudyType]
 
-class DisciplineCategoryAction extends RestfulAction[DisciplineCategory]
+class DisciplineCategoryAction extends CodeRestfulAction[DisciplineCategory]
 
-class EducationResultAction extends RestfulAction[EducationResult]
+class EducationResultAction extends CodeRestfulAction[EducationResult]

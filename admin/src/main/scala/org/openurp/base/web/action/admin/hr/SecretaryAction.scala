@@ -24,12 +24,14 @@ import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.ImportSupport
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.{Secretary, Staff}
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, SecretaryImportListener, UrpUserHelper}
+import org.openurp.base.web.helper.{SecretaryImportListener, UrpUserHelper}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.LocalDate
 
 /** 教学秘书
  */
@@ -38,20 +40,23 @@ class SecretaryAction extends ProjectRestfulAction[Secretary], ImportSupport[Sec
   var urpUserHelper: UrpUserHelper = _
 
   override def getQueryBuilder: OqlBuilder[Secretary] = {
-    QueryHelper.addTemporalOn(super.getQueryBuilder, getBoolean("active"))
+    val query = super.getQueryBuilder
+    QueryHelper.addActive(query, getBoolean("active"))
+    query
   }
 
-  override def editSetting(Secretary: Secretary) = {
+  override def editSetting(secretary: Secretary) = {
     given project: Project = getProject
 
-    if (!Secretary.persisted) {
+    if (!secretary.persisted) {
       val query = OqlBuilder.from(classOf[Staff], "s")
       query.where("not exists(from " + classOf[Secretary].getName + " t where t.staff=s)")
       query.where("s.school = :school", project.school)
       query.orderBy("s.code")
       put("staffs", entityDao.search(query))
+      secretary.beginOn = LocalDate.now
     }
-    super.editSetting(Secretary)
+    super.editSetting(secretary)
   }
 
   override protected def saveAndRedirect(Secretary: Secretary): View = {

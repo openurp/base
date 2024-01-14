@@ -31,9 +31,10 @@ import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.std.model.{Grade, Squad, Student}
 import org.openurp.base.std.service.SquadService
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{QueryHelper, SquadImportListener}
+import org.openurp.base.web.helper.SquadImportListener
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.LocalDate
 
 class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], ImportSupport[Squad] {
 
@@ -48,7 +49,11 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
 
   override def getQueryBuilder: OqlBuilder[Squad] = {
     val query = super.getQueryBuilder
-    QueryHelper.addTemporalOn(query, getBoolean("active"))
+    getBoolean("active") foreach { active =>
+      val activeCon = s":now between ${query.alias}.beginOn and ${query.alias}.endOn"
+      if (active) query.where(activeCon, LocalDate.now())
+      else query.where(s"not(${activeCon})", LocalDate.now())
+    }
     get("staff.name") foreach { name =>
       if (Strings.isNotEmpty(name)) {
         val nameParam = "%" + name + "%"

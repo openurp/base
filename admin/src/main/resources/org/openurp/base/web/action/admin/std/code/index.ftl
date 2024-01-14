@@ -15,16 +15,18 @@
   <li role="presentation" class="nav-item">[@b.a href=codes[code] class=link_class target="codelist"]${code}[/@]</li>
   [/#if]
   [/#list]
+  [#if codes?keys?size>8]
   <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多.. <span class="caret"></span></a>
-          <div class="dropdown-menu">
-              [#list codes?keys as code]
-              [#if code_index >8]
-              [@b.a href=codes[code] class="dropdown-item" target="codelist"]${code}[/@]
-              [/#if]
-              [/#list]
-          </div>
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多.. <span class="caret"></span></a>
+    <div class="dropdown-menu">
+      [#list codes?keys as code]
+      [#if code_index >8]
+      [@b.a href=codes[code] class="dropdown-item" target="codelist"]${code}[/@]
+      [/#if]
+      [/#list]
+    </div>
   </li>
+  [/#if]
 
 [/@]
 [@b.div id="codelist" href="/admin/std/code/std-alter-type"/]

@@ -19,12 +19,14 @@ package org.openurp.base.web.action.admin.hr.code
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
 import org.openurp.code.job.model.{ProfessionalGrade, ProfessionalTitle}
 
-class ProfessionalTitleAction extends RestfulAction[ProfessionalTitle] {
-  override def editSetting(entity: ProfessionalTitle) = {
+class ProfessionalTitleAction extends CodeRestfulAction[ProfessionalTitle] {
+  override def editSetting(title: ProfessionalTitle) = {
     put("grades", entityDao.getAll(classOf[ProfessionalGrade]))
+    super.editSetting(title)
   }
 }
 
-class ProfessionalGradeAction extends RestfulAction[ProfessionalGrade]
+class ProfessionalGradeAction extends CodeRestfulAction[ProfessionalGrade]

@@ -6,10 +6,11 @@
       [@b.textfields names="stdLabel.code;代码"/]
       [@b.textfields names="stdLabel.name;名称"/]
       [@b.textfields names="stdLabel.labelType;标签类型"/]
+      [@b.select label="是否有效"  name="active" items={"1":"是","0":"否"} value="1" empty="..."/]
       <input type="hidden" name="orderBy" value="stdLabel.code"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="stdLabellist" href="!search?orderBy=stdLabel.code"/]
+    <div class="search-list">[@b.div id="stdLabellist" href="!search?orderBy=stdLabel.code&active=1"/]
   </div>
 </div>
 [@b.foot/]

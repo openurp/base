@@ -10,7 +10,7 @@
     [/@]
     </div>
     <div class="search-list">
-      [@b.div id="campuslist" href="!search?orderBy=campus.code"/]
+      [@b.div id="campuslist" href="!search?orderBy=campus.code&active=1"/]
     </div>
   </div>
 [@b.foot/]

@@ -14,7 +14,7 @@
 [#assign codes=codes+{'科研机构':'/admin/code/institution'}]
 [#assign codes=codes+{'教育类型':'/admin/code/edu-category'}]
 [#assign codes=codes+{'用户类型':'/admin/code/user-category'}]
-[#assign codes=codes+{'房间类型':'/admin/code/room-type'}]
+[#assign codes=codes+{'部门分类':'/admin/code/department-category'}]
 <ul class="nav nav-tabs nav-tabs-compact" id="code_nav">
   [#list codes?keys as code]
     [#assign link_class]${(code_index==0)?string("nav-link active","nav-link")}[/#assign]

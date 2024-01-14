@@ -12,6 +12,6 @@
       <input type="hidden" name="orderBy" value="major.code"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="majorlist" href="!search?active=1&orderBy=major.code"/]</div>
+    <div class="search-list">[@b.div id="majorlist" href="!search?orderBy=major.code&active=1"/]</div>
 </div>
 [@b.foot/]

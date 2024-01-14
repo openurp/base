@@ -6,11 +6,12 @@
       [@b.textfields names="division.code;代码"/]
       [@b.textfields names="division.name;名称"/]
       [@b.textfields names="division.enName;英文名称"/]
-      <input type="hidden" name="orderBy" value="division.name"/>
+      [@b.select label="是否有效"  name="active" items={"1":"是","0":"否"} value="1" empty="..."/]
+      <input type="hidden" name="orderBy" value="division.code"/>
     [/@]
     </div>
     <div class="search-list">
-      [@b.div id="divisionlist" href="!search?orderBy=division.code"/]
+      [@b.div id="divisionlist" href="!search?orderBy=division.code&active=1"/]
     </div>
   </div>
 [@b.foot/]

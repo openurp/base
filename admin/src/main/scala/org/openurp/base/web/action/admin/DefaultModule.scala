@@ -31,7 +31,7 @@ class DefaultModule extends BindModule {
 
     bind(classOf[CodeAction])
 
-    bind(classOf[InstitutionAction], classOf[RoomTypeAction])
+    bind(classOf[InstitutionAction], classOf[DepartmentCategoryAction])
     bind(classOf[UserCategoryAction], classOf[EduCategoryAction])
 
     bind(classOf[DepartmentAction], classOf[SchoolAction])

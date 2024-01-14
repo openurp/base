@@ -11,7 +11,7 @@
     [/@]
     </div>
     <div class="search-list">
-      [@b.div id="profileList" href="!search?orderBy=profile.staff.code"/]
+      [@b.div id="profileList" href="!search?orderBy=profile.staff.code&active=1"/]
     </div>
   </div>
 [@b.foot/]

@@ -30,8 +30,9 @@ import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TeachingOfficeImportListener
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.time.LocalDate
 
-class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice], ExportSupport[TeachingOffice], ImportSupport[TeachingOffice]  {
+class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice], ExportSupport[TeachingOffice], ImportSupport[TeachingOffice] {
 
   @response
   def downloadTemplate(): Any = {
@@ -54,12 +55,14 @@ class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice], ExportS
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
+
     put("departments", findInSchool(classOf[Department]))
   }
 
   protected override def editSetting(g: TeachingOffice): Unit = {
     given project: Project = getProject
 
+    if !g.persisted then g.beginOn = LocalDate.now
     put("departments", findInSchool(classOf[Department]))
     put("project", getProject)
     put("urp", Ems)
