@@ -49,7 +49,7 @@
         <tr>
          <td style="background-color:#F5EDDB" width="8%">序号</td>
          <td style="background-color:#F5EDDB">院系</td>
-         <td style="background-color:#F5EDDB">学历层次</td>
+         <td style="background-color:#F5EDDB">培养层次</td>
          <td style="background-color:#F5EDDB">有效期</td>
         </tr>
         [#list major.journals?sort_by(["depart","code"]) as mj]

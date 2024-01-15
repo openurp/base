@@ -4,7 +4,8 @@
   [@b.form action=b.rest.save(departmentCategory) theme="list"]
     [@b.textfield name="departmentCategory.code" label="代码" value="${departmentCategory.code!}" required="true" maxlength="20"/]
     [@b.textfield name="departmentCategory.name" label="名称" value="${departmentCategory.name!}" required="true" maxlength="20"/]
-    [@b.textfield name="departmentCategory.enName" label="英文名称" value="${departmentCategory.enName!}" maxlength="100"/]
+    [@b.textfield name="departmentCategory.enName" label="英文名称" value=departmentCategory.enName! maxlength="100"/]
+    [@b.textfield name="departmentCategory.indexno" label="索引号" value=departmentCategory.indexno! maxlength="100"/]
     [@b.startend label="有效期限"
       name="departmentCategory.beginOn,departmentCategory.endOn" required="true,false"
       start=departmentCategory.beginOn end=departmentCategory.endOn format="date"/]

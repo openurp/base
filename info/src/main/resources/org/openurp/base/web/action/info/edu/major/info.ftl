@@ -42,7 +42,7 @@
           <tr>
            <th style="background-color:#F5EDDB" width="8%">序号</th>
            <th style="background-color:#F5EDDB">院系</th>
-           <th style="background-color:#F5EDDB">学历层次</th>
+           <th style="background-color:#F5EDDB">培养层次</th>
            <th style="background-color:#F5EDDB">有效期</th>
           </tr>
         </thead>

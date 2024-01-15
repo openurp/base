@@ -23,6 +23,7 @@ import org.beangle.web.action.annotation.action
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.model.{Calendar, CalendarStage, School, Semester}
+import org.openurp.starter.web.support.ProjectSupport
 
 class CalendarAction extends RestfulAction[Calendar] {
   override protected def getQueryBuilder: OqlBuilder[Calendar] = {
@@ -42,14 +43,16 @@ class CalendarStageAction extends RestfulAction[CalendarStage] {
   }
 }
 
-class SemesterAction extends RestfulAction[Semester] {
+class SemesterAction extends RestfulAction[Semester], ProjectSupport {
   override protected def getQueryBuilder: OqlBuilder[Semester] = {
     val builder = OqlBuilder.from(classOf[Semester], "semester")
     populateConditions(builder)
+    builder.where("semester.calendar.school=:school", getProject.school)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 
   protected override def editSetting(entity: Semester): Unit = {
-    put("calendars", entityDao.getAll(classOf[Calendar]))
+    val calendars = entityDao.findBy(classOf[Calendar], "school", getProject.school)
+    put("calendars", calendars)
   }
 }

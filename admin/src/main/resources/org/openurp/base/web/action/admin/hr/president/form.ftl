@@ -1,0 +1,13 @@
+[#ftl]
+[@b.head/]
+
+[@b.toolbar title="修改校长信息"]bar.addBack();[/@]
+  [@b.form action=b.rest.save(president) theme="list"]
+    [@b.textfield name="president.name" label="校长姓名" value=president.name! required="true" maxlength="13"/]
+    [@b.textfield name="president.enName" label="校长英文名" value=president.enName! required="true" maxlength="30"/]
+    [@b.startend label="有效期" name="president.beginOn,president.endOn" required="true,false" start=president.beginOn end=president.endOn format="date"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[@b.foot/]

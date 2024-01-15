@@ -22,6 +22,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.model.{Campus, Department, School}
 import org.openurp.code.edu.model.Institution
 import org.openurp.code.hr.model.DepartmentCategory
@@ -45,6 +46,7 @@ class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
     val builder = OqlBuilder.from(classOf[Department], "department")
     builder.where("department.school=:school", getSchool)
     populateConditions(builder)
+    QueryHelper.addActive(builder, getBoolean("active"))
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 
