@@ -17,6 +17,7 @@
 
 package org.openurp.base.web.action.admin.edu
 
+import org.beangle.commons.activation.MediaTypes
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
@@ -24,11 +25,11 @@ import org.beangle.data.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
-import org.openurp.base.edu.code.{BookAwardType, BookType}
 import org.openurp.base.edu.model.{Course, Textbook}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TextbookImportListener
+import org.openurp.code.edu.model.{BookAwardType, BookType}
 import org.openurp.code.sin.model.{BookCategory, Press}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
@@ -68,7 +69,7 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教材模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教材模板.xlsx")
   }
 
   override protected def indexSetting(): Unit = {

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin.space
+package org.openurp.base.web.action.admin.resource
 
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
@@ -24,7 +24,7 @@ import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.model.Campus
-import org.openurp.base.space.model.{Building, Room}
+import org.openurp.base.resource.model.{Building, Room}
 import org.openurp.base.web.action.admin.SchoolSupport
 import org.openurp.code.asset.model.RoomType
 

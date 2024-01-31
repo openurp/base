@@ -17,6 +17,7 @@
 
 package org.openurp.base.web.action.admin.edu
 
+import org.beangle.commons.activation.MediaTypes
 import org.beangle.data.excel.schema.ExcelSchema
 import org.beangle.data.transfer.importer.ImportSetting
 import org.beangle.data.transfer.importer.listener.ForeignerListener
@@ -50,7 +51,7 @@ class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice], ExportS
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教研室模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教研室模板.xlsx")
   }
 
   protected override def indexSetting(): Unit = {

@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin.space
+package org.openurp.base.web.action.admin.resource
 
+import org.beangle.commons.activation.MediaTypes
 import org.beangle.commons.collection.Collections
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.excel.schema.ExcelSchema
@@ -27,7 +28,7 @@ import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.model.{Campus, Department, Project}
-import org.openurp.base.space.model.{Building, Classroom}
+import org.openurp.base.resource.model.{Building, Classroom}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.ClassroomImportListener
 import org.openurp.code.edu.model.ClassroomType
@@ -56,7 +57,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
 
   override protected def saveAndRedirect(entity: Classroom): View = {
     entity.updatedAt = Instant.now
-    entity.beginOn = LocalDate.now()
+    if (null == entity.beginOn) entity.beginOn = LocalDate.now()
 
     val departIds = getAll("departId2nd", classOf[Int])
     val newDeparts = entityDao.find(classOf[Department], departIds)
@@ -66,7 +67,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
       if (!entity.departs.contains(l))
         entity.departs += l
     }
-    val projectIds = getAll("roomProjectId",classOf[Int])
+    val projectIds = getAll("roomProjectId", classOf[Int])
     val newProjects = entityDao.find(classOf[Project], projectIds)
     entity.projects.clear()
     entity.projects.addAll(newProjects)
@@ -83,7 +84,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     if (null == classroom.school) {
       classroom.school = project.school
     }
-    if(!classroom.persisted){
+    if (!classroom.persisted) {
       classroom.beginOn = LocalDate.now()
     }
     put("roomTypes", getCodes(classOf[ClassroomType]))
@@ -120,7 +121,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     sheet.add("考试容量", "classroom.examCapacity").required().decimal()
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教室模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教室模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

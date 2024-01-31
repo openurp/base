@@ -17,6 +17,7 @@
 
 package org.openurp.base.web.action.admin.hr
 
+import org.beangle.commons.activation.MediaTypes
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{Operation, OqlBuilder}
 import org.beangle.data.excel.schema.ExcelSchema
@@ -144,7 +145,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "教师信息.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教师信息.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

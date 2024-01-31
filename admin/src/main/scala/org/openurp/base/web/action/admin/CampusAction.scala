@@ -23,7 +23,7 @@ import org.beangle.web.action.annotation.{action, ignore}
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.model.Campus
-import org.openurp.base.space.model.Room
+import org.openurp.base.resource.model.Room
 import org.openurp.code.asset.model.RoomType
 
 import java.time.LocalDate

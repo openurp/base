@@ -4,13 +4,13 @@
     <module class="org.openurp.base.web.action.admin.edu.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.hr.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.std.DefaultModule"/>
-    <module class="org.openurp.base.web.action.admin.space.DefaultModule"/>
+    <module class="org.openurp.base.web.action.admin.resource.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.DefaultModule"/>
 
     <module class="org.openurp.base.web.action.info.edu.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.hr.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.std.DefaultModule"/>
-    <module class="org.openurp.base.web.action.info.space.DefaultModule"/>
+    <module class="org.openurp.base.web.action.info.resource.DefaultModule"/>
     <module class="org.openurp.base.web.action.info.DefaultModule"/>
 
     <module class="org.openurp.starter.web.ProjectModule"/>

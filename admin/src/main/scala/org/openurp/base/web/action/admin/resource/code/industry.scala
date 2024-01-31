@@ -15,20 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin.space
+package org.openurp.base.web.action.admin.resource.code
 
-import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.code.*
+import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
+import org.openurp.code.asset.model.{BuildingType, DeviceType, RoomType}
+import org.openurp.code.edu.model.ClassroomType
 
-class DefaultModule extends BindModule {
+class ClassroomTypeAction extends CodeRestfulAction[ClassroomType]
 
-  protected override def binding(): Unit = {
-    bind(classOf[CodeAction])
-    bind(classOf[RoomAction], classOf[BuildingAction])
-    bind(classOf[ClassroomAction])
+class RoomTypeAction extends CodeRestfulAction[RoomType]
 
-    bind(classOf[code.BuildingTypeAction])
-    bind(classOf[code.RoomTypeAction])
-    bind(classOf[code.ClassroomTypeAction])
-  }
-}
+class BuildingTypeAction extends CodeRestfulAction[BuildingType]
+
+class DeviceTypeAction extends CodeRestfulAction[DeviceType]

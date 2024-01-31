@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.ws.space
+package org.openurp.base.ws.resource
 
 import org.beangle.data.model.Entity
 import org.beangle.web.action.annotation.response
 import org.beangle.webmvc.support.action.RestfulService
-import org.openurp.base.space.model.Classroom
+import org.openurp.base.resource.model.Classroom
 
 class ClassroomWS extends RestfulService[Classroom] {
   @response

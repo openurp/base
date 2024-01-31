@@ -28,7 +28,6 @@ import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.code.{CourseCategory, CourseType}
 import org.openurp.base.edu.model.{Course, CourseHour, CourseLevel, TeachingOffice}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.service.Features

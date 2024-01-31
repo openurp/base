@@ -15,25 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.ws.space
+package org.openurp.base.web.action.info.resource
 
-import org.beangle.data.model.Entity
-import org.beangle.web.action.annotation.response
-import org.beangle.webmvc.support.action.RestfulService
-import org.openurp.base.space.model.Building
+import org.beangle.cdi.bind.BindModule
+import org.openurp.base.web.action.info.hr.TeacherAction
+import org.openurp.base.web.action.info.resource.ClassroomAction
 
-class BuildingWS extends RestfulService[Building] {
-  @response
-  override def index(): Any = {
-    put("properties", List(
-      classOf[Building] -> List("id", "name", "code", "campus", "enName", "shortName"),
-      classOf[Entity[_]] -> List("id")))
+class DefaultModule extends BindModule {
 
-    val builder = getQueryBuilder
-    builder.orderBy("building.code")
-    getInt("page") match {
-      case Some(p) => entityDao.search(builder)
-      case None => entityDao.search(builder.limit(null))
-    }
+  protected override def binding(): Unit = {
+    bind(classOf[ClassroomAction])
   }
 }

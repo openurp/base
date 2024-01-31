@@ -19,7 +19,7 @@ package org.openurp.base.web.action.admin.std.code
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.std.code.{StdLabel, StdLabelType, StdType}
+import org.openurp.code.std.model.{StdLabel, StdLabelType, StdType}
 import org.openurp.base.web.action.admin.CodeRestfulAction
 
 class StdLabelAction extends CodeRestfulAction[StdLabel] {

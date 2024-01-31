@@ -17,6 +17,7 @@
 
 package org.openurp.base.web.action.admin.std
 
+import org.beangle.commons.activation.MediaTypes
 import org.beangle.commons.lang.{ClassLoaders, Strings}
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.excel.schema.ExcelSchema
@@ -209,7 +210,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     sheet.add("失效日期", "squad.endOn").date().required()
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "班级模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "班级模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

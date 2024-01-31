@@ -15,15 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.info.space
+package org.openurp.base.ws.resource
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.info.hr.TeacherAction
-import org.openurp.base.web.action.info.space.ClassroomAction
 
 class DefaultModule extends BindModule {
-
   protected override def binding(): Unit = {
-    bind(classOf[ClassroomAction])
+    bind(classOf[BuildingWS])
+    bind(classOf[ClassroomWS])
   }
 }

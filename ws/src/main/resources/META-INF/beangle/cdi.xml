@@ -5,7 +5,7 @@
     <module class="org.openurp.base.ws.edu.DefaultModule"/>
     <module class="org.openurp.base.ws.hr.DefaultModule"/>
     <module class="org.openurp.base.ws.std.DefaultModule"/>
-    <module class="org.openurp.base.ws.space.DefaultModule"/>
+    <module class="org.openurp.base.ws.resource.DefaultModule"/>
 
     <module class="org.openurp.base.ws.SchedulerModule"/>
   </container>

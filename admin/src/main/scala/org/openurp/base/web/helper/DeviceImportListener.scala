@@ -20,14 +20,14 @@ package org.openurp.base.web.helper
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.model.Project
-import org.openurp.base.resource.model.Classroom
+import org.openurp.base.resource.model.{Classroom, Device}
 
 import java.time.{Instant, LocalDate}
 
-class ClassroomImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class DeviceImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("classroom.code") foreach { code =>
-      val query = OqlBuilder.from(classOf[Classroom], "c")
+    transfer.curData.get("device.code") foreach { code =>
+      val query = OqlBuilder.from(classOf[Device], "c")
       query.where("c.code =:code and c.school=:school", code, project.school)
       entityDao.search(query).foreach { cl =>
         transfer.current = cl
@@ -36,11 +36,10 @@ class ClassroomImportListener(entityDao: EntityDao, project: Project) extends Im
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val classroom = transfer.current.asInstanceOf[Classroom]
-    classroom.projects.add(project)
-    classroom.updatedAt = Instant.now
-    classroom.school = project.school
-    if (null == classroom.beginOn) classroom.beginOn = LocalDate.now
-    entityDao.saveOrUpdate(classroom)
+    val device = transfer.current.asInstanceOf[Device]
+    device.updatedAt = Instant.now
+    device.school = project.school
+    if (null == device.beginOn) device.beginOn = LocalDate.now
+    entityDao.saveOrUpdate(device)
   }
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.admin.space
+package org.openurp.base.web.action.admin.resource
 
 import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.support.ActionSupport

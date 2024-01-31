@@ -1,0 +1,16 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改设备类型"]bar.addBack();[/@]
+  [@b.form action=b.rest.save(deviceType) theme="list"]
+    [@b.textfield name="deviceType.code" label="代码" value="${deviceType.code!}" required="true" maxlength="20"/]
+    [@b.textfield name="deviceType.name" label="名称" value="${deviceType.name!}" required="true" maxlength="20"/]
+    [@b.textfield name="deviceType.enName" label="英文名称" value="${deviceType.enName!}" maxlength="100"/]
+    [@b.startend label="有效期限"
+      name="deviceType.beginOn,deviceType.endOn" required="true,false"
+      start=deviceType.beginOn end=deviceType.endOn format="date"/]
+    [@b.textfield name="deviceType.remark" label="备注" value="${deviceType.remark!}" maxlength="3"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+[@b.foot/]

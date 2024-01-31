@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.info.space
+package org.openurp.base.web.action.info.resource
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.mapping
 import org.beangle.web.action.view.View
-import org.openurp.base.space.model.{Building, Classroom}
+import org.openurp.base.resource.model.{Building, Classroom}
 import org.openurp.base.web.action.info.AbstractInfoAction
 
 import java.time.LocalDate

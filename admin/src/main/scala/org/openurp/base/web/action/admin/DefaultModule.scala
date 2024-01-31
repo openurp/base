@@ -19,8 +19,6 @@ package org.openurp.base.web.action.admin
 
 import org.beangle.cdi.bind.BindModule
 import org.openurp.base.web.action.admin.code.*
-import org.openurp.base.web.action.admin.hr.StaffAction
-import org.openurp.base.web.action.admin.space.RoomAction
 
 class DefaultModule extends BindModule {
 
