@@ -18,17 +18,10 @@
 package org.openurp.base.ws
 
 import org.beangle.cdi.bind.BindModule
-import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.openurp.base.service.impl.{DaoJob, SquadStdCountUpdater, StaffAccountUpdater, StaffServiceImpl}
-import org.openurp.base.std.model.Squad
+import org.openurp.base.service.impl.{SquadStdCountUpdater, StaffAccountUpdater, StaffServiceImpl}
 import org.openurp.base.std.service.impl.SquadServiceImpl
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler
 import org.springframework.scheduling.config.{CronTask, ScheduledTaskRegistrar}
-
-import java.time.LocalDate
-import java.util as ju
-import java.util.concurrent.ScheduledThreadPoolExecutor
-import scala.collection.mutable
 
 class SchedulerModule extends BindModule {
 
