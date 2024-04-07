@@ -38,18 +38,17 @@ class CodeAction extends ActionSupport {
     codeEntities foreach { e =>
       comments.put(e.clazz.getName, messages.get(e.clazz, "class"))
     }
-    val packageComments = Map("org.openurp.base.edu.code" -> "教学代码",
-      "org.openurp.base.std.code" -> "学生代码",
-      "org.openurp.code.asset.model" -> "资产代码",
+    val packageComments = Map("org.openurp.code.asset.model" -> "资产代码",
       "org.openurp.code.edu.model" -> "教学代码",
       "org.openurp.code.geo.model" -> "地理代码",
       "org.openurp.code.hr.model" -> "教职工代码",
       "org.openurp.code.job.model" -> "教职工代码",
       "org.openurp.code.person.model" -> "人员代码",
       "org.openurp.code.sin.model" -> "科研代码",
-      "org.openurp.code.std.model" -> "学生代码"
+      "org.openurp.code.std.model" -> "学生代码",
+      "org.openurp.code.trd.model" -> "教学研究代码",
     )
-    val packaged = codeEntities.groupBy(x => packageComments(x.clazz.getPackageName))
+    val packaged = codeEntities.groupBy(x => packageComments.getOrElse(x.clazz.getPackageName,"其他代码"))
     val counts = packaged.map(x => (x._1, x._2.size))
     put("packages", packaged.keys.toBuffer.sortBy(x => counts(x)).reverse)
     put("entities", packaged)

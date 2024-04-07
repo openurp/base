@@ -21,6 +21,7 @@ import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.edu.model.{Course, CourseLevel}
 import org.openurp.base.model.Project
+import org.openurp.code.edu.model.GradingMode
 
 import java.time.{Instant, LocalDate}
 
@@ -42,6 +43,9 @@ class CourseImportListener(entityDao: EntityDao, project: Project) extends Impor
     if (course.levels.isEmpty) {
       val cls = project.levels.map { x => new CourseLevel(course, x) }
       course.levels.addAll(cls)
+    }
+    if (null == course.gradingMode) {
+      course.gradingMode = new GradingMode(GradingMode.Percent)
     }
     if (null == course.beginOn) {
       course.beginOn = LocalDate.now
