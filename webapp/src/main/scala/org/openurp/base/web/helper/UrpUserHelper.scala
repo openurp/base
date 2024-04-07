@@ -15,29 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.service.impl
+package org.openurp.base.web.helper
 
 import org.beangle.commons.bean.Initializing
-import org.beangle.commons.logging.Logging
-import org.beangle.data.orm.hibernate.DaoJob
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.datasource.AppDataSourceFactory
-import org.openurp.base.hr.service.impl.StaffServiceImpl
+import org.openurp.base.hr.model.{Staff, Teacher}
+import org.openurp.base.model.User
+import org.openurp.base.service.UserRepo
+import org.openurp.base.service.impl.DefaultUserRepo
 
-class StaffAccountUpdater extends DaoJob, Logging, Initializing {
-  private var staffService: StaffServiceImpl = _
+class UrpUserHelper extends Initializing {
+
+  var entityDao: EntityDao = _
+  var userRepo: UserRepo = _
 
   override def init(): Unit = {
     val ds = new AppDataSourceFactory()
     ds.name = "platform"
     ds.init()
-    staffService = new StaffServiceImpl
-    staffService.userRepo = new DefaultUserRepo(entityDao, ds.result, Ems.hostname)
-    staffService.entityDao = entityDao
+    userRepo = new DefaultUserRepo(entityDao, ds.result, Ems.hostname)
   }
 
-  override def execute(): Unit = {
-    logger.info("starting sync staff and teacher to account")
-    staffService.createActiveUsers()
+  def createStaffUser(staff: Staff, oldCode: Option[String]): User = {
+    userRepo.createUser(staff, oldCode)
+  }
+
+  def createTeacherUser(teacher: Teacher): User = {
+    userRepo.createUser(teacher)
+  }
+
+  def createAccount(user: User): Unit = {
+    userRepo.createAccount(user)
   }
 }

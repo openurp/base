@@ -15,26 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.service.impl
+package org.openurp.base.web.action.admin.resource.code
 
-import org.beangle.commons.logging.Logging
-import org.beangle.data.dao.OqlBuilder
-import org.beangle.data.orm.hibernate.DaoJob
-import org.openurp.base.std.model.Squad
-import org.openurp.base.std.service.SquadService
+import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.web.action.admin.CodeRestfulAction
+import org.openurp.code.asset.model.{BuildingType, DeviceType, RoomType}
+import org.openurp.code.edu.model.ClassroomType
 
-import java.time.LocalDate
+class ClassroomTypeAction extends CodeRestfulAction[ClassroomType]
 
-class SquadStdCountUpdater extends DaoJob, Logging {
-  var squadService: SquadService = _
+class RoomTypeAction extends CodeRestfulAction[RoomType]
 
-  override def execute(): Unit = {
-    val today = LocalDate.now()
+class BuildingTypeAction extends CodeRestfulAction[BuildingType]
 
-    val query = OqlBuilder.from(classOf[Squad], "s")
-    query.where("s.endOn >= :today", today)
-    val squads = entityDao.search(query)
-    val updated = squadService.statStdCount(squads)
-    if updated > 0 then logger.info(s"auto stat ${updated} squads stdcount.")
-  }
-}
+class DeviceTypeAction extends CodeRestfulAction[DeviceType]

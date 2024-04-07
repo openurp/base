@@ -2,7 +2,7 @@ import org.openurp.parent.Dependencies.*
 import org.openurp.parent.Settings.*
 
 ThisBuild / organization := "org.openurp.base"
-ThisBuild / version := "0.4.21-SNAPSHOT"
+ThisBuild / version := "0.4.21"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -23,8 +23,8 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.37.3"
-val starterVer = "0.3.26"
+val apiVer = "0.38.0"
+val starterVer = "0.3.28"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
@@ -34,13 +34,13 @@ val orai18n = "com.oracle.database.nls" % "orai18n" % "23.3.0.23.09"
 
 lazy val root = (project in file("."))
   .settings()
-  .aggregate(tag, static, admin, info, ws, webapp)
+  .aggregate(tag, static, ws, webapp)
 
 lazy val tag = (project in file("tag"))
   .settings(
     name := "openurp-base-tag",
     common,
-    libraryDependencies ++= Seq(openurp_base_api, beangle_webmvc_support, beangle_data_orm, beangle_ems_app)
+    libraryDependencies ++= Seq(openurp_base_api, beangle_webmvc, beangle_model, beangle_ems_app)
   )
 
 lazy val static = (project in file("static"))
@@ -48,20 +48,6 @@ lazy val static = (project in file("static"))
     name := "openurp-base-static",
     common
   )
-
-lazy val admin = (project in file("admin"))
-  .settings(
-    name := "openurp-base-admin",
-    common,
-    libraryDependencies ++= Seq(openurp_stater_web)
-  ).dependsOn(tag)
-
-lazy val info = (project in file("info"))
-  .settings(
-    name := "openurp-base-info",
-    common,
-    libraryDependencies ++= Seq(openurp_stater_web)
-  ).dependsOn(tag)
 
 lazy val ws = (project in file("ws"))
   .enablePlugins(WarPlugin, UndertowPlugin)
@@ -75,7 +61,8 @@ lazy val webapp = (project in file("webapp"))
   .enablePlugins(WarPlugin, UndertowPlugin, TomcatPlugin)
   .settings(
     name := "openurp-base-webapp",
-    common
-  ).dependsOn(admin, info)
+    common,
+    libraryDependencies ++= Seq(openurp_stater_web)
+  )
 
 publish / skip := true

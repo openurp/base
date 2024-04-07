@@ -18,7 +18,7 @@
 package org.openurp.base.ws
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.service.impl.{SquadStdCountUpdater, StaffAccountUpdater, StaffServiceImpl}
+import org.openurp.base.service.impl.{SquadStdCountUpdater, StaffAccountUpdater}
 import org.openurp.base.std.service.impl.SquadServiceImpl
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler
 import org.springframework.scheduling.config.{CronTask, ScheduledTaskRegistrar}
@@ -32,13 +32,12 @@ class SchedulerModule extends BindModule {
 
   protected override def binding(): Unit = {
     bind(classOf[SquadServiceImpl])
-    bind(classOf[StaffServiceImpl])
     bind(classOf[ConcurrentTaskScheduler])
     bind(classOf[ScheduledTaskRegistrar]).nowire("triggerTasks", "triggerTasksList")
 
     bind(classOf[SquadStdCountUpdater]).lazyInit(false)
     bind(classOf[StaffAccountUpdater]).lazyInit(false)
-    bindTask(classOf[SquadStdCountUpdater], "0 0 7,11,15 * * *")
-    bindTask(classOf[StaffAccountUpdater], "0 0 7,11,12,15 * * *")
+    bindTask(classOf[SquadStdCountUpdater], "0 0 7,10,13,16,19 * * *") //every three hours
+    bindTask(classOf[StaffAccountUpdater], "0 0 7,10,13,16,19 * * *") //every three hours
   }
 }
