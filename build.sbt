@@ -63,6 +63,6 @@ lazy val webapp = (project in file("webapp"))
     name := "openurp-base-webapp",
     common,
     libraryDependencies ++= Seq(openurp_stater_web)
-  )
+  ).dependsOn(tag)
 
 publish / skip := true
