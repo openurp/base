@@ -2,7 +2,7 @@ import org.openurp.parent.Dependencies.*
 import org.openurp.parent.Settings.*
 
 ThisBuild / organization := "org.openurp.base"
-ThisBuild / version := "0.4.23-SNAPSHOT"
+ThisBuild / version := "0.4.23"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -23,14 +23,11 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.38.0"
-val starterVer = "0.3.30"
+val apiVer = "0.38.1"
+val starterVer = "0.3.31"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
-
-val ojdbc11 = "com.oracle.database.jdbc" % "ojdbc11" % "23.3.0.23.09"
-val orai18n = "com.oracle.database.nls" % "orai18n" % "23.3.0.23.09"
 
 lazy val root = (project in file("."))
   .settings()

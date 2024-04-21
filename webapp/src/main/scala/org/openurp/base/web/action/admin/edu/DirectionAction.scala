@@ -17,17 +17,25 @@
 
 package org.openurp.base.web.action.admin.edu
 
+import org.beangle.commons.activation.MediaTypes
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.view.View
+import org.beangle.doc.excel.schema.ExcelSchema
+import org.beangle.doc.transfer.importer.ImportSetting
+import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.web.action.annotation.response
+import org.beangle.web.action.view.{Stream, View}
+import org.beangle.webmvc.support.action.ImportSupport
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.{Direction, DirectionJournal, Major}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
+import org.openurp.base.web.helper.DirectionImportListener
 import org.openurp.code.edu.model.EducationLevel
 
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
 
-class DirectionAction extends ProjectRestfulAction[Direction] {
+class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Direction] {
 
   override def indexSetting() = {
     given project: Project = getProject
@@ -78,4 +86,28 @@ class DirectionAction extends ProjectRestfulAction[Direction] {
     view
   }
 
+  @response
+  def downloadTemplate(): Any = {
+    given project: Project = getProject
+
+    val majors = entityDao.findBy(classOf[Major], "project", project).map(x => x.code + " " + x.name)
+    val schema = new ExcelSchema()
+    val sheet = schema.createScheet("数据模板")
+    sheet.title("专业方向模板")
+    sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
+    sheet.add("方向代码", "direction.code").length(10).required().remark("≤10位")
+    sheet.add("方向名称", "direction.name").length(100).required()
+    sheet.add("方向英文名称", "direction.enName").length(300)
+    sheet.add("所属专业", "direction.major.code").ref(majors)
+
+    val os = new ByteArrayOutputStream()
+    schema.generate(os)
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "专业方向模板.xlsx")
+  }
+
+  protected override def configImport(setting: ImportSetting): Unit = {
+    val fl = new ForeignerListener(entityDao)
+    fl.addForeigerKey("name")
+    setting.listeners = List(fl, new DirectionImportListener(entityDao, getProject))
+  }
 }

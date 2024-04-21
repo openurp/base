@@ -17,7 +17,9 @@
     [@b.radios label="是否辅修"  name="project.minor" value=project.minor items="1:common.yes,0:common.no"/]
     [@b.select label="类型" name="project.category.id" value=project.category! required="true"
                style="width:200px;" items=eduCategories empty="..."/]
-    [@b.textarea name="project.description" label="描述" value="${project.description!}" required="true" maxlength="2000" /]
+    [@b.textarea name="project.description" label="描述" value=project.description! required="true" maxlength="2000" /]
+    [@b.textfield name="project.administration" label="主管部门" value=project.administration! required="true" maxlength="80"/]
+    [@b.textfield name="project.administration2nd" label="二级部门称呼" value=project.administration2nd! maxlength="80"/]
     [@b.startend label="有效期"
       name="project.beginOn,project.endOn" required="true,false"
       start=project.beginOn end=project.endOn format="date"/]

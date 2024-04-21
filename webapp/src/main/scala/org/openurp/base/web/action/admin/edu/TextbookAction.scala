@@ -25,7 +25,7 @@ import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.{mapping, param, response}
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
-import org.openurp.base.edu.model.{Course, Textbook}
+import org.openurp.base.edu.model.{Course, CourseTextbook, Textbook}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TextbookImportListener
@@ -115,11 +115,11 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
   @mapping(value = "{id}")
   override def info(@param("id") id: String): View = {
     val textbook = entityDao.get(classOf[Textbook], id.toLong)
-    val cq = OqlBuilder.from(classOf[Course], "c")
-    cq.where(":book in elements(c.textbooks)", textbook)
+    val cq = OqlBuilder.from(classOf[CourseTextbook], "ct")
+    cq.where("ct.textbook=:book", textbook)
     val courses = entityDao.search(cq)
     put("textbook", textbook)
-    put("courses", entityDao.search(cq))
+    put("courses", entityDao.search(cq).map(_.course).distinct)
     forward()
   }
 

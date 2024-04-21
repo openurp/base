@@ -37,6 +37,7 @@ class SchedulerModule extends BindModule {
 
     bind(classOf[SquadStdCountUpdater]).lazyInit(false)
     bind(classOf[StaffAccountUpdater]).lazyInit(false)
+    //see CronExpression
     bindTask(classOf[SquadStdCountUpdater], "0 0 7,10,13,16,19 * * *") //every three hours
     bindTask(classOf[StaffAccountUpdater], "0 0 7,10,13,16,19 * * *") //every three hours
   }
