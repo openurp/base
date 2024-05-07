@@ -10,7 +10,7 @@
     [@b.boxcol /]
     [@b.col width="15%" property="code" title="代码"]${graduateSeason.code}[/@]
     [@b.col property="name" title="名称"/]
-    [@b.col width="20%" property="graduateYear" title="毕业年份"/]
+    [@b.col width="20%" property="graduateOn" title="毕业年月"/]
   [/@]
 [/@]
 [@b.foot/]

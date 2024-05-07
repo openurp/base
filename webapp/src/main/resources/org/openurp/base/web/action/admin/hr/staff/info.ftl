@@ -12,6 +12,7 @@
     padding: 0px 0px 1px 0px;
   }
   .panel_title{
+    font-size: 0.875rem;
   }
 </style>
 [#macro panel title]
@@ -41,7 +42,7 @@
     <tr>
       <td class="title">出生日期：</td>
       <td>${(staff.birthday?string('yyyy-MM-dd'))!}</td>
-      <td class="title">证件类型:</td>
+      <td class="title">证件类型：</td>
       <td>${(staff.idType.name)!}</td>
       <td class="title">证件号码：</td>
       <td>${(staff.idNumber)!}</td>
