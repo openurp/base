@@ -24,7 +24,6 @@
     [@b.col property="mentor" title="管理人员"]
       <span style="font-size:0.8em">
       [#if squad.mentor??]${squad.mentor.name}<sup>辅</sup>[/#if]
-      [#if squad.tutor??]${squad.tutor.name}<sup>导</sup>[/#if]
       [#if squad.master??]${squad.master.name}<sup>班</sup>[/#if]
       </span>
     [/@]

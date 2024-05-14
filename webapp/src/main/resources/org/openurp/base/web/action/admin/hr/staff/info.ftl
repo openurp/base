@@ -84,7 +84,7 @@
     <tr>
       <td class="title">学位层次：</td>
       <td>${(staff.degreeLevel.name)!}</td>
-      <td class="title">学位授予单位:</td>
+      <td class="title">学位授予单位：</td>
       <td colspan="3">${(staff.degreeAwardBy)!}</td>
     </tr>
   </table>

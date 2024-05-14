@@ -20,7 +20,6 @@
 
     [@base.staff name="squad.mentor.id" label="辅导员" value=squad.mentor! style="width:300px;"/]
     [@base.staff name="squad.master.id" label="班主任" value=squad.master! style="width:300px;"/]
-    [@base.staff name="squad.tutor.id" label="班导师" value=squad.tutor! style="width:300px;"/]
     [@b.textfield name="squad.remark" label="备注" value="${squad.remark!}" maxlength="30"/]
     [@b.textfield name="squad.planCount" label="计划人数" value="${squad.planCount!}" /]
     [@b.textfield name="squad.stdCount" label="学籍有效人数" value="${squad.stdCount!}"/]
