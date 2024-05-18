@@ -253,7 +253,6 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     copy.stdCount = squad.stdCount
 
     copy.mentor = squad.mentor
-    copy.tutor = squad.tutor
     copy.master = squad.master
     editSetting(copy)
     put("squad", copy)

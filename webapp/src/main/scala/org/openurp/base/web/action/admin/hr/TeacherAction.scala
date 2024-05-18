@@ -19,26 +19,25 @@ package org.openurp.base.web.action.admin.hr
 
 import org.beangle.commons.activation.MediaTypes
 import org.beangle.commons.lang.Strings
-import org.beangle.data.dao.{Operation, OqlBuilder}
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
-import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.model.{Course, TeachingOffice}
+import org.openurp.base.edu.model.TeachingOffice
 import org.openurp.base.hr.model.{Staff, Teacher}
 import org.openurp.base.model.*
+import org.openurp.base.service.Features.Hr
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{TeacherImportListener, UrpUserHelper}
-import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
 import org.openurp.code.hr.model.WorkStatus
 import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import java.time.{Instant, LocalDate}
+import java.time.LocalDate
 
 class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher], ImportSupport[Teacher] {
   var urpUserHelper: UrpUserHelper = _
@@ -46,7 +45,6 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
   override protected def indexSetting(): Unit = {
     given project: Project = getProject
 
-    put("tutorTypes", codeService.get(classOf[TutorType]))
     put("departments", findInSchool(classOf[Department]))
     put("teachingOffices", findInProject(classOf[TeachingOffice]))
     put("statuses", codeService.get(classOf[WorkStatus]))
@@ -54,7 +52,6 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
   }
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
-    put("tutorTypes", codeService.get(classOf[TutorType]))
     val query = super.getQueryBuilder
     QueryHelper.addActive(query, getBoolean("active"))
     query
@@ -63,7 +60,6 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
   override def editSetting(teacher: Teacher) = {
     given project: Project = getProject
 
-    put("tutorTypes", codeService.get(classOf[TutorType]))
     put("departments", findInSchool(classOf[Department]))
     put("campuses", findInSchool(classOf[Campus]))
     if (!teacher.persisted) {
@@ -76,6 +72,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     }
     put("teachingOffices", findInProject(classOf[TeachingOffice]))
     put("projects", entityDao.findBy(classOf[Project], "school", project.school))
+    put("extraRequired", Strings.split(getConfig(Hr.TeacherExtraRequiredProperties).asInstanceOf[String]).toSet)
     super.editSetting(teacher)
   }
 
@@ -110,9 +107,8 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     }
     val staff = entityDao.get(classOf[Staff], teacher.staff.id)
     teacher.name = staff.name
-    teacher.user = entityDao.findBy(classOf[User], "school" -> staff.school, "code" -> staff.code).head
     entityDao.saveOrUpdate(teacher)
-    urpUserHelper.createTeacherUser(teacher)
+    urpUserHelper.createUser(staff, None)
     redirect("search", "info.save.success")
   }
 
@@ -121,7 +117,6 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     given project: Project = getProject
 
     val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.code")).map(x => x.code + " " + x.name)
-    val tutorTypes = codeService.get(classOf[TutorType]).map(x => x.code + " " + x.name)
     val teachingOffices = findInProject(classOf[TeachingOffice]).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
@@ -130,7 +125,6 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
     sheet.add("教师工号", "teacher.staff.code").length(10).required().remark("≤10位")
     sheet.add("教学所在部门", "teacher.department.code").ref(departs).required()
-    if tutorTypes.nonEmpty then sheet.add("导师类别", "teacher.tutorType.code").ref(tutorTypes)
     if teachingOffices.nonEmpty then sheet.add("所在教研室", "teacher.office.code").ref(teachingOffices)
     sheet.add("任教起始日期", "teacher.beginOn").date()
     sheet.add("教师资格证号码", "teacher.tqcNumber").length(20)

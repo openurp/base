@@ -42,6 +42,6 @@
   [@section "获奖情况" profile.awards!/]
   [@section "科研成果" profile.harvest!/]
   [@section "科研项目" profile.projects!/]
-  [@section "学术兼职" profile.titles!/]
+  [@section "社会职务" profile.titles!/]
   [@section "联系信息" profile.contact!/]
 </div>

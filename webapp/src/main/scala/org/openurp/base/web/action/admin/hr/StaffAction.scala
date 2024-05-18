@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.commons.activation.MediaTypes
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{Operation, OqlBuilder}
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
@@ -30,6 +31,7 @@ import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.{Mentor, Staff, Teacher}
 import org.openurp.base.model.*
+import org.openurp.base.service.Features.Hr
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{StaffImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
@@ -75,6 +77,8 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("educationDegrees", codeService.get(classOf[EducationDegree]))
     put("degreeLevels", codeService.get(classOf[DegreeLevel]))
 
+    println()
+    put("extraRequired", Strings.split(getConfig(Hr.StaffExtraRequiredProperties).asInstanceOf[String]).toSet)
     if !staff.persisted then staff.beginOn = LocalDate.now
     super.editSetting(staff)
   }
@@ -92,10 +96,10 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
         entityDao.search(existQuery).headOption foreach { code => oldCode = Some(code) }
       }
       entityDao.saveOrUpdate(staff)
-      urpUserHelper.createStaffUser(staff, oldCode)
+      urpUserHelper.createUser(staff, oldCode)
       //synchronize name to teacher/mentor/tutor
       val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
-      if (getConfig("edu.teacher.same_depart_with_staff", false)) {
+      if (getConfig(Hr.TeacherSameDepartWithStaff).asInstanceOf[Boolean]) {
         teachers foreach (t => t.department = staff.department)
       }
       teachers foreach (t => t.name = staff.name)
@@ -104,9 +108,10 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
       val mentors = entityDao.findBy(classOf[Mentor], "staff", staff)
       mentors foreach (t => t.name = staff.name)
       entityDao.saveOrUpdate(mentors)
+
       redirect("search", "info.save.success")
     } catch {
-      case e: Exception => {
+      case e: Exception =>
         val mapping = ActionContext.current.handler.asInstanceOf[MappingHandler].mapping
         val redirectTo = mapping.method.getName match {
           case "save" => "editNew"
@@ -114,7 +119,6 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
         }
         logger.info("save forward failure", e)
         redirect(redirectTo, "info.save.failure")
-      }
     }
   }
 

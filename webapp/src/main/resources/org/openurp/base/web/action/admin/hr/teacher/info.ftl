@@ -14,6 +14,9 @@
   .panel_title{
     font-size: 0.875rem;
   }
+  table.infoTable td.title {
+    padding: 0.2rem 0.1rem;
+  }
 </style>
 [#macro panel title]
 <h6 class="panel-header"><span class="panel_title">${title}</span></h6>
@@ -57,7 +60,7 @@
       <td class="title" width="120px">部门：</td>
       <td width="20%">${staff.department.name}</td>
       <td class="title" width="120px">教职工类别：</td>
-      <td width="20%">${(staff.staffType.name)!}</td>
+      <td width="20%">${(staff.staffType.name)!} [#if staff.parttime]兼职[/#if]&nbsp;[#if staff.external]外聘[/#if]</td>
       <td class="title" width="120px">在职状态：</td>
       <td width="20%">${(staff.status.name)!}</td>
     </tr>
@@ -102,16 +105,12 @@
       <td width="20%">${(teacher.office.name)!}</td>
     </tr>
     <tr>
-      <td class="title">导师类别：</td>
-      <td>${(teacher.tutorType.name)!}</td>
       <td class="title">教师资格证：</td>
       <td>${(teacher.tqcNumber)!}</td>
       <td class="title">任教时间：</td>
       <td>${teacher.beginOn?string('yyyy-MM')}~${(teacher.endOn?string('yyyy-MM'))!'至今'}</td>
-    </tr>
-    <tr>
-      <td class="title">其他职业资格证书和等级说明：</td>
-      <td colspan="5">${(teacher.tqc)!}</td>
+      <td class="title">其他职业资格证书：</td>
+      <td>${(teacher.tqc)!}</td>
     </tr>
   </table>
 [/@]
@@ -123,14 +122,12 @@
       <td width="20%">${(staff.mobile)!}</td>
       <td class="title" width="120px">电子邮件：</td>
       <td width="20%">${(staff.email)!}</td>
-      <td class="title" width="120px">个人主页：</td>
-      <td width="20%">${(staff.homepage)!}</td>
+      <td class="title" width="120px">全职工作单位:</td>
+      <td width="20%">${(staff.organization)!}</td>
     </tr>
     <tr>
-      <td class="title">是否兼职、外聘：</td>
-      <td>[#if staff.parttime]兼职[/#if]&nbsp;[#if staff.external]外聘[/#if]</td>
-      <td class="title">全职工作单位:</td>
-      <td colspan="3">${(staff.organization)!}</td>
+      <td class="title" >个人主页：</td>
+      <td colspan="5">${(staff.homepage)!}</td>
     </tr>
   </table>
 [/@]

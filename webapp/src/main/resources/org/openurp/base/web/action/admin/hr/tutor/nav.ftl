@@ -1,0 +1,5 @@
+[@b.nav class="nav-tabs nav-tabs-compact"]
+  [@b.navitem href="tutor"]导师信息[/@]
+  [@b.navitem href="tutor-major"]研究领域[/@]
+  [@b.navitem href="profile"]导师简介[/@]
+[/@]

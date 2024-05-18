@@ -44,9 +44,6 @@ class TeacherImportListener(entityDao: EntityDao, project: Project) extends Impo
       if (!teacher.persisted) teacher.id = staff.id
       if (null == teacher.beginOn) teacher.beginOn = staff.beginOn
       teacher.projects += project
-
-      val users = entityDao.findBy(classOf[User], "school" -> teacher.staff.school, "code" -> staff.code)
-      teacher.user = users.head
       entityDao.saveOrUpdate(teacher)
     }
   }

@@ -38,14 +38,10 @@ class UrpUserHelper extends Initializing {
     userRepo = new DefaultUserRepo(entityDao, ds.result, Ems.hostname)
   }
 
-  def createStaffUser(staff: Staff, oldCode: Option[String]): User = {
+  def createUser(staff: Staff, oldCode: Option[String]): User = {
     userRepo.createUser(staff, oldCode)
   }
-
-  def createTeacherUser(teacher: Teacher): User = {
-    userRepo.createUser(teacher)
-  }
-
+  
   def createAccount(user: User): Unit = {
     userRepo.createAccount(user)
   }

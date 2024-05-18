@@ -60,7 +60,7 @@
               <tbody>
               [#list typeStat as stat]
                <tr>
-                <td>[@b.a href="!search?teacher.teacherType.id="+stat[0] target="course_list"]${stat[1]}[/@]</td>
+                <td>[@b.a href="!search?teacher.staff.staffType.id="+stat[0] target="course_list"]${stat[1]}[/@]</td>
                 <td>${stat[2]}</td>
                </tr>
                [/#list]

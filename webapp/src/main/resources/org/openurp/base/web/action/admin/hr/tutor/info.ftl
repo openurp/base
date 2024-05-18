@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="教职工信息"]
+[@b.toolbar title="导师信息"]
   bar.addBack("${b.text("action.back")}");
 [/@]
 <style>
@@ -22,17 +22,17 @@
 <h6 class="panel-header"><span class="panel_title">${title}</span></h6>
   [#nested/]
 [/#macro]
-<div class="container-fluid text-sm">
+<div class="container">
 
 [@panel title="基本信息"]
   <table class="infoTable">
     <tr>
-      <td class="title" width="120px">工号：</td>
+      <td class="title" width="13%">工号：</td>
       <td width="20%">${staff.code}</td>
-      <td class="title" width="120px">姓名：</td>
+      <td class="title" width="13%">姓名：</td>
       <td width="20%">${staff.name}</td>
-      <td width="120px"></td>
-      <td width="20%"></td>
+      <td class="title" width="13%">导师类别：</td>
+      <td>${(staff.tutorType.name)!}</td>
     </tr>
     <tr>
       <td class="title">性别：</td>
@@ -56,12 +56,12 @@
 [@panel title="工作信息"]
   <table class="infoTable">
     <tr>
-      <td class="title" width="120px">部门：</td>
+      <td class="title" width="13%">部门：</td>
       <td width="20%">${staff.department.name}</td>
-      <td class="title" width="120px">教职工类别：</td>
-      <td width="20%">${(staff.staffType.name)!} [#if staff.parttime]兼职[/#if]&nbsp;[#if staff.external]外聘[/#if]</td>
-      <td class="title" width="120px">在职状态：</td>
-      <td width="20%">${(staff.status.name)!}</td>
+      <td class="title" width="13%">教职工类别：</td>
+      <td width="20%">${(staff.staffType.name)!}</td>
+      <td class="title" width="13%">在职状态：</td>
+      <td>${(staff.status.name)!}</td>
     </tr>
     <tr>
       <td class="title">是否在编：</td>
@@ -77,12 +77,12 @@
 [@panel title="职称学历信息"]
   <table class="infoTable">
     <tr>
-      <td class="title" width="120px">职称：</td>
+      <td class="title" width="13%">职称：</td>
       <td width="20%">${(staff.title.name)!}</td>
-      <td class="title" width="120px">学历：</td>
+      <td class="title" width="13%">学历：</td>
       <td width="20%">${(staff.educationDegree.name)!}</td>
-      <td class="title" width="120px">学位：</td>
-      <td width="20%">${(staff.degree.name)!}</td>
+      <td class="title">学位：</td>
+      <td>${(staff.degree.name)!}</td>
     </tr>
     <tr>
       <td class="title">学位层次：</td>
@@ -93,14 +93,27 @@
   </table>
 [/@]
 
+[#if majors?size>0]
+[@panel title="研究领域"]
+  <table class="infoTable">
+  [#list majors as m]
+      <td class="title" width="13%">层次、学科专业：</td>
+      <td width="20%">${m.eduType.name} ${m.level.name} ${m.major.name}</td>
+      <td class="title" width="13%">研究方向：</td>
+      <td colspan="3">[#list m.directions as d]${d.name}[#sep]&nbsp;[/#list]</td>
+  [/#list]
+  </table>
+[/@]
+[/#if]
+
 [@panel title="联系信息"]
   <table class="infoTable">
     <tr>
-      <td class="title" width="120px">手机：</td>
+      <td class="title" width="13%">手机：</td>
       <td width="20%">${(staff.mobile)!}</td>
-      <td class="title" width="120px">电子邮件：</td>
+      <td class="title" width="13%">电子邮件：</td>
       <td width="20%">${(staff.email)!}</td>
-      <td class="title" width="120px">全职工作单位:</td>
+      <td class="title" width="13%">全职工作单位:</td>
       <td width="20%">${(staff.organization)!}</td>
     </tr>
     <tr>

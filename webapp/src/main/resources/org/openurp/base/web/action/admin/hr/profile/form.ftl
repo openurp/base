@@ -16,7 +16,7 @@
   [@b.textarea label="获奖情况" name="profile.awards" value=profile.awards!  placeholder="所获荣誉、获奖情况" cols="110" rows="5" maxlength="1000" comment="所获荣誉、获奖情况;500字以内"/]
   [@b.textarea label="科研成果" name="profile.harvest" value=profile.harvest!  placeholder="科研成果，主要著述" cols="110" rows="15" maxlength="30000" comment="科研成果，主要著述；30000字以内"/]
   [@b.textarea label="研究项目" name="profile.projects" value=profile.projects! placeholder="科研项目" cols="110" rows="4" maxlength="1000" comment="1000字以内"/]
-  [@b.textarea label="学术兼职" name="profile.titles" value=profile.titles!  cols="110" rows="3" maxlength="500" comment="500字以内"/]
+  [@b.textarea label="社会职务" name="profile.titles" value=profile.titles!  cols="110" rows="3" maxlength="500" comment="500字以内"/]
   [@b.textarea label="联系信息" name="profile.contact" placeholder="办公室电话、地址、电子邮箱等" value=profile.contact! cols="110" rows="2" comment="200字以内"/]
   [@b.formfoot]
     <input type="hidden" name="profile.staff.id" value="${staff.id}"/>

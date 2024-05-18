@@ -17,28 +17,27 @@
 
 package org.openurp.base.web.helper
 
-import org.beangle.data.dao.EntityDao
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.hr.model.Staff
-import org.openurp.base.model.Project
+import org.openurp.base.model.{Project, User}
 
-import java.time.{Instant, LocalDate}
-
-class StaffImportListener(entityDao: EntityDao, project: Project, urpUserHelper: UrpUserHelper) extends ImportListener {
+class TutorImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
 
   override def onItemStart(tr: ImportResult): Unit = {
     transfer.curData.get("staff.code") foreach { code =>
-      val cs = entityDao.findBy(classOf[Staff], "code", List(code))
-      if (cs.nonEmpty) transfer.current = cs.head
+      val query = OqlBuilder.from(classOf[Staff], "s")
+      query.where("t.code=:code", code)
+      query.where("t.school=:school", project.school)
+      val cs = entityDao.search(query)
+      if (cs.nonEmpty) {
+        transfer.current = cs.head
+      }
     }
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val staff = transfer.current.asInstanceOf[Staff]
-    staff.school = project.school
-    staff.updatedAt = Instant.now
-    if (null == staff.beginOn) staff.beginOn = LocalDate.now.minusDays(1)
-    entityDao.saveOrUpdate(staff)
-    urpUserHelper.createUser(staff, None)
+    val tutor = transfer.current.asInstanceOf[Staff]
+    entityDao.saveOrUpdate(tutor)
   }
 }
