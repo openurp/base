@@ -41,7 +41,7 @@ class UrpUserHelper extends Initializing {
   def createUser(staff: Staff, oldCode: Option[String]): User = {
     userRepo.createUser(staff, oldCode)
   }
-  
+
   def createAccount(user: User): Unit = {
     userRepo.createAccount(user)
   }

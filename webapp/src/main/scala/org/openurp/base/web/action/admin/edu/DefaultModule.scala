@@ -18,8 +18,6 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.HolidayAction
-import org.openurp.base.web.action.admin.edu.code.*
 import org.openurp.base.web.helper.UrpUserHelper
 
 class DefaultModule extends BindModule {
@@ -35,22 +33,7 @@ class DefaultModule extends BindModule {
     bind(classOf[TimeSettingAction], classOf[CourseUnitAction])
 
     //code mapping
-    bind(classOf[CodeAction])
-    bind(classOf[CourseAbilityRateAction], classOf[CourseTypeAction])
-    bind(classOf[TeachingNatureAction], classOf[GradingModeAction])
-    bind(classOf[CourseCategoryAction])
-    bind(classOf[ExamModeAction], classOf[ExamStatusAction])
-    bind(classOf[EducationLevelAction], classOf[EducationTypeAction])
-
-    bind(classOf[CourseNatureAction], classOf[TeachingMethodAction])
-    bind(classOf[PressAction], classOf[BookTypeAction], classOf[BookAwardTypeAction])
-    bind(classOf[BookCategoryAction], classOf[PressGradeAction])
-
-    bind(classOf[DegreeLevelAction], classOf[DegreeAction], classOf[StudyTypeAction],
-      classOf[DisciplineCategoryAction], classOf[EducationResultAction])
-    bind(classOf[ExamTypeAction], classOf[GradeTypeAction])
-
-    bind(classOf[CourseModuleAction], classOf[CourseTakeTypeAction])
+    bind(classOf[CodeAction], classOf[CodeIndexAction])
     bind(classOf[UrpUserHelper]).nowire("platformDataSource")
 
   }

@@ -50,6 +50,7 @@ class SecretaryImportListener(entityDao: EntityDao, project: Project, urpUserHel
       if (null == s.beginOn) s.beginOn = LocalDate.now
       s.projects += project
       entityDao.saveOrUpdate(s)
+      urpUserHelper.createUser(s.staff, None)
     }
   }
 }

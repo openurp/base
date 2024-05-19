@@ -22,7 +22,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.model.User
+import org.openurp.base.model.{User, UserGroup}
 import org.openurp.base.web.helper.UrpUserHelper
 import org.openurp.code.hr.model.UserCategory
 import org.openurp.code.person.model.Gender
@@ -42,6 +42,8 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
   override protected def editSetting(entity: User): Unit = {
     put("userCategories", entityDao.getAll(classOf[UserCategory]))
     put("genders", entityDao.getAll(classOf[Gender]))
+    put("userGroups", entity.groups.map(_.group))
+    put("groups", entityDao.findBy(classOf[UserGroup], "school", getSchool))
     put("departments", getDepartments)
   }
 
@@ -54,7 +56,12 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
   override protected def saveAndRedirect(user: User): View = {
     user.school = getSchool
     user.beginOn = LocalDate.now
+    val groupIds = getAll("group.id", classOf[Int])
+    val newGroups = entityDao.find(classOf[UserGroup], groupIds)
+    user.groups.clear()
+    user.addGroups(newGroups)
     entityDao.saveOrUpdate(user)
+
     urpUserHelper.createAccount(user)
     super.saveAndRedirect(user)
   }

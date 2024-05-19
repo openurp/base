@@ -12,6 +12,7 @@
     [@b.col width="13%" property="code" title="账号"]${user.code}[/@]
     [@b.col width="14%" property="name" title="姓名"][@b.a href="!info?id=${user.id}"]${user.name}[/@][/@]
     [@b.col width="8%" property="category" title="人员类别"]${(user.category.name)!}[/@]
+    [@b.col width="8%" property="group" title="用户组"]${(user.group.name)!}[/@]
     [@b.col width="16%" property="department" title="所在部门"]${(user.department.name)!}[/@]
     [@b.col width="13%" property="mobile" title="移动电话"/]
     [@b.col property="email" title="电子邮箱"/]

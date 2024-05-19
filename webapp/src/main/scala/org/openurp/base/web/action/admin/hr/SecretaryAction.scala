@@ -59,11 +59,12 @@ class SecretaryAction extends ProjectRestfulAction[Secretary], ImportSupport[Sec
     super.editSetting(secretary)
   }
 
-  override protected def saveAndRedirect(Secretary: Secretary): View = {
+  override protected def saveAndRedirect(s: Secretary): View = {
     val p = getProject
-    val staff = entityDao.get(classOf[Staff], Secretary.staff.id)
-    Secretary.projects += p
-    entityDao.saveOrUpdate(Secretary)
+    val staff = entityDao.get(classOf[Staff], s.staff.id)
+    s.projects += p
+    entityDao.saveOrUpdate(s)
+    urpUserHelper.createUser(staff, None)
     redirect("search", "info.save.success")
   }
 

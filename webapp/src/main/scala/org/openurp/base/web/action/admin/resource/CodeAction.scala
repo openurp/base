@@ -17,12 +17,28 @@
 
 package org.openurp.base.web.action.admin.resource
 
-import org.beangle.web.action.annotation.ignore
+import org.beangle.web.action.annotation.action
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.view.View
+import org.openurp.base.web.action.admin.{AbstractCodeAction, CodeHelper}
+import org.openurp.code.job.model.ProfessionalGrade
 
-class CodeAction extends ActionSupport {
+@action("code/{category}")
+class CodeAction extends AbstractCodeAction {
+
+  def editProfessionalTitle(): Unit = {
+    put("grades", entityDao.getAll(classOf[ProfessionalGrade]))
+  }
+}
+
+class CodeIndexAction extends ActionSupport {
+
+  var codeHelper: CodeHelper = _
+
   def index(): View = {
+    val p = Set("org.openurp.code.asset.model")
+    put("metas", codeHelper.getMetas(p))
     forward()
   }
+
 }

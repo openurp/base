@@ -28,9 +28,6 @@ class DefaultModule extends BindModule {
     bind(classOf[SquadAction])
     bind(classOf[GradeAction], classOf[GraduateSeasonAction])
 
-    bind(classOf[CodeAction])
-    bind(classOf[code.StdLabelAction], classOf[code.StdLabelTypeAction])
-    bind(classOf[code.StudentStatusAction], classOf[code.StdTypeAction])
-    bind(classOf[code.StdAlterTypeAction], classOf[code.StdAlterReasonAction])
+    bind(classOf[CodeAction], classOf[CodeIndexAction])
   }
 }

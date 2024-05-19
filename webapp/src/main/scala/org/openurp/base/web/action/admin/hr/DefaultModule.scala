@@ -23,14 +23,12 @@ import org.openurp.base.web.action.admin.hr.code.*
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
-    bind(classOf[CodeAction])
-    bind(classOf[StaffTypeAction], classOf[WorkStatusAction], classOf[StaffSourceTypeAction])
-    bind(classOf[ProfessionalGradeAction], classOf[ProfessionalTitleAction])
+    bind(classOf[CodeAction], classOf[CodeIndexAction])
 
     bind(classOf[StaffAction], classOf[TeacherAction])
     bind(classOf[MentorAction])
-    
-    bind(classOf[TutorAction],classOf[TutorMajorAction],classOf[TutorJournalAction])
+
+    bind(classOf[TutorAction], classOf[TutorMajorAction], classOf[TutorJournalAction])
     bind(classOf[ProfileAction])
 
     bind(classOf[OfficialAction], classOf[SecretaryAction])

@@ -31,7 +31,7 @@ import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.resource.model.{Building, Classroom}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.ClassroomImportListener
-import org.openurp.code.edu.model.ClassroomType
+import org.openurp.code.asset.model.ClassroomType
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.{Instant, LocalDate}

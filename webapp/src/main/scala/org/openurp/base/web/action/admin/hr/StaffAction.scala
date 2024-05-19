@@ -77,7 +77,6 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("educationDegrees", codeService.get(classOf[EducationDegree]))
     put("degreeLevels", codeService.get(classOf[DegreeLevel]))
 
-    println()
     put("extraRequired", Strings.split(getConfig(Hr.StaffExtraRequiredProperties).asInstanceOf[String]).toSet)
     if !staff.persisted then staff.beginOn = LocalDate.now
     super.editSetting(staff)

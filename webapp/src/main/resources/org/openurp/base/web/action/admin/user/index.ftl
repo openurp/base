@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="人员信息"/]
+[#include "../user-nav.ftl"/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="userSearchForm" action="!search" target="userlist" title="ui.searchForm" theme="search"]

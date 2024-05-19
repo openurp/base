@@ -10,6 +10,8 @@
                style="width:200px;" items=departments empty="..."/]
     [@b.select name="user.category.id" label="人员分类" value="${(user.category.id)!}" style="width:200px;"  required="true"
         items =userCategories /]
+    [@b.select name="user.group.id" label="默认用户组" value=user.group! items =groups /]
+    [@b.select name="group.id" label="附加用户组" values=userGroups items=groups multiple="true"/]
     [@b.textfield name="user.mobile" label="电话" value="${user.mobile!}" maxlength="15"/]
     [@b.email name="user.email" label="邮箱" value="${user.email!}"  maxlength="80"/]
     [@b.startend name="user.beginOn,user.endOn"  label="有效期限" start=user.beginOn end=user.endOn! required="true,false"/]
