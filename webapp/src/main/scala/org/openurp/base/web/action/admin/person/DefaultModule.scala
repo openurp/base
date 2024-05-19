@@ -18,7 +18,6 @@
 package org.openurp.base.web.action.admin.person
 
 import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.action.admin.code.*
 
 class DefaultModule extends BindModule {
 
