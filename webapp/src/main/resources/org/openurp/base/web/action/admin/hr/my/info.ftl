@@ -25,6 +25,6 @@
       <td class="content">${(profile.staff.degree.name)!}</td>
     </tr>
   </table>
-  [#include "../staff/site.ftl"/]
+  [#include "../profile/site.ftl"/]
 </div>
 [@b.foot/]
