@@ -97,10 +97,12 @@
 [@panel title="研究领域"]
   <table class="infoTable">
   [#list majors as m]
+    <tr>
       <td class="title" width="13%">层次、学科专业：</td>
       <td width="20%">${m.eduType.name} ${m.level.name} ${m.major.name}</td>
       <td class="title" width="13%">研究方向：</td>
       <td colspan="3">[#list m.directions as d]${d.name}[#sep]&nbsp;[/#list]</td>
+    </tr>
   [/#list]
   </table>
 [/@]
