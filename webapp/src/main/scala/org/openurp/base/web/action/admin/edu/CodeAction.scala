@@ -21,7 +21,7 @@ import org.beangle.web.action.annotation.action
 import org.beangle.web.action.support.ActionSupport
 import org.beangle.web.action.view.View
 import org.openurp.base.web.action.admin.{AbstractCodeAction, CodeHelper}
-import org.openurp.code.edu.model.{AcademicLevel, DegreeLevel, ExamType, TeachingNatureCategory}
+import org.openurp.code.edu.model.*
 import org.openurp.code.sin.model.PressGrade
 
 @action("code/{category}")
@@ -45,6 +45,10 @@ class CodeAction extends AbstractCodeAction {
 
   def editDegree(): Unit = {
     put("levels", entityDao.getAll(classOf[DegreeLevel]))
+  }
+
+  def editCourseType(): Unit = {
+    put("parents", entityDao.getAll(classOf[CourseType]))
   }
 }
 

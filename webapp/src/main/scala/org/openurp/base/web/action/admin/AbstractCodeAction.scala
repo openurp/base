@@ -109,6 +109,7 @@ abstract class AbstractCodeAction extends ActionSupport {
   def update(@param("id") id: String): View = {
     val meta = codeHelper.loadMeta(get("category", ""))
     val entity = getCode(meta, id.toInt)
+    PopulateHelper.populate(entity, meta.entityType, "code")
     persist(entity)
   }
 
