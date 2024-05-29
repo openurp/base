@@ -17,25 +17,17 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.cdi.bind.BindModule
-import org.openurp.base.web.helper.UrpUserHelper
+import org.beangle.web.action.view.View
+import org.beangle.webmvc.support.action.RestfulAction
+import org.openurp.base.edu.model.MinorMajor
+import org.openurp.starter.web.support.ProjectSupport
 
-class DefaultModule extends BindModule {
+class MinorMajorAction extends RestfulAction[MinorMajor], ProjectSupport {
 
-  protected override def binding(): Unit = {
-    bind(classOf[MajorAction], classOf[DirectionAction], classOf[DirectionJournalAction], classOf[MajorJournalAction], classOf[MajorDisciplineAction])
+  override def simpleEntityName: String = "major"
 
-    bind(classOf[CourseAction])
-    bind(classOf[TextbookAction])
-    bind(classOf[SchoolLengthAction])
-    bind(classOf[TeachingOfficeAction])
-
-    bind(classOf[TimeSettingAction], classOf[CourseUnitAction])
-    bind(classOf[MinorMajorAction])
-
-    //code mapping
-    bind(classOf[CodeAction], classOf[CodeIndexAction])
-    bind(classOf[UrpUserHelper]).nowire("platformDataSource")
-
+  override protected def saveAndRedirect(m: MinorMajor): View = {
+    m.project = getProject
+    super.saveAndRedirect(m)
   }
 }
