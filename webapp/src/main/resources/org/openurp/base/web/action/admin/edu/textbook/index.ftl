@@ -2,6 +2,7 @@
 [@b.head/]
 [@b.tabs]
    [@b.tab href="/admin/edu/textbook!innerIndex" label="教材信息" active="true"/]
+   [@b.tab href="/admin/edu/course-textbook" label="默认教材" /]
    [@b.tab href="/admin/edu/code/press" label="出版社" /]
    [@b.tab href="/admin/edu/code/press-grade" label="出版社级别" /]
    [@b.tab href="/admin/edu/code/book-category" label="图书分类" /]
