@@ -17,14 +17,23 @@
 
 package org.openurp.base.web.action.admin.hr
 
-import org.beangle.web.action.view.View
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.commons.activation.MediaTypes
+import org.beangle.doc.excel.schema.ExcelSchema
+import org.beangle.doc.transfer.importer.ImportSetting
+import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.web.action.annotation.response
+import org.beangle.web.action.view.{Stream, View}
+import org.beangle.webmvc.support.action.{ImportSupport, RestfulAction}
 import org.openurp.base.edu.model.{Direction, Major}
 import org.openurp.base.hr.model.TutorMajor
 import org.openurp.base.model.Project
+import org.openurp.base.web.helper.TutorMajorImportListener
+import org.openurp.code.edu.model.{EducationLevel, EducationType}
 import org.openurp.starter.web.support.ProjectSupport
 
-class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport {
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+
+class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, ImportSupport[TutorMajor] {
 
   override protected def indexSetting(): Unit = {
     given project: Project = getProject
@@ -50,4 +59,32 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport {
     super.saveAndRedirect(entity)
   }
 
+
+  @response
+  def downloadTemplate(): Any = {
+    given project: Project = getProject
+
+    val levels = codeService.get(classOf[EducationLevel]).map(x => x.code + " " + x.name)
+    val eduTypes = codeService.get(classOf[EducationType]).map(x => x.code + " " + x.name)
+    val majors = findInProject(classOf[Major]).map(x => x.code + " " + x.name)
+
+    val schema = new ExcelSchema()
+    val sheet = schema.createScheet("数据模板")
+    sheet.title("导师研究领域信息模板")
+    sheet.add("导师工号", "tutorMajor.staff.code").length(20).required().remark("≤20位")
+    sheet.add("培养层次", "tutorMajor.level.code").ref(levels).required()
+    sheet.add("培养类型", "tutorMajor.eduType.code").ref(eduTypes).required()
+    sheet.add("专业", "tutorMajor.major.code").ref(majors).required()
+    sheet.add("研究方向", "directionNames").required()
+
+    val os = new ByteArrayOutputStream()
+    schema.generate(os)
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "导师研究领域.xlsx")
+  }
+
+  protected override def configImport(setting: ImportSetting): Unit = {
+    val fl = new ForeignerListener(entityDao)
+    fl.addForeigerKey("name")
+    setting.listeners = List(fl, new TutorMajorImportListener(entityDao, getProject))
+  }
 }

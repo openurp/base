@@ -6,10 +6,14 @@
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
+    bar.addItem("导入",action.method('importForm'));
+    bar.addItem("${b.text("action.export")}",action.exportData("staff.code:工号,staff.name:姓名,level.name:培养层次,"+
+                "eduType.name:培养类型,major.name:专业,directions(name;)",
+                null,'fileName=导师研究领域'));
   [/@]
   [@b.row]
     [@b.boxcol /]
-    [@b.col width="8%" property="name" title="导师"]${tutorMajor.staff.name}[/@]
+    [@b.col width="8%" property="staff.name" title="导师"]${tutorMajor.staff.name}[/@]
     [@b.col width="6%" property="eduType.name" title="培养类型"/]
     [@b.col width="8%" property="level.name" title="培养层次"/]
     [@b.col width="10%" property="major.name" title="专业"/]

@@ -79,7 +79,6 @@ class CourseTextbookAction extends ProjectRestfulAction[CourseTextbook], ExportS
 
   protected override def configImport(setting: ImportSetting): Unit = {
     val fl = new ForeignerListener(entityDao)
-    fl.addForeigerKey("isbn")
     setting.listeners = List(fl, new CourseTextbookImportListener(entityDao, getProject))
   }
 }

@@ -17,19 +17,27 @@
 
 package org.openurp.base.web.helper
 
-import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.data.dao.EntityDao
 import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.{Course, CourseLevel, CourseTextbook}
+import org.openurp.base.edu.model.{CourseTextbook, Textbook}
 import org.openurp.base.model.Project
-import org.openurp.code.edu.model.GradingMode
 
-import java.time.{Instant, LocalDate}
+import java.time.LocalDate
 
 class CourseTextbookImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
 
+  override def onItemStart(tr: ImportResult): Unit = {
+    transfer.curData.get("courseTextbook.textbook.isbn") foreach { isbn =>
+      entityDao.findBy(classOf[Textbook], "isbn", isbn).headOption match
+        case None => tr.addFailure("没有对应ISBN的教材", isbn)
+        case Some(t) => transfer.current.asInstanceOf[CourseTextbook].textbook = t
+    }
+    super.onItemStart(tr)
+  }
+
   override def onItemFinish(tr: ImportResult): Unit = {
     val cb = transfer.current.asInstanceOf[CourseTextbook]
-    if (null != cb.course && null != cb.textbook) {
+    if (null != cb.course && null != cb.textbook && cb.textbook.persisted) {
       if null == cb.beginOn then cb.beginOn = LocalDate.now
       entityDao.saveOrUpdate(cb)
     }

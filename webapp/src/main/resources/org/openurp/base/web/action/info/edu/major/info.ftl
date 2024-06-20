@@ -56,10 +56,14 @@
         [/#list]
       </table>
    </div>
-[#if major.directions?size>0]
+   [#assign actives=[]]
+   [#list major.directions as d]
+     [#if d.active][#assign actives=actives+[d]][/#if]
+   [/#list]
+[#if actives?size>0]
    <div class="card card-info card-primary card-outline">
       <div class="card-header">
-        <h3 class="card-title">专业方向<span class="badge badge-primary">${major.directions?size}</span></h3>
+        <h3 class="card-title">专业方向<span class="badge badge-primary">${actives?size}</span></h3>
       </div>
         <table class="table table-hover table-sm table-striped" style="text-align:center">
           <thead>
@@ -72,7 +76,7 @@
              <th style="background-color:#F5EDDB" width="15%">有效期</th>
             </tr>
           </thead>
-          [#list major.directions?sort_by("code") as d]
+          [#list actives?sort_by("code") as d]
           <tr>
             <td>${d.code}</td>
             <td>${d.name}</td>
