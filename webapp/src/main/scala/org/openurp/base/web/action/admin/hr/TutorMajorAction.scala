@@ -18,12 +18,13 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.commons.activation.MediaTypes
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
-import org.beangle.webmvc.support.action.{ImportSupport, RestfulAction}
+import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport, RestfulAction}
 import org.openurp.base.edu.model.{Direction, Major}
 import org.openurp.base.hr.model.TutorMajor
 import org.openurp.base.model.Project
@@ -33,7 +34,7 @@ import org.openurp.starter.web.support.ProjectSupport
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 
-class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, ImportSupport[TutorMajor] {
+class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, ImportSupport[TutorMajor], ExportSupport[TutorMajor] {
 
   override protected def indexSetting(): Unit = {
     given project: Project = getProject
@@ -42,21 +43,28 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
     super.indexSetting()
   }
 
-  override protected def editSetting(entity: TutorMajor): Unit = {
+  override protected def editSetting(tm: TutorMajor): Unit = {
     given project: Project = getProject
 
     put("majors", findInProject(classOf[Major]))
-    put("directions", findInProject(classOf[Direction]))
+
+    val q = OqlBuilder.from(classOf[Direction], "d")
+    q.where("d.project=:project", getProject)
+    if (tm.persisted) {
+      if (null != tm.major && tm.major.persisted) q.where("d.major=:major", tm.major)
+    }
+    q.where("d.endOn is null")
+    put("directions", entityDao.search(q))
     put("project", project)
-    super.editSetting(entity)
+    super.editSetting(tm)
   }
 
-  override protected def saveAndRedirect(entity: TutorMajor): View = {
+  override protected def saveAndRedirect(tm: TutorMajor): View = {
     val directionIds = getAll("direction.id", classOf[Long])
     val newDirections = entityDao.find(classOf[Direction], directionIds)
-    entity.directions.clear()
-    entity.directions.addAll(newDirections)
-    super.saveAndRedirect(entity)
+    tm.directions.clear()
+    tm.directions.addAll(newDirections)
+    super.saveAndRedirect(tm)
   }
 
 
