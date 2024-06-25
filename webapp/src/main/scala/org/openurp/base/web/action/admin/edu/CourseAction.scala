@@ -164,7 +164,6 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
           if (week.isEmpty && creditHour.isEmpty) {
             course.hours -= hour
           } else {
-            hour.weeks = week.getOrElse(0)
             hour.creditHours = creditHour.getOrElse(0)
           }
         case None =>
@@ -172,7 +171,6 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
             val newHour = new CourseHour()
             newHour.course = course
             newHour.nature = ht
-            newHour.weeks = week.getOrElse(0)
             newHour.creditHours = creditHour.getOrElse(0)
             course.hours += newHour
           }
