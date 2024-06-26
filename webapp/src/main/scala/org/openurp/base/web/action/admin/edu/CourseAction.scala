@@ -24,6 +24,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
@@ -39,6 +40,8 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.{Instant, LocalDate}
 
 class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], ImportSupport[Course] {
+  var databus: DataEventBus = _
+
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
 
@@ -150,9 +153,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "课程模板.xlsx")
   }
 
-  protected override def saveAndRedirect(entity: Course): View = {
-    val course = entity
-
+  protected override def saveAndRedirect(course: Course): View = {
     given project: Project = getProject
 
     val teachingNatures = getCodes(classOf[TeachingNature])
@@ -193,7 +194,9 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
       courseLevel.credits = getFloat(s"level${l.id}.credits")
     }
 
-    super.saveAndRedirect(entity)
+    entityDao.saveOrUpdate(course)
+    databus.publish(DataEvent.update(course))
+    super.saveAndRedirect(course)
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

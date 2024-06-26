@@ -19,6 +19,7 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
@@ -30,6 +31,8 @@ import java.time.LocalDate
  * @author xinzhou
  */
 class MajorDisciplineAction extends RestfulAction[MajorDiscipline] {
+
+  var databus: DataEventBus = _
 
   override def editSetting(discipline: MajorDiscipline): Unit = {
     put("majors", findItems(classOf[Major]))
@@ -44,9 +47,10 @@ class MajorDisciplineAction extends RestfulAction[MajorDiscipline] {
     items
   }
 
-  override protected def saveAndRedirect(entity: MajorDiscipline): View = {
-    val view = super.saveAndRedirect(entity)
+  override protected def saveAndRedirect(md: MajorDiscipline): View = {
+    val view = super.saveAndRedirect(md)
     entityDao.evict(classOf[Major])
+    databus.publish(DataEvent.update(md))
     view
   }
 
@@ -54,6 +58,7 @@ class MajorDisciplineAction extends RestfulAction[MajorDiscipline] {
     val majors = entities.map(_.major).toSet
     val view = super.removeAndRedirect(entities)
     entityDao.evict(classOf[Major])
+    databus.publish(DataEvent.remove(entities))
     view
   }
 }

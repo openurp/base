@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Major, MajorJournal}
@@ -29,6 +30,8 @@ import org.openurp.starter.web.support.ProjectSupport
 import java.time.LocalDate
 
 class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport {
+
+  var databus: DataEventBus = _
 
   override def search(): View = {
     val journals = entityDao.search(getQueryBuilder)
@@ -55,21 +58,24 @@ class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport
     super.editSetting(journal)
   }
 
-  override protected def saveAndRedirect(entity: MajorJournal): View = {
-    val view = super.saveAndRedirect(entity)
-    entityDao.refresh(entity)
-    entityDao.refresh(entity.major)
-    if (entity.major.journals.nonEmpty) {
-      entity.major.beginOn = entity.major.journals.map(_.beginOn).min
+  override protected def saveAndRedirect(mj: MajorJournal): View = {
+    val view = super.saveAndRedirect(mj)
+    entityDao.refresh(mj)
+    entityDao.refresh(mj.major)
+    if (mj.major.journals.nonEmpty) {
+      mj.major.beginOn = mj.major.journals.map(_.beginOn).min
     }
-    entityDao.saveOrUpdate(entity.major)
+    entityDao.saveOrUpdate(mj.major)
     entityDao.evict(classOf[Major])
+    databus.publish(DataEvent.update(mj))
+    databus.publish(DataEvent.update(mj.major))
     view
   }
 
   override protected def removeAndRedirect(entities: Seq[MajorJournal]): View = {
     val view = super.removeAndRedirect(entities)
     entityDao.evict(classOf[Major])
+    databus.publish(DataEvent.remove(entities))
     view
   }
 }

@@ -22,6 +22,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.ImportSupport
@@ -36,6 +37,8 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
 
 class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Direction] {
+
+  var databus: DataEventBus = _
 
   override def indexSetting() = {
     given project: Project = getProject
@@ -83,7 +86,13 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
     }
     val view = super.saveAndRedirect(entity)
     entityDao.evict(classOf[Direction])
+    databus.publish(DataEvent.update(entity))
     view
+  }
+
+  override protected def removeAndRedirect(entities: Seq[Direction]): View = {
+    databus.publish(DataEvent.remove(entities))
+    super.removeAndRedirect(entities)
   }
 
   @response

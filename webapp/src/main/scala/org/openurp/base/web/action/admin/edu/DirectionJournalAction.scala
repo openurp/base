@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Direction, DirectionJournal}
@@ -29,6 +30,9 @@ import org.openurp.starter.web.support.ProjectSupport
 import java.time.LocalDate
 
 class DirectionJournalAction extends RestfulAction[DirectionJournal] with ProjectSupport {
+
+  var databus: DataEventBus = _
+
   override def editSetting(journal: DirectionJournal) = {
     given project: Project = getProject
 
@@ -60,12 +64,14 @@ class DirectionJournalAction extends RestfulAction[DirectionJournal] with Projec
     val direction = entityDao.get(classOf[Direction], dj.direction.id)
     direction.beginOn = direction.journals.map(_.beginOn).min
     entityDao.saveOrUpdate(direction)
+    databus.publish(DataEvent.update(dj))
     view
   }
 
   override protected def removeAndRedirect(entities: Seq[DirectionJournal]): View = {
     val view = super.removeAndRedirect(entities)
     entityDao.evict(classOf[Direction])
+    databus.publish(DataEvent.remove(entities))
     view
   }
 }

@@ -67,7 +67,6 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
     super.saveAndRedirect(tm)
   }
 
-
   @response
   def downloadTemplate(): Any = {
     given project: Project = getProject

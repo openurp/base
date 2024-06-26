@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.ExportSupport
 import org.beangle.webmvc.support.helper.QueryHelper
@@ -29,6 +30,8 @@ import org.openurp.code.edu.model.EducationLevel
 import java.time.LocalDate
 
 class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
+
+  var databus: DataEventBus = _
 
   override def getQueryBuilder: OqlBuilder[Major] = {
     val query = super.getQueryBuilder
@@ -45,7 +48,13 @@ class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
   override def saveAndRedirect(entity: Major): View = {
     val view = super.saveAndRedirect(entity)
     entityDao.evict(classOf[Major])
+    databus.publish(DataEvent.update(entity))
     view
+  }
+
+  override protected def removeAndRedirect(majors: Seq[Major]): View = {
+    databus.publish(DataEvent.remove(majors))
+    super.removeAndRedirect(majors)
   }
 
   override def editSetting(major: Major) = {
