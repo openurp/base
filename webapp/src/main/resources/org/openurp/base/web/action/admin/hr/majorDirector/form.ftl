@@ -1,0 +1,16 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="修改专业负责人信息"]bar.addBack();[/@]
+  [@b.form action=b.rest.save(director) theme="list"]
+    [@base.teacher name="director.director.id" label="负责人" value=director.director! required="true"/]
+    [@b.select name="director.major.id" label="专业" value=director.major! required="true" style="width:400px;"
+               items=majors empty="..." option=r"${item.code} ${item.name}"/]
+    [@b.select name="director.direction.id" label="专业方向" value=director.direction! required="false" style="width:400px;"
+               items=directions empty="..." option=r"${item.code} ${item.name}" comment="无方向或者负责对应专业所有方向时，可不填"/]
+    [@b.startend label="有效期" name="director.beginOn,director.endOn" required="true,false" start=director.beginOn end=director.endOn format="date"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
+    [/@]
+  [/@]
+  [#list 1..10 as i]<br>[/#list]
+[@b.foot/]

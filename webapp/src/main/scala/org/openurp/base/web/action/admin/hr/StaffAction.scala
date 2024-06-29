@@ -36,7 +36,7 @@ import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{StaffImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
 import org.openurp.code.hr.model.{StaffType, WorkStatus}
-import org.openurp.code.job.model.ProfessionalTitle
+import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
 import org.openurp.code.person.model.{Gender, IdType, Nation, PoliticalStatus}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
@@ -76,6 +76,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("degrees", codeService.get(classOf[Degree]))
     put("educationDegrees", codeService.get(classOf[EducationDegree]))
     put("degreeLevels", codeService.get(classOf[DegreeLevel]))
+    put("tutorTypes", codeService.get(classOf[TutorType]))
 
     put("extraRequired", Strings.split(getConfig(Hr.StaffExtraRequiredProperties).asInstanceOf[String]).toSet)
     if !staff.persisted then staff.beginOn = LocalDate.now

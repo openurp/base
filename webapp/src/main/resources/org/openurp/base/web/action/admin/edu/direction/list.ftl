@@ -11,7 +11,7 @@
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"]${direction.code}[/@]
     [@b.col width="20%" property="name" title="名称"][@b.a href="!info?id=${direction.id}"]${direction.name}[/@][/@]
-    [@b.col width="30%" property="enName" title="英文名"]${direction.engName!}[/@]
+    [@b.col width="30%" property="enName" title="英文名"]${direction.enName!}[/@]
     [@b.col width="15%" property="major" title="专业"]${direction.major.name!}[/@]
     [@b.col title="院系"]
     [#assign departs = [] /]

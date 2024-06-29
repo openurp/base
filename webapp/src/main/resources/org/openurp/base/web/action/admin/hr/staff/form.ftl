@@ -19,6 +19,9 @@
     [@b.select name="staff.degreeLevel.id" label="学位水平" value=staff.degreeLevel! required=extraRequired?seq_contains("degreeLevel")?c items=degreeLevels/]
     [@b.select name="staff.degree.id" label="学位" value=staff.degree! required="false" items=degrees/]
     [@b.textfield name="staff.degreeAwardBy" label="学位授予单位" value=staff.degreeAwardBy! required="false" maxlength="100" style="width:300px"/]
+    [#if tutorTypes?size>0]
+    [@b.select name="staff.tutorType.id" label="导师类型" value=staff.tutorType! required="false" items=tutorTypes/]
+    [/#if]
 
     [@b.radios label="是否在编"  name="staff.formalHr" value=staff.formalHr items="1:common.yes,0:common.no" required="true"/]
     [@b.radios label="是否外聘"  name="staff.external" value=staff.external items="1:common.yes,0:common.no" required="true"/]

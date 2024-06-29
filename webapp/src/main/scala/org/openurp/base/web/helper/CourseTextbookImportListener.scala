@@ -30,7 +30,9 @@ class CourseTextbookImportListener(entityDao: EntityDao, project: Project) exten
     transfer.curData.get("courseTextbook.textbook.isbn") foreach { isbn =>
       entityDao.findBy(classOf[Textbook], "isbn", isbn).headOption match
         case None => tr.addFailure("没有对应ISBN的教材", isbn)
-        case Some(t) => transfer.current.asInstanceOf[CourseTextbook].textbook = t
+        case Some(t) =>
+          transfer.curData.put("courseTextbook.textbook", t)
+          transfer.curData.remove("courseTextbook.textbook.isbn")
     }
     super.onItemStart(tr)
   }
@@ -40,6 +42,8 @@ class CourseTextbookImportListener(entityDao: EntityDao, project: Project) exten
     if (null != cb.course && null != cb.textbook && cb.textbook.persisted) {
       if null == cb.beginOn then cb.beginOn = LocalDate.now
       entityDao.saveOrUpdate(cb)
+    } else {
+      if (null == cb.course) tr.addFailure("没有对应的课程", transfer.curData.get("courseTextbook.course.code"))
     }
   }
 }
