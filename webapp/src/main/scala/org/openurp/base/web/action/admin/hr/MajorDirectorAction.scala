@@ -24,6 +24,8 @@ import org.openurp.base.edu.model.{Direction, Major, MajorDirector}
 import org.openurp.base.model.Project
 import org.openurp.starter.web.support.ProjectSupport
 
+import java.time.LocalDate
+
 /** 专业负责人维护
  */
 class MajorDirectorAction extends RestfulAction[MajorDirector], ProjectSupport {
@@ -39,8 +41,10 @@ class MajorDirectorAction extends RestfulAction[MajorDirector], ProjectSupport {
     given project: Project = getProject
 
     put("project", project)
+    put("levels", project.levels)
     put("majors", findInProject(classOf[Major]))
     put("directions", findInProject(classOf[Direction]))
+    if (null == md.beginOn) md.beginOn = LocalDate.now.minusDays(1)
     super.editSetting(md)
   }
 
