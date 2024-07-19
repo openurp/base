@@ -19,7 +19,6 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.activation.MediaTypes
 import org.beangle.commons.collection.Order
-import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
@@ -46,7 +45,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     given project: Project = getProject
 
     put("courseTypes", getCodes(classOf[CourseType]))
-    put("courseCategories", getCodes(classOf[CourseCategory]))
+    put("categories", getCodes(classOf[CourseCategory]))
     val departments = findInSchool(classOf[Department])
     put("departments", departments)
     put("courseNatures", getCodes(classOf[CourseNature]))
@@ -58,7 +57,9 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     put("courseTypes", getCodes(classOf[CourseType]))
     put("examModes", getCodes(classOf[ExamMode]))
     put("gradingModes", getCodes(classOf[GradingMode]))
-    put("courseCategories", getCodes(classOf[CourseCategory]))
+    val categories = getCodes(classOf[CourseCategory])
+    put("categories", categories.groupBy(_.dimension))
+
     put("departments", findInSchool(classOf[Department]))
 
     val levels = project.levels
@@ -80,6 +81,8 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     put("levels", project.levels)
     put("levelCreditSupported", getConfig(Features.Edu.CourseLevelCreditSupported))
     put("hoursPerCredit", getConfig(Features.Edu.CourseHoursPerCredit))
+
+    put("courseCategories", c.categories.map(x => (x.dimension, x)).toMap)
     put("project", project)
     super.editSetting(c)
   }
@@ -113,6 +116,9 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
         builder.where("course.beginOn between :beginOn and :endOn", beginOn, endOn)
       })
     })
+    getInt("category.id") foreach { categoryId =>
+      builder.where("exists(from course.categories as cg where cg.id=:categoryId)", categoryId)
+    }
     populateConditions(builder)
     builder.where(simpleEntityName + ".project = :project", getProject)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
@@ -126,7 +132,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     val examModes = codeService.get(classOf[ExamMode]).map(x => x.code + " " + x.name)
     val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.name")).map(x => x.code + " " + x.name)
     val natures = codeService.get(classOf[CourseNature]).map(x => x.code + " " + x.name)
-    val categories = codeService.get(classOf[CourseCategory]).map(x => x.code + " " + x.name)
+    //val categories = codeService.get(classOf[CourseCategory]).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -142,7 +148,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     sheet.add("周课时", "course.weekHours").required().decimal()
     sheet.add("考核方式名称", "course.examMode.code").ref(examModes).required()
     sheet.add("课程性质", "course.nature.code").ref(natures).required()
-    sheet.add("评教分类", "course.category.code").ref(categories)
+    //sheet.add("评教分类", "course.category.code").ref(categories)
     sheet.add("是否设置补考", "course.hasMakeup").bool()
     sheet.add("是否计算绩点", "course.calgp").bool()
     sheet.add("设立日期", "course.beginOn").date().required()
@@ -193,6 +199,10 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
       }
       courseLevel.credits = getFloat(s"level${l.id}.credits")
     }
+
+    val categoryIds = getAll("category.id", classOf[Int])
+    course.categories.clear()
+    course.categories.addAll(entityDao.find(classOf[CourseCategory], categoryIds))
 
     entityDao.saveOrUpdate(course)
     databus.publish(DataEvent.update(course))

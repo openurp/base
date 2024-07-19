@@ -50,6 +50,10 @@ class CodeAction extends AbstractCodeAction {
   def editCourseType(): Unit = {
     put("parents", entityDao.getAll(classOf[CourseType]))
   }
+
+  def editCourseCategory(): Unit = {
+    put("dimensions", entityDao.getAll(classOf[CourseCategoryDimension]))
+  }
 }
 
 class CodeIndexAction extends ActionSupport {

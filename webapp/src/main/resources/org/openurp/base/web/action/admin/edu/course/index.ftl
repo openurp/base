@@ -12,7 +12,9 @@
         [@b.textfields names="course.name;名称"/]
         [@base.code type="course-types" name="course.courseType.id" label="课程类别" empty="..." /]
         [@base.code type="course-natures" name="course.nature.id" label="课程性质" empty="..." /]
-        [@base.code type="course-categories" name="course.category.id" label="课程分类" empty="..." /]
+        [#if categories?size>0]
+        [@b.select name="category.id" label="课程分类" items=categories empty="..." /]
+        [/#if]
         [@b.select name="course.department.id" label="所属院系" items=departments option="id,name" empty="..." /]
         [@b.select name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." value="1" /]
         <input type="hidden" name="orderBy" value="course.code"/>

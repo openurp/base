@@ -19,7 +19,9 @@
     [/@]
     [@b.radios name="course.nature.id" label="课程性质" value=course.nature! items=courseNatures required="true"/]
     [@b.select name="course.courseType.id" label="课程类别" value=course.courseType! items=courseTypes empty="..." required="true"/]
-    [@b.select name="course.category.id" label="评教分类" value=course.category! items=courseCategories empty="..." required="false"/]
+    [#list categories?keys as dimension]
+    [@b.select name="category.id" label=dimension.name items=categories.get(dimension) value=courseCategories.get(dimension)! empty="..." required="false"/]
+    [/#list]
     [@b.select name="course.department.id" label="院系" value=course.department! required="true"
                style="width:200px;" items=departments option="id,name" empty="..."/]
     [@b.textfield name="course.defaultCredits" label="学分" onchange="autoCalcHours(this)" value=course.defaultCredits! required="true" maxlength="20"/]
