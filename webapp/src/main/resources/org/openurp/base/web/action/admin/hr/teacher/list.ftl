@@ -23,7 +23,7 @@
     [@b.col property="department.name" title="院系"]${(teacher.department.name)!}[/@]
     [@b.col width="8%" property="staff.staffType.name" title="类别"]${(teacher.staff.staffType.name)!}[/@]
     [@b.col width="8%" property="staff.title.name" title="职称"]${(teacher.staff.title.name)!}[/@]
-    [@b.col width="9%" property="staff.degree.name" title="学位"/]
+    [@b.col width="12%" property="staff.degree.name" title="学位"/]
     [@b.col width="6%" property="staff.external" title="是否外聘"]${teacher.staff.external?string('是','否')!}[/@]
     [@b.col width="6%" property="staff.parttime" title="是否兼职"]${teacher.staff.parttime?string('是','否')!}[/@]
     [@b.col width="10%" property="beginOn" title="任教起始"]${teacher.beginOn?string('yyyy-MM')}~${(teacher.endOn?string('yyyy-MM'))!'至今'}[/@]
