@@ -11,6 +11,8 @@
       name="code.beginOn,code.endOn" required="true,false"
       start=code.beginOn end=code.endOn format="date"/]
     [@b.textfield name="code.remark" label="备注" value="${code.remark!}" maxlength="3"/]
+    [@b.select name="code.module.id" label="模块" items=modules value=code.module! empty="..."/]
+    [@b.select name="code.rank.id" label="课程属性" items=ranks value=code.rank! empty="..."/]
     [@b.radios label="是否实践课"  name="code.practical" value=code.practical items="1:common.yes,0:common.no"/]
     [@b.radios label="是否专业课"  name="code.major" value=code.major items="1:common.yes,0:common.no"/]
     [@b.radios label="是否选修课"  name="code.optional" value=code.optional items="1:common.yes,0:common.no"/]

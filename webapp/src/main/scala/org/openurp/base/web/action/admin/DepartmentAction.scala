@@ -29,13 +29,6 @@ import org.openurp.code.hr.model.DepartmentCategory
 
 import java.time.LocalDate
 
-class SchoolAction extends RestfulAction[School] {
-  override def editSetting(entity: School): Unit = {
-    super.editSetting(entity)
-    put("institutions", entityDao.getAll(classOf[Institution]))
-  }
-}
-
 class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
   override protected def indexSetting(): Unit = {
     put("categories", entityDao.getAll(classOf[DepartmentCategory]))

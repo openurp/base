@@ -4,13 +4,14 @@
   [@b.gridbar]
     bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
-    bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
   [/@]
   [@b.row]
     [@b.boxcol /]
-    [@b.col width="20%" property="code" title="代码"]${school.code}[/@]
-    [@b.col width="40%" property="name" title="名称"][@b.a href="!info?id=${school.id}"]${school.name}[/@][/@]
-    [@b.col width="30%" property="institution" title="科研机构"]${school.institution.name!}[/@]
+    [@b.col width="10%" property="code" title="代码"]${school.code}[/@]
+    [@b.col property="name" title="名称"]${school.name}[/@]
+    [@b.col width="15%" property="category.name" title="办学类型"/]
+    [@b.col width="15%" property="division.name" title="所在地区"/]
+    [@b.col width="15%" property="superiorOrg" title="上级部门"/]
   [/@]
 [/@]
 [@b.foot/]

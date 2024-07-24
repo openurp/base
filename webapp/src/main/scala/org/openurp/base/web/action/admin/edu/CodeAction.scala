@@ -49,6 +49,8 @@ class CodeAction extends AbstractCodeAction {
 
   def editCourseType(): Unit = {
     put("parents", entityDao.getAll(classOf[CourseType]))
+    put("modules", entityDao.getAll(classOf[CourseModule]))
+    put("ranks", entityDao.getAll(classOf[CourseRank]))
   }
 
   def editCourseCategory(): Unit = {
