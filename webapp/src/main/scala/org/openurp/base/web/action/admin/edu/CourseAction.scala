@@ -64,6 +64,8 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
     val levels = project.levels
     put("courseNatures", getCodes(classOf[CourseNature]))
+    put("courseModules", getCodes(classOf[CourseModule]))
+    put("courseRanks", getCodes(classOf[CourseRank]))
     put("teachingNatures", getCodes(classOf[TeachingNature]))
     if (!c.persisted) {
       c.project = project
