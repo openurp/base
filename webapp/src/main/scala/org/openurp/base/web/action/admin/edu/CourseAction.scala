@@ -28,7 +28,7 @@ import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.model.{Course, CourseHour, CourseLevel}
+import org.openurp.base.edu.model.{Course, CourseHour, CourseJournal, CourseLevel}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.service.Features
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -134,7 +134,6 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     val examModes = codeService.get(classOf[ExamMode]).map(x => x.code + " " + x.name)
     val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.name")).map(x => x.code + " " + x.name)
     val natures = codeService.get(classOf[CourseNature]).map(x => x.code + " " + x.name)
-    //val categories = codeService.get(classOf[CourseCategory]).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -148,6 +147,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     sheet.add("学分", "course.defaultCredits").required().decimal()
     sheet.add("总课时", "course.creditHours").required().decimal()
     sheet.add("周课时", "course.weekHours").required().decimal()
+    sheet.add("实践周数", "course.weeks").decimal()
     sheet.add("考核方式名称", "course.examMode.code").ref(examModes).required()
     sheet.add("课程性质", "course.nature.code").ref(natures).required()
     //sheet.add("评教分类", "course.category.code").ref(categories)
@@ -208,6 +208,10 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
     entityDao.saveOrUpdate(course)
     databus.publish(DataEvent.update(course))
+    if (course.journals.isEmpty) {
+      course.journals += new CourseJournal(course,course.beginOn)
+      entityDao.saveOrUpdate(course)
+    }
     super.saveAndRedirect(course)
   }
 

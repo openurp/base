@@ -9,7 +9,7 @@
   [@b.row]
     [@b.boxcol /]
     [@b.col property="name" title="名称"]${journal.name}[/@]
-    [@b.col property="enName" title="英文称"]${journal.enName}[/@]
+    [@b.col property="enName" title="英文称"]${journal.enName!}[/@]
     [@b.col width="8%" property="department.name" title="开课院系"]
       ${journal.department.shortName!journal.department.name}
     [/@]
