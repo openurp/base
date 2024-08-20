@@ -77,18 +77,18 @@
 [@panel title="职称学历信息"]
   <table class="infoTable">
     <tr>
-      <td class="title" width="120px">职称：</td>
-      <td width="20%">${(staff.title.name)!}</td>
-      <td class="title" width="120px">学历：</td>
+      <td class="title" width="120px">最高学历：</td>
       <td width="20%">${(staff.educationDegree.name)!}</td>
-      <td class="title" width="120px">学位：</td>
+      <td class="title" width="120px">最高学位：</td>
       <td width="20%">${(staff.degree.name)!}</td>
+      <td class="title" width="120px">学位层次：</td>
+      <td width="20%">${(staff.degreeLevel.name)!}</td>
     </tr>
     <tr>
-      <td class="title">学位层次：</td>
-      <td>${(staff.degreeLevel.name)!}</td>
+      <td class="title">职称：</td>
+      <td colspan="3">${(staff.title.name)!} <span class="text-muted">[#list staffTitles as t](${t.beginOn}~${t.endOn!})${t.title.name}[#sep],[/#list]</span></td>
       <td class="title">学位授予单位：</td>
-      <td colspan="3">${(staff.degreeAwardBy)!}</td>
+      <td>${(staff.degreeAwardBy)!}</td>
     </tr>
   </table>
 [/@]
