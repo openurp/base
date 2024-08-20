@@ -21,7 +21,7 @@ import org.beangle.commons.bean.Initializing
 import org.beangle.commons.logging.Logging
 import org.beangle.data.orm.hibernate.DaoJob
 import org.beangle.ems.app.Ems
-import org.beangle.ems.app.datasource.AppDataSourceFactory
+import org.beangle.ems.app.dao.AppDataSourceFactory
 import org.openurp.base.hr.service.impl.StaffServiceImpl
 
 class StaffAccountUpdater extends DaoJob, Logging, Initializing {
