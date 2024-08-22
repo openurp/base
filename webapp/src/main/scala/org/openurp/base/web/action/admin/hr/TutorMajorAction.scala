@@ -27,9 +27,11 @@ import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport, RestfulAction}
 import org.openurp.base.edu.model.{Direction, Major}
 import org.openurp.base.hr.model.TutorMajor
-import org.openurp.base.model.Project
+import org.openurp.base.model.{Department, Project}
 import org.openurp.base.web.helper.TutorMajorImportListener
 import org.openurp.code.edu.model.{EducationLevel, EducationType}
+import org.openurp.code.hr.model.WorkStatus
+import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
@@ -40,6 +42,9 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
     given project: Project = getProject
 
     put("majors", findInProject(classOf[Major]))
+    put("tutorTypes", codeService.get(classOf[TutorType]))
+    put("departments", findInSchool(classOf[Department]))
+    put("titles", codeService.get(classOf[ProfessionalTitle]))
     super.indexSetting()
   }
 

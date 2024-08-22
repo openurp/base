@@ -41,6 +41,7 @@ class TeacherImportListener(entityDao: EntityDao, project: Project) extends Impo
       val staff = teacher.staff
       teacher.name = staff.name
 
+      if (null == teacher.department) teacher.department = staff.department
       if (!teacher.persisted) teacher.id = staff.id
       if (null == teacher.beginOn) teacher.beginOn = staff.beginOn
       teacher.projects += project

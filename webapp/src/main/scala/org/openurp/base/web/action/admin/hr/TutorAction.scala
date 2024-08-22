@@ -78,6 +78,10 @@ class TutorAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     redirect("search", "info.save.success")
   }
 
+  /** 消除导师属性
+   * @param entities
+   * @return
+   */
   override protected def removeAndRedirect(entities: Seq[Staff]): View = {
     entities foreach { s => s.tutorType = None }
     entityDao.saveOrUpdate(entities)
