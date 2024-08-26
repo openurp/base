@@ -26,8 +26,20 @@ class StaffTag(context: ComponentContext) extends Select(context) {
 
   var project: Project = _
 
+  var teacher: String = _
+
+  var tutor: String = _
+
   override def evaluateParams(): Unit = {
-    if (null == this.href) this.href = Ems.api + "/base/hr/staffs.json?q={term}"
+    if (null == this.href) {
+      this.href = Ems.api + "/base/hr/staffs.json?q={term}"
+      if (tutor != null) {
+        this.href += "&isTutor=" + (if (tutor == "true") then "1" else "0")
+      }
+      if (teacher != null) {
+        this.href += "&isTeacher=" + (if (teacher == "true") then "1" else "0")
+      }
+    }
     if (null == this.option) this.option = "id,description"
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     super.evaluateParams()

@@ -3,7 +3,6 @@
 [@b.grid items=staffs var="staff"]
   [@b.gridbar]
     function activateUser(isActivate){return action.multi("activate","确定提交?","isActivate="+isActivate);}
-    bar.addItem("${b.text("action.new")}",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("导入",action.method('importForm'));

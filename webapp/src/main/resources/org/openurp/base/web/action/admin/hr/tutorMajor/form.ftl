@@ -7,7 +7,7 @@
 </style>
 [@b.toolbar title="修改研究领域"]bar.addBack();[/@]
   [@b.form action=b.rest.save(tutorMajor) theme="list"]
-    [@base.staff label="导师" name="tutorMajor.staff.id" value=tutorMajor.staff! required="true"/]
+    [@base.staff label="导师" name="tutorMajor.staff.id" tutor="true" value=tutorMajor.staff! required="true"/]
     [@base.code type="education-types" label="培养类型" name="tutorMajor.eduType.id" value=tutorMajor.eduType! empty="..." required="true" /]
     [@base.code type="education-levels" label="培养层次" name="tutorMajor.level.id" value=tutorMajor.level! empty="..." required="true" /]
     [@b.select label="专业" name="tutorMajor.major.id" value=tutorMajor.major! items=majors empty="..." required="true" /]

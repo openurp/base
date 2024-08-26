@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.commons.activation.MediaTypes
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
@@ -30,7 +31,6 @@ import org.openurp.base.hr.model.TutorMajor
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.web.helper.TutorMajorImportListener
 import org.openurp.code.edu.model.{EducationLevel, EducationType}
-import org.openurp.code.hr.model.WorkStatus
 import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
 import org.openurp.starter.web.support.ProjectSupport
 
@@ -70,6 +70,15 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
     tm.directions.clear()
     tm.directions.addAll(newDirections)
     super.saveAndRedirect(tm)
+  }
+
+  override protected def getQueryBuilder: OqlBuilder[TutorMajor] = {
+    val query = super.getQueryBuilder
+    val directionName = get("direction.name", "")
+    if (Strings.isNotBlank(directionName)) {
+      query.where("exists(from tutorMajor.directions d where d.name like :directionName)", "%" + directionName + "%")
+    }
+    query
   }
 
   @response

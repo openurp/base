@@ -141,6 +141,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     val idTypes = getCodes(classOf[IdType]).map(x => x.code + " " + x.name)
     val workStatuses = getCodes(classOf[WorkStatus]).map(x => x.code + " " + x.name)
     val titles = getCodes(classOf[ProfessionalTitle]).map(x => x.code + " " + x.name)
+    val tutorTypes = getCodes(classOf[TutorType]).map(x => x.code + " " + x.name)
     val nations = getCodes(classOf[Nation]).map(x => x.code + " " + x.name)
     val politicalStatuses = getCodes(classOf[PoliticalStatus]).map(x => x.code + " " + x.name)
     val degrees = codeService.get(classOf[Degree]).map(x => x.code + " " + x.name)
@@ -161,6 +162,9 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     sheet.add("民族", "staff.nation.code").ref(nations)
     sheet.add("政治面貌", "staff.politicalStatus.code").ref(politicalStatuses)
     sheet.add("教职工类别", "staff.staffType.code").ref(staffTypes).required()
+    if (tutorTypes.size > 0) {
+      sheet.add("导师类别", "staff.tutorType.code").ref(tutorTypes)
+    }
     sheet.add("所在部门", "staff.department.code").ref(departs).required()
     sheet.add("职称", "staff.title.code").ref(titles)
     sheet.add("学历", "staff.educationDegree.code").ref(educationDegrees)

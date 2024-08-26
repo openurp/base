@@ -47,7 +47,7 @@ class StaffWS extends ActionSupport with EntityAction[User] {
       query.where((if (isTeacher) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.staff=staff)")
     }
     getBoolean("isTutor") foreach { isTutor =>
-      query.where((if (isTutor) "" else "not ") + " exists(from " + classOf[Teacher].getName + "  t  where t.staff=staff and t.tutorType is not null)")
+      query.where(if isTutor then "staff.tutorType is not null" else "staff.tutorType is null")
     }
     val orderStr = get(Order.OrderStr).getOrElse("staff.name")
     query.orderBy(orderStr)

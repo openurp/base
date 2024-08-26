@@ -116,6 +116,7 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
       if (last.enName.nonEmpty) {
         course.enName = last.enName
       }
+      course.creditHours = last.creditHours
       course.name = last.name
       entityDao.saveOrUpdate(course)
       databus.publish(DataEvent.update(course))
