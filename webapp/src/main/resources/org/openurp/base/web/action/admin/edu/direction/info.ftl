@@ -4,9 +4,9 @@
   bar.addBack("${b.text("action.back")}");
 [/@]
 <div style="margin:0px 20px">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">基本信息</h3>
+  <div class="card card-info card-outline">
+    <div class="card-header">
+      <h5 class="card-title">基本信息</h5>
     </div>
     <table class="infoTable">
       <tr>
@@ -33,9 +33,9 @@
       </tr>
     </table>
   </div>
-  <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">所属院系</h3>
+  <div class="card card-info card-outline">
+      <div class="card-header">
+        <h5 class="card-title">所属院系</h5>
       </div>
       <table class="infoTable" style="text-align:center">
         <tr>
