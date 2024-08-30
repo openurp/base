@@ -203,7 +203,6 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     sheet.add("专业方向代码", "squad.direction.code").ref(directions)
     sheet.add("计划人数", "squad.planCount").required().decimal()
     sheet.add("辅导员工号", "squad.mentor.code")
-    sheet.add("班导师工号", "squad.tutor.code")
     sheet.add("班主任工号", "squad.master.code")
     sheet.add("校区代码", "squad.campus.code").ref(campuses)
     sheet.add("生效日期", "squad.beginOn").date().required()
