@@ -41,7 +41,6 @@
          [#list teachingNatures as ht]
           <label for="teachingNature${ht.id}_p">${ht_index+1}.${ht.name}</label>
           <input name="creditHour${ht.id}" style="width:30px" id="teachingNature${ht.id}_p" value="${(hours[ht.id?string].creditHours)!}">课时
-          <input name="week${ht.id}" style="width:30px" id="teachingNature${ht.id}_w" value="${(hours[ht.id?string].weeks)!}">周
          [/#list]
       [/@]
       [/#if]

@@ -167,16 +167,15 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     val teachingNatures = getCodes(classOf[TeachingNature])
     teachingNatures foreach { ht =>
       val creditHour = getInt("creditHour" + ht.id)
-      val week = getInt("week" + ht.id)
       course.hours find (h => h.nature == ht) match {
         case Some(hour) =>
-          if (week.isEmpty && creditHour.isEmpty) {
+          if ( creditHour.isEmpty) {
             course.hours -= hour
           } else {
             hour.creditHours = creditHour.getOrElse(0)
           }
         case None =>
-          if (!(week.isEmpty && creditHour.isEmpty)) {
+          if (creditHour.nonEmpty) {
             val newHour = new CourseHour()
             newHour.course = course
             newHour.nature = ht
