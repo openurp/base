@@ -57,7 +57,6 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
     }
   }
 
-
   override def getQueryBuilder: OqlBuilder[CourseJournal] = {
     given project: Project = getProject
 
@@ -66,7 +65,6 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
     queryByDepart(query, "journal.department")
     query
   }
-
 
   override protected def saveAndRedirect(journal: CourseJournal): View = {
     given project: Project = getProject

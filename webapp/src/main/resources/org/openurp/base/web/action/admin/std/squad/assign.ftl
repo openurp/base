@@ -50,7 +50,6 @@
     <td class="title">管理人员:</td>
     <td>
       [#if squad.mentor??]辅导员:${squad.mentor.name}(${squad.mentor.code})[/#if]
-      [#if squad.tutor??]班导师:${squad.tutor.name}(${squad.tutor.code})[/#if]
       [#if squad.master??]班主任:${squad.master.name}(${squad.master.code})[/#if]
     </td>
     <td class="title">生效日期:</td>

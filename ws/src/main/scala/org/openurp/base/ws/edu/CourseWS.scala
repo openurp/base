@@ -26,6 +26,8 @@ import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.Course
 
+import java.time.LocalDate
+
 class CourseWS extends ActionSupport with EntityAction[Course] {
   var entityDao: EntityDao = _
 
@@ -39,8 +41,11 @@ class CourseWS extends ActionSupport with EntityAction[Course] {
       val c = s"%${q}%"
       query.where("course.name like :c or course.code like :c", c)
     }
+    val date = getDate("activeOn").getOrElse(LocalDate.now)
+    query.where("course.beginOn <= :date and (course.endOn is null or course.endOn >= :date)", date)
+
     val courses = entityDao.search(query)
     val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(courses, "id", "code", "name", "enName","description")
+    context.mkJson(courses, "id", "code", "name", "enName", "description")
   }
 }

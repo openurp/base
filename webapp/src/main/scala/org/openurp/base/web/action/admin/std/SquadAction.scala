@@ -59,7 +59,6 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
       if (Strings.isNotEmpty(name)) {
         val nameParam = "%" + name + "%"
         query.where("exists(from squad.mentor m where m.name like :name)" +
-          "or exists(from squad.tutor m where m.name like :name)" +
           "or exists(from squad.master m where m.name like :name)", nameParam)
       }
     }

@@ -22,7 +22,7 @@
 <h6 class="panel-header"><span class="panel_title">${title}</span></h6>
   [#nested/]
 [/#macro]
-<div class="container-fluid text-sm">
+<div class="container-fluid">
 
 [@panel title="基本信息"]
   <table class="infoTable">
