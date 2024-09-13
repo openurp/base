@@ -25,6 +25,7 @@ import org.beangle.commons.text.i18n.Messages
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.model.meta.EntityType
 import org.beangle.data.orm.{OrmEntityType, OrmStructType}
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.annotation.{mapping, param}
 import org.beangle.web.action.context.ActionContext
 import org.beangle.web.action.support.ActionSupport
@@ -41,6 +42,8 @@ import java.util.Locale
 abstract class AbstractCodeAction extends ActionSupport {
 
   var entityDao: EntityDao = _
+
+  var databus: DataEventBus = _
 
   var codeHelper: CodeHelper = _
 
@@ -117,6 +120,7 @@ abstract class AbstractCodeAction extends ActionSupport {
     try {
       code.asInstanceOf[CodeBean].updatedAt = Instant.now
       entityDao.saveOrUpdate(code)
+      databus.publish(DataEvent.update(code))
       redirect("search", "info.save.success")
     } catch {
       case e: Exception =>

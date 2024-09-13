@@ -23,6 +23,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.annotation.response
 import org.beangle.web.action.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
@@ -37,6 +38,7 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.{Instant, LocalDate}
 
 class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Classroom], ImportSupport[Classroom] {
+  var databus: DataEventBus = _
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
@@ -55,27 +57,30 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     builder
   }
 
-  override protected def saveAndRedirect(entity: Classroom): View = {
-    entity.updatedAt = Instant.now
-    if (null == entity.beginOn) entity.beginOn = LocalDate.now()
+  override protected def saveAndRedirect(room: Classroom): View = {
+    room.updatedAt = Instant.now
+    if (null == room.beginOn) room.beginOn = LocalDate.now()
 
     val departIds = getAll("departId2nd", classOf[Int])
     val newDeparts = entityDao.find(classOf[Department], departIds)
-    val removed = entity.departs filter { x => !newDeparts.contains(x) }
-    entity.departs.subtractAll(removed)
+    val removed = room.departs filter { x => !newDeparts.contains(x) }
+    room.departs.subtractAll(removed)
     newDeparts foreach { l =>
-      if (!entity.departs.contains(l))
-        entity.departs += l
+      if (!room.departs.contains(l))
+        room.departs += l
     }
     val projectIds = getAll("roomProjectId", classOf[Int])
     val newProjects = entityDao.find(classOf[Project], projectIds)
-    entity.projects.clear()
-    entity.projects.addAll(newProjects)
+    room.projects.clear()
+    room.projects.addAll(newProjects)
 
     val project = getProject
-    entity.school = project.school
-    if (!entity.projects.contains(project)) entity.projects.addOne(project)
-    super.saveAndRedirect(entity)
+    room.school = project.school
+    if (!room.projects.contains(project)) room.projects.addOne(project)
+    if (room.persisted) {
+      databus.publish(DataEvent.update(room))
+    }
+    super.saveAndRedirect(room)
   }
 
   override def editSetting(classroom: Classroom) = {
