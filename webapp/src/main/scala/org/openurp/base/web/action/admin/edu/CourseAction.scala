@@ -130,9 +130,11 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
   @response
   def downloadTemplate(): Any = {
+    val school = getProject.school
     val courseTypes = codeService.get(classOf[CourseType]).map(x => x.code + " " + x.name)
     val examModes = codeService.get(classOf[ExamMode]).map(x => x.code + " " + x.name)
-    val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").orderBy("bt.name")).map(x => x.code + " " + x.name)
+    val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").where("bt.school=:school", school)
+         .orderBy("bt.name")).map(x => x.code + " " + x.name)
     val natures = codeService.get(classOf[CourseNature]).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()
@@ -169,7 +171,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
       val creditHour = getInt("creditHour" + ht.id)
       course.hours find (h => h.nature == ht) match {
         case Some(hour) =>
-          if ( creditHour.isEmpty) {
+          if (creditHour.isEmpty) {
             course.hours -= hour
           } else {
             hour.creditHours = creditHour.getOrElse(0)
@@ -208,7 +210,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     entityDao.saveOrUpdate(course)
     databus.publish(DataEvent.update(course))
     if (course.journals.isEmpty) {
-      course.journals += new CourseJournal(course,course.beginOn)
+      course.journals += new CourseJournal(course, course.beginOn)
       entityDao.saveOrUpdate(course)
     }
     super.saveAndRedirect(course)
@@ -217,6 +219,8 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
   protected override def configImport(setting: ImportSetting): Unit = {
     val fl = new ForeignerListener(entityDao)
     fl.addForeigerKey("name")
+    val project = getProject
+    fl.addScope(classOf[Department], Map("school" -> project.school))
     setting.listeners = List(fl, new CourseImportListener(entityDao, getProject))
   }
 }
