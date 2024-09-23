@@ -74,7 +74,7 @@ class CourseTextbookAction extends ProjectRestfulAction[CourseTextbook], ExportS
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "课程默认教材模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "课程默认教材模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

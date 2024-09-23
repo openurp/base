@@ -51,7 +51,7 @@ class TeachingOfficeAction extends ProjectRestfulAction[TeachingOffice], ExportS
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教研室模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教研室模板.xlsx")
   }
 
   protected override def indexSetting(): Unit = {

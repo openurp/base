@@ -132,7 +132,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教师信息.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教师信息.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

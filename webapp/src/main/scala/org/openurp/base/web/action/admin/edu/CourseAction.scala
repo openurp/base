@@ -160,7 +160,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "课程模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "课程模板.xlsx")
   }
 
   protected override def saveAndRedirect(course: Course): View = {

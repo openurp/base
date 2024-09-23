@@ -102,7 +102,7 @@ class TutorAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "导师信息.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "导师信息.xlsx")
   }
 
   @mapping(value = "{id}")

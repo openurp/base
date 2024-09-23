@@ -69,7 +69,7 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教材模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教材模板.xlsx")
   }
 
   override protected def indexSetting(): Unit = {

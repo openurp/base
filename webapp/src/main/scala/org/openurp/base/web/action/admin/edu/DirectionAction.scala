@@ -111,7 +111,7 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "专业方向模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "专业方向模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

@@ -84,7 +84,7 @@ class SecretaryAction extends ProjectRestfulAction[Secretary], ImportSupport[Sec
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教学秘书信息.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教学秘书信息.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

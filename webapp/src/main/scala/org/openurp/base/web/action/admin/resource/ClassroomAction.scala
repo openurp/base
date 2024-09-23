@@ -126,7 +126,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     sheet.add("考试容量", "classroom.examCapacity").required().decimal()
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "教室模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教室模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

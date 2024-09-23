@@ -89,7 +89,7 @@ class OfficialAction extends ProjectRestfulAction[Official], ImportSupport[Offic
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx.toString, "领导干部信息.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "领导干部信息.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {
