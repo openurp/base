@@ -61,6 +61,10 @@ class CodeAction extends AbstractCodeAction {
     put("levels", entityDao.getAll(classOf[AcademicLevel]))
     put("results", entityDao.getAll(classOf[EducationResult]))
   }
+
+  def editCourseAwardType():Unit={
+    put("categories",entityDao.getAll(classOf[CourseAwardCategory]))
+  }
 }
 
 class CodeIndexAction extends ActionSupport {

@@ -19,6 +19,7 @@ package org.openurp.base.web.action.admin
 
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.web.action.annotation.ignore
 import org.beangle.web.action.view.View
 import org.beangle.webmvc.support.action.RestfulAction
@@ -30,6 +31,8 @@ import org.openurp.code.hr.model.DepartmentCategory
 import java.time.LocalDate
 
 class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
+  var databus: DataEventBus = _
+
   override protected def indexSetting(): Unit = {
     put("categories", entityDao.getAll(classOf[DepartmentCategory]))
     super.indexSetting()
@@ -63,6 +66,8 @@ class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
     depart.campuses.clear()
     val campusIds = getAll("campusId", classOf[Int])
     depart.campuses ++= entityDao.find(classOf[Campus], campusIds)
+    entityDao.saveOrUpdate(depart)
+    databus.publish(DataEvent.update(depart))
     super.saveAndRedirect(depart)
   }
 
