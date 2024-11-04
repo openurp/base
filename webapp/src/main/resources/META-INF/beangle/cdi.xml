@@ -6,6 +6,7 @@
     <module class="org.openurp.base.web.action.admin.std.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.resource.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.person.DefaultModule"/>
+    <module class="org.openurp.base.web.action.admin.config.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.DefaultModule"/>
 
     <module class="org.openurp.base.web.action.info.edu.DefaultModule"/>
