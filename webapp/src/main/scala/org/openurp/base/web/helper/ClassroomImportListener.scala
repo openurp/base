@@ -17,9 +17,10 @@
 
 package org.openurp.base.web.helper
 
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.model.Project
+import org.openurp.base.model.{Department, Project}
 import org.openurp.base.resource.model.Classroom
 
 import java.time.{Instant, LocalDate}
@@ -41,6 +42,23 @@ class ClassroomImportListener(entityDao: EntityDao, project: Project) extends Im
     classroom.updatedAt = Instant.now
     classroom.school = project.school
     if (null == classroom.beginOn) classroom.beginOn = LocalDate.now
+    transfer.curData.get("departNames") foreach { names =>
+      val departNames = names.toString
+      if (Strings.isNotBlank(departNames)) {
+        classroom.departs.clear()
+        Strings.split(departNames, ",").foreach { name =>
+          val query = OqlBuilder.from(classOf[Department], "d")
+          query.where("d.name=:name", name)
+          query.cacheable()
+          val departs = entityDao.search(query)
+          if (departs.isEmpty) {
+            tr.addFailure("不存在的部门", name)
+          } else {
+            classroom.departs.addAll(departs)
+          }
+        }
+      }
+    }
     entityDao.saveOrUpdate(classroom)
   }
 }

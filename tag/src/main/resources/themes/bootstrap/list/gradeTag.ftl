@@ -9,14 +9,14 @@ ${tag.body}
   if(sessionStorage.getItem("std.grades") != null){
     beangle.select.fillin("${tag.id}",beangle.data.parseCsv(sessionStorage.getItem("std.grades")),"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
   }else{
-    jQuery.ajax({
-      url: "${tag.href}",
-      headers:{"Accept":"application/json"},
-      success:function (obj){
-        var rows = beangle.select.fillin("${tag.id}",obj,"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
-        sessionStorage.setItem("std.grades",beangle.data.toCsv(rows));
-      }
-    });
+      jQuery.ajax({
+        url: "${tag.href}",
+        headers:{"Accept":"application/json"},
+        success:function (obj){
+          var rows = beangle.select.fillin("${tag.id}",obj,"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
+          sessionStorage.setItem("std.grades",beangle.data.toCsv(rows));
+        }
+      });
   }
 </script>
 </li>

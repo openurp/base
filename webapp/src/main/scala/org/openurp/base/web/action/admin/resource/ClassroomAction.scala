@@ -124,6 +124,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     sheet.add("总容量", "classroom.capacity").required().decimal()
     sheet.add("听课容量", "classroom.courseCapacity").required().decimal()
     sheet.add("考试容量", "classroom.examCapacity").required().decimal()
+    sheet.add("使用部门","departNames")
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教室模板.xlsx")
