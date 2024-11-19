@@ -25,10 +25,10 @@ import org.beangle.commons.text.inflector.en.EnNounPluralizer
 import org.beangle.data.dao.EntityDao
 import org.beangle.data.jsonapi.JsonAPI
 import org.beangle.data.orm.OrmEntityType
-import org.beangle.web.action.annotation.{action, mapping, param, response}
-import org.beangle.web.action.context.ActionContext
-import org.beangle.web.action.support.ActionSupport
-import org.beangle.web.action.util.CacheControl
+import org.beangle.webmvc.annotation.{action, mapping, param, response}
+import org.beangle.webmvc.context.ActionContext
+import org.beangle.webmvc.support.ActionSupport
+import org.beangle.webmvc.util.CacheControl
 import org.openurp.code.Code
 import org.openurp.code.service.CodeService
 

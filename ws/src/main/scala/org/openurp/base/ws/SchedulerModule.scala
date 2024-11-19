@@ -17,7 +17,7 @@
 
 package org.openurp.base.ws
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.cdi.BindModule
 import org.openurp.base.service.impl.{SquadStdCountUpdater, StaffAccountUpdater}
 import org.openurp.base.std.service.impl.SquadServiceImpl
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler

@@ -21,8 +21,8 @@ import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.{ClassLoaders, Strings}
 import org.beangle.commons.text.i18n.Messages
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.web.action.support.ActionSupport
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.support.ActionSupport
+import org.beangle.webmvc.view.View
 import org.openurp.code.CodeBean
 
 import java.time.LocalDate

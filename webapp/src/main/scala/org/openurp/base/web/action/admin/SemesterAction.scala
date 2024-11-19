@@ -19,8 +19,8 @@ package org.openurp.base.web.action.admin
 
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.annotation.action
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.annotation.action
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.model.{Calendar, CalendarStage, School, Semester}
 import org.openurp.starter.web.support.ProjectSupport

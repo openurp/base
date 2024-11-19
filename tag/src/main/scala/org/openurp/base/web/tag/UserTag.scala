@@ -17,11 +17,9 @@
 
 package org.openurp.base.web.tag
 
+import org.beangle.bui.Select
 import org.beangle.ems.app.Ems
 import org.beangle.template.api.ComponentContext
-import org.beangle.web.action.context.ActionContext
-import org.beangle.webmvc.view.tag.Select
-import org.openurp.base.model.Project
 
 class UserTag(context: ComponentContext) extends Select(context) {
 

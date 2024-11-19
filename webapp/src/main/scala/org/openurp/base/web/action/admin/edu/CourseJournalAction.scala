@@ -19,8 +19,8 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.web.action.annotation.{mapping, param}
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.annotation.{mapping, param}
+import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.{Course, CourseJournal, CourseJournalHour}
 import org.openurp.base.model.{Project, Semester}
 import org.openurp.base.web.action.admin.ProjectRestfulAction

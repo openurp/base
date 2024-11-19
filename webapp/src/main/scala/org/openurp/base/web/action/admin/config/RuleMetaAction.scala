@@ -18,8 +18,8 @@
 package org.openurp.base.web.action.admin.config
 
 import org.beangle.commons.collection.Collections
-import org.beangle.web.action.context.Params
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.context.Params
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.beangle.webmvc.support.helper.PopulateHelper
 import org.openurp.base.config.model.{Business, RuleMeta, RuleParamMeta}

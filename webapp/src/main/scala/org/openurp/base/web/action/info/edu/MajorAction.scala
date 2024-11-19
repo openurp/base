@@ -19,8 +19,8 @@ package org.openurp.base.web.action.info.edu
 
 import java.time.LocalDate
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.annotation.mapping
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.annotation.mapping
+import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Major
 import org.openurp.base.web.action.info.AbstractInfoAction
 

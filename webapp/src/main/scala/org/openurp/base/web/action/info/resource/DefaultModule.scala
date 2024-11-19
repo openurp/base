@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.info.resource
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.cdi.BindModule
 import org.openurp.base.web.action.info.hr.TeacherAction
 import org.openurp.base.web.action.info.resource.ClassroomAction
 

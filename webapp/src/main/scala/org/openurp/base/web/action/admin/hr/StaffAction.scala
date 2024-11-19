@@ -23,9 +23,9 @@ import org.beangle.data.dao.{Operation, OqlBuilder}
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
-import org.beangle.web.action.annotation.{mapping, param, response}
-import org.beangle.web.action.context.ActionContext
-import org.beangle.web.action.view.{Stream, View}
+import org.beangle.webmvc.annotation.{mapping, param, response}
+import org.beangle.webmvc.context.ActionContext
+import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.execution.MappingHandler
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper

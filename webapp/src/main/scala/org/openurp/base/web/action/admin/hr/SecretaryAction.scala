@@ -21,8 +21,8 @@ import org.beangle.commons.activation.MediaTypes
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
-import org.beangle.web.action.annotation.response
-import org.beangle.web.action.view.{Stream, View}
+import org.beangle.webmvc.annotation.response
+import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.ImportSupport
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.{Secretary, Staff}

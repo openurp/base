@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.cdi.BindModule
 import org.openurp.base.web.helper.UrpUserHelper
 
 class DefaultModule extends BindModule {

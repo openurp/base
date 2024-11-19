@@ -19,8 +19,8 @@ package org.openurp.base.ws.hr
 
 import org.beangle.commons.collection.Properties
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.web.action.annotation.{mapping, param, response}
-import org.beangle.web.action.support.ActionSupport
+import org.beangle.webmvc.annotation.{mapping, param, response}
+import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.hr.model.StaffProfile
 

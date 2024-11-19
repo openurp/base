@@ -26,7 +26,7 @@ import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.web.EmsCookie
 import org.beangle.security.Securities
 import org.beangle.security.authc.{DefaultAccount, Profile}
-import org.beangle.web.action.context.Params
+import org.beangle.webmvc.context.Params
 import org.openurp.base.model.School
 
 class SchoolHelper(entityDao: EntityDao) {

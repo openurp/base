@@ -18,7 +18,7 @@
 package org.openurp.base.web.action.admin
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.support.ServletSupport
+import org.beangle.webmvc.support.ServletSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.model.{Department, School}
 import org.openurp.code.service.CodeService

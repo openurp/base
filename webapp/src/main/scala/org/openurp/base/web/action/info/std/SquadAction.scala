@@ -18,7 +18,7 @@
 package org.openurp.base.web.action.info.std
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.openurp.base.std.model.{Squad, StudentState}
 import org.openurp.base.web.action.info.AbstractInfoAction
 

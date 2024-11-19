@@ -2,7 +2,7 @@ import org.openurp.parent.Dependencies.*
 import org.openurp.parent.Settings.*
 
 ThisBuild / organization := "org.openurp.base"
-ThisBuild / version := "0.4.43-SNAPSHOT"
+ThisBuild / version := "0.4.43"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -23,8 +23,8 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.41.10"
-val starterVer = "0.3.44"
+val apiVer = "0.41.11"
+val starterVer = "0.3.45"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
@@ -36,7 +36,7 @@ lazy val tag = (project in file("tag"))
   .settings(
     name := "openurp-base-tag",
     common,
-    libraryDependencies ++= Seq(openurp_base_api, beangle_webmvc, beangle_model, beangle_ems_app)
+    libraryDependencies ++= Seq(openurp_base_api, beangle_bui_bootstrap, beangle_model, beangle_ems_app)
   )
 
 lazy val static = (project in file("static"))

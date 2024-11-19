@@ -17,9 +17,9 @@
 
 package org.openurp.base.web.action.admin.resource
 
-import org.beangle.web.action.annotation.action
-import org.beangle.web.action.support.ActionSupport
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.annotation.action
+import org.beangle.webmvc.support.ActionSupport
+import org.beangle.webmvc.view.View
 import org.openurp.base.web.action.admin.{AbstractCodeAction, CodeHelper}
 import org.openurp.code.job.model.ProfessionalGrade
 

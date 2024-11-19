@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.admin.std
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.cdi.BindModule
 import org.openurp.base.std.service.impl.SquadServiceImpl
 import org.openurp.base.web.action.admin.hr.MentorAction
 

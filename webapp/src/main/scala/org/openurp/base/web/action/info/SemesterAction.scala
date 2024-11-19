@@ -19,8 +19,8 @@ package org.openurp.base.web.action.info
 
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.time.WeekDay
-import org.beangle.web.action.annotation.mapping
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.annotation.mapping
+import org.beangle.webmvc.view.View
 import org.openurp.base.model.Semester
 
 import java.time.LocalDate

@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.admin
 
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.model.School
 import org.openurp.code.edu.model.{Institution, InstitutionCategory}

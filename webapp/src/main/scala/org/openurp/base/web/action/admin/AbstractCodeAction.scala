@@ -21,17 +21,18 @@ import org.beangle.commons.bean.Initializing
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.Strings.unCamel
 import org.beangle.commons.lang.reflect.Reflections
+import org.beangle.commons.logging.Logging
 import org.beangle.commons.text.i18n.Messages
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.model.meta.EntityType
 import org.beangle.data.orm.{OrmEntityType, OrmStructType}
 import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.web.action.annotation.{mapping, param}
-import org.beangle.web.action.context.ActionContext
-import org.beangle.web.action.support.ActionSupport
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.annotation.{mapping, param}
+import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.execution.MappingHandler
+import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.helper.{PopulateHelper, QueryHelper}
+import org.beangle.webmvc.view.View
 import org.openurp.code.{Code, CodeBean}
 
 import java.time.{Instant, LocalDate}
@@ -39,7 +40,7 @@ import java.util.Locale
 
 /** 基础代码编辑类
  */
-abstract class AbstractCodeAction extends ActionSupport {
+abstract class AbstractCodeAction extends ActionSupport, Logging {
 
   var entityDao: EntityDao = _
 

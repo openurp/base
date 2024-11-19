@@ -18,7 +18,7 @@
 package org.openurp.base.ws.resource
 
 import org.beangle.data.model.Entity
-import org.beangle.web.action.annotation.response
+import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.action.RestfulService
 import org.openurp.base.resource.model.Building
 

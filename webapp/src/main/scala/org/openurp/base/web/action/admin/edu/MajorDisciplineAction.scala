@@ -20,7 +20,7 @@ package org.openurp.base.web.action.admin.edu
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.code.edu.model.DisciplineCategory

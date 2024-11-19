@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.MinorMajor
 import org.openurp.starter.web.support.ProjectSupport

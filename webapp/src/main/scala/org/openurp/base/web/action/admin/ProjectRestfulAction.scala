@@ -21,7 +21,7 @@ import org.beangle.commons.bean.Properties
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.code.service.CodeService
 import org.openurp.starter.web.support.ProjectSupport

@@ -19,8 +19,8 @@ package org.openurp.base.web.tag
 
 import org.beangle.ems.app.Ems
 import org.beangle.template.api.{ClosingUIBean, ComponentContext}
-import org.beangle.web.action.context.ActionContext
-import org.beangle.webmvc.view.tag.Select
+import org.beangle.webmvc.context.ActionContext
+import org.beangle.bui.Select
 import org.openurp.base.model.Project
 
 class CodeTag(context: ComponentContext) extends Select(context) {

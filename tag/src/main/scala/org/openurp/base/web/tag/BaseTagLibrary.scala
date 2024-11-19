@@ -19,7 +19,7 @@ package org.openurp.base.web.tag
 
 import org.beangle.commons.lang.annotation.description
 import org.beangle.webmvc.view.tag.AbstractTagLibrary
-import org.beangle.web.action.context.ActionContext
+import org.beangle.webmvc.context.ActionContext
 
 @description("Openurp Base 标签库")
 class BaseTagLibrary extends AbstractTagLibrary {

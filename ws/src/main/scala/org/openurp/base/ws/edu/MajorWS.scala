@@ -19,9 +19,9 @@ package org.openurp.base.ws.edu
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.jsonapi.JsonAPI
-import org.beangle.web.action.annotation.response
-import org.beangle.web.action.context.ActionContext
-import org.beangle.web.action.support.ActionSupport
+import org.beangle.webmvc.annotation.response
+import org.beangle.webmvc.context.ActionContext
+import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.Major

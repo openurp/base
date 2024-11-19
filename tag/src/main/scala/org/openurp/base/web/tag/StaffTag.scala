@@ -19,7 +19,7 @@ package org.openurp.base.web.tag
 
 import org.beangle.ems.app.Ems
 import org.beangle.template.api.ComponentContext
-import org.beangle.webmvc.view.tag.Select
+import org.beangle.bui.Select
 import org.openurp.base.model.Project
 
 class StaffTag(context: ComponentContext) extends Select(context) {

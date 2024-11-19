@@ -19,7 +19,7 @@ package org.openurp.base.web.action.admin.std
 
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.openurp.base.std.model.Grade
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 

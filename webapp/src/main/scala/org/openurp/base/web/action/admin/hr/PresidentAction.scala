@@ -18,7 +18,7 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.President
 import org.openurp.base.model.*

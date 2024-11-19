@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.info
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.cdi.BindModule
 import org.openurp.base.web.action.info.hr.ProfileAction
 
 class DefaultModule extends BindModule {

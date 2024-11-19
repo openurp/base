@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.{Major, SchoolLength}
 import org.openurp.base.model.Project

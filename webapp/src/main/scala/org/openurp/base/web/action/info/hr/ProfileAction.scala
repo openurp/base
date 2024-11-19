@@ -18,9 +18,9 @@
 package org.openurp.base.web.action.info.hr
 
 import org.beangle.data.dao.EntityDao
-import org.beangle.web.action.annotation.{mapping, param}
-import org.beangle.web.action.support.ActionSupport
-import org.beangle.web.action.view.View
+import org.beangle.webmvc.annotation.{mapping, param}
+import org.beangle.webmvc.support.ActionSupport
+import org.beangle.webmvc.view.View
 import org.openurp.base.hr.model.StaffProfile
 
 class ProfileAction extends ActionSupport {

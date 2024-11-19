@@ -17,7 +17,7 @@
 
 package org.openurp.base.ws
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.cdi.BindModule
 import org.openurp.code.service.impl.CodeServiceImpl
 
 class DefaultModule extends BindModule {

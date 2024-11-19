@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.admin.resource
 
-import org.beangle.cdi.bind.BindModule
+import org.beangle.commons.cdi.BindModule
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
