@@ -28,13 +28,17 @@ import org.openurp.base.hr.model.{Mentor, Staff, Teacher}
 import org.openurp.base.model.User
 import org.openurp.base.std.model.Student
 
+import java.time.LocalDate
+
 class UserWS extends ActionSupport with EntityAction[User] {
   var entityDao: EntityDao = _
 
   @response
   def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[User], "user")
-    if (!getBoolean("all", false)) query.where("user.endOn is null")
+    if (!getBoolean("all", false)) {
+      query.where("user.endOn is null or user.endOn >= :today", LocalDates.now)
+    }
     QueryHelper.populate(query)
     query.limit(PageLimit(getInt(QueryHelper.PageParam, 1), getInt(QueryHelper.PageSizeParam, 100)))
     get("q") foreach { q =>
