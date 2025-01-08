@@ -18,15 +18,16 @@
 package org.openurp.base.web.action.admin.std
 
 import org.beangle.commons.activation.MediaTypes
-import org.beangle.commons.lang.{ClassLoaders, Strings}
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.{mapping, param, response}
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
+import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.{Direction, Major}
 import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.std.model.{Grade, Squad, Student}
@@ -40,6 +41,7 @@ import java.time.LocalDate
 class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], ImportSupport[Squad] {
 
   var squadService: SquadService = _
+
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
@@ -152,6 +154,12 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
 
   def saveAssign(): View = {
     forward()
+  }
+
+  protected override def saveAndRedirect(squad: Squad): View = {
+    val rs = super.saveAndRedirect(squad)
+    databus.publish(DataEvent.update(squad))
+    rs
   }
 
   /**

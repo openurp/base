@@ -24,9 +24,9 @@ import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.ImportSupport
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.{Direction, DirectionJournal, Major}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -38,9 +38,7 @@ import java.time.LocalDate
 
 class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Direction] {
 
-  var databus: DataEventBus = _
-
-  override def indexSetting() = {
+  override def indexSetting(): Unit = {
     given project: Project = getProject
 
     put("departs", getDeparts)

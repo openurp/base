@@ -21,12 +21,14 @@ import org.beangle.commons.bean.Properties
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
-import org.beangle.webmvc.view.View
+import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.code.service.CodeService
+import org.beangle.webmvc.view.View
 import org.openurp.starter.web.support.ProjectSupport
 
-abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T] with ProjectSupport {
+abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T], ProjectSupport {
+
+  var databus: DataEventBus = _
 
   override protected def getQueryBuilder: OqlBuilder[T] = {
     val builder = OqlBuilder.from(entityClass, simpleEntityName)
@@ -41,7 +43,11 @@ abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T] wit
 
   override protected def saveAndRedirect(entity: T): View = {
     Properties.set(entity, "project", getProject)
-    super.saveAndRedirect(entity)
+    val rs = super.saveAndRedirect(entity)
+    if (entityDao.domain.getEntity(entityClass).get.cacheable) {
+      databus.publish(DataEvent.update(entity))
+    }
+    rs
   }
 
 }

@@ -19,9 +19,9 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.ExportSupport
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -30,8 +30,6 @@ import org.openurp.code.edu.model.EducationLevel
 import java.time.LocalDate
 
 class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
-
-  var databus: DataEventBus = _
 
   override def getQueryBuilder: OqlBuilder[Major] = {
     val query = super.getQueryBuilder
@@ -57,7 +55,7 @@ class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
     super.removeAndRedirect(majors)
   }
 
-  override def editSetting(major: Major) = {
+  override def editSetting(major: Major): Unit = {
     put("projects", List(getProject))
     if !major.persisted then major.beginOn = LocalDate.now
     val disciplines = entityDao.getAll(classOf[MajorDiscipline])

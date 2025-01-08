@@ -39,7 +39,6 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.{Instant, LocalDate}
 
 class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], ImportSupport[Course] {
-  var databus: DataEventBus = _
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject

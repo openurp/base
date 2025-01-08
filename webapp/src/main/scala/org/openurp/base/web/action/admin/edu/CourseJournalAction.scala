@@ -31,8 +31,6 @@ import scala.collection.SortedMap
 
 class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
 
-  var databus: DataEventBus = _
-
   override def simpleEntityName: String = "journal"
 
   override protected def editSetting(journal: CourseJournal): Unit = {

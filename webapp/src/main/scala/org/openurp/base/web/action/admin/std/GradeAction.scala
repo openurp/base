@@ -24,6 +24,7 @@ import org.openurp.base.std.model.Grade
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 
 class GradeAction extends ProjectRestfulAction[Grade] {
+
   override def getQueryBuilder: OqlBuilder[Grade] = {
     val query = super.getQueryBuilder
     query.where("grade.project=:project", getProject)

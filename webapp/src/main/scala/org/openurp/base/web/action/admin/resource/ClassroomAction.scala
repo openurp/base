@@ -25,9 +25,9 @@ import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.resource.model.{Building, Classroom}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -38,7 +38,6 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.{Instant, LocalDate}
 
 class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Classroom], ImportSupport[Classroom] {
-  var databus: DataEventBus = _
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
@@ -83,7 +82,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     super.saveAndRedirect(room)
   }
 
-  override def editSetting(classroom: Classroom) = {
+  override def editSetting(classroom: Classroom): Unit = {
     given project: Project = getProject
 
     if (null == classroom.school) {
@@ -124,7 +123,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     sheet.add("总容量", "classroom.capacity").required().decimal()
     sheet.add("听课容量", "classroom.courseCapacity").required().decimal()
     sheet.add("考试容量", "classroom.examCapacity").required().decimal()
-    sheet.add("使用部门","departNames")
+    sheet.add("使用部门", "departNames")
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教室模板.xlsx")
