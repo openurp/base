@@ -162,7 +162,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     sheet.add("民族", "staff.nation.code").ref(nations)
     sheet.add("政治面貌", "staff.politicalStatus.code").ref(politicalStatuses)
     sheet.add("教职工类别", "staff.staffType.code").ref(staffTypes).required()
-    if (tutorTypes.size > 0) {
+    if (tutorTypes.nonEmpty) {
       sheet.add("导师类别", "staff.tutorType.code").ref(tutorTypes)
     }
     sheet.add("所在部门", "staff.department.code").ref(departs).required()
