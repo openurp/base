@@ -19,8 +19,9 @@ package org.openurp.base.ws.std
 
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
+import org.beangle.commons.json.JsonObject
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.jsonapi.JsonAPI
+import org.beangle.data.json.JsonAPI
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
@@ -32,7 +33,7 @@ class StudentWS extends ActionSupport with EntityAction[Student] {
   var entityDao: EntityDao = _
 
   @response
-  def index(): JsonAPI.Json = {
+  def index(): JsonObject = {
     val query = OqlBuilder.from(classOf[Student], "std")
     populateConditions(query)
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))

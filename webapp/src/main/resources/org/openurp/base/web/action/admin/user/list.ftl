@@ -6,6 +6,7 @@
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("${b.text('action.export')}",action.exportData("code:账号,name:姓名,category.name:人员类别,department.name:部门,mobile:移动电话,email:电子邮箱",null,'fileName=用户信息'));
+    bar.addItem("初始化",action.method('initAccount'));
   [/@]
   [@b.row]
     [@b.boxcol /]

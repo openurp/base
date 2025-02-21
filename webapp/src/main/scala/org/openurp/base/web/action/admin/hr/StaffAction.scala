@@ -152,7 +152,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     val sheet = schema.createScheet("数据模板")
     sheet.title("教职工信息模板")
     sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
-    sheet.add("工号", "staff.code").length(10).required().remark("≤10位")
+    sheet.add("工号", "staff.code").length(20).required().remark("≤20位")
     sheet.add("姓名", "staff.name").length(100).required()
     sheet.add("性别", "staff.gender.code").ref(genders).required()
     sheet.add("证件类型", "staff.idType.code").ref(idTypes)

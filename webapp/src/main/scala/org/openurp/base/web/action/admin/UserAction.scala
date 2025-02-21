@@ -18,10 +18,10 @@
 package org.openurp.base.web.action.admin
 
 import org.beangle.commons.collection.Order
-import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.dao.{OqlBuilder, QueryPage}
 import org.beangle.webmvc.annotation.ignore
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.view.View
 import org.openurp.base.model.{User, UserGroup}
 import org.openurp.base.web.helper.UrpUserHelper
 import org.openurp.code.hr.model.UserCategory
@@ -64,5 +64,17 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
 
     urpUserHelper.createAccount(user)
     super.saveAndRedirect(user)
+  }
+
+  /** 创建账号 */
+  def initAccount(): View = {
+    val school = getSchool
+    val q = OqlBuilder.from(classOf[User], "u").where("u.school=:school", school)
+    q.orderBy("u.code")
+    val pages = QueryPage(q, entityDao)
+    pages foreach { u =>
+      urpUserHelper.createAccount(u)
+    }
+    redirect("search", "初始化完毕")
   }
 }

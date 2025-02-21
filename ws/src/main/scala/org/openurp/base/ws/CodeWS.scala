@@ -19,11 +19,12 @@ package org.openurp.base.ws
 
 import org.beangle.commons.bean.Initializing
 import org.beangle.commons.collection.Collections
+import org.beangle.commons.json.JsonObject
 import org.beangle.commons.lang.Strings.unCamel
 import org.beangle.commons.lang.{Chars, ClassLoaders, Strings}
 import org.beangle.commons.text.inflector.en.EnNounPluralizer
 import org.beangle.data.dao.EntityDao
-import org.beangle.data.jsonapi.JsonAPI
+import org.beangle.data.json.JsonAPI
 import org.beangle.data.orm.OrmEntityType
 import org.beangle.webmvc.annotation.{action, mapping, param, response}
 import org.beangle.webmvc.context.ActionContext
@@ -52,7 +53,7 @@ class CodeWS extends ActionSupport, Initializing {
 
   @response(cacheable = true )
   @mapping("{code}")
-  def index(@param("code") code: String): JsonAPI.Json = {
+  def index(@param("code") code: String): JsonObject = {
     val datas = clazzes.get(code) match {
       case Some(clazz) => codeService.get(clazz)
       case None => List.empty
