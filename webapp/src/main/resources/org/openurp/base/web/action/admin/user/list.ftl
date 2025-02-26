@@ -15,7 +15,13 @@
     [@b.col width="8%" property="category" title="人员类别"]${(user.category.name)!}[/@]
     [@b.col width="8%" property="group" title="用户组"]${(user.group.name)!}[/@]
     [@b.col width="16%" property="department" title="所在部门"]${(user.department.name)!}[/@]
-    [@b.col width="13%" property="mobile" title="移动电话"/]
+    [@b.col width="10%" property="mobile" title="移动电话"]
+      [#if user.mobile?? && user.mobile?length>10]
+        <span title="${user.mobile}">${(user.mobile[0..2])!}****${(user.mobile[7..10])!}</span>
+      [#else]
+        ${(user.mobile)!"--"}
+      [/#if]
+    [/@]
     [@b.col property="email" title="电子邮箱"/]
     [@b.col width="13%" property="endOn" title="有效期限"]${user.beginOn?string('yy-MM')}~${(user.endOn?string('yy-MM-dd'))!'至今'}[/@]
   [/@]
