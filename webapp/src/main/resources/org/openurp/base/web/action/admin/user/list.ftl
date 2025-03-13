@@ -23,7 +23,7 @@
       [/#if]
     [/@]
     [@b.col property="email" title="电子邮箱"/]
-    [@b.col width="13%" property="endOn" title="有效期限"]${user.beginOn?string('yy-MM')}~${(user.endOn?string('yy-MM-dd'))!'至今'}[/@]
+    [@b.col width="10%" property="endOn" title="有效期限"]${user.beginOn?string('yy-MM')}~${(user.endOn?string('yy-MM-dd'))!'至今'}[/@]
   [/@]
 [/@]
 [@b.foot/]

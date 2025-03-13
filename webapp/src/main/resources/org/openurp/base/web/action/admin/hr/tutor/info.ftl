@@ -32,7 +32,7 @@
       <td class="title" width="13%">姓名：</td>
       <td width="20%">${staff.name}</td>
       <td class="title" width="13%">导师类别：</td>
-      <td>${(staff.tutorType.name)!}</td>
+      <td>[#if staff.tutorType??]${staff.tutorType.name} <span class="text-muted" title="聘任日期">${(appointOn.get(staff.tutorType)?string('yyyy-MM-dd'))!}</span>[/#if]</td>
     </tr>
     <tr>
       <td class="title">性别：</td>

@@ -28,6 +28,8 @@ class DefaultModule extends BindModule {
     bind(classOf[MentorAction])
 
     bind(classOf[TutorAction], classOf[TutorMajorAction], classOf[TutorJournalAction])
+    bind(classOf[TutorStatAction])
+
     bind(classOf[ProfileAction])
 
     bind(classOf[OfficialAction], classOf[SecretaryAction])

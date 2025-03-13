@@ -1,8 +1,8 @@
 [#ftl]
 [@b.head/]
 <style>
- .title{
-   max-width:100px;
+ fieldset.listset li > label.title{
+   min-width:200px;
  }
 </style>
 [@b.toolbar title="修改导师信息"]bar.addBack();[/@]
@@ -11,6 +11,9 @@
       ${staff.code} ${staff.name}
     [/@]
     [@b.select name="staff.tutorType.id" label="导师类别" items=tutorTypes value=staff.tutorType! empty="..." required="true"/]
+    [#list tutorTypes as tutorType]
+    [@b.date name="tutorType"+tutorType.id+".appointOn" label="聘任"+tutorType.name+"日期" value=appointDates.get(tutorType)! empty="..." required="false"/]
+    [/#list]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]

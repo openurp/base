@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin
 
 import org.beangle.commons.collection.Order
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{OqlBuilder, QueryPage}
 import org.beangle.webmvc.annotation.ignore
 import org.beangle.webmvc.support.action.RestfulAction
@@ -33,9 +34,22 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
   var urpUserHelper: UrpUserHelper = _
 
   override protected def getQueryBuilder: OqlBuilder[User] = {
+    val school = getSchool
     val builder = OqlBuilder.from(classOf[User], "user")
-    builder.where("user.school=:school", getSchool)
+    builder.where("user.school=:school", school)
     populateConditions(builder)
+    //查询用户组
+    val groupName = get("groupName", "")
+    if (Strings.isNotEmpty(groupName)) {
+      val sb = new StringBuilder()
+      sb.append("user.group.name like :groupName or exists(from user.groups m where ")
+      sb.append("m.group.name like :groupName and m.group.school=:school)")
+      val params = new collection.mutable.ListBuffer[Object]
+      params += ("%" + groupName + "%")
+      params += school
+      builder.where(sb.toString, params.toSeq: _*)
+    }
+
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
   }
 

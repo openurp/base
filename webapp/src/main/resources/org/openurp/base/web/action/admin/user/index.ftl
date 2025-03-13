@@ -8,6 +8,7 @@
       [@b.textfields names="user.name;姓名"/]
       [@b.select name="user.category.id" label="人员分类" items=userCategories empty="..." style="width:100px"/]
       [@b.select name="user.department.id" label="所在部门" items=departments empty="..." style="width:100px"/]
+      [@b.textfield name="groupName" label="用户组"/]
       <input type="hidden" name="orderBy" value="user.code desc"/>
     [/@]
     </div>

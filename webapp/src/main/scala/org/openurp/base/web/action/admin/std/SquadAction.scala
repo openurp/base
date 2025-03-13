@@ -42,7 +42,6 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
 
   var squadService: SquadService = _
 
-
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
 
