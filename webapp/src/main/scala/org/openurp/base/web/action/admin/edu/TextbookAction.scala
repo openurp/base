@@ -23,14 +23,15 @@ import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.{mapping, param, response}
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
-import org.openurp.base.edu.model.{Course, CourseTextbook, Textbook}
+import org.beangle.webmvc.view.{Stream, View}
+import org.openurp.base.edu.model.{CourseTextbook, Textbook}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.TextbookImportListener
-import org.openurp.code.edu.model.{BookAwardType, BookType}
-import org.openurp.code.sin.model.{BookCategory, Press}
+import org.openurp.code.Code
+import org.openurp.code.edu.model.{BookAwardType, BookType, DisciplineCategory}
+import org.openurp.code.sin.model.{BookCategory, ForeignBookType, Press, TextbookForm}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
@@ -41,12 +42,22 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     forward()
   }
 
+  private def getCodeNames[T <: Code](clazz: Class[T])(using project: Project): collection.Seq[String] = {
+    val codes = getCodes(clazz)
+    codes.sortBy(_.code).map(x => x.code + " " + x.name)
+  }
+
   @response
   def downloadTemplate(): Any = {
-    val presses = entityDao.search(OqlBuilder.from(classOf[Press], "p").orderBy("p.name")).map(x => x.code + " " + x.name)
-    val categories = entityDao.search(OqlBuilder.from(classOf[BookCategory], "bc").orderBy("bc.name")).map(x => x.code + " " + x.name)
-    val bookTypes = entityDao.search(OqlBuilder.from(classOf[BookType], "bt").orderBy("bt.name")).map(x => x.code + " " + x.name)
-    val awardTypes = entityDao.search(OqlBuilder.from(classOf[BookAwardType], "bat").orderBy("bat.name")).map(x => x.code + " " + x.name)
+    given project: Project = getProject
+
+    val presses = getCodeNames(classOf[Press])
+    val categories = getCodeNames(classOf[BookCategory])
+    val bookTypes = getCodeNames(classOf[BookType])
+    val awardTypes = getCodeNames(classOf[BookAwardType])
+    val foreignBookTypes = getCodeNames(classOf[BookAwardType])
+    val bookForms = getCodeNames(classOf[TextbookForm])
+    val disciplineCategories = getCodeNames(classOf[DisciplineCategory])
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
@@ -67,6 +78,11 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     sheet.add("丛书", "textbook.series").length(100)
     sheet.add("价格", "textbook.price").decimal()
 
+    sheet.add("是否境内教材", "textbook.domestic").bool()
+    sheet.add("境外教材类型", "textbook.foreignBookType.code").ref(foreignBookTypes)
+    sheet.add("教材形态", "textbook.bookForm.code").ref(bookForms)
+    sheet.add("学科门类", "textbook.disciplineCategory.code").ref(disciplineCategories)
+
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教材模板.xlsx")
@@ -84,6 +100,9 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     put("presses", getCodes(classOf[Press]))
     put("awardTypes", getCodes(classOf[BookAwardType]))
     put("categories", getCodes(classOf[BookCategory]))
+    put("foreignBookTypes", getCodes(classOf[ForeignBookType]))
+    put("textbookForms", getCodes(classOf[TextbookForm]))
+    put("disciplineCategories", getCodes(classOf[DisciplineCategory]))
     if (!textbook.persisted) textbook.beginOn = LocalDate.now()
   }
 

@@ -18,9 +18,7 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.commons.activation.MediaTypes
-import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.Strings
-import org.beangle.commons.lang.reflect.BeanInfos
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
@@ -30,12 +28,12 @@ import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.Major
-import org.openurp.base.hr.model.{Staff, TutorMajor, TutorJournal}
+import org.openurp.base.hr.model.{Staff, TutorJournal, TutorMajor}
 import org.openurp.base.model.*
 import org.openurp.base.std.model.Student
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.{Dimensions, Matrix, TutorImportListener, UrpUserHelper}
-import org.openurp.code.edu.model.{DegreeLevel, EducationLevel}
+import org.openurp.base.web.helper.{TutorImportListener, UrpUserHelper}
+import org.openurp.code.edu.model.DegreeLevel
 import org.openurp.code.hr.model.WorkStatus
 import org.openurp.code.job.model.{ProfessionalGrade, ProfessionalTitle, TutorType}
 
@@ -180,6 +178,17 @@ class TutorAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("majors", majors)
     put("appointOn", appointOn)
     forward()
+  }
+
+  /** Simple list staffs
+   *
+   * @return
+   */
+  def list(): View = {
+    val query = getQueryBuilder
+    query.limit(null)
+    put("staffs", entityDao.search(query))
+    forward("list-simple")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

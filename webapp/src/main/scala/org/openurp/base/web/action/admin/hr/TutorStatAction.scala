@@ -20,11 +20,11 @@ package org.openurp.base.web.action.admin.hr
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.reflect.BeanInfos
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.data.stat.{Columns, Matrix}
 import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Major
 import org.openurp.base.hr.model.{Staff, TutorMajor}
-import org.openurp.base.web.helper.{Dimensions, Matrix}
 import org.openurp.code.edu.model.{DegreeLevel, EducationLevel}
 import org.openurp.code.job.model.ProfessionalGrade
 import org.openurp.starter.web.support.ProjectSupport
@@ -76,7 +76,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport {
       datas.addOne(data)
     }
 
-    val ds = Dimensions(entityDao)
+    val ds = Columns(entityDao)
     ds.add("grade", "职称等级", datas, classOf[ProfessionalGrade])
     ds.add("degreeLevel", "学位水平", datas, classOf[DegreeLevel])
     ds.add("eduLevel", "导师类型", datas, classOf[EducationLevel])
@@ -85,7 +85,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport {
     ds.add("major", "学科专业", datas, classOf[Major])
     ds.add("age", "兼职", datas, Map("0" -> "未知", "1-25" -> "25岁及以下", "26-35" -> "26至35岁", "36-45" -> "36至45岁", "46-59" -> "46至59岁", "60-150" -> "60岁及以上"))
     val matrix = new Matrix(ds.build(), datas)
-    put("majors", matrix.getDimension("major").values)
+    put("majors", matrix.getColumn("major").values)
     put("matrixes", matrix.split("major"))
     forward()
   }

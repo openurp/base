@@ -25,10 +25,10 @@ import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.context.ActionContext
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.execution.MappingHandler
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.hr.model.{Mentor, Staff, StaffTitle, Teacher}
 import org.openurp.base.model.*
 import org.openurp.base.service.Features.Hr
@@ -88,37 +88,43 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
 
     staff.school = p.school
     staff.updatedAt = Instant.now
-    try {
-      var oldCode: Option[String] = None
-      if (staff.persisted) {
-        val existQuery = OqlBuilder.from[String](classOf[Staff].getName, "t").select("t.code")
-        existQuery.where("t.id = :staffId", staff.id)
-        entityDao.search(existQuery).headOption foreach { code => oldCode = Some(code) }
-      }
-      entityDao.saveOrUpdate(staff)
-      urpUserHelper.createUser(staff, oldCode)
-      //synchronize name to teacher/mentor/tutor
-      val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
-      if (getConfig(Hr.TeacherSameDepartWithStaff).asInstanceOf[Boolean]) {
-        teachers foreach (t => t.department = staff.department)
-      }
-      teachers foreach (t => t.name = staff.name)
-      entityDao.saveOrUpdate(teachers)
-
-      val mentors = entityDao.findBy(classOf[Mentor], "staff", staff)
-      mentors foreach (t => t.name = staff.name)
-      entityDao.saveOrUpdate(mentors)
-
-      redirect("search", "info.save.success")
-    } catch {
-      case e: Exception =>
-        val mapping = ActionContext.current.handler.asInstanceOf[MappingHandler].mapping
-        val redirectTo = mapping.method.getName match {
-          case "save" => "editNew"
-          case "update" => "edit"
+    val codeOccupied = entityDao.duplicate(classOf[Staff], staff.id, Map("school" -> p.school, "code" -> staff.code))
+    if (codeOccupied) {
+      addError("账户已经被使用了，请更换一个工号")
+      put("staff", staff)
+      editSetting(staff)
+      forward(if staff.persisted then "form" else "new,form")
+    } else {
+      try {
+        var oldCode: Option[String] = None
+        if (staff.persisted) {
+          val existQuery = OqlBuilder.from[String](classOf[Staff].getName, "t").select("t.code")
+          existQuery.where("t.id = :staffId", staff.id)
+          entityDao.search(existQuery).headOption foreach { code => oldCode = Some(code) }
         }
-        logger.info("save forward failure", e)
-        redirect(redirectTo, "info.save.failure")
+        entityDao.saveOrUpdate(staff)
+        urpUserHelper.createUser(staff, oldCode)
+        //synchronize name to teacher/mentor/tutor
+        val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
+        if (getConfig(Hr.TeacherSameDepartWithStaff).asInstanceOf[Boolean]) {
+          teachers foreach (t => t.department = staff.department)
+        }
+        teachers foreach (t => t.name = staff.name)
+        entityDao.saveOrUpdate(teachers)
+
+        val mentors = entityDao.findBy(classOf[Mentor], "staff", staff)
+        mentors foreach (t => t.name = staff.name)
+        entityDao.saveOrUpdate(mentors)
+
+        redirect("search", "info.save.success")
+      } catch {
+        case e: Exception =>
+          logger.info("save forward failure", e)
+          addError("info.save.failure")
+          put(simpleEntityName, staff)
+          editSetting(staff)
+          forward(if staff.persisted then "form" else "new,form")
+      }
     }
   }
 

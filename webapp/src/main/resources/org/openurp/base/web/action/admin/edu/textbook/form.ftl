@@ -21,6 +21,11 @@
                style="width:200px;" items=awardTypes empty="..." required="false"/]
     [@b.textfield name="textbook.awardOrg" label="奖项授予单位" value="${textbook.awardOrg!}" required="false" maxlength="200" style="width:200px"/]
     [@b.radios label="是否自编"  name="textbook.madeInSchool" value=textbook.madeInSchool items="1:common.yes,0:common.no" required="true"/]
+    [@b.radios label="境内/境外"  name="textbook.domestic" value=textbook.domestic items="1:境内教材,0:境外教材" required="true"/]
+    [@b.select label="境外教材类型" name="textbook.foreignBookType.id" value=textbook.foreignBookType! items=foreignBookTypes empty="..." required="false"/]
+    [@b.select label="教材形态" name="textbook.bookForm.id" value=textbook.bookForm! items=textbookForms empty="..." required="false"/]
+    [@b.select label="学科门类" name="textbook.disciplineCategory.id" value=textbook.disciplineCategory! items=disciplineCategories empty="..." required="false"/]
+
     [@b.textfield name="textbook.price" label="定价" value=textbook.price! maxlength="100" /]
     [@b.textarea name="textbook.remark" label="备注" value="${textbook.remark!}"  maxlength="100"/]
     [@b.startend label="有效期"  name="textbook.beginOn,textbook.endOn" required="true,false"
