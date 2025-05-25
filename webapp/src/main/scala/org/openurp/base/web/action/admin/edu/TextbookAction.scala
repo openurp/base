@@ -128,6 +128,25 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
       editSetting(book)
       forward("form")
     } else {
+      get("press.name") foreach { p =>
+        if (Strings.isNotBlank(p)) {
+          val pn = p.trim()
+          val q = OqlBuilder.from(classOf[Press], "p").where("p.name=:name or p.name like :name2", pn, pn + "%")
+          val presses = entityDao.search(q)
+          if (presses.size == 1) {
+            book.press = presses.headOption
+          } else {
+            val np = new Press
+            np.name = pn
+            np.code = pn
+            np.beginOn = LocalDate.now
+            np.grade = new PressGrade(PressGrade.Other)
+            np.updatedAt = Instant.now
+            entityDao.saveOrUpdate(np)
+            book.press = Some(np)
+          }
+        }
+      }
       super.saveAndRedirect(book)
     }
   }

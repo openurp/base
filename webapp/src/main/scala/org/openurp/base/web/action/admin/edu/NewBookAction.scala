@@ -83,6 +83,7 @@ class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSuppor
     book.project = project
     book.beginOn = LocalDate.now
     book.creator = Some(getUser)
+    
     get("press.name") foreach { p =>
       if (Strings.isNotBlank(p)) {
         val pn = p.trim()
@@ -102,6 +103,7 @@ class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSuppor
         }
       }
     }
+    
     //如果是境内教材，取消境外教材类型
     if (book.domestic) {
       book.foreignBookType = None
