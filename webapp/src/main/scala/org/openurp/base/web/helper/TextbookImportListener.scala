@@ -23,7 +23,7 @@ import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.model.Project
 
-import java.time.LocalDate
+import java.time.{LocalDate, YearMonth}
 
 class TextbookImportListener(project: Project, entityDao: EntityDao) extends ImportListener {
   override def onStart(tr: ImportResult): Unit = {}
@@ -44,7 +44,7 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
         case d: java.util.Date => new java.sql.Date(d.getTime).toLocalDate.toString
         case _ => p.toString
       try {
-        val publishedOn = LocalDate.parse(publishedOnStr)
+        val publishedOn = YearMonth.from(LocalDate.parse(publishedOnStr))
         data.put("textbook.publishedOn", publishedOn)
       } catch {
         case e: Throwable => tr.addFailure("错误的出版日期格式", p)

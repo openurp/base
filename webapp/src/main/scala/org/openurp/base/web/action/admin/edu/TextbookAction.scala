@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.activation.MediaTypes
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
@@ -28,13 +29,13 @@ import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.{CourseTextbook, Textbook}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.base.web.helper.TextbookImportListener
+import org.openurp.base.web.helper.{TextbookHelper, TextbookImportListener}
 import org.openurp.code.Code
 import org.openurp.code.edu.model.{BookAwardType, BookType, DisciplineCategory}
-import org.openurp.code.sin.model.{BookCategory, ForeignBookType, Press, TextbookForm}
+import org.openurp.code.sin.model.*
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import java.time.LocalDate
+import java.time.{Instant, LocalDate, YearMonth}
 
 class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textbook], ImportSupport[Textbook] {
 
@@ -69,7 +70,7 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     sheet.add("译者", "textbook.translator").length(50)
     sheet.add("出版社", "textbook.press.code").ref(presses).required()
     sheet.add("版次", "textbook.edition").length(20).required()
-    sheet.add("出版年月日", "textbook.publishedOn").date().required()
+    sheet.add("出版年月", "textbook.publishedOn").date("YYYY-MM").required()
     sheet.add("是否自编", "textbook.madeInSchool").bool()
     sheet.add("教材类型", "textbook.bookType.code").ref(bookTypes)
     sheet.add("图书分类", "textbook.category.code").ref(categories)
@@ -121,7 +122,7 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
 
   protected override def saveAndRedirect(book: Textbook): View = {
     if null == book.beginOn then book.beginOn = LocalDate.now
-    if (entityDao.duplicate(classOf[Textbook], book.id, Map("isbn" -> book.isbn))) {
+    if (book.isbn.nonEmpty && entityDao.duplicate(classOf[Textbook], book.id, Map("isbn" -> book.isbn))) {
       addError("ISBN 重复")
       put("textbook", book)
       editSetting(book)
@@ -140,6 +141,76 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     put("textbook", textbook)
     put("courses", entityDao.search(cq).map(_.course).distinct)
     forward()
+  }
+
+  def batchAddForm(): View = {
+    get("isbn") foreach { l =>
+      val isbns = Strings.split(l)
+      val helper = TextbookHelper
+      val datas = isbns.map { isbn => helper.fetchByIsbn(isbn) }
+      put("isbnList", isbns)
+      put("isbnDatas", datas)
+    }
+    forward()
+  }
+
+  def batchAdd(): View = {
+    var newBookCount = 0
+    val helper = TextbookHelper
+
+    given project: Project = getProject
+
+    getAll("book.isbn", classOf[String]) foreach { i =>
+      val isbn = formatISBN(i.trim())
+      if (!entityDao.duplicate(classOf[Textbook], null, Map("isbn" -> isbn, "project" -> project))) {
+        val data = helper.fetchByIsbn(isbn)
+        if data.contains("name") then {
+          val book = new Textbook
+          book.isbn = Some(data.getString("isbn"))
+          book.name = data.getString("name")
+          book.author = data.getString("author")
+          book.edition = data.getString("edition")
+          book.publishedOn = YearMonth.parse(data.getString("publishedOn"))
+
+          book.project = project
+          book.beginOn = LocalDate.now
+          book.creator = Some(getUser)
+          val p = data.getString("press")
+          if (Strings.isNotBlank(p)) {
+            val pn = p.trim()
+            val q = OqlBuilder.from(classOf[Press], "p").where("p.name=:name or p.name like :name2", pn, pn + "%")
+            val presses = entityDao.search(q)
+            if (presses.size == 1) {
+              book.press = presses.headOption
+            } else {
+              val np = new Press
+              np.name = pn
+              np.code = pn
+              np.beginOn = LocalDate.now
+              np.grade = new PressGrade(PressGrade.Other)
+              np.updatedAt = Instant.now
+              entityDao.saveOrUpdate(np)
+              book.press = Some(np)
+            }
+          }
+          //如果是境内教材，取消境外教材类型
+          if (book.domestic) {
+            book.foreignBookType = None
+          }
+          newBookCount += 1
+          entityDao.saveOrUpdate(book)
+        }
+      }
+    }
+    redirect("search", s"成功导入${newBookCount}条教材")
+  }
+
+  private def formatISBN(isbn: String): String = {
+    if (isbn.length > 13) {
+      Strings.replace(isbn, "-", "")
+    } else {
+      isbn
+    }
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

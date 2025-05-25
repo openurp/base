@@ -15,31 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.tag
+package org.openurp.base.web.action.admin.edu
 
-import org.beangle.template.api.{AbstractModels, ComponentContext, Tag}
+import org.beangle.commons.lang.ClassLoaders
+import org.beangle.data.orm.hibernate.udt.YearMonthType
 
-class BaseModels(context: ComponentContext) extends AbstractModels(context) {
+import java.time.{LocalDate, YearMonth}
 
-  def semester: Tag = get(classOf[SemesterPicker])
-
-  def semester_bar: Tag = get(classOf[SemesterBar])
-
-  def code: Tag = get(classOf[CodeTag])
-
-  def staff: Tag = get(classOf[StaffTag])
-
-  def teacher: Tag = get(classOf[TeacherTag])
-
-  def student: Tag = get(classOf[StudentTag])
-
-  def grade: Tag = get(classOf[GradeTag])
-
-  def campus: Tag = get(classOf[CampusTag])
-
-  def course: Tag = get(classOf[CourseTag])
-
-  def user: Tag = get(classOf[UserTag])
-
-  def textbook: Tag = get(classOf[TextbookTag])
+object TemplateLoaderTest {
+  def main(args: Array[String]): Unit = {
+    println(ClassLoaders.getResource("template/textbook.xls"))
+    println(YearMonth.from(LocalDate.now))
+  }
 }

@@ -15,12 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.edu.base
+package org.openurp.base.web.action.admin.edu
 
-import org.beangle.commons.lang.ClassLoaders
+import org.beangle.commons.json.{Json, JsonObject}
+import org.openurp.base.web.helper.TextbookHelper
 
-object TemplateLoaderTest {
+object TextbookTest {
+
   def main(args: Array[String]): Unit = {
-    println(ClassLoaders.getResource("template/textbook.xls"))
+
+    var isbn = "9787303201945"
+    val j = TextbookHelper.fetchByIsbn(isbn)
+    println(j.toJson)
   }
 }

@@ -1,6 +1,4 @@
 [#ftl]
-<div style="margin:0px 20px">
-
   <div class="card card-info card-primary card-outline">
     <div class="card-header">
       <h3 class="card-title">${major.name} 基本信息</h3>
@@ -93,4 +91,3 @@
         </table>
    </div>
 [/#if]
-</div>

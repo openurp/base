@@ -6,7 +6,7 @@
     [@b.textfield name="textbook.name" label="名称" value="${textbook.name!}" required="true" maxlength="50" style="width:400px"/]
     [@b.textfield name="textbook.author" label="作者" value=textbook.author! maxlength="100" required="true"/]
     [@b.textfield name="textbook.translator" label="译者" value=textbook.translator! maxlength="100" /]
-    [@b.date name="textbook.publishedOn" label="出版年月" value=(textbook.publishedOn)!  required="true"/]
+    [@b.date name="textbook.publishedOn" label="出版年月" value=(textbook.publishedOn)!  format="yyyy-MM" required="true"/]
     [@b.textfield name="textbook.edition" label="版次" value=textbook.edition! maxlength="20" style="width:100px" required="true"/]
     [@b.textfield name="textbook.series" label="丛书" value=textbook.series! maxlength="50" style="width:200px" required="false"/]
     [@b.select name="textbook.press.id" id="textbook_press_id" label="出版社" value=(textbook.press.id)!

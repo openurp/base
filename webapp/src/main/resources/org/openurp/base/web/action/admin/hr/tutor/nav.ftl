@@ -5,4 +5,5 @@
   [#if ems.permitted("/admin/hr/tutor-stat")]
   [@b.navitem href="tutor-stat!major"]导师统计[/@]
   [/#if]
+  [@b.navitem href="tutor-stat!std"]带学生统计[/@]
 [/@]

@@ -27,7 +27,7 @@ import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.edu.model.Direction
 
-class DirectionWS extends ActionSupport with EntityAction[Direction] {
+class DirectionWS extends ActionSupport, EntityAction[Direction] {
 
   var entityDao: EntityDao = _
 

@@ -24,9 +24,9 @@ import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.view.Stream
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.Stream
 import org.openurp.base.edu.model.{CourseTextbook, Textbook}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -34,6 +34,8 @@ import org.openurp.base.web.helper.{CourseImportListener, CourseTextbookImportLi
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 
+/** 课程默认教材维护
+ */
 class CourseTextbookAction extends ProjectRestfulAction[CourseTextbook], ExportSupport[CourseTextbook], ImportSupport[CourseTextbook] {
 
   override protected def editSetting(ctb: CourseTextbook): Unit = {

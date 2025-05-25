@@ -29,7 +29,7 @@ import org.openurp.base.edu.model.Course
 
 import java.time.LocalDate
 
-class CourseWS extends ActionSupport with EntityAction[Course] {
+class CourseWS extends ActionSupport, EntityAction[Course] {
   var entityDao: EntityDao = _
 
   @response

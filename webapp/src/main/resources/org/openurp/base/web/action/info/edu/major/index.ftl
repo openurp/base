@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    [@b.div href="!info?id="+majors?first.id class="col-9" id="major_info"/]
+    [@b.div href="!info?id="+majors?first.id class="col-9" id="major_info" style="padding:0px 20px;"/]
   </div>
 </div>
 

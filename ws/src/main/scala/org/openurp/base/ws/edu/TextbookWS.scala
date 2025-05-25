@@ -25,21 +25,28 @@ import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.model.Major
+import org.openurp.base.edu.model.Textbook
 
-class MajorWS extends ActionSupport, EntityAction[Major] {
+import java.time.LocalDate
 
+class TextbookWS extends ActionSupport, EntityAction[Textbook] {
   var entityDao: EntityDao = _
 
   @response
   def index(): JsonObject = {
     val projectId = getInt("project", 0)
-    val query = OqlBuilder.from(classOf[Major])
-    query.where("major.project.id=:projectId", projectId)
+    val query = OqlBuilder.from(classOf[Textbook])
+    query.where("textbook.project.id=:projectId", projectId)
     QueryHelper.populate(query).limit(query).sort(query)
-    val majors = entityDao.search(query)
+    get("q") foreach { q =>
+      val c = s"%${q}%"
+      query.where("textbook.name like :c or textbook.isbn like :c", c)
+    }
+    val date = getDate("activeOn").getOrElse(LocalDate.now)
+    query.where("textbook.beginOn <= :date and (textbook.endOn is null or textbook.endOn >= :date)", date)
 
+    val books = entityDao.search(query)
     val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(majors, "id", "code", "name", "enName")
+    context.mkJson(books, "id", "title")
   }
 }

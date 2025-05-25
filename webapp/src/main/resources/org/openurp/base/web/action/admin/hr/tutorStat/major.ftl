@@ -21,7 +21,7 @@
           [#assign dx = dxs[dxLabel_index]/]
           <th colspan="${matrix.getColumn(dx).values?size}" style="vertical-align: middle;">${dxLabel}</th>
           [/#list]
-          <td width="5%">合计</td>
+          <th width="5%">合计</th>
         </tr>
         <tr>
           [#list dxs as dx]

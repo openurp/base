@@ -26,7 +26,7 @@ class DefaultModule extends BindModule {
     bind(classOf[MajorAction], classOf[DirectionAction], classOf[DirectionJournalAction], classOf[MajorJournalAction], classOf[MajorDisciplineAction])
 
     bind(classOf[CourseAction], classOf[CourseJournalAction])
-    bind(classOf[TextbookAction], classOf[CourseTextbookAction])
+    bind(classOf[TextbookAction], classOf[CourseTextbookAction], classOf[NewBookAction])
     bind(classOf[SchoolLengthAction])
     bind(classOf[TeachingOfficeAction])
 

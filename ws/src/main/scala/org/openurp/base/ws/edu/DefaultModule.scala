@@ -24,5 +24,6 @@ class DefaultModule extends BindModule {
     bind(classOf[MajorWS])
     bind(classOf[DirectionWS], classOf[CourseWS])
     bind(classOf[CourseProfileWS])
+    bind(classOf[TextbookWS])
   }
 }
