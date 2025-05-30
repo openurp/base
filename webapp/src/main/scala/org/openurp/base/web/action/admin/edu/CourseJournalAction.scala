@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
+import org.beangle.data.model.pojo.TemporalOn
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.view.View
@@ -91,20 +92,8 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
     entityDao.saveOrUpdate(journal)
 
     //计算journals的结束日期
-    val jq = OqlBuilder.from(classOf[CourseJournal], "j")
-    jq.where("j.course=:course", journal.course)
-    jq.orderBy("j.beginOn")
-    val journals = entityDao.search(jq)
-    if (journals.size > 1) {
-      var i = 0
-      while (i < journals.length - 1) { //最后一个不处理
-        val j = journals(i)
-        val jNext = journals(i + 1)
-        j.endOn = Some(jNext.beginOn.minusMonths(1))
-        i += 1
-      }
-      entityDao.saveOrUpdate(journals)
-    }
+    val journals = TemporalOn.calcEndOn(entityDao.findBy(classOf[CourseJournal], "course", journal.course))
+    entityDao.saveOrUpdate(journals)
     val last = journals.last
     //last one
     if (last.endOn.isEmpty) {
