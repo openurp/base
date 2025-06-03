@@ -18,7 +18,10 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.activation.MediaTypes
-import org.beangle.commons.collection.Order
+import org.beangle.commons.collection.{Collections, Order}
+import org.beangle.commons.json.{Json, JsonObject}
+import org.beangle.commons.lang.Charsets
+import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
@@ -38,6 +41,7 @@ import org.openurp.base.web.helper.CourseImportListener
 import org.openurp.code.edu.model.*
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.net.URLEncoder
 import java.time.{Instant, LocalDate}
 
 class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], ImportSupport[Course] {
@@ -224,5 +228,27 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     val project = getProject
     fl.addScope(classOf[Department], Map("school" -> project.school))
     setting.listeners = List(fl, new CourseImportListener(entityDao, getProject))
+  }
+
+  /** 批量检查英文
+   * @return
+   */
+  def checkEnName(): View = {
+    val courses = entityDao.find(classOf[Course], getLongIds("course"))
+    val messages = Collections.newMap[Course, String]
+    courses foreach { course =>
+      course.enName match {
+        case None => messages.put(course, "缺少英文名")
+        case Some(enName) =>
+          val rs = Json.parse(HttpUtils.getText(Ems.api + "/tools/lang/en/check.json?name=" +
+            URLEncoder.encode(enName, Charsets.UTF_8)).getText).asInstanceOf[JsonObject]
+          if (!rs.getBoolean("success")) {
+            messages.put(course, rs.getArray("data").map(_.toString).mkString(";"))
+          }
+      }
+    }
+    put("messages", messages)
+    put("courses", messages.keys.toBuffer.sortBy(_.code))
+    forward()
   }
 }

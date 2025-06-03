@@ -5,7 +5,7 @@
     [@base.grade name="squad.grade.id" label="年级" value=squad.grade required="true" /]
     [@b.textfield name="squad.code" label="代码" value="${squad.code!}" required="true" maxlength="20"/]
     [@b.textfield name="squad.name" label="名称" value="${squad.name!}" required="true" maxlength="100" style="width:300px"/]
-    [@b.textfield name="squad.enName" label="英文名" value="${squad.enName!}" maxlength="150" style="width:500px"/]
+    [@b.textfield name="squad.enName" label="英文名" value=squad.enName! maxlength="150" style="width:500px"/]
     [@b.textfield name="squad.shortName" label="简称" value="${squad.shortName!}" maxlength="100" /]
     [@base.campus name="squad.campus.id" label="校区" value=squad.campus! required="false" empty="..."/]
     [@b.select name="squad.department.id" label="院系" value="${(squad.department.id)!}" required="true"

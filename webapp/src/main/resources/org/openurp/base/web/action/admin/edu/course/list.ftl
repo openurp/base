@@ -13,6 +13,8 @@
                 "creditHours,weekHours,department.name:所属院系,courseType.name:课程类型,nature.name:课程性质,"+
                 "category.name:课程分类,examMode.name:考核方式,hasMakeup,calgp,beginOn,endOn",
                 null,'fileName=课程信息'));
+    var m = bar.addMenu("高级..");
+    m.addItem("检查英文名",action.multi("checkEnName"));
   [/@]
   [@b.row]
     [@b.boxcol /]
@@ -36,5 +38,5 @@
     [@b.col width="15%" property="courseType.name" title="课程类型"/]
     [@b.col width="7%" property="examMode.name" title="考核方式"/]
   [/@]
-  [/@]
+[/@]
 [@b.foot/]

@@ -83,7 +83,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-3">
+    <div class="col-2">
       <div class="card sticky-top">
         <div class="card-header">
           院系列表 <span class="badge badge-primary">${departs?size}</span>
@@ -101,11 +101,11 @@
         </div>
       </div>
     </div>
-    <div class="col-9" style="padding:0px 20px">
+    <div class="col-10" style="padding:0px 20px">
       [#list departs as depart]
       [#assign matrix = matrixes.get(depart.id)/]
-        [@displayMatrix depart,"tutor",["level","graduationDeferred"],
-          "导师",["培养层次","是否延期"],["std.level.id","std.graduationDeferred"]  /]
+        [@displayMatrix depart,"tutor",["level","grade","graduationDeferred"],
+          "导师",["培养层次","年级","是否延期"],["std.level.id","std.state.grade.id","std.graduationDeferred"]  /]
       [/#list]
     </div>
   </div>

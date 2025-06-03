@@ -8,6 +8,8 @@
       [@b.textfield name="course.name" id="name" label="名称" value="${course.name!}" required="true" maxlength="100"/]
       [@b.textfield name="course.enName" id="enName" label="英文名" value=course.enName! maxlength="200" style="width:500px"]
         <a href="javascript:void(0)" style="margin-left: 10px;" onclick="return translateName()">自动翻译</a>
+        <a href="javascript:void(0)" style="margin-left: 10px;" onclick="return checkEnName()">语法检查</a>
+        <span id="enNameCheckMsg" style="display: block;"></span>
       [/@]
       [@b.field label="培养层次"]
         [#list levels?sort_by("code") as level]
@@ -17,7 +19,7 @@
           [/#list]
           <input type="checkbox" id="level${level.id}" value="${level.id}" name="levelId" [#if findMatched]checked="checked"[/#if]/>
           <label for="level${level.id}">${level.name}</label>
-          [#if levelCreditSupported]<input type="text" name="level${level.id}.credits" value="[#if findMatched]${matchedLevel.credits!}[/#if]" style="width:50px" placeholder="学分"/>[/#if]
+          [#if levelCreditSupported]<input type="text" name="level${level.id}.credits" value="[#if findMatched]${matchedLevel.credits!}[/#if]" style="width:50px" placeholder="学分"/>分[/#if]
           [#if level_has_next]&nbsp;[/#if]
         [/#list]
       [/@]
@@ -96,6 +98,20 @@
         name = encodeURIComponent(name);
         $.get("${api}/base/edu/${project.id}/courses/en?q="+name,function(data,status){
             jQuery('#enName').val(data);
+        });
+      }
+      return false;
+    }
+    function checkEnName(){
+      var name = document.getElementById('enName').value;
+      if(name) {
+        name = encodeURIComponent(name);
+        $.get("${api}/tools/lang/en/check.json?name="+name,function(data,status){
+            if(data.success){
+              jQuery('#enNameCheckMsg').html("🎉没有检查出错误");
+            }else{
+              jQuery('#enNameCheckMsg').html("&#128296; " +data.data.join(","));
+            }
         });
       }
       return false;

@@ -1,0 +1,21 @@
+[#ftl]
+[@b.head/]
+  [@b.toolbar title="英文名拼写检查结果"]
+    bar.addBack();
+  [/@]
+  [#if courses?size==0]
+    <p class="alert alert-success">没有检查出拼写问题</p>
+  [#else]
+    [@b.grid items=courses var="course"]
+      [@b.row]
+        [@b.col title="序号" width="6%"]${course_index+1}[/@]
+        [@b.col width="10%" property="code" title="代码"/]
+        [@b.col property="name" title="名称"][@b.a href="!info?id=${course.id}"]${course.name}[/@][/@]
+        [@b.col property="enName" title="英文名称"/]
+        [@b.col title="检查结果"]
+          ${messages.get(course)!}
+        [/@]
+      [/@]
+    [/@]
+  [/#if]
+[@b.foot/]
