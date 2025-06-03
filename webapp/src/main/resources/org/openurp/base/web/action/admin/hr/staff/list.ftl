@@ -11,6 +11,7 @@
                 ",degreeAwardBy:最高学位授予单位,status.name:在职状态,organization:全职工作单位,formalHr:是否在编,external:是否外聘"+
                 ",parttime:是否兼职,beginOn:生效日期",null,'fileName=教职工信息'));
     bar.addItem("导入",action.method('importForm'));
+    bar.addItem("补足姓名拼音",action.multi("batchUpdateEnName"));
   [/@]
   [@b.row]
     [@b.boxcol /]

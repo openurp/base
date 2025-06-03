@@ -5,8 +5,10 @@
   [@b.tab label="基本信息"]
     [@b.form action=b.rest.save(course) theme="list" onsubmit="validCreditHour"]
       [@b.textfield name="course.code" label="代码" value="${course.code!}" required="true" maxlength="20"/]
-      [@b.textfield name="course.name" label="名称" value="${course.name!}" required="true" maxlength="100"/]
-      [@b.textfield name="course.enName" label="英文名" value="${course.enName!}" maxlength="200" style="width:500px"/]
+      [@b.textfield name="course.name" id="name" label="名称" value="${course.name!}" required="true" maxlength="100"/]
+      [@b.textfield name="course.enName" id="enName" label="英文名" value=course.enName! maxlength="200" style="width:500px"]
+        <a href="javascript:void(0)" style="margin-left: 10px;" onclick="return translateName()">自动翻译</a>
+      [/@]
       [@b.field label="培养层次"]
         [#list levels?sort_by("code") as level]
           [#assign findMatched=false/]
@@ -57,37 +59,48 @@
       [/@]
     [/@]
   <script>
-     function validCreditHour(form){
-        [#if teachingNatures?size>0]
-        var sumCreditHours=0;
-        [#list teachingNatures as ht]
-        sumCreditHours += Number.parseFloat(form['creditHour${ht.id}'].value||'0');
-        [/#list]
-        if(sumCreditHours != Number.parseFloat(form['course.creditHours'].value||'0')){
-           alert("分类课时总和"+sumCreditHours+",不等于课程学时"+form['course.creditHours'].value);
-           return false;
-        }else{
-           return true;
-        }
-        [#else]
-        return true;
-        [/#if]
+    function validCreditHour(form){
+      [#if teachingNatures?size>0]
+      var sumCreditHours=0;
+      [#list teachingNatures as ht]
+      sumCreditHours += Number.parseFloat(form['creditHour${ht.id}'].value||'0');
+      [/#list]
+      if(sumCreditHours != Number.parseFloat(form['course.creditHours'].value||'0')){
+         alert("分类课时总和"+sumCreditHours+",不等于课程学时"+form['course.creditHours'].value);
+         return false;
+      }else{
+         return true;
+      }
+      [#else]
+      return true;
+      [/#if]
+    }
+    [#--根据输入的学分自动计算周课时、学时和理论学时--]
+    function autoCalcHours(creditInput){
+     var form = creditInput.form;
+     if(creditInput.value){
+       var credits = parseFloat(creditInput.value);
+       form['course.creditHours'].value =  credits*${hoursPerCredit};
+       form['course.weekHours'].value =  credits;
+       [#if teachingNatures?size>0]
+          if(!form['creditHour${teachingNatures?first.id}'].value){
+             form['creditHour${teachingNatures?first.id}'].value=form['course.creditHours'].value;
+          }
+       [/#if]
      }
-     [#--根据输入的学分自动计算周课时、学时和理论学时--]
-     function autoCalcHours(creditInput){
-       var form = creditInput.form;
-       if(creditInput.value){
-         var credits = parseFloat(creditInput.value);
-         form['course.creditHours'].value =  credits*${hoursPerCredit};
-         form['course.weekHours'].value =  credits;
-         [#if teachingNatures?size>0]
-            if(!form['creditHour${teachingNatures?first.id}'].value){
-               form['creditHour${teachingNatures?first.id}'].value=form['course.creditHours'].value;
-            }
-         [/#if]
-       }
-     }
-  </script>
+    }
+
+    function translateName(){
+      var name = document.getElementById('name').value;
+      if(name) {
+        name = encodeURIComponent(name);
+        $.get("${api}/base/edu/${project.id}/courses/en?q="+name,function(data,status){
+            jQuery('#enName').val(data);
+        });
+      }
+      return false;
+    }
+</script>
 [/@]
   [#if course.persisted]
     [@b.tab label="变化记录"]

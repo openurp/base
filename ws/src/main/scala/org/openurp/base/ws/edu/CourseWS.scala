@@ -18,13 +18,17 @@
 package org.openurp.base.ws.edu
 
 import org.beangle.commons.json.JsonObject
+import org.beangle.commons.lang.Strings
+import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.json.JsonAPI
-import org.beangle.webmvc.annotation.response
+import org.beangle.web.servlet.url.UrlBuilder
+import org.beangle.webmvc.annotation.{param, response}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.openurp.api.URPTool
 import org.openurp.base.edu.model.Course
 
 import java.time.LocalDate
@@ -48,5 +52,14 @@ class CourseWS extends ActionSupport, EntityAction[Course] {
     val courses = entityDao.search(query)
     val context = JsonAPI.context(ActionContext.current.params)
     context.mkJson(courses, "id", "code", "name", "enName", "description")
+  }
+
+  @response
+  def en(@param("q") q: String): String = {
+    if Strings.isEmpty(q) then "Param q is needed"
+    else if q.length > 200 then "Cannot handle Chinese characters exceeding 200"
+    else
+      val text = "《" + q + "》"
+      HttpUtils.getText(URPTool.url + "/translate/en?" + UrlBuilder.encodeParams(Map("q" -> text))).getText.trim()
   }
 }

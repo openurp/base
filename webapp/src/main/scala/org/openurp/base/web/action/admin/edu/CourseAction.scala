@@ -23,11 +23,13 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
-import org.beangle.event.bus.{DataEvent, DataEventBus}
+import org.beangle.ems.app.Ems
+import org.beangle.event.bus.DataEvent
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.{Stream, View}
+import org.openurp.api.URPTool
 import org.openurp.base.edu.model.{Course, CourseHour, CourseJournal, CourseLevel}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.service.Features
@@ -85,6 +87,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
     put("courseCategories", c.categories.map(x => (x.dimension, x)).toMap)
     put("project", project)
+    put("api", Ems.api)
     super.editSetting(c)
   }
 
@@ -133,7 +136,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     val courseTypes = codeService.get(classOf[CourseType]).map(x => x.code + " " + x.name)
     val examModes = codeService.get(classOf[ExamMode]).map(x => x.code + " " + x.name)
     val departs = entityDao.search(OqlBuilder.from(classOf[Department], "bt").where("bt.school=:school", school)
-         .orderBy("bt.name")).map(x => x.code + " " + x.name)
+      .orderBy("bt.name")).map(x => x.code + " " + x.name)
     val natures = codeService.get(classOf[CourseNature]).map(x => x.code + " " + x.name)
 
     val schema = new ExcelSchema()

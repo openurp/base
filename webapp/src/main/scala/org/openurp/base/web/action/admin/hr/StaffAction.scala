@@ -18,11 +18,14 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.commons.activation.MediaTypes
-import org.beangle.commons.lang.Strings
+import org.beangle.commons.collection.Collections
+import org.beangle.commons.lang.{Charsets, Strings}
+import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.{Operation, OqlBuilder}
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.ems.app.Ems
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.execution.MappingHandler
@@ -40,6 +43,7 @@ import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
 import org.openurp.code.person.model.{Gender, IdType, Nation, PoliticalStatus}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
+import java.net.URLEncoder
 import java.time.{Instant, LocalDate}
 
 class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], ImportSupport[Staff] {
@@ -79,6 +83,8 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("tutorTypes", codeService.get(classOf[TutorType]))
 
     put("extraRequired", Strings.split(getConfig(Hr.StaffExtraRequiredProperties).asInstanceOf[String]).toSet)
+
+    put("api", Ems.api)
     if !staff.persisted then staff.beginOn = LocalDate.now
     super.editSetting(staff)
   }
@@ -206,4 +212,26 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("staffTitles", titles)
     forward()
   }
+
+  /**
+   * 批量更新学生姓名拼音
+   *
+   * @return
+   */
+  def batchUpdateEnName(): View = {
+    val staffs = entityDao.find(classOf[Staff], getLongIds("staff"))
+    val forceUpdate = getBoolean("forceUpdate", false)
+    staffs foreach { staff =>
+      if (staff.enName.isEmpty || forceUpdate) {
+        val response = HttpUtils.getText(Ems.api + "/tools/sns/person/pinyin/" + URLEncoder.encode(staff.name, Charsets.UTF_8) + ".json")
+        if (response.isOk) {
+          val enName = response.getText.trim
+          staff.enName = Some(enName)
+        }
+      }
+    }
+    entityDao.saveOrUpdate(staffs)
+    redirect("search", "info.save.success")
+  }
+
 }

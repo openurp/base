@@ -3,7 +3,10 @@
 [@b.toolbar title="修改教职工信息"]bar.addBack();[/@]
   [@b.form action=b.rest.save(staff) theme="list"]
     [@b.textfield name="staff.code" label="职工号" value=staff.code! required="true" style="width:100px;" maxlength="20"/]
-    [@b.textfield name="staff.name" label="姓名" value=staff.name! required="true" style="width:100px;" maxlength="20"/]
+    [@b.textfield name="staff.name" label="姓名" id="name" value=staff.name! required="true" style="width:100px;" maxlength="20"/]
+    [@b.textfield label="姓名拼音" id="phoneticName" name="staff.enName" value=(staff.enName)! maxlength="100" style="width: 120px"]
+      <a href="javascript:void(0)" style="margin-left: 10px;" onclick="return auto_pinyin()">获取拼音</a>
+    [/@]
 
     [@b.select name="staff.gender.id" label="性别" value=staff.gender! required="true"  items=genders empty="..."/]
     [@b.select name="staff.idType.id" label="证件类型" value=staff.idType! required="true"  items=idTypes  empty="..."/]
@@ -37,4 +40,16 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
+<script>
+  function auto_pinyin(){
+    var name = document.getElementById('name').value;
+    if(name) {
+      name = encodeURIComponent(name);
+      $.get("${api}/tools/sns/person/pinyin/"+name+".json",function(data,status){
+          jQuery('#phoneticName').val(data);
+      });
+    }
+    return false;
+  }
+</script>
 [@b.foot/]
