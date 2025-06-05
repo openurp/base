@@ -24,21 +24,26 @@ object TextbookHelper {
 
   def fetchByIsbn(isbn: String): JsonObject = {
     val url = s"http://tool.openurp.net/book/isbn/${isbn}.json"
-    val res = HttpUtils.getText(url)
-    val r = Json.parse(res.getText).asInstanceOf[JsonObject]
-    if (r.getBoolean("success")) {
-      val j = r.get("data").map(_.asInstanceOf[JsonObject])
-      j.map { jd =>
-        val data = new JsonObject()
-        data.add("isbn", jd.getString("isbn"))
-        data.add("name", jd.getString("name"))
-        data.add("author", jd.getString("author"))
-        data.add("press", jd.getString("press"))
-        data.add("publishedOn", jd.getString("publishedOn"))
-        data.add("edition", jd.getString("edition"))
-        data.add("description", jd.getString("description"))
-        data
-      }.get
+    val res = HttpUtils.getText(url).getText
+    if (res.startsWith("{")) {
+      val r = Json.parse(res).asInstanceOf[JsonObject]
+      if (r.getBoolean("success")) {
+        val j = r.get("data").map(_.asInstanceOf[JsonObject])
+        j.map { jd =>
+          val data = new JsonObject()
+          data.add("isbn", jd.getString("isbn"))
+          data.add("name", jd.getString("name"))
+          data.add("author", jd.getString("author"))
+          data.add("press", jd.getString("press"))
+          data.add("publishedOn", jd.getString("publishedOn"))
+          data.add("edition", jd.getString("edition"))
+          data.add("description", jd.getString("description"))
+          data
+        }.get
+      } else {
+        val d = new JsonObject()
+        d.add("isbn", isbn)
+      }
     } else {
       val d = new JsonObject()
       d.add("isbn", isbn)
