@@ -23,8 +23,8 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.43.0"
-val starterVer = "0.3.57"
+val apiVer = "0.44.0"
+val starterVer = "0.3.58"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
