@@ -19,8 +19,7 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.pojo.TemporalOn
-import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.webmvc.annotation.{mapping, param}
+import org.beangle.event.bus.DataEvent
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.{Course, CourseJournal, CourseJournalHour}
 import org.openurp.base.model.{Project, Semester}
@@ -46,14 +45,24 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
     query.where("s.calendar=:calendar", project.calendar)
     query.orderBy("s.code desc")
     val semesters = entityDao.search(query)
-    put("semesters", SortedMap.from(semesters.map(x => (x.beginOn.toString, x.beginOn.toString)).sortBy(_._1).reverse))
+    //学期起始年月的第一天，防止学期的起止日期变动导致对课程有效期的影响
+    put("semesterDates", SortedMap.from(semesters.map(x => (atStartOfDay(x.beginOn).toString, atStartOfDay(x.beginOn).toString)).sortBy(_._1).reverse))
     if (!journal.persisted) {
       val course = entityDao.get(classOf[Course], journal.course.id)
-      val beginOn = semesters.find(_.within(LocalDate.now)).map(_.beginOn).getOrElse(LocalDate.now)
+      val beginOn = semesters.find(_.within(LocalDate.now)).map(x => atStartOfDay(x.beginOn)).getOrElse(LocalDate.now)
       put(simpleEntityName, new CourseJournal(course, beginOn))
     } else {
       put(simpleEntityName, journal)
     }
+  }
+
+  /** 日期对应当月的第一天的日期
+   *
+   * @param date
+   * @return
+   */
+  private def atStartOfDay(date: LocalDate): LocalDate = {
+    LocalDate.of(date.getYear, date.getMonth, 1)
   }
 
   override def getQueryBuilder: OqlBuilder[CourseJournal] = {
@@ -95,17 +104,26 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
     val journals = TemporalOn.calcEndOn(entityDao.findBy(classOf[CourseJournal], "course", journal.course))
     entityDao.saveOrUpdate(journals)
     val last = journals.last
+    val course = entityDao.get(classOf[Course], last.course.id)
     //last one
     if (last.endOn.isEmpty) {
-      val course = entityDao.get(classOf[Course], last.course.id)
       if (last.enName.nonEmpty) {
         course.enName = last.enName
       }
+      course.updateHours(last.hours.map(x => (x.nature, x.creditHours)).toMap)
       course.creditHours = last.creditHours
       course.name = last.name
-      entityDao.saveOrUpdate(course)
-      databus.publish(DataEvent.update(course))
     }
+    if (journals.nonEmpty) {
+      course.beginOn = journals.map(_.beginOn).min
+      if (journals.exists(_.endOn.isEmpty)) {
+        course.endOn = None
+      } else {
+        course.endOn = Some(journals.map(_.endOn.get).max)
+      }
+    }
+    entityDao.saveOrUpdate(course)
+    databus.publish(DataEvent.update(course))
     databus.publish(DataEvent.update(journal))
     super.saveAndRedirect(journal)
   }

@@ -4,7 +4,7 @@
   [@b.form action=b.rest.save(graduateSeason) theme="list"]
     [@b.textfield name="graduateSeason.code" label="代码" value=graduateSeason.code! required="true" maxlength="20" placeholder="yyyy"/]
     [@b.textfield name="graduateSeason.name" label="名称" value=graduateSeason.name! required="true" maxlength="20" placeholder="yyyy届"/]
-    [@b.date name="graduateSeason.graduateOn" label="毕业年月" value=graduateSeason.graduateOn! required="true" format="yyyy-MM"/]
+    [@b.date name="graduateSeason.graduateIn" label="毕业年月" value=graduateSeason.graduateIn! required="true" format="yyyy-MM"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]

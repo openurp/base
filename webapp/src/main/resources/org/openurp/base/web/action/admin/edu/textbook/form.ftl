@@ -9,7 +9,7 @@
     [@b.textfield name="textbook.name" label="名称" value="${textbook.name!}" required="true" maxlength="50" style="width:400px"/]
     [@b.textfield name="textbook.author" label="作者" value=textbook.author! maxlength="100" required="true"/]
     [@b.textfield name="textbook.translator" label="译者" value=textbook.translator! maxlength="100" /]
-    [@b.date name="textbook.publishedOn" label="出版年月" value=(textbook.publishedOn)!  format="yyyy-MM" required="true"/]
+    [@b.date name="textbook.publishedIn" label="出版年月" value=(textbook.publishedIn)!  format="yyyy-MM" required="true"/]
     [@b.textfield name="textbook.edition" label="版次" value=textbook.edition! maxlength="20" style="width:100px" required="true"/]
     [@b.textfield name="textbook.series" label="丛书" value=textbook.series! maxlength="50" style="width:200px" required="false"/]
     [@b.textfield name="press.name" label="出版社" maxlength="100" value=(textbook.press.name)! required="true" placeholder="输入完整名称或从已有种选择"]
@@ -54,7 +54,7 @@
             form['textbook.name'].value=data.name;
             form['textbook.author'].value=data.author;
             form['press.name'].value=data.press;
-            form['textbook.publishedOn'].value=data.publishedOn.replace(".","-");
+            form['textbook.publishedIn'].value=data.publishedIn.replace(".","-");
             form['textbook.edition'].value=data.edition;
           }else{
             $("#queryResult").show();

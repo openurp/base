@@ -4,6 +4,7 @@
   [@b.gridbar]
     bar.addItem("新增",action.add());
     bar.addItem("${b.text("action.modify")}",action.edit());
+    bar.addItem("删除",action.remove());
   [/@]
   [#assign creditHourTitle]学时([#list teachingNatures as n]${n.name}[#sep]+[/#list])[/#assign]
   [@b.row]

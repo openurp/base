@@ -8,7 +8,7 @@
     bar.addItem("导入",action.method('importForm'));
     bar.addItem("${b.text("action.export")}",action.exportData("course.code,course.name,course.defaultCredits:学分,"+
                 "course.creditHours,course.department.name:所属院系,textbook.isbn:ISBN,textbook.name:教材名称,textbook.author:作者,"+
-                "textbook.press.name:出版社,textbook.edition:版次,textbook.publishedOn:出版年月,begin:生效日期,endOn:失效日期",
+                "textbook.press.name:出版社,textbook.edition:版次,textbook.publishedIn:出版年月,begin:生效日期,endOn:失效日期",
                 null,'fileName=课程默认教材信息'));
   [/@]
   [@b.row]

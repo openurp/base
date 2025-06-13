@@ -64,7 +64,7 @@
     <td class="content" colspan="3">
       <ul style="padding-left: 1rem;list-style: decimal;margin:0px;">
       [#list course.textbooks as p]
-        <li>[@b.a href="textbook!info?id="+p.id]${p.name}[/@] ${p.author!}，ISBN:${p.isbn}，版次：${p.edition!}，出版年月：${p.publishedOn?string('yyyy-MM')}</li>
+        <li>[@b.a href="textbook!info?id="+p.id]${p.name}[/@] ${p.author!}，ISBN:${p.isbn}，版次：${p.edition!}，出版年月：${p.publishedIn?string('yyyy-MM')}</li>
       [/#list]
       </ul>
     </td>

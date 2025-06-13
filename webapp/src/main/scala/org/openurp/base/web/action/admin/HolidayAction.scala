@@ -21,7 +21,6 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
 import org.openurp.base.edu.model.Holiday
-import org.openurp.base.web.tag.ProjectHelper.getProject
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.Instant

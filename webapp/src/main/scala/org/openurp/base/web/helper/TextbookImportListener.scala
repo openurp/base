@@ -33,8 +33,8 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
   override def onItemStart(tr: ImportResult): Unit = {
     val data = transfer.curData
     val isbn = data("textbook.isbn")
-    data.get("textbook.publishedOn") foreach { p =>
-      val publishedOnStr = p match
+    data.get("textbook.publishedIn") foreach { p =>
+      val publishedInStr = p match
         case s: String =>
           if (s.length < "xxxx-x-x".length) {
             s + "-01"
@@ -44,8 +44,8 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
         case d: java.util.Date => new java.sql.Date(d.getTime).toLocalDate.toString
         case _ => p.toString
       try {
-        val publishedOn = YearMonth.from(LocalDate.parse(publishedOnStr))
-        data.put("textbook.publishedOn", publishedOn)
+        val publishedIn = YearMonth.from(LocalDate.parse(publishedInStr))
+        data.put("textbook.publishedIn", publishedIn)
       } catch {
         case e: Throwable => tr.addFailure("错误的出版日期格式", p)
       }

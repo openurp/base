@@ -13,7 +13,7 @@
       [@b.row]
         [@b.boxcol property="isbn" checked=book.name?? display=book.name??/]
         [@b.col title="ISBN" width="15%"]${book.isbn}[/@]
-        [@b.col title="图书信息" ][#if book.name??]${book.name} ${book.author!} ${book.press!} ${book.publishedOn!} ${book.edition!}[#else]查无此书[/#if][/@]
+        [@b.col title="图书信息" ][#if book.name??]${book.name} ${book.author!} ${book.press!} ${book.publishedIn!} ${book.edition!}[#else]查无此书[/#if][/@]
       [/@]
     [/@]
     [@b.formfoot]

@@ -4,7 +4,7 @@
   [@b.form action="!save" theme="list"]
     [@b.textfield name="textbook.name" label="名称" value="${textbook.name!}" required="true" maxlength="50" style="width:400px"/]
     [@b.textfield name="textbook.author" label="作者" value=textbook.author! maxlength="100" required="true"/]
-    [@b.date name="textbook.publishedOn" label="编写年月" value=(textbook.publishedOn)! format="yyyy-MM" required="true"/]
+    [@b.date name="textbook.publishedIn" label="编写年月" value=(textbook.publishedIn)! format="yyyy-MM" required="true"/]
     [@b.textfield name="textbook.edition" label="版次" value=textbook.edition! maxlength="20" style="width:100px" required="true"/]
     [@b.select name="textbook.category.id" label="图书分类" value=(textbook.category.id)!
                style="width:200px;" items=categories empty="..." required="false"/]

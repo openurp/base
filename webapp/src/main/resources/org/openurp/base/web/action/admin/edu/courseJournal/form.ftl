@@ -28,7 +28,7 @@
     [/@]
     [/#if]
     [@b.radios name="journal.examMode.id" label="考核方式" value=journal.examMode! required="true" items=examModes /]
-    [@b.select name="journal.beginOn" label="生效日期" value=journal.beginOn?string required="true"  items=semesters empty="..."/]
+    [@b.select name="journal.beginOn" label="生效日期" value=journal.beginOn?string required="true"  items=semesterDates empty="..."/]
     [@b.checkboxes name="tag.id" label="课程标签" values=journal.tags! items=tags  required="false" /]
 
     [@b.formfoot]

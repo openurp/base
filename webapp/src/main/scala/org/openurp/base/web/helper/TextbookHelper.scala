@@ -35,7 +35,7 @@ object TextbookHelper {
           data.add("name", jd.getString("name"))
           data.add("author", jd.getString("author"))
           data.add("press", jd.getString("press"))
-          data.add("publishedOn", jd.getString("publishedOn"))
+          data.add("publishedIn", jd.getString("publishedIn"))
           data.add("edition", jd.getString("edition"))
           data.add("description", jd.getString("description"))
           data

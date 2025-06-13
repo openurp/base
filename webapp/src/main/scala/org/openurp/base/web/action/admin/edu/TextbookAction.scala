@@ -70,7 +70,7 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     sheet.add("译者", "textbook.translator").length(50)
     sheet.add("出版社", "textbook.press.code").ref(presses).required()
     sheet.add("版次", "textbook.edition").length(20).required()
-    sheet.add("出版年月", "textbook.publishedOn").date("YYYY-MM").required()
+    sheet.add("出版年月", "textbook.publishedIn").date("YYYY-MM").required()
     sheet.add("是否自编", "textbook.madeInSchool").bool()
     sheet.add("教材类型", "textbook.bookType.code").ref(bookTypes)
     sheet.add("图书分类", "textbook.category.code").ref(categories)
@@ -189,7 +189,7 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
           book.name = data.getString("name")
           book.author = data.getString("author")
           book.edition = data.getString("edition")
-          book.publishedOn = YearMonth.parse(data.getString("publishedOn"))
+          book.publishedIn = YearMonth.parse(data.getString("publishedIn"))
 
           book.project = project
           book.beginOn = LocalDate.now

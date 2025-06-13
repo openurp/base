@@ -13,7 +13,7 @@
       [@b.select name="press.id" label="" theme="html" items=presses?sort_by('name') empty="..." required="false" onchange="fillPress(this.form,this)"/]
     [/@]
 
-    [@b.date name="textbook.publishedOn" label="出版年月" value=(textbook.publishedOn)! format="yyyy-MM" required="true"/]
+    [@b.date name="textbook.publishedIn" label="出版年月" value=(textbook.publishedIn)! format="yyyy-MM" required="true"/]
     [@b.textfield name="textbook.edition" label="版次" value=textbook.edition! maxlength="20" style="width:100px" required="true"/]
     [@b.select name="textbook.category.id" label="图书分类" value=(textbook.category.id)!
                items=categories empty="..." required="false"/]
@@ -56,7 +56,7 @@
             form['textbook.name'].value=data.name;
             form['textbook.author'].value=data.author;
             form['press.name'].value=data.press;
-            form['textbook.publishedOn'].value=data.publishedOn.replace(".","-");
+            form['textbook.publishedIn'].value=data.publishedIn.replace(".","-");
             form['textbook.edition'].value=data.edition;
           }else{
             $("#queryResult").show();

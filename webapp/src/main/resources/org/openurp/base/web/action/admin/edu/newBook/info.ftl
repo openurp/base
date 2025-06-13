@@ -18,7 +18,7 @@
     <td class="title">出版社:</td>
     <td class="content">${(textbook.press.name)!}</td>
     <td class="title">出版年月:</td>
-    <td class="content">${(textbook.publishedOn?string('YYYY-MM'))!}</td>
+    <td class="content">${(textbook.publishedIn?string('yyyy-MM'))!}</td>
   </tr>
   <tr>
     <td class="title">版次:</td>
