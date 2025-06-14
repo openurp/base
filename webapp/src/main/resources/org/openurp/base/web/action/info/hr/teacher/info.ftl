@@ -41,7 +41,7 @@
       <td>${staff.code}</td>
       <td class="title" >姓名：</td>
       <td>${staff.name}</td>
-      <td colspan="2" rowspan="3" style="text-align:center;">[@ems.avatar username=staff.code style="border-radius: 50%;width:80px;"/]</td>
+      <td colspan="2" rowspan="3" style="text-align:center;">[@ems.avatar username=staff.code style="border-radius: 50%;height:90px;"/]</td>
     </tr>
     <tr>
       <td class="title">性别：</td>
