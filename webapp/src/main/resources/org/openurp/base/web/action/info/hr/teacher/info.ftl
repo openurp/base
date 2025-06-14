@@ -14,7 +14,6 @@
   table td.title {
     padding: 0.2rem 0rem;
     text-align:right;
-    width:110px;
     color: #6c757d !important;
   }
   table-fixed {
@@ -30,11 +29,11 @@
 [@panel title="基本信息"]
   <table class="table table-sm table-fixed">
     <colgroup>
-      <col class="title"/>
+      <col width="13%"/>
       <col width="20%"/>
-      <col class="title"/>
+      <col width="13%"/>
       <col width="20%"/>
-      <col class="title"/>
+      <col width="14%"/>
       <col width="20%"/>
     </colgroup>
     <tr>
@@ -67,13 +66,21 @@
 
 [@panel title="工作信息"]
   <table class="table table-sm table-fixed">
+    <colgroup>
+      <col width="13%"/>
+      <col width="20%"/>
+      <col width="13%"/>
+      <col width="20%"/>
+      <col width="14%"/>
+      <col width="20%"/>
+    </colgroup>
     <tr>
       <td class="title" >部门：</td>
-      <td width="20%">${staff.department.name}</td>
+      <td>${staff.department.name}</td>
       <td class="title" >教职工类别：</td>
-      <td width="20%">${(staff.staffType.name)!} [#if staff.parttime]兼职[/#if]&nbsp;[#if staff.external]外聘[/#if]</td>
+      <td>${(staff.staffType.name)!} [#if staff.parttime]兼职[/#if]&nbsp;[#if staff.external]外聘[/#if]</td>
       <td class="title" >在职状态：</td>
-      <td width="20%">${(staff.status.name)!}</td>
+      <td>${(staff.status.name)!}</td>
     </tr>
     <tr>
       <td class="title">是否在编：</td>
@@ -88,13 +95,21 @@
 
 [@panel title="职称学历信息"]
   <table class="table table-sm table-fixed">
+    <colgroup>
+      <col width="13%"/>
+      <col width="20%"/>
+      <col width="13%"/>
+      <col width="20%"/>
+      <col width="14%"/>
+      <col width="20%"/>
+    </colgroup>
     <tr>
       <td class="title" >最高学历：</td>
-      <td width="20%">${(staff.educationDegree.name)!}</td>
-      <td class="title" >最高学位：</td>
-      <td width="20%">${(staff.degree.name)!}</td>
+      <td>${(staff.educationDegree.name)!}</td>
+      <td class="title">最高学位：</td>
+      <td>${(staff.degree.name)!}</td>
       <td class="title">学位层次：</td>
-      <td width="20%">${(staff.degreeLevel.name)!}</td>
+      <td>${(staff.degreeLevel.name)!}</td>
     </tr>
     <tr>
       <td class="title">职称：</td>
@@ -108,10 +123,18 @@
 [#if majors?size>0]
 [@panel title="研究领域"]
   <table class="table table-sm table-fixed">
+    <colgroup>
+      <col width="13%"/>
+      <col width="20%"/>
+      <col width="13%"/>
+      <col width="20%"/>
+      <col width="14%"/>
+      <col width="20%"/>
+    </colgroup>
   [#list majors as m]
     <tr>
       <td class="title">学科专业：</td>
-      <td width="20%">${m.eduType.name} ${m.level.name} ${m.major.name}</td>
+      <td>${m.eduType.name} ${m.level.name} ${m.major.name}</td>
       <td class="title">研究方向：</td>
       <td colspan="3">[#list m.directions as d]${d.name}[#sep]&nbsp;[/#list]</td>
     </tr>
