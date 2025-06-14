@@ -3,7 +3,7 @@
 [@b.toolbar title="新建、修改教材"]bar.addBack();[/@]
   [@b.form action=b.rest.save(textbook) theme="list" name="textbookForm"]
     [@b.textfield name="textbook.isbn" label="ISBN" value="${textbook.isbn!}" required="true" maxlength="30"]
-      <a href="${b.url('new-book!queryByIsbn')}" onclick="return fetchByIsbn(this,event);">按照isbn查询，并自动填充</a>
+      <a href="${Ems.api}/base/edu/${project.id}/textbooks/queryByIsbn.json" onclick="return fetchByIsbn(this,event);">按照isbn查询，并自动填充</a>
       <span class="alert alert-warning" style="display:none;" id="queryResult"><span>
     [/@]
     [@b.textfield name="textbook.name" label="名称" value="${textbook.name!}" required="true" maxlength="50" style="width:400px"/]
@@ -38,6 +38,9 @@
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]
   [/@]
+<div  style="top: -850px;position: relative;right: -700px;">
+  <image src="" id="textbook_image" style="width:150px;" />
+</div>
   <script>
   function fetchByIsbn(anchor,event){
     var form = document.textbookForm;
@@ -47,8 +50,7 @@
       jQuery.ajax({
         url:anchor.href+"?isbn="+isbn,
         headers:{"Accept":"application/json"},
-        success:function (obj){
-          var data = JSON.parse(obj);
+        success:function (data){
           if(data.name){
             $("#queryResult").hide();
             form['textbook.name'].value=data.name;
@@ -56,6 +58,12 @@
             form['press.name'].value=data.press;
             form['textbook.publishedIn'].value=data.publishedIn.replace(".","-");
             form['textbook.edition'].value=data.edition;
+            if(data.pictureUrl){
+              document.getElementById("textbook_image").src = data.pictureUrl;
+              $("#textbook_image").show();
+            }else{
+              $("#textbook_image").hide();
+            }
           }else{
             $("#queryResult").show();
             $("#queryResult").text("查无此书");

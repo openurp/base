@@ -55,7 +55,7 @@
            </button>
          </div>
          <div id="stat_body_2" class="collapse" aria-labelledby="stat_header_2" data-parent="#accordion">
-           <div class="card-body" style="padding-top: 0px;">
+           <div class="card-body" style="padding-top: 0px;max-height:400px;overflow-y:auto;">
              <table class="table table-hover table-sm">
               <tbody>
               [#list typeStat as stat]
@@ -77,7 +77,7 @@
            </button>
          </div>
          <div id="stat_body_3" class="collapse" aria-labelledby="stat_header_3" data-parent="#accordion">
-           <div class="card-body" style="padding-top: 0px;">
+           <div class="card-body" style="padding-top: 0px;max-height:400px;overflow-y:auto;">
              <table class="table table-hover table-sm">
               <tbody>
               [#list titleStat as stat]

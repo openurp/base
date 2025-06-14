@@ -17,11 +17,13 @@
 
 package org.openurp.base.web.action.info.hr
 
+import org.beangle.commons.bean.orderings.PropertyOrdering
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.EntityAction
-import org.openurp.base.hr.model.Teacher
+import org.beangle.webmvc.view.View
+import org.openurp.base.hr.model.{StaffTitle, Teacher, TutorJournal, TutorMajor}
 import org.openurp.code.job.model.TutorType
 import org.openurp.starter.web.support.ProjectSupport
 
@@ -58,7 +60,7 @@ class TeacherAction extends ActionSupport with EntityAction[Teacher] with Projec
     ctQuery.select("t.staff.staffType.id,t.staff.staffType.name,count(*)")
     ctQuery.groupBy("t.staff.staffType.id,t.staff.staffType.code,t.staff.staffType.name")
     ctQuery.orderBy("t.staff.staffType.code")
-    put("typeStat", entityDao.search(ctQuery))
+    put("typeStat", entityDao.search(ctQuery).sorted(PropertyOrdering.by("[2] desc,[1]")))
 
     val categoryQuery = OqlBuilder.from(classOf[Teacher].getName, "t")
     categoryQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
@@ -72,7 +74,7 @@ class TeacherAction extends ActionSupport with EntityAction[Teacher] with Projec
     titleQuery.select("t.staff.title.id,t.staff.title.name,count(*)")
     titleQuery.groupBy("t.staff.title.id,t.staff.title.code,t.staff.title.name")
     titleQuery.orderBy("t.staff.title.code")
-    put("titleStat", entityDao.search(titleQuery))
+    put("titleStat", entityDao.search(titleQuery).sorted(PropertyOrdering.by("[2] desc,[1]")))
     forward()
   }
 
@@ -84,6 +86,21 @@ class TeacherAction extends ActionSupport with EntityAction[Teacher] with Projec
     query.orderBy("teacher.staff.code")
     put("tutorTypes", codeService.get(classOf[TutorType]))
     put("teachers", entityDao.search(query))
+    forward()
+  }
+
+  @mapping(value = "{id}")
+  def info(@param("id") id: String): View = {
+    val teacher = entityDao.get(classOf[Teacher], id.toLong)
+    val staff = teacher.staff
+    val titles = entityDao.findBy(classOf[StaffTitle], "staff", staff)
+    put("staff", teacher.staff)
+    put("staffTitles", titles)
+
+    val majors = entityDao.findBy(classOf[TutorMajor], "staff", staff)
+    val appointOn = entityDao.findBy(classOf[TutorJournal], "staff", staff).map(x => (x.tutorType, x.beginOn)).toMap
+    put("majors", majors)
+    put("appointOn", appointOn)
     forward()
   }
 }

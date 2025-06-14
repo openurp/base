@@ -37,11 +37,13 @@
           [#list teachers as teacher]
            <tr>
             <td>${teacher.staff.code}</td>
-            <td>${teacher.name}</td>
+            <td>
+              <a href="${b.url('!info?id='+teacher.id)}" data-toggle="modal" data-target="#staffInfo">${teacher.name}</a>
+            </td>
             <td>${teacher.department.name}</td>
             <td>${(teacher.staff.title.name)!}</td>
             <td>${(teacher.staff.staffType.name)!}</td>
-            [#if displayTutorType]<td>${(teacher.tutorType.name)!}</td>[/#if]
+            [#if displayTutorType]<td>${(teacher.staff.tutorType.name)!}</td>[/#if]
             <td>${(teacher.staff.status.name)!}</td>
            </tr>
            [/#list]
@@ -73,3 +75,4 @@
         bg.form.submit(document.teacherSearchForm);
      }
   </script>
+[@b.dialog id="staffInfo" title="教师信息" /]

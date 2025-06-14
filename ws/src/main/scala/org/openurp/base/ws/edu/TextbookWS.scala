@@ -18,14 +18,17 @@
 package org.openurp.base.ws.edu
 
 import org.beangle.commons.json.JsonObject
+import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.json.JsonAPI
-import org.beangle.webmvc.annotation.response
+import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.{Status, View}
 import org.openurp.base.edu.model.Textbook
+import org.openurp.base.service.impl.TextbookHelper
 
 import java.time.LocalDate
 
@@ -48,5 +51,11 @@ class TextbookWS extends ActionSupport, EntityAction[Textbook] {
     val books = entityDao.search(query)
     val context = JsonAPI.context(ActionContext.current.params)
     context.mkJson(books, "id", "title")
+  }
+
+  @response
+  def queryByIsbn(): JsonObject = {
+    val isbn = get("isbn").orNull
+    TextbookHelper.fetchByIsbn(isbn)
   }
 }

@@ -112,4 +112,4 @@
 </div>
 
   [@b.dialog id="tutorStdList" title="导师学生信息" /]
-  [@b.foot/]
+[@b.foot/]

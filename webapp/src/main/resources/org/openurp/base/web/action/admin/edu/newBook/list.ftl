@@ -33,10 +33,10 @@
             [#if textbook.awardType??]<sup>${textbook.awardType.name}</sup>[/#if]
             </span>
           [/@]
-          [@b.col width="12%" property="press.name" title="出版社"]
+          [@b.col width="13%" property="press.name" title="出版社"]
            <span style="font-size:0.8em">${(textbook.press.name)!}</span>
           [/@]
-          [@b.col width="13%" property="author" title="作者"/]
+          [@b.col width="16%" property="author" title="作者"/]
           [@b.col width="8%" property="publishedIn" title="出版年月"]${(textbook.publishedIn?string('yyyy-MM'))!}[/@]
           [@b.col width="8%" property="bookType.name" title="教材类型"/]
           [@b.col width="8%" property="category.name" title="图书分类"]

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.helper
+package org.openurp.base.service.impl
 
 import org.beangle.commons.json.{Json, JsonObject}
 import org.beangle.commons.net.http.HttpUtils

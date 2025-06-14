@@ -21,6 +21,7 @@ import org.beangle.commons.json.{Json, JsonObject}
 import org.beangle.commons.lang.Strings
 import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.ems.app.Ems
 import org.beangle.ems.app.web.WebBusinessLogger
 import org.beangle.security.Securities
 import org.beangle.webmvc.annotation.{mapping, param, response}
@@ -31,7 +32,6 @@ import org.beangle.webmvc.support.helper.QueryHelper
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.model.Project
-import org.openurp.base.web.helper.TextbookHelper
 import org.openurp.code.edu.model.{BookAwardType, BookType, DisciplineCategory}
 import org.openurp.code.sin.model.*
 import org.openurp.starter.web.support.ProjectSupport
@@ -67,6 +67,7 @@ class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSuppor
     if (!textbook.persisted) textbook.beginOn = LocalDate.now()
     put("project", project)
     put("textbook", textbook)
+    put("Ems",Ems)
     val lecture = getBoolean("lecture", false)
     if (lecture) {
       textbook.author = getUser.name
@@ -141,9 +142,4 @@ class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSuppor
     forward()
   }
 
-  @response
-  def queryByIsbn(): JsonObject = {
-    val isbn = get("isbn").orNull
-    TextbookHelper.fetchByIsbn(isbn)
-  }
 }

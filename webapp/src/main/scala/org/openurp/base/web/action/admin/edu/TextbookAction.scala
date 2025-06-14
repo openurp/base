@@ -23,6 +23,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.ems.app.Ems
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.view.{Stream, View}
@@ -104,6 +105,8 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
     put("foreignBookTypes", getCodes(classOf[ForeignBookType]))
     put("textbookForms", getCodes(classOf[TextbookForm]))
     put("disciplineCategories", getCodes(classOf[DisciplineCategory]))
+    put("project", project)
+    put("Ems", Ems)
     if (!textbook.persisted) textbook.beginOn = LocalDate.now()
   }
 
@@ -121,6 +124,10 @@ class TextbookAction extends ProjectRestfulAction[Textbook], ExportSupport[Textb
   }
 
   protected override def saveAndRedirect(book: Textbook): View = {
+    //去除isbn中的横线
+    if (book.isbn.nonEmpty && Strings.isNotBlank(book.isbn.get)) {
+      book.isbn = Some(formatISBN(book.isbn.get))
+    }
     if null == book.beginOn then book.beginOn = LocalDate.now
     if (book.isbn.nonEmpty && entityDao.duplicate(classOf[Textbook], book.id, Map("isbn" -> book.isbn))) {
       addError("ISBN 重复")

@@ -23,7 +23,6 @@ import org.openurp.base.web.helper.TextbookHelper
 object TextbookTest {
 
   def main(args: Array[String]): Unit = {
-
     var isbn = "9787303201945"
     val j = TextbookHelper.fetchByIsbn(isbn)
     println(j.toJson)
