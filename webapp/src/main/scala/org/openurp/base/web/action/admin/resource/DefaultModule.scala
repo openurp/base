@@ -25,5 +25,6 @@ class DefaultModule extends BindModule {
     bind(classOf[RoomAction], classOf[BuildingAction])
     bind(classOf[ClassroomAction])
     bind(classOf[DeviceAction])
+    bind(classOf[LaboratoryAction])
   }
 }
