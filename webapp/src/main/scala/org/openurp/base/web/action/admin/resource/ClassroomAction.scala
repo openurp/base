@@ -48,7 +48,9 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
 
   override def getQueryBuilder: OqlBuilder[Classroom] = {
     val builder = super.getQueryBuilder
-    builder.where("classroom.school=:school", getProject.school)
+    val project = getProject
+    builder.where("classroom.school=:school", project.school)
+    builder.where(":project in elements(classroom.projects)", project)
     QueryHelper.addActive(builder, getBoolean("active"))
     getBoolean("virtual") foreach { virtual =>
       builder.where(if (virtual) "classroom.roomNo is null" else "classroom.roomNo is not null")
@@ -130,8 +132,12 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {
+    given project: Project = getProject
+
     val fl = new ForeignerListener(entityDao)
     fl.addForeigerKey("name")
+    fl.addScope(classOf[Campus], Map("school" -> project.school))
+    fl.addScope(classOf[Building], Map("school" -> project.school))
     setting.listeners = List(fl, new ClassroomImportListener(entityDao, getProject))
   }
 }

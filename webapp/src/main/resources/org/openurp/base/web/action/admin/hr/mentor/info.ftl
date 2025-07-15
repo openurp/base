@@ -21,7 +21,7 @@
 [/#macro]
 <div class="container-fluid text-sm">
 
-[#assign staff=teacher.staff/]
+[#assign staff=mentor.staff/]
 [@panel title="基本信息"]
   <table class="infoTable">
     <tr>
@@ -51,71 +51,6 @@
   </table>
 [/@]
 
-[@panel title="工作信息"]
-  <table class="infoTable">
-    <tr>
-      <td class="title" width="120px">部门：</td>
-      <td width="20%">${staff.department.name}</td>
-      <td class="title" width="120px">教职工类别：</td>
-      <td width="20%">${(staff.staffType.name)!}</td>
-      <td class="title" width="120px">在职状态：</td>
-      <td width="20%">${(staff.status.name)!}</td>
-    </tr>
-    <tr>
-      <td class="title">是否在编：</td>
-      <td>${(staff.formalHr?string('是','否'))!}</td>
-      <td class="title">入校日期：</td>
-      <td>${(staff.beginOn?string("yyyy-MM-dd"))!}</td>
-      <td class="title">离校日期：</td>
-      <td>${(staff.endOn?string("yyyy-MM-dd"))!}</td>
-    </tr>
-  </table>
-[/@]
-
-[@panel title="职称学历信息"]
-  <table class="infoTable">
-    <tr>
-      <td class="title" width="120px">职称：</td>
-      <td width="20%">${(staff.title.name)!}</td>
-      <td class="title" width="120px">学历：</td>
-      <td width="20%">${(staff.educationDegree.name)!}</td>
-      <td class="title" width="120px">学位：</td>
-      <td width="20%">${(staff.degree.name)!}</td>
-    </tr>
-    <tr>
-      <td class="title">学位层次：</td>
-      <td>${(staff.degreeLevel.name)!}</td>
-      <td class="title">学位授予单位：</td>
-      <td colspan="3">${(staff.degreeAwardBy)!}</td>
-    </tr>
-  </table>
-[/@]
-
-[@panel title="任教信息"]
-  <table class="infoTable">
-    <tr>
-      <td class="title" width="120px">任教部门：</td>
-      <td width="20%">${(teacher.department.name)!}</td>
-      <td class="title" width="120px">任教校区：</td>
-      <td width="20%">[#list teacher.campuses as campus]${campus.name}[#sep][/#list]</td>
-      <td class="title" width="120px">教研室：</td>
-      <td width="20%">${(teacher.office.name)!}</td>
-    </tr>
-    <tr>
-      <td class="title">导师类别：</td>
-      <td>${(teacher.tutorType.name)!}</td>
-      <td class="title">教师资格证：</td>
-      <td>${(teacher.tqcNumber)!}</td>
-      <td class="title">任教时间：</td>
-      <td>${teacher.beginOn?string('yyyy-MM')}~${(teacher.endOn?string('yyyy-MM'))!'至今'}</td>
-    </tr>
-    <tr>
-      <td class="title">其他职业资格证书和等级说明：</td>
-      <td colspan="5">${(teacher.tqc)!}</td>
-    </tr>
-  </table>
-[/@]
-
 [@panel title="联系信息"]
   <table class="infoTable">
     <tr>
@@ -133,6 +68,21 @@
       <td colspan="3">${(staff.organization)!}</td>
     </tr>
   </table>
+[/@]
+
+[@panel title="带班信息"]
+  [@b.grid items=squads?sort_by('beginOn')?reverse var="squad" theme="mini"]
+    [@b.row]
+      [@b.col width="9%" property="code" title="代码"]${squad.code}[/@]
+      [@b.col width="23%" property="name" title="名称"]<div class="text-ellipsis" title="${squad.name}">${squad.name}</div>[/@]
+      [@b.col width="5%" property="grade" title="年级"]${squad.grade!}[/@]
+      [@b.col width="6%" property="level" title="培养层次"]${(squad.level.name)!}[/@]
+      [@b.col width="12%" property="department" title="院系"]${squad.department.shortName!squad.department.name}[/@]
+      [@b.col width="18%" property="major" title="专业(方向)"]${(squad.major.name)!} ${(squad.direction.name)!}[/@]
+      [@b.col width="8%" property="stdType" title="学生类别"]${(squad.stdType.name)!}[/@]
+      [@b.col width="5%" property="stdCount" title="人数"]${squad.stdCount!}[/@]
+    [/@]
+  [/@]
 [/@]
 </div>
 [@b.foot/]

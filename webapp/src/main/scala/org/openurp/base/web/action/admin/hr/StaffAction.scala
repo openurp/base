@@ -109,6 +109,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
           entityDao.search(existQuery).headOption foreach { code => oldCode = Some(code) }
         }
         entityDao.saveOrUpdate(staff)
+        urpUserHelper.createDepart(entityDao.get(classOf[Department],staff.department.id))
         urpUserHelper.createUser(staff, oldCode)
         //synchronize name to teacher/mentor/tutor
         val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)

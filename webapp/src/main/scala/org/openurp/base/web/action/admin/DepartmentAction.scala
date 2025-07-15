@@ -21,16 +21,16 @@ import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.ignore
-import org.beangle.webmvc.view.View
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.support.action.{ExportSupport, RestfulAction}
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.View
 import org.openurp.base.model.{Campus, Department, School}
 import org.openurp.code.edu.model.Institution
 import org.openurp.code.hr.model.DepartmentCategory
 
 import java.time.LocalDate
 
-class DepartmentAction extends RestfulAction[Department] with SchoolSupport {
+class DepartmentAction extends RestfulAction[Department], SchoolSupport, ExportSupport[Department] {
   var databus: DataEventBus = _
 
   override protected def indexSetting(): Unit = {

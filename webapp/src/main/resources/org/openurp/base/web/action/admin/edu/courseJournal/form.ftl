@@ -29,7 +29,9 @@
     [/#if]
     [@b.radios name="journal.examMode.id" label="考核方式" value=journal.examMode! required="true" items=examModes /]
     [@b.select name="journal.beginOn" label="生效日期" value=journal.beginOn?string required="true"  items=semesterDates empty="..."/]
-    [@b.checkboxes name="tag.id" label="课程标签" values=journal.tags! items=tags  required="false" /]
+    [#if tags?size>0]
+    [@b.checkboxes name="tag.id" label="课程标签" values=journal.tags! items=tags required="false" /]
+    [/#if]
 
     [@b.formfoot]
       <input type="hidden" name="journal.course.id" value="${journal.course.id}"/>

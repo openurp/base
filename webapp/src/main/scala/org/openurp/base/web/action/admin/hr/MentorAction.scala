@@ -17,23 +17,24 @@
 
 package org.openurp.base.web.action.admin.hr
 
-import org.beangle.commons.activation.{MediaType, MediaTypes}
-import org.beangle.data.dao.{Operation, OqlBuilder}
+import org.beangle.commons.activation.MediaTypes
+import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.view.{Stream, View}
-import org.beangle.webmvc.support.action.ImportSupport
+import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.hr.model.{Mentor, Staff}
 import org.openurp.base.model.*
+import org.openurp.base.std.model.Squad
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{MentorImportListener, UrpUserHelper}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
 
-class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor] {
+class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor], ExportSupport[Mentor] {
 
   var urpUserHelper: UrpUserHelper = _
 
@@ -66,6 +67,7 @@ class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor] {
     mentor.projects += p
     mentor.name = staff.name
     entityDao.saveOrUpdate(mentor)
+    urpUserHelper.createUser(mentor.staff, None)
     redirect("search", "info.save.success")
   }
 
@@ -93,5 +95,12 @@ class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor] {
 
   protected override def configImport(setting: ImportSetting): Unit = {
     setting.listeners = List(new MentorImportListener(entityDao, getProject, urpUserHelper))
+  }
+
+  override def info(id: String): View = {
+    val mentor = entityDao.get(classOf[Mentor], id.toLong)
+    val squads = entityDao.findBy(classOf[Squad], "mentor", mentor.staff)
+    put("squads", squads)
+    super.info(id)
   }
 }

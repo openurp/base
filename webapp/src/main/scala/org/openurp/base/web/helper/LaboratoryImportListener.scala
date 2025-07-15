@@ -39,6 +39,18 @@ class LaboratoryImportListener(entityDao: EntityDao, project: Project) extends I
     val laboratory = transfer.current.asInstanceOf[Laboratory]
     laboratory.updatedAt = Instant.now
     laboratory.school = project.school
+    var classroomCode: String = null
+    transfer.curData.get("room.code") foreach { roomCode =>
+      val q = OqlBuilder.from(classOf[Classroom], "r")
+      q.where(":project in elements(r.projects)", project)
+      q.where("r.code=:code or r.name=:code", roomCode)
+      val rooms = entityDao.search(q)
+      laboratory.room = rooms.headOption
+      classroomCode = roomCode.toString
+    }
+    if (null != classroomCode && (null == laboratory.room || laboratory.room.isEmpty)) {
+      tr.addFailure(s"${laboratory.name} 匹配不到 ${classroomCode}", classroomCode)
+    }
     if (null == laboratory.beginOn) laboratory.beginOn = LocalDate.now
     entityDao.saveOrUpdate(laboratory)
   }

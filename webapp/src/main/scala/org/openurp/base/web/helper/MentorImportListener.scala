@@ -51,6 +51,7 @@ class MentorImportListener(entityDao: EntityDao, project: Project, urpUserHelper
       if (!mentor.persisted) mentor.id = staff.id
       if (null == mentor.beginOn) mentor.beginOn = staff.beginOn
       mentor.projects += project
+      urpUserHelper.createUser(mentor.staff, None)
       entityDao.saveOrUpdate(mentor)
     }
   }

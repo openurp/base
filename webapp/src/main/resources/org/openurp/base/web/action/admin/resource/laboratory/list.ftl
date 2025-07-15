@@ -12,14 +12,12 @@
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"]${laboratory.code}[/@]
     [@b.col property="name" title="名称"]
-       [@b.a href="!info?id=${laboratory.id}"]${laboratory.name}
-         [#if !laboratory.roomNo??]<sup>虚拟</sup>[/#if]
-       [/@]
+       [@b.a href="!info?id=${laboratory.id}"]${laboratory.name}[/@]
     [/@]
-
-    [@b.col width="17%" property="building.name" title="教学楼"/]
-    [@b.col width="10%" property="campus.name" title="校区"]
-      ${(laboratory.campus.shortName)!((laboratory.campus.name)!'--')}
+    [@b.col width="17%" property="room.name" sort="room" title="对应教室"/]
+    [@b.col width="17%" property="room.building.name" title="教学楼"/]
+    [@b.col width="10%" property="room.campus.name" title="校区"]
+      ${(laboratory.room.campus.shortName)!((laboratory.room.campus.name)!'--')}
     [/@]
   [/@]
   [/@]

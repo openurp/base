@@ -28,7 +28,7 @@ import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.model.{Campus, Department, Project}
-import org.openurp.base.resource.model.{Building, Laboratory}
+import org.openurp.base.resource.model.{Building, Classroom, Laboratory}
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.LaboratoryImportListener
 
@@ -41,6 +41,7 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
+    put("campuses", findInSchool(classOf[Campus]))
   }
 
   override def getQueryBuilder: OqlBuilder[Laboratory] = {
@@ -48,7 +49,7 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
     builder.where("laboratory.school=:school", getProject.school)
     QueryHelper.addActive(builder, getBoolean("active"))
     getBoolean("virtual") foreach { virtual =>
-      builder.where(if (virtual) "laboratory.roomNo is null" else "laboratory.roomNo is not null")
+      builder.where(if (virtual) "laboratory.room is null" else "laboratory.room is not null")
     }
     builder
   }
@@ -79,32 +80,29 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
     if (!laboratory.persisted) {
       laboratory.beginOn = LocalDate.now()
     }
-    put("campuses", findInSchool(classOf[Campus]))
-    put("buildings", findInSchool(classOf[Building]))
+    put("classrooms", findInSchool(classOf[Classroom]).filter(_.projects.contains(project)))
   }
 
   @response
   def downloadTemplate(): Any = {
     given project: Project = getProject
 
-    val campuses = findInSchool(classOf[Campus]).map(x => x.code + " " + x.name)
-    val buildings = findInSchool(classOf[Building]).map(x => x.code + " " + x.name)
-
+    val rooms = findInSchool(classOf[Classroom]).map(x => x.code + " " + x.name)
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
     sheet.title("实验室信息模板")
     sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
     sheet.add("实验室代码", "laboratory.code").length(10).required().remark("≤10位")
     sheet.add("实验室名称", "laboratory.name").length(100).required()
-    sheet.add("房间号", "laboratory.roomNo").length(300)
-    sheet.add("校区", "laboratory.campus.code").ref(campuses).required()
-    sheet.add("教学楼", "laboratory.building.code").ref(buildings).required()
+    sheet.add("对应教室", "room.code").ref(rooms)
     val os = new ByteArrayOutputStream()
     schema.generate(os)
     Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "实验室模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {
+    given project: Project = getProject
+
     val fl = new ForeignerListener(entityDao)
     fl.addForeigerKey("name")
     setting.listeners = List(fl, new LaboratoryImportListener(entityDao, getProject))
