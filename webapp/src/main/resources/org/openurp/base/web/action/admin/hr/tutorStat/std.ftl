@@ -31,7 +31,7 @@
           [#list dxs as dx]
             [#assign d = matrix.getColumn(dx)/]
             [#list d.keys?sort as dk]
-            <th>${d.get(dk)!}</th>
+            <th>[#assign dkv = d.get(dk)/] [#if dkv?is_hash]${dkv.name}[#else]${dkv}[/#if]</th>
             [/#list]
           [/#list]
         </tr>

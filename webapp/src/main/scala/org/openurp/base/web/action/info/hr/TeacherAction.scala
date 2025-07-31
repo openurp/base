@@ -24,12 +24,13 @@ import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.beangle.webmvc.view.View
 import org.openurp.base.hr.model.{StaffTitle, Teacher, TutorJournal, TutorMajor}
+import org.openurp.base.std.model.Student
 import org.openurp.code.job.model.TutorType
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
 
-class TeacherAction extends ActionSupport with EntityAction[Teacher] with ProjectSupport {
+class TeacherAction extends ActionSupport, EntityAction[Teacher], ProjectSupport {
 
   var entityDao: EntityDao = _
 
@@ -101,6 +102,12 @@ class TeacherAction extends ActionSupport with EntityAction[Teacher] with Projec
     val appointOn = entityDao.findBy(classOf[TutorJournal], "staff", staff).map(x => (x.tutorType, x.beginOn)).toMap
     put("majors", majors)
     put("appointOn", appointOn)
+
+    val stdQuery = OqlBuilder.from(classOf[Student], "std")
+    stdQuery.where("std.tutor=:me", teacher)
+    stdQuery.where(":today between std.beginOn and std.endOn", LocalDate.now)
+    stdQuery.orderBy("std.code")
+    put("students", entityDao.search(stdQuery))
     forward()
   }
 }

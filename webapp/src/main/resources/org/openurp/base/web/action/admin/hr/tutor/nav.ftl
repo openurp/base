@@ -4,6 +4,7 @@
   [@b.navitem href="profile"]导师简介[/@]
   [#if ems.permitted("/admin/hr/tutor-stat")]
   [@b.navitem href="tutor-stat!major"]导师统计[/@]
+  [@b.navitem href="tutor-stat!direction"]研究领域统计[/@]
   [/#if]
   [@b.navitem href="tutor-stat!std"]带学生统计[/@]
 [/@]

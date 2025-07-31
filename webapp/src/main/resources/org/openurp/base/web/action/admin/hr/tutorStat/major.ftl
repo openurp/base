@@ -13,7 +13,7 @@
 
   [#macro displayMatrix majorId dy dxs dyLabel dxLabels,paramNames]
     <table class="table table-bordered table-striped table-sm" style="text-align: center;">
-      <caption style="text-align: center;caption-side: top;padding-bottom: 0.25rem;">${majors.get(majorId)}学科导师分布</caption>
+      <caption style="text-align: center;caption-side: top;padding-bottom: 0.25rem;">${majors.get(majorId).name}学科导师分布</caption>
       <thead>
         <tr>
           <th width="10%" rowspan="2" style="vertical-align: middle;">${dyLabel}</th>
@@ -27,7 +27,7 @@
           [#list dxs as dx]
             [#assign d = matrix.getColumn(dx)/]
             [#list d.keys?sort as dk]
-            <th>${d.get(dk)!}</th>
+            <th>[#assign dkv = d.get(dk)/] [#if dkv?is_hash]${dkv.name}[#else]${dkv}[/#if]</th>
             [/#list]
           [/#list]
         </tr>
@@ -38,7 +38,7 @@
       [#assign yDimensionValues=matrix.getColumn(dy).values/]
       [#list yDimensionValues?keys as v]
       <tr>
-        <td>${yDimensionValues.get(v)!}</td>
+        <td>${yDimensionValues.get(v).name}</td>
         [#list dxs as dx]
           [#assign d = matrix.getColumn(dx)/]
           [#assign lgmatrix = matrix.groupBy(dy+","+dx)/]

@@ -46,6 +46,24 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
     }
   }
 
+  /** 按照层次统计，各个方向下都有哪些导师
+   *
+   * @return
+   */
+  def direction(): View = {
+    val project = getProject
+    val tms = entityDao.findBy(classOf[TutorMajor], "major.project", project)
+    val datas = tms.flatMap { tm =>
+      tm.directions.map(direction => (tm.level, tm.major, direction, tm.staff))
+    }
+    val levelDirectionTutors = datas.groupBy(_._1).map { d =>
+      (d._1, d._2.groupBy(_._3).map(x => (x._1, x._2.map(_._4).distinct)))
+    }
+    put("levels",levelDirectionTutors.keys)
+    put("levelDirectionTutors", levelDirectionTutors)
+    forward()
+  }
+
   /** 按照专业学科统计
    *
    * @return
