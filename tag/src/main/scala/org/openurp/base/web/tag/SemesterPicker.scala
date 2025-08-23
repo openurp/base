@@ -18,8 +18,8 @@
 package org.openurp.base.web.tag
 
 import org.beangle.ems.app.Ems
+import org.beangle.template.api.{ClosingUIBean, ComponentContext}
 import org.beangle.webmvc.context.ActionContext
-import org.beangle.template.api.{ClosingUIBean,ComponentContext}
 import org.openurp.base.model.{Project, Semester}
 
 class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
@@ -37,6 +37,8 @@ class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
   var url: String = _
 
   var onchange: String = _
+
+  var filter: String = _
 
   override def evaluateParams(): Unit = {
     if (null == id) {
@@ -57,7 +59,7 @@ class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
       }
     }
     if (url == null) {
-      url = Ems.api + s"/base/semesters/${project.id}.json"
+      url = Ems.api + s"/base/semesters/${project.id}.json?filter=${if null == filter then "" else filter}"
     }
 
   }

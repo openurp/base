@@ -31,7 +31,7 @@ class SemesterAction extends AbstractInfoAction[Semester] {
   def index(): View = {
     val calendar = getProject.calendar
     put("calendar", calendar)
-    put("semesters", calendar.semesters.filter(!_.archived))
+    put("semesters", calendar.semesters.filter(!_.year.archived))
     forward()
   }
 

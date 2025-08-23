@@ -29,9 +29,9 @@
       </thead>
       <tbody>
       [#list semesters as semester]
-        [#if !semester.archived]
+        [#if !semester.year.archived]
       <tr>
-        <td>${semester.schoolYear}[#if semester.archived]<sup>归档</sup>[/#if]</td>
+        <td>${semester.schoolYear}[#if semester.year.archived]<sup>归档</sup>[/#if]</td>
         <td>${semester.name}</td>
         <td>[@b.a href="!info?id="+semester.id target="semesterOf"+c.id]${semester.beginOn}~${semester.endOn}[/@]</td>
       </tr>

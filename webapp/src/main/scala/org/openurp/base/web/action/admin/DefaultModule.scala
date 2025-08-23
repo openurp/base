@@ -27,6 +27,8 @@ class DefaultModule extends BindModule {
     bind(classOf[CampusAction])
 
     bind(classOf[SemesterAction], classOf[CalendarAction], classOf[CalendarStageAction])
+    bind(classOf[SchoolYearAction])
+
     bind(classOf[ProjectAction], classOf[ProjectCodeAction], classOf[ProjectPropertyAction])
     bind(classOf[HolidayAction])
 

@@ -25,26 +25,27 @@ import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
 import org.openurp.base.model.{Project, Semester}
 
-import java.time.LocalDate
-
 class SemesterWS extends ActionSupport with EntityAction[Semester] {
   var entityDao: EntityDao = _
+
   @response(cacheable = true)
   @mapping("{project}")
   def index(@param("project") projectId: String): Seq[Properties] = {
     if Numbers.isDigits(projectId) then
       entityDao.find(classOf[Project], projectId.toInt) match {
-        case Some(project) => getSemesters(project, getBoolean("all").getOrElse(false))
+        case Some(project) => getSemesters(project, get("filter", ""))
         case None => Seq.empty
       }
     else
       Seq.empty
   }
 
-  private def getSemesters(project: Project, all: Boolean): Seq[Properties] = {
+  private def getSemesters(project: Project, filter: String): Seq[Properties] = {
     val builder = OqlBuilder.from(classOf[Semester], "s").where("s.calendar =:calendar", project.calendar)
-    if (!all) {
-      builder.where("s.archived=false")
+    filter match {
+      case "active" => builder.where("s.year.archived=false")
+      case "archived" => builder.where("s.year.archived=true")
+      case _ =>
     }
     builder.orderBy("s.beginOn").cacheable(true)
     entityDao.search(builder).map(new Properties(_, "id", "name", "code", "schoolYear"))

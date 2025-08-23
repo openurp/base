@@ -20,9 +20,9 @@ package org.openurp.base.web.action.admin
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.annotation.action
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.model.{Calendar, CalendarStage, School, Semester}
+import org.beangle.webmvc.view.View
+import org.openurp.base.model.*
 import org.openurp.starter.web.support.ProjectSupport
 
 class CalendarAction extends RestfulAction[Calendar] {
@@ -43,6 +43,8 @@ class CalendarStageAction extends RestfulAction[CalendarStage] {
   }
 }
 
+/** 学期维护
+ */
 class SemesterAction extends RestfulAction[Semester], ProjectSupport {
   override protected def getQueryBuilder: OqlBuilder[Semester] = {
     val builder = OqlBuilder.from(classOf[Semester], "semester")
@@ -52,6 +54,31 @@ class SemesterAction extends RestfulAction[Semester], ProjectSupport {
   }
 
   protected override def editSetting(entity: Semester): Unit = {
+    val school = getProject.school
+    val calendars = entityDao.findBy(classOf[Calendar], "school", school)
+    val years = entityDao.findBy(classOf[SchoolYear], "calendar.school", school)
+    put("calendars", calendars)
+    put("years", years)
+  }
+}
+
+/** 学年度维护
+ */
+class SchoolYearAction extends RestfulAction[SchoolYear], ProjectSupport {
+
+  override protected def saveAndRedirect(entity: SchoolYear): View = {
+    entity.startYear = entity.name.substring(0, 4).toInt
+    super.saveAndRedirect(entity)
+  }
+
+  override protected def getQueryBuilder: OqlBuilder[SchoolYear] = {
+    val builder = OqlBuilder.from(classOf[SchoolYear], "schoolYear")
+    populateConditions(builder)
+    builder.where("schoolYear.calendar.school=:school", getProject.school)
+    builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
+  }
+
+  protected override def editSetting(entity: SchoolYear): Unit = {
     val calendars = entityDao.findBy(classOf[Calendar], "school", getProject.school)
     put("calendars", calendars)
   }
