@@ -1,7 +1,7 @@
 [#ftl/]
 [@b.head/]
 [@b.toolbar title="班级信息"]bar.addBack();[/@]
-<table class="infoTable" style="width:90%;margin:10px auto auto;">
+<table class="table table-sm table-detail">
   <colgroup>
     <col width="7%"/>
     <col width="18%"/>

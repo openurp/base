@@ -45,7 +45,7 @@ class SecretaryAction extends ProjectRestfulAction[Secretary], ImportSupport[Sec
     query
   }
 
-  override def editSetting(secretary: Secretary) = {
+  override def editSetting(secretary: Secretary): Unit = {
     given project: Project = getProject
 
     if (!secretary.persisted) {

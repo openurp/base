@@ -41,6 +41,7 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
+
     put("campuses", findInSchool(classOf[Campus]))
   }
 
@@ -55,7 +56,6 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
   }
 
   override protected def saveAndRedirect(lab: Laboratory): View = {
-    lab.updatedAt = Instant.now
     if (null == lab.beginOn) lab.beginOn = LocalDate.now()
 
     val departIds = getAll("departId2nd", classOf[Int])
@@ -65,10 +65,8 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
 
     val project = getProject
     lab.school = project.school
-    if (lab.persisted) {
-      databus.publish(DataEvent.update(lab))
-    }
-    super.saveAndRedirect(lab)
+    saveMore(lab)
+    redirect("search", "info.save.success")
   }
 
   override def editSetting(laboratory: Laboratory): Unit = {

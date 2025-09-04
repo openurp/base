@@ -3,7 +3,7 @@
    <h3 class="card-title">${semester.schoolYear}学年度 ${semester.name}学期(${semester.beginOn?string('yyyy-MM-dd')}~${semester.endOn?string('yyyy-MM-dd')})</h3>
   </div>
   <div class="card-body">
-<table class="infoTable">
+<table class="table table-sm table-detail">
    <tr>
      <td  style="text-align:center">周次</td>
      [#list weekdays as weekday]

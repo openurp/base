@@ -3,7 +3,7 @@
 [@b.toolbar title="通用人员信息"]
   bar.addBack("${b.text("action.back")}");
 [/@]
-<table class="infoTable">
+<table class="table table-sm table-detail">
   <tr>
     <td class="title" width="20%">学工号</td>
     <td class="content">${user.code}</td>

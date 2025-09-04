@@ -3,7 +3,7 @@
 [@b.toolbar title="学期阶段信息"]
   bar.addBack("${b.text("action.back")}");
 [/@]
-<table class="infoTable">
+<table class="table table-sm table-detail">
   <tr>
     <td class="title" width="20%">名称</td>
     <td class="content">${calendarStage.name}</td>

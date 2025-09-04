@@ -100,7 +100,7 @@ class TutorAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     query
   }
 
-  override def editSetting(tutor: Staff) = {
+  override def editSetting(tutor: Staff):Unit = {
     given project: Project = getProject
 
     put("tutorTypes", codeService.get(classOf[TutorType]))

@@ -37,6 +37,7 @@ class GradeAction extends ProjectRestfulAction[Grade] {
       val code = project.id.toString + Strings.replace(grade.code, "-", "")
       grade.id = code.toLong
     }
-    super.saveAndRedirect(grade)
+    saveMore(grade)
+    redirect("search", "info.save.success")
   }
 }

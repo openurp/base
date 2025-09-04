@@ -51,7 +51,7 @@ class OfficialAction extends ProjectRestfulAction[Official], ImportSupport[Offic
     query
   }
 
-  override def editSetting(official: Official) = {
+  override def editSetting(official: Official):Unit = {
     given project: Project = getProject
 
     put("departments", entityDao.findBy(classOf[Department], "school", project.school))

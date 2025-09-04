@@ -5,7 +5,7 @@
   <div style="text-align:center">
     [@b.a class="btn btn-sm btn-outline-primary" href="!edit?id=" +profile.id role="button"]<i class="fa fa-edit"></i>修改[/@]
   </div>
-  <table class="infoTable" width="100%" style="box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.2);">
+  <table class="table table-sm table-detail" width="100%" style="box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.2);">
     <tr>
       <td class="title" width="15%">工号:</td>
       <td class="content">${(profile.staff.code)!}</td>

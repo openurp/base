@@ -17,15 +17,13 @@
 
 package org.openurp.base.web.action.admin
 
-import org.beangle.commons.bean.Initializing
-import org.beangle.commons.collection.Collections
+import org.beangle.commons.lang.Strings
 import org.beangle.commons.lang.Strings.unCamel
 import org.beangle.commons.lang.reflect.Reflections
 import org.beangle.commons.logging.Logging
-import org.beangle.commons.text.i18n.Messages
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.model.meta.EntityType
-import org.beangle.data.orm.{OrmEntityType, OrmStructType}
+import org.beangle.data.orm.OrmStructType
+import org.beangle.ems.app.web.WebBusinessLogger
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.context.ActionContext
@@ -36,16 +34,14 @@ import org.beangle.webmvc.view.View
 import org.openurp.code.{Code, CodeBean}
 
 import java.time.{Instant, LocalDate}
-import java.util.Locale
 
 /** 基础代码编辑类
  */
 abstract class AbstractCodeAction extends ActionSupport, Logging {
 
   var entityDao: EntityDao = _
-
+  var businessLogger: WebBusinessLogger = _
   var databus: DataEventBus = _
-
   var codeHelper: CodeHelper = _
 
   private def nomalize(name: String): String = {
@@ -121,6 +117,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
     try {
       code.asInstanceOf[CodeBean].updatedAt = Instant.now
       entityDao.saveOrUpdate(code)
+      businessLogger.info(s"保存了基础代码:${code.code} ${code.name}", code.id, ActionContext.current.params)
       databus.publish(DataEvent.update(code))
       redirect("search", "info.save.success")
     } catch {
@@ -141,6 +138,9 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
     val codes = entityDao.find(meta.entityType.clazz.asInstanceOf[Class[Code]], getIntIds("code"))
     try {
       entityDao.remove(codes)
+      val ids = Strings.abbreviate(codes.map(_.id.toString).mkString(","), 300)
+      businessLogger.info(s"删除了${codes.size}基础代码:${codes.head.code} ${codes.head.code}", ids, ActionContext.current.params)
+      databus.publish(DataEvent.remove(codes))
       redirect("search", "info.remove.success")
     } catch {
       case e: Exception =>

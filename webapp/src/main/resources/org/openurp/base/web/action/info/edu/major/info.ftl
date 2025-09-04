@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title">${major.name} 基本信息</h3>
     </div>
-    <table class="infoTable">
+    <table class="table table-sm table-detail">
       <tr>
         <td class="title" width="15%">代码</td>
         <td class="content">${major.code}</td>
@@ -35,13 +35,14 @@
       <div class="card-header">
         <h3 class="card-title">开设院系<span class="badge badge-primary">${major.journals?size}</span></h3>
       </div>
-      <table  class="table table-hover table-sm table-striped" style="text-align:center">
+      <div class="card-body">
+      <table  class="table table-sm table-mini">
         <thead>
           <tr>
-           <th style="background-color:#F5EDDB" width="8%">序号</th>
-           <th style="background-color:#F5EDDB">院系</th>
-           <th style="background-color:#F5EDDB">培养层次</th>
-           <th style="background-color:#F5EDDB">有效期</th>
+           <th width="8%">序号</th>
+           <th>院系</th>
+           <th>培养层次</th>
+           <th>有效期</th>
           </tr>
         </thead>
         [#list major.journals?sort_by(["depart","code"]) as mj]
@@ -53,6 +54,7 @@
         </tr>
         [/#list]
       </table>
+    </div>
    </div>
    [#assign actives=[]]
    [#list major.directions as d]
@@ -63,15 +65,16 @@
       <div class="card-header">
         <h3 class="card-title">专业方向<span class="badge badge-primary">${actives?size}</span></h3>
       </div>
-        <table class="table table-hover table-sm table-striped" style="text-align:center">
+      <div class="card-body">
+        <table class="table table-sm table-mini">
           <thead>
             <tr>
-             <th style="background-color:#F5EDDB" width="8%">代码</th>
-             <th style="background-color:#F5EDDB" width="20%">名称</th>
-             <th style="background-color:#F5EDDB" width="34%">英文名</th>
-             <th style="background-color:#F5EDDB" width="15%">院系</th>
-             <th style="background-color:#F5EDDB" width="8%">层次</th>
-             <th style="background-color:#F5EDDB" width="15%">有效期</th>
+             <th width="8%">代码</th>
+             <th width="20%">名称</th>
+             <th width="34%">英文名</th>
+             <th width="15%">院系</th>
+             <th width="8%">层次</th>
+             <th width="15%">有效期</th>
             </tr>
           </thead>
           [#list actives?sort_by("code") as d]
@@ -89,5 +92,6 @@
           </tr>
           [/#list]
         </table>
+      </div>
    </div>
 [/#if]

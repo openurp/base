@@ -23,7 +23,7 @@
 
 [#assign staff=mentor.staff/]
 [@panel title="基本信息"]
-  <table class="infoTable">
+  <table class="table table-sm table-detail">
     <tr>
       <td class="title" width="120px">工号：</td>
       <td width="20%">${staff.code}</td>
@@ -52,7 +52,7 @@
 [/@]
 
 [@panel title="联系信息"]
-  <table class="infoTable">
+  <table class="table table-sm table-detail">
     <tr>
       <td class="title" width="120px">手机：</td>
       <td width="20%">${(staff.mobile)!}</td>

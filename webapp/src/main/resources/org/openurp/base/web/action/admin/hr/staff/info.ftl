@@ -25,7 +25,7 @@
 <div class="container-fluid">
 
 [@panel title="基本信息"]
-  <table class="infoTable">
+  <table class="table table-sm table-detail">
     <tr>
       <td class="title" width="120px">工号：</td>
       <td width="20%">${staff.code}</td>
@@ -54,7 +54,7 @@
 [/@]
 
 [@panel title="工作信息"]
-  <table class="infoTable">
+  <table class="table table-sm table-detail">
     <tr>
       <td class="title" width="120px">部门：</td>
       <td width="20%">${staff.department.name}</td>
@@ -75,7 +75,7 @@
 [/@]
 
 [@panel title="职称学历信息"]
-  <table class="infoTable">
+  <table class="table table-sm table-detail">
     <tr>
       <td class="title" width="120px">最高学历：</td>
       <td width="20%">${(staff.educationDegree.name)!}</td>
@@ -94,7 +94,7 @@
 [/@]
 
 [@panel title="联系信息"]
-  <table class="infoTable">
+  <table class="table table-sm table-detail">
     <tr>
       <td class="title" width="120px">手机：</td>
       <td width="20%">${(staff.mobile)!}</td>

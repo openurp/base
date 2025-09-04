@@ -4,21 +4,12 @@
   bar.addBack("${b.text("action.back")}");
 [/@]
 <div style="margin:0px 20px">
-  <style>
-    table.info-table{
-      table-layout:fixed;
-    }
-    table.info-table td.title {
-      padding: 0.2rem 0rem;
-      text-align:right;
-      color: #6c757d !important;
-    }
-  </style>
   <div class="card card-info card-primary card-outline">
     <div class="card-header">
       <h3 class="card-title">基本信息</h3>
     </div>
-    <table class="table table-sm info-table">
+    <div class="card-body">
+    <table class="table table-sm table-detail">
       <tr>
         <td class="title" width="15%">代码</td>
         <td>${major.code}</td>
@@ -48,37 +39,41 @@
         <td colspan="3">${major.updatedAt?string('yyyy-MM-dd HH:mm:ss')}</td>
       </tr>
     </table>
+  </div>
  </div>
 
    <div class="card card-info card-primary card-outline">
       <div class="card-header">
         <h3 class="card-title">专业所属院系<span class="badge badge-primary">${major.journals?size}</span></h3>
       </div>
-      <table class="table table-sm info-table" style="text-align:center">
-        <thead>
+      <div class="card-body">
+        <table class="table table-sm table-mini" >
+          <thead>
+            <tr>
+             <th  width="8%">序号</th>
+             <th>院系</th>
+             <th>培养层次</th>
+             <th>有效期</th>
+            </tr>
+          </thead>
+          [#list major.journals?sort_by(["depart","code"]) as mj]
           <tr>
-           <th  width="8%">序号</th>
-           <th>院系</th>
-           <th>培养层次</th>
-           <th>有效期</th>
+            <td>${mj_index+1}</td>
+            <td>${mj.depart.name}</td>
+            <td>${mj.level.name}</td>
+            <td>${mj.beginOn?string("yyyy-MM-dd")}~${(mj.endOn?string("yyyy-MM-dd"))!"现在"}</td>
           </tr>
-        </thead>
-        [#list major.journals?sort_by(["depart","code"]) as mj]
-        <tr>
-          <td>${mj_index+1}</td>
-          <td>${mj.depart.name}</td>
-          <td>${mj.level.name}</td>
-          <td>${mj.beginOn?string("yyyy-MM-dd")}~${(mj.endOn?string("yyyy-MM-dd"))!"现在"}</td>
-        </tr>
-        [/#list]
-      </table>
+          [/#list]
+        </table>
+      </div>
    </div>
 
    <div class="card card-info card-primary card-outline">
       <div class="card-header">
         <h3 class="card-title">专业方向<span class="badge badge-primary">${major.directions?size}</span></h3>
       </div>
-        <table class="table table-sm info-table" style="text-align:center">
+      <div class="card-body">
+        <table class="table table-sm table-mini">
           <thead>
             <tr>
              <th  width="8%">代码</th>
@@ -123,6 +118,7 @@
           [/#if]
           [/#list]
         </table>
+      </div>
    </div>
 </div>
 

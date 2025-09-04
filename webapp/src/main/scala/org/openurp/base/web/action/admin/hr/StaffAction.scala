@@ -65,7 +65,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("titles", codeService.get(classOf[ProfessionalTitle]))
   }
 
-  override def editSetting(staff: Staff) = {
+  override def editSetting(staff: Staff):Unit = {
     given project: Project = getProject
 
     put("departments", findInSchool(classOf[Department]))
@@ -108,7 +108,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
           existQuery.where("t.id = :staffId", staff.id)
           entityDao.search(existQuery).headOption foreach { code => oldCode = Some(code) }
         }
-        entityDao.saveOrUpdate(staff)
+        saveMore(staff)
         urpUserHelper.createDepart(entityDao.get(classOf[Department],staff.department.id))
         urpUserHelper.createUser(staff, oldCode)
         //synchronize name to teacher/mentor/tutor

@@ -59,7 +59,6 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
   }
 
   override protected def saveAndRedirect(room: Classroom): View = {
-    room.updatedAt = Instant.now
     if (null == room.beginOn) room.beginOn = LocalDate.now()
 
     val departIds = getAll("departId2nd", classOf[Int])
@@ -78,9 +77,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     val project = getProject
     room.school = project.school
     if (!room.projects.contains(project)) room.projects.addOne(project)
-    if (room.persisted) {
-      databus.publish(DataEvent.update(room))
-    }
+    saveMore(List(room))
     super.saveAndRedirect(room)
   }
 

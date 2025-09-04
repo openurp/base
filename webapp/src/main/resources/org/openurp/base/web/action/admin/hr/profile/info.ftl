@@ -2,7 +2,7 @@
 [@b.toolbar title="教师简介"]
   bar.addBack("${b.text("action.back")}");
 [/@]
-<table class="infoTable" width="100%">
+<table class="table table-sm table-detail" width="100%">
   <tr>
     <td class="title" width="15%">工号:</td>
     <td class="content">${(profile.staff.code)!}</td>

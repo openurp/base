@@ -30,12 +30,13 @@ class GraduateSeasonAction extends ProjectRestfulAction[GraduateSeason] {
     query
   }
 
-  override protected def saveAndRedirect(grade: GraduateSeason): View = {
+  override protected def saveAndRedirect(s: GraduateSeason): View = {
     val project = getProject
-    if (!grade.persisted) {
-      val code = project.id.toString + grade.graduateIn.toString.replace("-", "")
-      grade.id = code.toLong
+    if (!s.persisted) {
+      val code = project.id.toString + s.graduateIn.toString.replace("-", "")
+      s.id = code.toLong
     }
-    super.saveAndRedirect(grade)
+    saveMore(s)
+    redirect("search", "info.save.success")
   }
 }

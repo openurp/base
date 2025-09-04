@@ -1,7 +1,7 @@
 [#ftl]
 [@b.head/]
 [@b.messages slash="3"/]
-<table class="infoTable">
+<table class="table table-sm table-detail">
   <tr>
     <td class="title" width="20%">ISBN:</td>
     <td class="content">${textbook.isbn!}</td>

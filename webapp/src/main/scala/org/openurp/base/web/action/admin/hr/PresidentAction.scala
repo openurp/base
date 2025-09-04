@@ -18,8 +18,8 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.View
 import org.openurp.base.hr.model.President
 import org.openurp.base.model.*
 import org.openurp.base.web.action.admin.ProjectRestfulAction
@@ -36,7 +36,7 @@ class PresidentAction extends ProjectRestfulAction[President] {
     query
   }
 
-  override def editSetting(president: President) = {
+  override def editSetting(president: President): Unit = {
     given project: Project = getProject
 
     if (!president.persisted) {

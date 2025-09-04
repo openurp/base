@@ -29,10 +29,10 @@ import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
 import org.beangle.event.bus.DataEvent
 import org.beangle.webmvc.annotation.response
+import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
-import org.openurp.api.URPTool
 import org.openurp.base.edu.model.{Course, CourseHour, CourseJournal, CourseLevel}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.service.Features
@@ -104,7 +104,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
       val yesterday = LocalDate.now.minusDays(1)
       courses.foreach { c => c.endOn = Some(yesterday); c.updatedAt = Instant.now }
     }
-    entityDao.saveOrUpdate(courses)
+    saveMore(courses)
     redirect("search", "操作成功")
   }
 
@@ -213,8 +213,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     course.categories.clear()
     course.categories.addAll(entityDao.find(classOf[CourseCategory], categoryIds))
 
-    entityDao.saveOrUpdate(course)
-    databus.publish(DataEvent.update(course))
+    saveMore(course)
     if (course.journals.isEmpty) {
       course.journals += new CourseJournal(course, course.beginOn)
       entityDao.saveOrUpdate(course)
@@ -231,6 +230,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
   }
 
   /** 批量检查英文
+   *
    * @return
    */
   def checkEnName(): View = {

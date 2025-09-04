@@ -3,7 +3,7 @@
 [@b.toolbar title="教材信息"]
   bar.addBack("${b.text("action.back")}");
 [/@]
-<table class="infoTable">
+<table class="table table-sm table-detail">
   <tr>
     <td class="title" width="20%">ISBN:</td>
     <td class="content">${textbook.isbn}</td>

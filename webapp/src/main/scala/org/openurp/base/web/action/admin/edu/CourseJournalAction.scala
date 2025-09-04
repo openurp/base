@@ -122,9 +122,7 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
         course.endOn = Some(journals.map(_.endOn.get).max)
       }
     }
-    entityDao.saveOrUpdate(course)
-    databus.publish(DataEvent.update(course))
-    databus.publish(DataEvent.update(journal))
+    saveMore(course, journal)
     super.saveAndRedirect(journal)
   }
 

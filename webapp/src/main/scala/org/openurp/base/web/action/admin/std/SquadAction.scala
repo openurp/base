@@ -66,7 +66,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     query
   }
 
-  override def editSetting(squad: Squad) = {
+  override def editSetting(squad: Squad): Unit = {
     given project: Project = getProject
 
     put("departments", findInSchool(classOf[Department]))
@@ -153,12 +153,6 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
 
   def saveAssign(): View = {
     forward()
-  }
-
-  protected override def saveAndRedirect(squad: Squad): View = {
-    val rs = super.saveAndRedirect(squad)
-    databus.publish(DataEvent.update(squad))
-    rs
   }
 
   /**

@@ -43,18 +43,6 @@ class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
     query
   }
 
-  override def saveAndRedirect(entity: Major): View = {
-    val view = super.saveAndRedirect(entity)
-    entityDao.evict(classOf[Major])
-    databus.publish(DataEvent.update(entity))
-    view
-  }
-
-  override protected def removeAndRedirect(majors: Seq[Major]): View = {
-    databus.publish(DataEvent.remove(majors))
-    super.removeAndRedirect(majors)
-  }
-
   override def editSetting(major: Major): Unit = {
     put("projects", List(getProject))
     if !major.persisted then major.beginOn = LocalDate.now

@@ -66,31 +66,25 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
     super.editSetting(direction)
   }
 
-  protected override def saveAndRedirect(entity: Direction): View = {
-    entity.project = getProject
+  protected override def saveAndRedirect(d: Direction): View = {
+    d.project = getProject
 
-    if (!entity.persisted) {
-      val major = entityDao.get(classOf[Major], entity.major.id)
+    if (!d.persisted) {
+      val major = entityDao.get(classOf[Major], d.major.id)
       val departs = major.journals.map(j => j.depart).toSet
       val levels = major.journals.map(j => j.level).toSet
       if (departs.size == 1 && levels.size == 1) {
         val dj = new DirectionJournal
-        dj.direction = entity
+        dj.direction = d
         dj.depart = departs.head
         dj.level = levels.head
         dj.beginOn = LocalDate.now
-        entity.journals += dj
+        d.journals += dj
       }
     }
-    val view = super.saveAndRedirect(entity)
+    saveMore(d)
     entityDao.evict(classOf[Direction])
-    databus.publish(DataEvent.update(entity))
-    view
-  }
-
-  override protected def removeAndRedirect(entities: Seq[Direction]): View = {
-    databus.publish(DataEvent.remove(entities))
-    super.removeAndRedirect(entities)
+    redirect("search", "info.save.success")
   }
 
   @response

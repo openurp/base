@@ -2,7 +2,7 @@
 [@b.head/]
 [@b.toolbar title="班级学生名单调配"]bar.addBack();[/@]
 [@b.messages slash="3"/]
-<table class="infoTable" style="width:90%;margin:10px auto auto;">
+<table class="table table-sm table-detail" style="width:90%;margin:10px auto auto;">
   <colgroup>
     <col width="7%"/>
     <col width="18%"/>

@@ -19,16 +19,14 @@ package org.openurp.base.web.action.admin
 
 import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.annotation.{action, ignore}
-import org.beangle.webmvc.view.View
+import org.beangle.webmvc.annotation.ignore
 import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.view.View
 import org.openurp.base.model.Campus
-import org.openurp.base.resource.model.Room
-import org.openurp.code.asset.model.RoomType
 
 import java.time.LocalDate
 
-class CampusAction extends RestfulAction[Campus] with SchoolSupport {
+class CampusAction extends RestfulAction[Campus], SchoolSupport {
   override protected def getQueryBuilder: OqlBuilder[Campus] = {
     val builder = OqlBuilder.from(classOf[Campus], "campus")
     builder.where("campus.school=:school", getSchool)

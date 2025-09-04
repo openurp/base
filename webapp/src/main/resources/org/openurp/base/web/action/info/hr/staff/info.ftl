@@ -11,14 +11,6 @@
   .info-panel-title{
     font-size: 0.875rem;
   }
-  table.info-table{
-    table-layout:fixed;
-  }
-  table.info-table td.title {
-    padding: 0.2rem 0rem;
-    text-align:right;
-    color: #6c757d !important;
-  }
 </style>
 [#macro panel title]
 <h6 class="info-panel-header"><span class="info-panel-title">${title}</span></h6>
@@ -27,7 +19,7 @@
 <div class="container-fluid">
 
 [@panel title="基本信息"]
-  <table class="table table-sm info-table">
+  <table class="table table-sm table-detail">
     <colgroup>
       <col width="13%"/>
       <col width="20%"/>
@@ -65,7 +57,7 @@
 [/@]
 
 [@panel title="工作信息"]
-  <table class="table table-sm info-table">
+  <table class="table table-sm table-detail">
     <colgroup>
       <col width="13%"/>
       <col width="20%"/>
@@ -94,7 +86,7 @@
 [/@]
 
 [@panel title="职称学历信息"]
-  <table class="table table-sm info-table">
+  <table class="table table-sm table-detail">
     <colgroup>
       <col width="13%"/>
       <col width="20%"/>
@@ -122,7 +114,7 @@
 
 [#if majors?size>0]
 [@panel title="研究领域"]
-  <table class="table table-sm info-table">
+  <table class="table table-sm table-mini">
     <colgroup>
       <col width="13%"/>
       <col width="20%"/>

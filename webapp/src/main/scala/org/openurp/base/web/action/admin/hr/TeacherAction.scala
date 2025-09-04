@@ -24,9 +24,9 @@ import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.TeachingOffice
 import org.openurp.base.hr.model.{Staff, Teacher}
 import org.openurp.base.model.*
@@ -34,7 +34,7 @@ import org.openurp.base.service.Features.Hr
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{TeacherImportListener, UrpUserHelper}
 import org.openurp.code.hr.model.WorkStatus
-import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
+import org.openurp.code.job.model.ProfessionalTitle
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
@@ -57,7 +57,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     query
   }
 
-  override def editSetting(teacher: Teacher) = {
+  override def editSetting(teacher: Teacher): Unit = {
     given project: Project = getProject
 
     put("departments", findInSchool(classOf[Department]))
@@ -107,7 +107,7 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
     }
     val staff = entityDao.get(classOf[Staff], teacher.staff.id)
     teacher.name = staff.name
-    entityDao.saveOrUpdate(teacher)
+    saveMore(teacher)
     urpUserHelper.createUser(staff, None)
     redirect("search", "info.save.success")
   }
