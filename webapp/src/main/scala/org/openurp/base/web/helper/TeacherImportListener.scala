@@ -22,7 +22,7 @@ import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
 import org.openurp.base.hr.model.{Staff, Teacher}
 import org.openurp.base.model.{Project, User}
 
-class TeacherImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class TeacherImportListener(entityDao: EntityDao, project: Project, urpUserHelper: UrpUserHelper) extends ImportListener {
   override def onItemStart(tr: ImportResult): Unit = {
     transfer.curData.get("teacher.staff.code") foreach { code =>
       val query = OqlBuilder.from(classOf[Teacher], "t")
@@ -46,6 +46,7 @@ class TeacherImportListener(entityDao: EntityDao, project: Project) extends Impo
       if (null == teacher.beginOn) teacher.beginOn = staff.beginOn
       teacher.projects += project
       entityDao.saveOrUpdate(teacher)
+      urpUserHelper.createUser(staff, None)
     }
   }
 }

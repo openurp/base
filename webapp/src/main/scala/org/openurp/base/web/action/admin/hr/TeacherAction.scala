@@ -138,6 +138,6 @@ class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher
   protected override def configImport(setting: ImportSetting): Unit = {
     val fl = new ForeignerListener(entityDao)
     fl.addForeigerKey("name")
-    setting.listeners = List(fl, new TeacherImportListener(entityDao, getProject))
+    setting.listeners = List(fl, new TeacherImportListener(entityDao, getProject, urpUserHelper))
   }
 }
