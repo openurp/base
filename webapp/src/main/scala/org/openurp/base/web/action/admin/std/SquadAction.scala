@@ -28,7 +28,7 @@ import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.view.{Stream, View}
-import org.openurp.base.edu.model.{Direction, Major}
+import org.openurp.base.edu.model.{Major, MajorDirection}
 import org.openurp.base.model.{Campus, Department, Project}
 import org.openurp.base.std.model.{Grade, Squad, Student}
 import org.openurp.base.std.service.SquadService
@@ -74,7 +74,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
 
     val majors = findInProject(classOf[Major])
     put("majors", majors)
-    val directions = findInProject(classOf[Direction])
+    val directions = findInProject(classOf[MajorDirection])
     put("directions", directions)
 
     super.editSetting(squad)
@@ -174,7 +174,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     val departs = project.departments.map(x => x.code + " " + x.name).toSeq.sorted
     val grades = entityDao.search(OqlBuilder.from(classOf[Grade], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.name)
     val majors = entityDao.search(OqlBuilder.from(classOf[Major], "m").where("m.project=:project", project).orderBy("m.code")).map(x => x.code + " " + x.name)
-    val directions = entityDao.search(OqlBuilder.from(classOf[Direction], "d").where("d.project=:project", project).orderBy("d.code")).map(x => x.code + " " + x.name)
+    val directions = entityDao.search(OqlBuilder.from(classOf[MajorDirection], "d").where("d.project=:project", project).orderBy("d.code")).map(x => x.code + " " + x.name)
     val campuses = project.campuses.toSeq.map(x => x.code + " " + x.name).toSeq.sorted
     val levels = project.levels.map(x => x.code + " " + x.name).toSeq.sorted
     val stdTypes = project.stdTypes.map(x => x.code + " " + x.name).toSeq.sorted

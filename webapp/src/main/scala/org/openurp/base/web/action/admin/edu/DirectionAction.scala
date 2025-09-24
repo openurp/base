@@ -27,7 +27,7 @@ import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.action.ImportSupport
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
-import org.openurp.base.edu.model.{Direction, DirectionJournal, Major}
+import org.openurp.base.edu.model.{Major, MajorDirection, MajorDirectionJournal}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.DirectionImportListener
@@ -36,7 +36,7 @@ import org.openurp.code.edu.model.EducationLevel
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
 
-class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Direction] {
+class DirectionAction extends ProjectRestfulAction[MajorDirection], ImportSupport[MajorDirection] {
 
   override def indexSetting(): Unit = {
     given project: Project = getProject
@@ -45,7 +45,7 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
     put("levels", getCodes(classOf[EducationLevel]))
   }
 
-  override def getQueryBuilder: OqlBuilder[Direction] = {
+  override def getQueryBuilder: OqlBuilder[MajorDirection] = {
     val query = super.getQueryBuilder
     getInt("department.id") foreach { d =>
       query.where("exists(from direction.journals as dj where dj.depart.id=:departId)", d)
@@ -57,7 +57,7 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
     query
   }
 
-  override def editSetting(direction: Direction) = {
+  override def editSetting(direction: MajorDirection) = {
     given project: Project = getProject
 
     if !direction.persisted then direction.beginOn = LocalDate.now
@@ -66,7 +66,7 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
     super.editSetting(direction)
   }
 
-  protected override def saveAndRedirect(d: Direction): View = {
+  protected override def saveAndRedirect(d: MajorDirection): View = {
     d.project = getProject
 
     if (!d.persisted) {
@@ -74,7 +74,7 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
       val departs = major.journals.map(j => j.depart).toSet
       val levels = major.journals.map(j => j.level).toSet
       if (departs.size == 1 && levels.size == 1) {
-        val dj = new DirectionJournal
+        val dj = new MajorDirectionJournal
         dj.direction = d
         dj.depart = departs.head
         dj.level = levels.head
@@ -83,7 +83,7 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
       }
     }
     saveMore(d)
-    entityDao.evict(classOf[Direction])
+    entityDao.evict(classOf[MajorDirection])
     redirect("search", "info.save.success")
   }
 
@@ -111,4 +111,6 @@ class DirectionAction extends ProjectRestfulAction[Direction], ImportSupport[Dir
     fl.addForeigerKey("name")
     setting.listeners = List(fl, new DirectionImportListener(entityDao, getProject))
   }
+
+  override protected def simpleEntityName: String = "direction"
 }

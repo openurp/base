@@ -19,9 +19,9 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
-import org.openurp.base.edu.model.{Direction, DirectionJournal}
+import org.beangle.webmvc.view.View
+import org.openurp.base.edu.model.{MajorDirection, MajorDirectionJournal}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.std.model.Student
 import org.openurp.code.edu.model.EducationLevel
@@ -29,14 +29,14 @@ import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
 
-class DirectionJournalAction extends RestfulAction[DirectionJournal] with ProjectSupport {
+class DirectionJournalAction extends RestfulAction[MajorDirectionJournal] with ProjectSupport {
 
   var databus: DataEventBus = _
 
-  override def editSetting(journal: DirectionJournal) = {
+  override def editSetting(journal: MajorDirectionJournal) = {
     given project: Project = getProject
 
-    put("directions", entityDao.findBy(classOf[Direction], "project", project))
+    put("directions", entityDao.findBy(classOf[MajorDirection], "project", project))
     put("levels", getCodes(classOf[EducationLevel]))
     put("departs", findInSchool(classOf[Department]))
     if !journal.persisted then journal.beginOn = LocalDate.now
@@ -58,20 +58,22 @@ class DirectionJournalAction extends RestfulAction[DirectionJournal] with Projec
     forward()
   }
 
-  override protected def saveAndRedirect(dj: DirectionJournal): View = {
+  override protected def saveAndRedirect(dj: MajorDirectionJournal): View = {
     val view = super.saveAndRedirect(dj)
-    entityDao.evict(classOf[Direction])
-    val direction = entityDao.get(classOf[Direction], dj.direction.id)
+    entityDao.evict(classOf[MajorDirection])
+    val direction = entityDao.get(classOf[MajorDirection], dj.direction.id)
     direction.beginOn = direction.journals.map(_.beginOn).min
     entityDao.saveOrUpdate(direction)
     databus.publish(DataEvent.update(dj))
     view
   }
 
-  override protected def removeAndRedirect(entities: Seq[DirectionJournal]): View = {
+  override protected def removeAndRedirect(entities: Seq[MajorDirectionJournal]): View = {
     val view = super.removeAndRedirect(entities)
-    entityDao.evict(classOf[Direction])
+    entityDao.evict(classOf[MajorDirection])
     databus.publish(DataEvent.remove(entities))
     view
   }
+
+  override protected def simpleEntityName: String = "directionJournal"
 }

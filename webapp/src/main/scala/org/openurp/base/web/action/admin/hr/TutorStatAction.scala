@@ -29,7 +29,7 @@ import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Major
 import org.openurp.base.hr.model.{Staff, Teacher, TutorMajor}
 import org.openurp.base.model.Department
-import org.openurp.base.std.model.{Grade, Student}
+import org.openurp.base.std.model.{Grade, Student, Tutorship}
 import org.openurp.code.edu.model.{DegreeLevel, EducationLevel}
 import org.openurp.code.job.model.ProfessionalGrade
 import org.openurp.starter.web.support.ProjectSupport
@@ -59,7 +59,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
     val levelDirectionTutors = datas.groupBy(_._1).map { d =>
       (d._1, d._2.groupBy(_._3).map(x => (x._1, x._2.map(_._4).distinct)))
     }
-    put("levels",levelDirectionTutors.keys)
+    put("levels", levelDirectionTutors.keys)
     put("levelDirectionTutors", levelDirectionTutors)
     forward()
   }
@@ -127,11 +127,12 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
    */
   def std(): View = {
     val q = OqlBuilder.from[Array[Any]](classOf[Student].getName, "std")
-    q.where("std.tutor is not null")
+    q.join("std.tutors", "st")
+    q.where("st.tutorship=:ship", Tutorship.Major)
     //在籍学生，无论是否在校
     q.where("std.registed = true and :today between std.beginOn and std.endOn", LocalDate.now)
-    q.select("std.tutor.id,std.tutor.department.id,std.level.id,std.state.grade.id,std.graduationDeferred,count(*)")
-    q.groupBy("std.tutor.id,std.tutor.department.id,std.level.id,std.state.grade.id,std.graduationDeferred")
+    q.select("st.tutor.id,st.tutor.department.id,std.level.id,std.state.grade.id,std.graduationDeferred,count(*)")
+    q.groupBy("st.tutor.id,st.tutor.department.id,std.level.id,std.state.grade.id,std.graduationDeferred")
     val datas = Collections.newBuffer[Matrix.Row]
     val teacherIds = Collections.newSet[Long]
     val departIds = Collections.newSet[Int]
@@ -169,10 +170,11 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
 
   def stdList(): View = {
     val q = OqlBuilder.from(classOf[Student], "std")
-    q.where("std.tutor is not null")
+    q.where("exists(from std.tutors st where st.tutor.id=:tutorId and st.tutorship=:ship)", getLongId("tutor"), Tutorship.Major)
     //在籍学生，无论是否在校
     q.where("std.registed = true and :today between std.beginOn and std.endOn", LocalDate.now)
     QueryHelper.populate(q)
+    q.orderBy("std.code desc")
     val stds = entityDao.search(q)
     put("stds", stds)
     forward()

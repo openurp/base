@@ -20,7 +20,7 @@ package org.openurp.base.web.action.admin.hr
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.support.action.RestfulAction
 import org.beangle.webmvc.support.helper.QueryHelper
-import org.openurp.base.edu.model.{Direction, Major, MajorDirector}
+import org.openurp.base.edu.model.{Major, MajorDirection, MajorDirector}
 import org.openurp.base.model.Project
 import org.openurp.starter.web.support.ProjectSupport
 
@@ -43,7 +43,7 @@ class MajorDirectorAction extends RestfulAction[MajorDirector], ProjectSupport {
     put("project", project)
     put("levels", project.levels)
     put("majors", findInProject(classOf[Major]))
-    put("directions", findInProject(classOf[Direction]))
+    put("directions", findInProject(classOf[MajorDirection]))
     if (null == md.beginOn) md.beginOn = LocalDate.now.minusDays(1)
     super.editSetting(md)
   }

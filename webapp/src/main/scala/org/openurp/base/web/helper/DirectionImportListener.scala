@@ -19,7 +19,7 @@ package org.openurp.base.web.helper
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.Direction
+import org.openurp.base.edu.model.MajorDirection
 import org.openurp.base.model.Project
 
 import java.time.{Instant, LocalDate}
@@ -28,7 +28,7 @@ class DirectionImportListener(entityDao: EntityDao, project: Project) extends Im
 
   override def onItemStart(tr: ImportResult): Unit = {
     transfer.curData.get("direction.code") foreach { code =>
-      val query = OqlBuilder.from(classOf[Direction], "c")
+      val query = OqlBuilder.from(classOf[MajorDirection], "c")
       query.where("c.code =:code and c.project=:project", code, project)
       val cs = entityDao.search(query)
       if (cs.nonEmpty) transfer.current = cs.head
@@ -36,7 +36,7 @@ class DirectionImportListener(entityDao: EntityDao, project: Project) extends Im
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val direction = transfer.current.asInstanceOf[Direction]
+    val direction = transfer.current.asInstanceOf[MajorDirection]
     direction.project = project
     direction.updatedAt = Instant.now
     if (null == direction.beginOn) {

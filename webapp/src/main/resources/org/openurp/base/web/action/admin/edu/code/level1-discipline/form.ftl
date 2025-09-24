@@ -1,12 +1,12 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="修改${meta.name}"]bar.addBack();[/@]
+[@b.toolbar title="修改以及学科"]bar.addBack();[/@]
   [@b.form action=b.rest.save(code) theme="list"]
     [@b.textfield name="code.code" label="代码" value="${code.code!}" required="true" maxlength="20"/]
     [@b.textfield name="code.name" label="名称" value="${code.name!}" required="true" maxlength="20"/]
     [@b.textfield name="code.enName" label="英文名" style="width:500px" value="${code.enName!}" maxlength="100"/]
-    [@b.select name="code.level.id" label="学历层次" items=levels value=code.level! required="true" empty="..." /]
-    [@b.select name="code.result.id" label="毕结业结论" items=results value=code.result! required="true" empty="..." /]
+    [@b.select name="code.category.id" label="学科门类" items=categories value=code.category!
+               option=r"${item.code} ${item.name}" empty="..." required="true"/]
     [@b.startend label="有效期"
       name="code.beginOn,code.endOn" required="true,false"
       start=code.beginOn end=code.endOn format="date"/]

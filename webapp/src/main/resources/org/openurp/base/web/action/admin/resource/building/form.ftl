@@ -5,7 +5,7 @@
   [@b.form action=sa theme="list"]
     [@b.textfield name="building.code" label="代码" value="${building.code!}" required="true" maxlength="10"/]
     [@b.textfield name="building.name" label="名称" value="${building.name!}" required="true" maxlength="80"/]
-    [@b.textfield name="building.enName" label="英文名称" value="${building.enName!}" maxlength="100"/]
+    [@b.textfield name="building.enName" label="英文名" value="${building.enName!}" maxlength="100"/]
     [@b.textfield name="building.shortName" label="简称" value="${building.shortName!}" maxlength="100"/]
     [@b.select name="building.campus.id" label="所属校区" value=building.campus! items=campuses empty="..." required="true"/]
     [@b.select name="building.buildingType.id" label="建筑物用途" value=building.buildingType! items=buildingTypes empty="..."/]

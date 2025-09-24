@@ -3,7 +3,7 @@
   [@b.form action=b.rest.save(code) theme="list"]
     [@b.textfield name="code.code" label="代码" value=code.code! required="true" maxlength="20"/]
     [@b.textfield name="code.name" label="名称" value=code.name! required="true" maxlength="200"/]
-    [@b.textfield name="code.enName" label="英文名称" value=code.enName! maxlength="200"/]
+    [@b.textfield name="code.enName" label="英文名" style="width:500px" value=code.enName! maxlength="200"/]
     [@b.textfield name="code.alphaCode" label="字母代码" value=code.alphaCode! required="true" maxlength="3"/]
     [@b.startend label="有效期限"
       name="code.beginOn,code.endOn" required="true,false"

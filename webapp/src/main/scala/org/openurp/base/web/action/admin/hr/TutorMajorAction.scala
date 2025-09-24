@@ -24,11 +24,12 @@ import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport, RestfulAction}
-import org.openurp.base.edu.model.{Direction, Major}
+import org.beangle.webmvc.view.{Stream, View}
+import org.openurp.base.edu.model.{Major, MajorDirection}
 import org.openurp.base.hr.model.TutorMajor
 import org.openurp.base.model.{Department, Project}
+import org.openurp.base.std.model.Grade
 import org.openurp.base.web.helper.TutorMajorImportListener
 import org.openurp.code.edu.model.{EducationLevel, EducationType}
 import org.openurp.code.job.model.{ProfessionalTitle, TutorType}
@@ -51,9 +52,10 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
   override protected def editSetting(tm: TutorMajor): Unit = {
     given project: Project = getProject
 
+    put("grades", findInProject(classOf[Grade]))
     put("majors", findInProject(classOf[Major]))
 
-    val q = OqlBuilder.from(classOf[Direction], "d")
+    val q = OqlBuilder.from(classOf[MajorDirection], "d")
     q.where("d.project=:project", getProject)
     if (tm.persisted) {
       if (null != tm.major && tm.major.persisted) q.where("d.major=:major", tm.major)
@@ -66,7 +68,7 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
 
   override protected def saveAndRedirect(tm: TutorMajor): View = {
     val directionIds = getAll("direction.id", classOf[Long])
-    val newDirections = entityDao.find(classOf[Direction], directionIds)
+    val newDirections = entityDao.find(classOf[MajorDirection], directionIds)
     tm.directions.clear()
     tm.directions.addAll(newDirections)
     super.saveAndRedirect(tm)
@@ -88,10 +90,12 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
     val levels = codeService.get(classOf[EducationLevel]).map(x => x.code + " " + x.name)
     val eduTypes = codeService.get(classOf[EducationType]).map(x => x.code + " " + x.name)
     val majors = findInProject(classOf[Major]).map(x => x.code + " " + x.name)
+    val grades = findInProject(classOf[Grade]).map(x => x.code)
 
     val schema = new ExcelSchema()
     val sheet = schema.createScheet("数据模板")
     sheet.title("导师研究领域信息模板")
+    sheet.add("年级", "tutorMajor.grade.code").ref(grades).required()
     sheet.add("导师工号", "tutorMajor.staff.code").length(20).required().remark("≤20位")
     sheet.add("培养层次", "tutorMajor.level.code").ref(levels).required()
     sheet.add("培养类型", "tutorMajor.eduType.code").ref(eduTypes).required()
@@ -104,8 +108,10 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {
+    val project = getProject
     val fl = new ForeignerListener(entityDao)
     fl.addForeigerKey("name")
-    setting.listeners = List(fl, new TutorMajorImportListener(entityDao, getProject))
+    fl.addScope(classOf[Grade], Map("project" -> project))
+    setting.listeners = List(fl, new TutorMajorImportListener(entityDao, project))
   }
 }

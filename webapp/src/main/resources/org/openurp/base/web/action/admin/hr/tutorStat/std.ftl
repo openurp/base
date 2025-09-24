@@ -54,7 +54,7 @@
           [#assign d = matrix.getColumn(dx)/]
           [#assign lgmatrix = matrix.groupBy(dy+","+dx)/]
           [#list d.keys?sort as dk]
-          [#assign params={"std.tutor.id":teacher.id,paramNames[dx_index]:(dk!'null')?string} /]
+          [#assign params={"tutor.id":teacher.id,paramNames[dx_index]:(dk!'null')?string} /]
           <td>[@displayCounter lgmatrix.getCounter(v,dk)!,params/]</td>
           [/#list]
         [/#list]
@@ -111,5 +111,5 @@
   </div>
 </div>
 
-  [@b.dialog id="tutorStdList" title="导师学生信息" /]
+  [@b.dialog id="tutorStdList" title="导师学生信息" class="modal-xl"/]
 [@b.foot/]

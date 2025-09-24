@@ -6,7 +6,7 @@
     [@b.textfield name="code.name" label="名称" value="${code.name!}" required="true" maxlength="20"/]
     [@b.select name="code.labelType.id" label="标签类型" value=code.labelType! required="true"
                style="width:200px;" items=labelTypes option="id,name" empty="..."/]
-    [@b.textfield name="code.enName" label="英文名" value="${code.enName!}" maxlength="100"/]
+    [@b.textfield name="code.enName" label="英文名" style="width:500px" value="${code.enName!}" maxlength="100"/]
     [@b.startend label="有效期"
       name="code.beginOn,code.endOn" required="true,false"
       start=code.beginOn end=code.endOn format="date"/]

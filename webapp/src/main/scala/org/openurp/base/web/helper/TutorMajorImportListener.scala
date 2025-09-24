@@ -21,15 +21,15 @@ import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
-import org.openurp.base.edu.model.{Direction, Major}
+import org.openurp.base.edu.model.{Major, MajorDirection}
 import org.openurp.base.hr.model.TutorMajor
 import org.openurp.base.model.{Department, Project}
 import org.openurp.code.edu.model.EducationLevel
 
 class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
 
-  def findExactly(major: Major, level: EducationLevel, department: Department, name: String): Option[Direction] = {
-    val q = OqlBuilder.from(classOf[Direction], "d")
+  def findExactly(major: Major, level: EducationLevel, department: Department, name: String): Option[MajorDirection] = {
+    val q = OqlBuilder.from(classOf[MajorDirection], "d")
     q.where("d.major=:major", major)
     q.where("d.name = :name", name)
     q.where("d.endOn is null")
@@ -38,8 +38,8 @@ class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends I
     else None
   }
 
-  def findAppromax(major: Major, level: EducationLevel, department: Department, name: String): Option[Direction] = {
-    val q = OqlBuilder.from(classOf[Direction], "d")
+  def findAppromax(major: Major, level: EducationLevel, department: Department, name: String): Option[MajorDirection] = {
+    val q = OqlBuilder.from(classOf[MajorDirection], "d")
     q.where("d.major=:major", major)
     q.where("d.name like :name", "%" + name + "%")
     q.where("d.endOn is null")
@@ -55,8 +55,8 @@ class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends I
         } else None
   }
 
-  def findAppromax2(major: Major, level: EducationLevel, department: Department, keywords: Array[String]): Option[Direction] = {
-    val q = OqlBuilder.from(classOf[Direction], "d")
+  def findAppromax2(major: Major, level: EducationLevel, department: Department, keywords: Array[String]): Option[MajorDirection] = {
+    val q = OqlBuilder.from(classOf[MajorDirection], "d")
     q.where("d.major=:major", major)
     var i = 0
     val keyworkCon = Collections.newBuffer[String]
@@ -79,7 +79,7 @@ class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends I
     val tm = transfer.current.asInstanceOf[TutorMajor]
     if (null != tm.staff && null != tm.major && null != tm.level && null != tm.eduType) {
       transfer.curData.get("directionNames") foreach { directionNames =>
-        val directions = Collections.newBuffer[Direction]
+        val directions = Collections.newBuffer[MajorDirection]
         Strings.split(directionNames.toString, Array(',', '，', ';', '；', '、')) foreach { dn =>
           val direction = findExactly(tm.major, tm.level, tm.staff.department, dn).orElse(findAppromax(tm.major, tm.level, tm.staff.department, dn))
           if (direction.isEmpty) {

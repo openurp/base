@@ -5,7 +5,7 @@
     [@b.textfield name="code.code" label="代码" value=code.code! required="true" maxlength="20"/]
     [@b.textfield name="code.name" label="名称" value=code.name! required="true" maxlength="200"/]
     [@b.textfield name="code.shortName" label="简称" value=code.shortName! maxlength="200"/]
-    [@b.textfield name="code.enName" label="英文名称" value=code.enName! maxlength="200"/]
+    [@b.textfield name="code.enName" label="英文名" style="width:500px" value=code.enName! maxlength="200"/]
     [@b.startend label="有效期限"
       name="code.beginOn,code.endOn" required="true,false"
       start=code.beginOn end=code.endOn format="date"/]
