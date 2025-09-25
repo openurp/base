@@ -5,6 +5,7 @@
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="searchForm" action="!search" target="tutorlist" title="ui.searchForm" theme="search"]
+      [@b.textfield name="tutorMajor.grade.code" label="年级" /]
       [@b.textfield name="tutorMajor.staff.code" label="工号" maxlength="50000"/]
       [@b.textfields names="tutorMajor.staff.name;姓名"/]
       [@b.select name="tutorMajor.staff.department.id" label="院系" items=departments empty="..." /]

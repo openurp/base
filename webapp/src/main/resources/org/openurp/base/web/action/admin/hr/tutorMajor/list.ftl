@@ -13,6 +13,7 @@
   [/@]
   [@b.row]
     [@b.boxcol /]
+    [@b.col width="5%" property="grade.code" title="年级"/]
     [@b.col width="8%" property="staff.code" title="工号"]${tutorMajor.staff.code}[/@]
     [@b.col width="8%" property="staff.name" title="姓名"]${tutorMajor.staff.name}[/@]
     [@b.col width="8%" property="staff.title.name" title="职称"]${(staff.title.name)!}[/@]
