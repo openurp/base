@@ -7,7 +7,7 @@
     bar.addItem("${b.text("action.modify")}",action.edit());
     bar.addItem("${b.text("action.delete")}",action.remove("确认删除?"));
     bar.addItem("导入",action.method('importForm'));
-    bar.addItem("${b.text("action.export")}",action.exportData("staff.code:工号,staff.name:姓名,level.name:培养层次,"+
+    bar.addItem("${b.text("action.export")}",action.exportData("grade.code:年级,staff.code:工号,staff.name:姓名,level.name:培养层次,"+
                 "eduType.name:培养类型,major.name:专业,directions(name):研究方向,staff.title.name:职称",
                 null,'fileName=导师研究领域'));
   [/@]
