@@ -18,7 +18,6 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.commons.activation.MediaTypes
-import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.{Charsets, Strings}
 import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.{Operation, OqlBuilder}
@@ -27,8 +26,6 @@ import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
 import org.beangle.webmvc.annotation.{mapping, param, response}
-import org.beangle.webmvc.context.ActionContext
-import org.beangle.webmvc.execution.MappingHandler
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
@@ -65,7 +62,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     put("titles", codeService.get(classOf[ProfessionalTitle]))
   }
 
-  override def editSetting(staff: Staff):Unit = {
+  override def editSetting(staff: Staff): Unit = {
     given project: Project = getProject
 
     put("departments", findInSchool(classOf[Department]))
@@ -84,14 +81,21 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
 
     put("extraRequired", Strings.split(getConfig(Hr.StaffExtraRequiredProperties).asInstanceOf[String]).toSet)
 
+    //兼职教师的默认值
+    if (!staff.persisted) {
+      staff.beginOn = LocalDate.now
+      codeService.get(classOf[WorkStatus]) find (x => x.name == "在职" || x.name == "在岗") foreach { s => staff.status = s }
+      staff.external = true
+      codeService.get(classOf[StaffType]) find (x => x.name.contains("教师") && x.name.contains("高等")) foreach { t => staff.staffType = t }
+    }
     put("api", Ems.api)
-    if !staff.persisted then staff.beginOn = LocalDate.now
     super.editSetting(staff)
   }
 
   override protected def saveAndRedirect(staff: Staff): View = {
     given p: Project = getProject
 
+    val newStaff = !staff.persisted
     staff.school = p.school
     staff.updatedAt = Instant.now
     val codeOccupied = entityDao.duplicate(classOf[Staff], staff.id, Map("school" -> p.school, "code" -> staff.code))
@@ -109,8 +113,19 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
           entityDao.search(existQuery).headOption foreach { code => oldCode = Some(code) }
         }
         saveMore(staff)
-        urpUserHelper.createDepart(entityDao.get(classOf[Department],staff.department.id))
+        urpUserHelper.createDepart(entityDao.get(classOf[Department], staff.department.id))
         urpUserHelper.createUser(staff, oldCode)
+        if (newStaff && getBoolean("isTeacher", false)) {
+          val teacher = new Teacher
+          teacher.id = staff.id
+          teacher.name = staff.name
+          teacher.staff = staff
+          teacher.department = staff.department
+          teacher.projects.addAll(entityDao.findBy(classOf[Project], "school", staff.school))
+          teacher.beginOn = staff.beginOn
+          entityDao.saveOrUpdate(teacher)
+          urpUserHelper.createUser(staff, None)
+        }
         //synchronize name to teacher/mentor/tutor
         val teachers = entityDao.findBy(classOf[Teacher], "staff", staff)
         if (getConfig(Hr.TeacherSameDepartWithStaff).asInstanceOf[Boolean]) {
