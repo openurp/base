@@ -17,7 +17,7 @@
 
 package org.openurp.base.web.action.admin
 
-import org.beangle.commons.collection.Order
+import org.beangle.commons.collection.{Collections, Order}
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{OqlBuilder, QueryPage}
 import org.beangle.webmvc.annotation.ignore
@@ -70,10 +70,17 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
   override protected def saveAndRedirect(user: User): View = {
     user.school = getSchool
     user.beginOn = LocalDate.now
+    var defaultGroup = List.empty[UserGroup]
+    getInt("user.group.id") foreach { groupId =>
+      defaultGroup = entityDao.find(classOf[UserGroup], groupId).toList
+    }
     val groupIds = getAll("group.id", classOf[Int])
     val newGroups = entityDao.find(classOf[UserGroup], groupIds)
-    user.groups.clear()
-    user.addGroups(newGroups)
+    val allGroups = Collections.newBuffer[UserGroup]
+    allGroups.addAll(defaultGroup)
+    allGroups.addAll(newGroups)
+    user.updateGroups(allGroups)
+
     entityDao.saveOrUpdate(user)
 
     urpUserHelper.createAccount(user)

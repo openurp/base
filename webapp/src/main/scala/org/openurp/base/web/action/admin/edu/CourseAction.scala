@@ -27,9 +27,7 @@ import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.doc.transfer.importer.ImportSetting
 import org.beangle.doc.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
-import org.beangle.event.bus.DataEvent
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
@@ -171,6 +169,13 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
   protected override def saveAndRedirect(course: Course): View = {
     given project: Project = getProject
+
+    if (entityDao.duplicate(classOf[Course], course.id, Map("project" -> project, "code" -> course.code))) {
+      addError("另一个课程已经被使用了改课程代码，请更换一个")
+      put("course", course)
+      editSetting(course)
+      return forward(if course.persisted then "form" else "new,form")
+    }
 
     val teachingNatures = getCodes(classOf[TeachingNature])
     teachingNatures foreach { ht =>

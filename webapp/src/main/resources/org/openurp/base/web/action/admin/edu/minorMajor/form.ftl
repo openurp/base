@@ -7,6 +7,7 @@
   [@b.textfield name="major.enName" label="英文名" value=major.enName! maxlength="180"/]
   [@base.code type="discipline-categories"  name="major.category.id" label="学科门类" value=major.category! required="true"/]
   [@base.code type="institutions"  name="major.institution.id" label="所属院校" value=major.institution!  required="true"/]
+  [@b.select name="signupMajor.department.id" label="本校院系" items=departments empty="..." required="false"/]
   [@b.startend label="有效期限"
     name="major.beginOn,major.endOn" required="true,false"
     start=major.beginOn end=major.endOn format="date"/]
