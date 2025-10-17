@@ -82,7 +82,7 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
     user.updateGroups(allGroups)
 
     entityDao.saveOrUpdate(user)
-
+    entityDao.refresh(user)
     urpUserHelper.createAccount(user)
     super.saveAndRedirect(user)
   }
