@@ -21,7 +21,7 @@
     [@b.col width="10%" property="code" title="代码"/]
     [@b.col property="name" title="名称"][@b.a href="!info?id=${course.id}"]${course.name}[/@][/@]
     [@b.col width="5%" property="defaultCredits" title="学分"/]
-    [@b.col width="5%" property="creditHours" title="学时"]
+    [@b.col width="10%" property="creditHours" title="学时"]
       ${course.creditHours}
       [#if course.hours?size>1]
         ([#list course.hours?sort_by(['nature','code']) as ch]${ch.creditHours}[#if ch_has_next]+[/#if][/#list])
@@ -32,7 +32,7 @@
     [/@]
     [@b.col width="5%" property="weekHours" title="周课时"/]
     [@b.col width="5%" property="weeks" title="周数"/]
-    [@b.col width="15%" property="department.name" title="课程所属院系"]
+    [@b.col width="10%" property="department.name" title="课程所属院系"]
       ${course.department.shortName!course.department.name}
     [/@]
     [@b.col width="15%" property="courseType.name" title="课程类型"/]

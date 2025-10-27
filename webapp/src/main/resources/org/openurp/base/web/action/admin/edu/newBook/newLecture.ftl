@@ -1,8 +1,18 @@
 [#ftl]
 [@b.head/]
+<style>
+  @media (max-width:767.98px) {
+    fieldset.listset li > label.title{
+      min-width: 4.5rem;
+    }
+    fieldset.listset > ol > li{
+      padding: 4px 0px 7px;
+    }
+  }
+</style>
 <div class="container">
   [@b.form action="!save" theme="list"]
-    [@b.textfield name="textbook.name" label="名称" value="${textbook.name!}" required="true" maxlength="50" style="width:400px"/]
+    [@b.textfield name="textbook.name" label="名称" value="${textbook.name!}" required="true" maxlength="200" placeholder="最多200个字"/]
     [@b.textfield name="textbook.author" label="作者" value=textbook.author! maxlength="100" required="true"/]
     [@b.date name="textbook.publishedIn" label="编写年月" value=(textbook.publishedIn)! format="yyyy-MM" required="true"/]
     [@b.textfield name="textbook.edition" label="版次" value=textbook.edition! maxlength="20" style="width:100px" required="true"/]

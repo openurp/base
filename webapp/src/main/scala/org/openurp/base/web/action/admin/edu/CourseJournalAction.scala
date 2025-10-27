@@ -19,7 +19,6 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.pojo.TemporalOn
-import org.beangle.event.bus.DataEvent
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.{Course, CourseJournal, CourseJournalHour}
 import org.openurp.base.model.{Project, Semester}
@@ -105,13 +104,15 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
     entityDao.saveOrUpdate(journals)
     val last = journals.last
     val course = entityDao.get(classOf[Course], last.course.id)
-    //last one
+    //update course using last one
     if (last.endOn.isEmpty) {
       if (last.enName.nonEmpty) {
         course.enName = last.enName
       }
       course.updateHours(last.hours.map(x => (x.nature, x.creditHours)).toMap)
       course.creditHours = last.creditHours
+      course.weekHours = last.weekHours
+      course.weeks = last.weeks
       course.name = last.name
     }
     if (journals.nonEmpty) {

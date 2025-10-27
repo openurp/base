@@ -1,12 +1,23 @@
 [#ftl]
 [@b.head/]
+<style>
+  @media (max-width:767.98px) {
+    fieldset.listset li > label.title{
+      min-width: 4.5rem;
+    }
+    fieldset.listset > ol > li{
+      padding: 4px 0px 7px;
+    }
+  }
+</style>
 <div class="container">
   [@b.form action="!save" theme="list" name="textbookForm"]
-    [@b.textfield name="textbook.isbn" label="ISBN" value="${textbook.isbn!}" required="true" maxlength="30"]
-      <a href="${Ems.api}/base/edu/${project.id}/textbooks/queryByIsbn.json" onclick="return fetchByIsbn(this,event);">按照isbn查询，并自动填充</a>
+    [@b.textfield name="textbook.isbn" label="ISBN" value="${textbook.isbn!}" required="true" maxlength="30" placeholder="按照ISBN查询，尝试自动填充"]
+      <a href="${Ems.api}/base/edu/${project.id}/textbooks/queryByIsbn.json" onclick="return fetchByIsbn(this,event);">查询</a>
       <span class="alert alert-warning" style="display:none;" id="queryResult"><span>
     [/@]
-    [@b.textfield name="textbook.name" label="名称" value="${textbook.name!}" required="true" maxlength="50" style="width:400px"/]
+    [@b.textfield name="textbook.name" class="book_name" label="名称" value="${textbook.name!}" required="true" maxlength="200"
+                  placeholder="最多200个字"/]
     [@b.textfield name="textbook.author" label="作者" value=textbook.author! maxlength="100" required="true"/]
 
     [@b.textfield name="press.name" label="出版社" maxlength="100" required="true" placeholder="输入完整名称或从已有种选择"]
