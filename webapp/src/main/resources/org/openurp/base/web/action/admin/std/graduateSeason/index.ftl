@@ -5,10 +5,10 @@
     [@b.form name="gradeSearchForm" action="!search" target="graduateSeasonList" title="ui.searchForm" theme="search"]
       [@b.textfields names="graduateSeason.code;代码"/]
       [@b.textfields names="graduateSeason.name;名称"/]
-      <input type="hidden" name="orderBy" value="graduateSeason.code"/>
+      <input type="hidden" name="orderBy" value="graduateSeason.code desc"/>
     [/@]
     </div>
-    <div class="search-list">[@b.div id="graduateSeasonList" href="!search?orderBy=graduateSeason.code&active=1"/]
+    <div class="search-list">[@b.div id="graduateSeasonList" href="!search?orderBy=graduateSeason.code desc&active=1"/]
   </div>
 </div>
 [@b.foot/]

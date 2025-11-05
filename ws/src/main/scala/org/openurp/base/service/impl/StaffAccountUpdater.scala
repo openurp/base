@@ -19,12 +19,12 @@ package org.openurp.base.service.impl
 
 import org.beangle.commons.bean.Initializing
 import org.beangle.commons.logging.Logging
-import org.beangle.data.orm.hibernate.DaoJob
+import org.beangle.data.orm.hibernate.AbstractDaoTask
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.dao.AppDataSourceFactory
 import org.openurp.base.hr.service.impl.StaffServiceImpl
 
-class StaffAccountUpdater extends DaoJob, Logging, Initializing {
+class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing {
   private var staffService: StaffServiceImpl = _
 
   override def init(): Unit = {

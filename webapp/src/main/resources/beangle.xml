@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
-<cdi>
-  <container>
+<beangle xmlns="http://beangle.github.io/schema/framework"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://beangle.github.io/schema/framework http://beangle.github.io/schema/framework-1.0.xsd">
+  <ems app-name="base-webapp"/>
+
+  <cdi>
     <module class="org.openurp.base.web.action.admin.edu.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.hr.DefaultModule"/>
     <module class="org.openurp.base.web.action.admin.std.DefaultModule"/>
@@ -15,5 +19,14 @@
     <module class="org.openurp.base.web.action.info.DefaultModule"/>
 
     <module class="org.openurp.starter.web.ProjectModule"/>
-  </container>
-</cdi>
+  </cdi>
+
+  <mvc>
+    <profile package="org.openurp.base.web.action">
+      <url path="/" suffix=""  style="seo" />
+      <interceptor name="web.Interceptor.hibernate"/>
+      <interceptor name="web.Interceptor.security"/>
+    </profile>
+  </mvc>
+
+</beangle>

@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<mvc>
-  <static>
-    <bundle name="openurp-base" version="0.1.10"/>
-  </static>
-</mvc>

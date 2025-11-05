@@ -17,7 +17,6 @@
 
 package org.openurp.base.web.action.admin.std
 
-import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.view.View
 import org.openurp.base.std.model.GraduateSeason
@@ -26,7 +25,8 @@ import org.openurp.base.web.action.admin.ProjectRestfulAction
 class GraduateSeasonAction extends ProjectRestfulAction[GraduateSeason] {
   override def getQueryBuilder: OqlBuilder[GraduateSeason] = {
     val query = super.getQueryBuilder
-    query.where("graduateSeason.project=:project", getProject)
+    import query.given
+    query.where(_.project.equal(getProject))
     query
   }
 

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<beangle>
+  <ems app-name="base-ws"/>
+
+  <cdi>
+    <module class="org.openurp.base.ws.DefaultModule"/>
+    <module class="org.openurp.base.ws.edu.DefaultModule"/>
+    <module class="org.openurp.base.ws.hr.DefaultModule"/>
+    <module class="org.openurp.base.ws.std.DefaultModule"/>
+    <module class="org.openurp.base.ws.resource.DefaultModule"/>
+    <module class="org.openurp.base.ws.SchedulerModule"/>
+  </cdi>
+
+  <mvc>
+    <profile package="org.openurp.base.ws">
+      <action suffix="WS" defaultMethod="index"/>
+      <url path="/" suffix="" style="plur-seo"/>
+      <interceptor name="web.Interceptor.hibernate"/>
+      <interceptor name="web.Interceptor.cors"/>
+    </profile>
+
+    <profile package="org.openurp.base.ws.edu">
+      <action suffix="WS" defaultMethod="index"/>
+      <url path="/edu/{project}" suffix="" style="plur-seo"/>
+      <interceptor name="web.Interceptor.hibernate"/>
+      <interceptor name="web.Interceptor.cors"/>
+    </profile>
+
+    <profile package="org.openurp.base.ws.std">
+      <action suffix="WS" defaultMethod="index"/>
+      <url path="/std/{project}" suffix="" style="plur-seo"/>
+      <interceptor name="web.Interceptor.hibernate"/>
+      <interceptor name="web.Interceptor.cors"/>
+    </profile>
+  </mvc>
+
+</beangle>

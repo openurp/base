@@ -20,8 +20,8 @@ package org.openurp.base.web.action.info.edu
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.EntityAction
+import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Course
 import org.openurp.starter.web.support.ProjectSupport
 
@@ -72,11 +72,13 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
   def search(): View = {
     val project = getProject
     val query = getQueryBuilder
-    query.where("course.project=:project", project)
+    import query.given
+    query.where(_.project.equal(project))
     get("q") foreach { q =>
-      query.where("course.code like :q or course.name like :q", s"%${q.trim}%")
+      val qv = s"%${q.trim}%"
+      query.where(e => e.code.like(qv) or e.name.like(qv))
     }
-    query.where("course.endOn is null or course.endOn > :now", LocalDate.now)
+    query.where(e => e.endOn.isNull or e.endOn.gt(LocalDate.now))
     query.orderBy("course.code")
     put("courses", entityDao.search(query))
     forward()

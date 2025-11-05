@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<beangle xmlns="http://beangle.github.io/schema/framework"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://beangle.github.io/schema/framework http://beangle.github.io/schema/framework-1.0.xsd">
+
+  <cdi>
+    <module class="org.openurp.base.web.tag.DefaultModule"/>
+  </cdi>
+  <mvc>
+    <static>
+      <bundle name="openurp-base" version="0.1.10"/>
+    </static>
+  </mvc>
+
+</beangle>
