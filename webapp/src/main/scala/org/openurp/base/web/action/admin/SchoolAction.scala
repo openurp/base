@@ -17,11 +17,13 @@
 
 package org.openurp.base.web.action.admin
 
-import org.beangle.webmvc.view.View
 import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.webmvc.view.View
 import org.openurp.base.model.School
 import org.openurp.code.edu.model.{Institution, InstitutionCategory}
 import org.openurp.code.geo.model.Division
+
+import java.time.LocalDate
 
 class SchoolAction extends RestfulAction[School] {
 
@@ -32,4 +34,8 @@ class SchoolAction extends RestfulAction[School] {
     super.editSetting(entity)
   }
 
+  override protected def saveAndRedirect(school: School): View = {
+    if (null == school.beginOn) school.beginOn = LocalDate.now
+    super.saveAndRedirect(school)
+  }
 }

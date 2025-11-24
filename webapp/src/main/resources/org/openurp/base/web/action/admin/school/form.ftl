@@ -16,7 +16,7 @@
     [@b.textfield name="school.identifier" label="标识码" value=school.identifier! required="false" maxlength="10" comment="10位"/]
     [@b.textfield name="school.superiorOrg" label="主管部门" value=school.superiorOrg! required="false"/]
     [@b.textfield name="school.uscc" label="统一信用代码" value=school.uscc! required="false"/]
-    [@b.textfield name="school.logoUrl" label="logo网址" value=school.logoUrl! required="false" style="width:400px"/]
+    [@b.textfield name="school.logoUrl" label="logo网址" value=school.logoUrl! required="true" style="width:400px"/]
     [@b.formfoot]
       [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit"/]
     [/@]

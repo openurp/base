@@ -32,26 +32,36 @@ class CourseAction extends ActionSupport with EntityAction[Course] with ProjectS
 
   def index(): View = {
     val project = getProject
-    val dQuery1 = OqlBuilder.from(classOf[Course].getName, "c")
-    dQuery1.where("c.project=:project", project)
-    dQuery1.where("c.department.teaching=true")
-    dQuery1.where("c.endOn is null or c.endOn > :now", LocalDate.now)
-    dQuery1.select("c.department.id,c.department.name,count(*)")
-    dQuery1.groupBy("c.department.id,c.department.code,c.department.name")
-    dQuery1.orderBy("c.department.code")
+    val dQuery1 = OqlBuilder.from(classOf[Course], "c")
+    import dQuery1.given
+    dQuery1.where { e =>
+      e.project.equal(project)
+        .and(e.department.teaching.equal(true))
+        .and(e.endOn.isNull or e.endOn.gt(LocalDate.now))
+    }
+    dQuery1.on { e =>
+      dQuery1.select(e.department.id, e.department.name, "count(*)")
+        .groupBy(e.department.id, e.department.code, e.department.name)
+        .orderBy(e.department.code)
+    }
     put("departStat", entityDao.search(dQuery1))
 
-    val dQuery2 = OqlBuilder.from(classOf[Course].getName, "c")
-    dQuery2.where("c.project=:project", project)
-    dQuery2.where("c.department.teaching=false")
-    dQuery2.where("c.endOn is null or c.endOn > :now", LocalDate.now)
-    dQuery2.select("c.department.id,c.department.name,count(*)")
-    dQuery2.groupBy("c.department.id,c.department.code,c.department.name")
-    dQuery2.orderBy("c.department.code")
+    val dQuery2 = OqlBuilder.from(classOf[Course], "c")
+    import dQuery2.given
+    dQuery2.where { e =>
+      e.project.equal(project)
+        .and(e.department.teaching.equal(false))
+        .and(e.endOn.isNull or e.endOn.gt(LocalDate.now))
+    }
+    dQuery2.on { e =>
+      dQuery2.select(e.department.id, e.department.name, "count(*)")
+        .groupBy(e.department.id, e.department.code, e.department.name)
+        .orderBy(e.department.code)
+    }
     put("otherDepartStat", entityDao.search(dQuery2))
 
     val ctQuery = OqlBuilder.from(classOf[Course].getName, "c")
-    ctQuery.where("c.project=:project", project)
+    ctQuery.where("c.project = :project", project)
     ctQuery.where("c.endOn is null or c.endOn > :now", LocalDate.now)
     ctQuery.select("c.courseType.id,c.courseType.name,count(*)")
     ctQuery.groupBy("c.courseType.id,c.courseType.code,c.courseType.name")

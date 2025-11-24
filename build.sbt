@@ -2,7 +2,7 @@ import org.openurp.parent.Dependencies.*
 import org.openurp.parent.Settings.*
 
 ThisBuild / organization := "org.openurp.base"
-ThisBuild / version := "0.4.61-SNAPSHOT"
+ThisBuild / version := "0.4.61"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
@@ -23,8 +23,8 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.48.1"
-val starterVer = "0.4.5"
+val apiVer = "0.48.2"
+val starterVer = "0.4.6"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
@@ -46,7 +46,7 @@ lazy val static = (project in file("static"))
   )
 
 lazy val ws = (project in file("ws"))
-  .enablePlugins(WarPlugin, UndertowPlugin)
+  .enablePlugins(WarPlugin, TomcatPlugin)
   .settings(
     name := "openurp-base-ws",
     common,
@@ -54,7 +54,7 @@ lazy val ws = (project in file("ws"))
   )
 
 lazy val webapp = (project in file("webapp"))
-  .enablePlugins(WarPlugin, UndertowPlugin, TomcatPlugin)
+  .enablePlugins(WarPlugin, TomcatPlugin)
   .settings(
     name := "openurp-base-webapp",
     common,
