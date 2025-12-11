@@ -46,7 +46,7 @@ lazy val static = (project in file("static"))
   )
 
 lazy val ws = (project in file("ws"))
-  .enablePlugins(WarPlugin, TomcatPlugin)
+  .enablePlugins(WarPlugin, UndertowPlugin)
   .settings(
     name := "openurp-base-ws",
     common,

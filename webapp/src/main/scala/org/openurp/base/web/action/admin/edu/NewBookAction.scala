@@ -17,14 +17,12 @@
 
 package org.openurp.base.web.action.admin.edu
 
-import org.beangle.commons.json.{Json, JsonObject}
 import org.beangle.commons.lang.Strings
-import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.web.WebBusinessLogger
 import org.beangle.security.Securities
-import org.beangle.webmvc.annotation.{mapping, param, response}
+import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.support.action.EntityAction
@@ -67,7 +65,7 @@ class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSuppor
     if (!textbook.persisted) textbook.beginOn = LocalDate.now()
     put("project", project)
     put("textbook", textbook)
-    put("Ems",Ems)
+    put("Ems", Ems)
     val lecture = getBoolean("lecture", false)
     if (lecture) {
       textbook.author = getUser.name
@@ -117,8 +115,8 @@ class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSuppor
     } else {
       entityDao.saveOrUpdate(book)
       businessLogger.info(s"新增了教材:${book.name} ${book.author}", book.id, ActionContext.current.params)
+      redirect("info", s"id=${book.id}", "添加成功")
     }
-    redirect("info", s"id=${book.id}", "添加成功")
   }
 
   @mapping(value = "{id}")
