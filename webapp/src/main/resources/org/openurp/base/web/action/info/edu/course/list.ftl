@@ -42,7 +42,7 @@
             <td>
              ${course.creditHours}
               [#if course.hours?size>1]
-                ([#list course.hours?sort_by(['teachingNature','code']) as ch]${ch.creditHours}[#if ch_has_next]+[/#if][/#list])
+                ([#list course.hours?sort_by(['nature','code']) as ch]${ch.creditHours}[#if ch_has_next]+[/#if][/#list])
               [/#if]
             </td>
             <td>${course.weekHours}</td>

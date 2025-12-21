@@ -39,7 +39,6 @@
       <tbody>
       [#assign lmatrix = matrix.groupBy(dy)/]
       [#assign rows=0/]
-      [#assign yDimensionValues=matrix.getColumn(dy).values/]
       [#assign teacherIdx=1/]
       [#list teachers as teacher]
       [#if lmatrix.getCounter(teacher.id)??]

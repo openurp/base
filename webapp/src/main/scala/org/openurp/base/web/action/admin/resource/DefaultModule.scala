@@ -18,6 +18,7 @@
 package org.openurp.base.web.action.admin.resource
 
 import org.beangle.commons.cdi.BindModule
+
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
@@ -26,5 +27,6 @@ class DefaultModule extends BindModule {
     bind(classOf[ClassroomAction])
     bind(classOf[DeviceAction])
     bind(classOf[LaboratoryAction])
+    bind(classOf[LabCenterAction])
   }
 }

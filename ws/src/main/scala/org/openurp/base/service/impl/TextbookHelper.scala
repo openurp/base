@@ -23,7 +23,7 @@ import org.beangle.commons.net.http.HttpUtils
 object TextbookHelper {
 
   def fetchByIsbn(isbn: String): JsonObject = {
-    val url = s"http://tool.openurp.net/book/isbn/${isbn}.json"
+    val url = s"https://tool.openurp.net/book/isbn/${isbn}.json"
     val res = HttpUtils.getText(url).getText
     if (res.startsWith("{")) {
       val r = Json.parse(res).asInstanceOf[JsonObject]

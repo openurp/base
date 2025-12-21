@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="实验室基本信息"/]
+[#include "nav.ftl"/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="laboratorySearchForm" action="!search" target="laboratorylist" title="ui.searchForm" theme="search"]

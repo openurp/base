@@ -1,6 +1,6 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="修改教室"]bar.addBack();[/@]
+[@b.toolbar title="添加/修改实验室"]bar.addBack();[/@]
 [#assign is_virtual][#if laboratory.persisted && !laboratory.roomNo??]1[#else]0[/#if][/#assign]
   [@b.form action=b.rest.save(laboratory) theme="list"]
     [@b.textfield name="laboratory.code" label="代码" value="${laboratory.code!}" required="true" maxlength="20"/]

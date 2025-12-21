@@ -1,0 +1,16 @@
+[#ftl]
+[@b.head/]
+[@b.toolbar title="添加修改实验中心"]bar.addBack();[/@]
+  [@b.form action=b.rest.save(labCenter) theme="list"]
+    [@b.textfield name="labCenter.name" label="名称" value=labCenter.name! required="true" maxlength="20"/]
+    [@b.textfield name="labCenter.shortName" label="简称" value=labCenter.shortName! required="true" maxlength="20"/]
+    [@b.select name="depart.id" label="对应学院" values=labCenter.departs multiple="true"
+               style="width:600px;" items=departs option="id,name" empty="..." /]
+    [@b.startend label="有效期"  name="labCenter.beginOn,labCenter.endOn" required="true,false"
+      start=labCenter.beginOn end=labCenter.endOn format="date"/]
+    [@b.formfoot]
+      [@b.reset/]&nbsp;&nbsp;[@b.submit value="action.submit" /]
+    [/@]
+  [/@]
+  [#list 1..10 as i]<br>[/#list]
+[@b.foot/]
