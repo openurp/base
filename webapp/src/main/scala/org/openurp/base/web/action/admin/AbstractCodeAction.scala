@@ -127,7 +127,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
           case "save" => "editNew"
           case "update" => "edit"
         }
-        logger.info("saveAndRedirect failure", e)
+        logger.error("saveAndRedirect failure", e)
         redirect(redirectTo, "info.save.failure")
     }
   }
@@ -144,7 +144,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
       redirect("search", "info.remove.success")
     } catch {
       case e: Exception =>
-        logger.info("remove failure", e)
+        logger.error("remove failure", e)
         redirect("search", "info.delete.failure")
     }
   }

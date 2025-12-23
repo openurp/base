@@ -141,7 +141,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
         redirect("search", "info.save.success")
       } catch {
         case e: Exception =>
-          logger.info("save forward failure", e)
+          logger.error("save forward failure", e)
           addError("info.save.failure")
           put(simpleEntityName, staff)
           editSetting(staff)
