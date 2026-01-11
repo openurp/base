@@ -62,14 +62,14 @@ abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T], Pr
     typeEntities foreach { case (entityType, values) =>
       if (entityType.getProperty("project").nonEmpty) {
         val project = getProject
-        entities foreach { e =>
+        values foreach { e =>
           val p = Properties.get[AnyRef](e, "project")
           if null == p then Properties.set(e, "project", project)
         }
       }
       if (classOf[Updated].isAssignableFrom(entityType.clazz)) {
         val now = Instant.now
-        entities foreach { e =>
+        values foreach { e =>
           e.asInstanceOf[Updated].updatedAt = now
         }
       }

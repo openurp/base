@@ -35,7 +35,9 @@
     [@b.col width="10%" property="department.name" title="课程所属院系"]
       ${course.department.shortName!course.department.name}
     [/@]
-    [@b.col width="15%" property="courseType.name" title="课程类型"/]
+    [@b.col width="15%" property="courseType.name" title="课程类别"]
+      <div title="${(course.courseType.name)!}" class="text-ellipsis">${(course.courseType.name)!}</div>
+    [/@]
     [@b.col width="7%" property="examMode.name" title="考核方式"/]
   [/@]
 [/@]

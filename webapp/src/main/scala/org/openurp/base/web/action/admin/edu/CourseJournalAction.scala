@@ -114,6 +114,7 @@ class CourseJournalAction extends ProjectRestfulAction[CourseJournal] {
       course.weekHours = last.weekHours
       course.weeks = last.weeks
       course.name = last.name
+      course.examMode = last.examMode
     }
     if (journals.nonEmpty) {
       course.beginOn = journals.map(_.beginOn).min
