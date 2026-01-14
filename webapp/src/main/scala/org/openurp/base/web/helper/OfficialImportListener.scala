@@ -18,15 +18,15 @@
 package org.openurp.base.web.helper
 
 import org.beangle.data.dao.EntityDao
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportResult}
 import org.openurp.base.hr.model.{Official, Staff}
 import org.openurp.base.model.School
 
 import java.time.LocalDate
 
-class OfficialImportListener(entityDao: EntityDao, school: School) extends ImportListener {
+class OfficialImportListener(entityDao: EntityDao, school: School) extends EntityImportListener {
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("staff.code") foreach { code =>
+    importer.datas.get("staff.code") foreach { code =>
       val staffs = entityDao.findBy(classOf[Staff], "code" -> code, "school" -> school)
       if (staffs.size == 1) {
         val official =
@@ -37,7 +37,7 @@ class OfficialImportListener(entityDao: EntityDao, school: School) extends Impor
               m
             case Some(m) => m
           }
-        transfer.current = official
+        this.current = official
       } else {
         tr.addFailure("错误的工号", code)
       }
@@ -45,7 +45,7 @@ class OfficialImportListener(entityDao: EntityDao, school: School) extends Impor
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val o = transfer.current.asInstanceOf[Official]
+    val o = this.current[Official]
     if (null != o.staff) {
       if (null == o.beginOn) o.beginOn = LocalDate.now
       if (null == o.department) o.department = o.staff.department

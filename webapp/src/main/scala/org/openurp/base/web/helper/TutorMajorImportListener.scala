@@ -20,13 +20,13 @@ package org.openurp.base.web.helper
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.edu.model.{Major, MajorDirection}
 import org.openurp.base.hr.model.TutorMajor
 import org.openurp.base.model.{Department, Project}
 import org.openurp.code.edu.model.EducationLevel
 
-class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends EntityImportListener {
 
   def findExactly(major: Major, level: EducationLevel, department: Department, name: String): Option[MajorDirection] = {
     val q = OqlBuilder.from(classOf[MajorDirection], "d")
@@ -76,9 +76,9 @@ class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends I
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val tm = transfer.current.asInstanceOf[TutorMajor]
+    val tm = this.current[TutorMajor]
     if (null != tm.staff && null != tm.major && null != tm.level && null != tm.eduType) {
-      transfer.curData.get("directionNames") foreach { directionNames =>
+      importer.datas.get("directionNames") foreach { directionNames =>
         val directions = Collections.newBuffer[MajorDirection]
         Strings.split(directionNames.toString, Array(',', '，', ';', '；', '、')) foreach { dn =>
           val direction = findExactly(tm.major, tm.level, tm.staff.department, dn).orElse(findAppromax(tm.major, tm.level, tm.staff.department, dn))

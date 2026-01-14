@@ -18,32 +18,32 @@
 package org.openurp.base.web.helper
 
 import org.beangle.data.dao.EntityDao
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.edu.model.{CourseTextbook, Textbook}
 import org.openurp.base.model.Project
 
 import java.time.LocalDate
 
-class CourseTextbookImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class CourseTextbookImportListener(entityDao: EntityDao, project: Project) extends EntityImportListener {
 
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("courseTextbook.textbook.isbn") foreach { isbn =>
+    importer.datas.get("courseTextbook.textbook.isbn") foreach { isbn =>
       entityDao.findBy(classOf[Textbook], "isbn", isbn).headOption match
         case None => tr.addFailure("没有对应ISBN的教材", isbn)
         case Some(t) =>
-          transfer.curData.put("courseTextbook.textbook", t)
-          transfer.curData.remove("courseTextbook.textbook.isbn")
+          importer.datas.put("courseTextbook.textbook", t)
+          importer.datas.remove("courseTextbook.textbook.isbn")
     }
     super.onItemStart(tr)
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val cb = transfer.current.asInstanceOf[CourseTextbook]
+    val cb = this.current[CourseTextbook]
     if (null != cb.course && null != cb.textbook && cb.textbook.persisted) {
       if null == cb.beginOn then cb.beginOn = LocalDate.now
       entityDao.saveOrUpdate(cb)
     } else {
-      if (null == cb.course) tr.addFailure("没有对应的课程", transfer.curData.get("courseTextbook.course.code"))
+      if (null == cb.course) tr.addFailure("没有对应的课程", importer.datas.get("courseTextbook.course.code"))
     }
   }
 }

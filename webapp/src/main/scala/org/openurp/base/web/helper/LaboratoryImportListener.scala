@@ -18,29 +18,30 @@
 package org.openurp.base.web.helper
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.model.Project
 import org.openurp.base.resource.model.{Classroom, Laboratory}
 
 import java.time.{Instant, LocalDate}
 
-class LaboratoryImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class LaboratoryImportListener(entityDao: EntityDao, project: Project) extends EntityImportListener {
+
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("laboratory.code") foreach { code =>
+    importer.datas.get("laboratory.code") foreach { code =>
       val query = OqlBuilder.from(classOf[Laboratory], "c")
       query.where("c.code =:code and c.school=:school", code, project.school)
       entityDao.search(query).foreach { cl =>
-        transfer.current = cl
+        this.current = cl
       }
     }
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val laboratory = transfer.current.asInstanceOf[Laboratory]
+    val laboratory = this.current[Laboratory]
     laboratory.updatedAt = Instant.now
     laboratory.school = project.school
     var classroomCode: String = null
-    transfer.curData.get("room.code") foreach { roomCode =>
+    importer.datas.get("room.code") foreach { roomCode =>
       val q = OqlBuilder.from(classOf[Classroom], "r")
       q.where(":project in elements(r.projects)", project)
       q.where("r.code=:code or r.name=:code", roomCode)

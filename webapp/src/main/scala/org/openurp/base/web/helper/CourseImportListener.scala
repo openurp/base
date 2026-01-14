@@ -18,26 +18,26 @@
 package org.openurp.base.web.helper
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.edu.model.{Course, CourseLevel}
 import org.openurp.base.model.Project
 import org.openurp.code.edu.model.GradingMode
 
 import java.time.{Instant, LocalDate}
 
-class CourseImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class CourseImportListener(entityDao: EntityDao, project: Project) extends EntityImportListener {
 
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("course.code") foreach { code =>
+    importer.datas.get("course.code") foreach { code =>
       val query = OqlBuilder.from(classOf[Course], "c")
       query.where("c.code =:code and c.project=:project", code, project)
       val cs = entityDao.search(query)
-      if (cs.nonEmpty) transfer.current = cs.head
+      if (cs.nonEmpty) this.current = cs.head
     }
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val course = transfer.current.asInstanceOf[Course]
+    val course = this.current[Course]
     course.project = project
     course.updatedAt = Instant.now
     if (course.levels.isEmpty) {

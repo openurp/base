@@ -19,30 +19,31 @@ package org.openurp.base.web.helper
 
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportResult}
 import org.openurp.base.model.{Department, Project}
 import org.openurp.base.resource.model.Classroom
 
 import java.time.{Instant, LocalDate}
 
-class ClassroomImportListener(entityDao: EntityDao, project: Project) extends ImportListener {
+class ClassroomImportListener(entityDao: EntityDao, project: Project) extends EntityImportListener {
+
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("classroom.code") foreach { code =>
+    importer.datas.get("classroom.code") foreach { code =>
       val query = OqlBuilder.from(classOf[Classroom], "c")
       query.where("c.code =:code and c.school=:school", code, project.school)
       entityDao.search(query).foreach { cl =>
-        transfer.current = cl
+        this.current = cl
       }
     }
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val classroom = transfer.current.asInstanceOf[Classroom]
+    val classroom = this.current[Classroom]
     classroom.projects.add(project)
     classroom.updatedAt = Instant.now
     classroom.school = project.school
     if (null == classroom.beginOn) classroom.beginOn = LocalDate.now
-    transfer.curData.get("departNames") foreach { names =>
+    importer.datas.get("departNames") foreach { names =>
       val departNames = names.toString
       if (Strings.isNotBlank(departNames)) {
         classroom.departs.clear()
@@ -61,4 +62,5 @@ class ClassroomImportListener(entityDao: EntityDao, project: Project) extends Im
     }
     entityDao.saveOrUpdate(classroom)
   }
+
 }

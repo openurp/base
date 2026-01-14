@@ -19,19 +19,19 @@ package org.openurp.base.web.helper
 
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.model.Project
 
 import java.time.{LocalDate, YearMonth}
 
-class TextbookImportListener(project: Project, entityDao: EntityDao) extends ImportListener {
+class TextbookImportListener(project: Project, entityDao: EntityDao) extends EntityImportListener {
   override def onStart(tr: ImportResult): Unit = {}
 
   override def onFinish(tr: ImportResult): Unit = {}
 
   override def onItemStart(tr: ImportResult): Unit = {
-    val data = transfer.curData
+    val data = importer.datas
     val isbn = data("textbook.isbn")
     data.get("textbook.publishedIn") foreach { p =>
       val publishedInStr = p match
@@ -53,16 +53,16 @@ class TextbookImportListener(project: Project, entityDao: EntityDao) extends Imp
     val query = OqlBuilder.from(classOf[Textbook], "t")
       .where("t.isbn=:isbn", isbn.toString.trim())
     val cs = entityDao.search(query)
-    if cs.nonEmpty then transfer.current = cs.head
+    if cs.nonEmpty then this.current = cs.head
 
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val book = transfer.current.asInstanceOf[Textbook]
+    val book = this.current[Textbook]
     book.project = project
     if (null == book.beginOn) book.beginOn = LocalDate.now
     if (book.press.isEmpty) {
-      tr.addFailure("缺少出版社信息", book.isbn.get + transfer.curData.getOrElse("textbook.press.code", "空"))
+      tr.addFailure("缺少出版社信息", book.isbn.get + importer.datas.getOrElse("textbook.press.code", "空"))
     } else {
       entityDao.saveOrUpdate(book)
     }

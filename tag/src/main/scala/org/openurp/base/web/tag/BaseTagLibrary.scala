@@ -24,7 +24,7 @@ import org.beangle.webmvc.context.ActionContext
 @description("Openurp Base 标签库")
 class BaseTagLibrary extends AbstractTagLibrary {
 
-  override def models(): AnyRef = {
-    new BaseModels(this.getComponentContext())
+  override def models: AnyRef = {
+    new BaseModels(this.componentContext)
   }
 }

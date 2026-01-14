@@ -18,15 +18,16 @@
 package org.openurp.base.web.helper
 
 import org.beangle.data.dao.EntityDao
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.hr.model.{Secretary, Staff}
 import org.openurp.base.model.Project
 
 import java.time.LocalDate
 
-class SecretaryImportListener(entityDao: EntityDao, project: Project, urpUserHelper: UrpUserHelper) extends ImportListener {
+class SecretaryImportListener(entityDao: EntityDao, project: Project, urpUserHelper: UrpUserHelper) extends EntityImportListener {
+
   override def onItemStart(tr: ImportResult): Unit = {
-    transfer.curData.get("staff.code") foreach { code =>
+    importer.datas.get("staff.code") foreach { code =>
       val staffs = entityDao.findBy(classOf[Staff], "code" -> code, "school" -> project.school)
       if (staffs.size == 1) {
         val secretary =
@@ -37,7 +38,7 @@ class SecretaryImportListener(entityDao: EntityDao, project: Project, urpUserHel
               m
             case Some(m) => m
           }
-        transfer.current = secretary
+        this.current = secretary
       } else {
         tr.addFailure("错误的工号", code)
       }
@@ -45,7 +46,7 @@ class SecretaryImportListener(entityDao: EntityDao, project: Project, urpUserHel
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val s = transfer.current.asInstanceOf[Secretary]
+    val s = this.current[Secretary]
     if (null != s.staff) {
       if (null == s.beginOn) s.beginOn = LocalDate.now
       s.projects += project

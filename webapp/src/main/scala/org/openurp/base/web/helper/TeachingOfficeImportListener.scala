@@ -19,7 +19,7 @@ package org.openurp.base.web.helper
 
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.edu.model.TeachingOffice
 import org.openurp.base.hr.model.Teacher
 import org.openurp.base.model.Project
@@ -29,7 +29,7 @@ import java.time.{Instant, LocalDate}
 /**
  * @author chaostone
  */
-class TeachingOfficeImportListener(project: Project, entityDao: EntityDao) extends ImportListener {
+class TeachingOfficeImportListener(project: Project, entityDao: EntityDao) extends EntityImportListener {
 
   /**
    * 开始转换单个项目
@@ -37,14 +37,14 @@ class TeachingOfficeImportListener(project: Project, entityDao: EntityDao) exten
   override def onItemStart(tr: ImportResult): Unit = {
     val query = OqlBuilder.from(classOf[TeachingOffice], "tg")
     query.where("tg.project=:project", project)
-    query.where("tg.code=:code", tr.transfer.curData.getOrElse("teachingOffice.code", ""))
+    query.where("tg.code=:code", tr.importer.datas.getOrElse("teachingOffice.code", ""))
 
     val groups = entityDao.search(query)
     if (groups.size == 1) {
-      tr.transfer.current = groups.head
+      this.current = groups.head
     }
-    val directorCode = tr.transfer.curData.getOrElse("director.code", "").toString
-    val tg = tr.transfer.current.asInstanceOf[TeachingOffice]
+    val directorCode = tr.importer.datas.getOrElse("director.code", "").toString
+    val tg = importer.getObj("teachingOffice").asInstanceOf[TeachingOffice]
     if (Strings.isBlank(directorCode)) {
       tg.director = None
     } else {
@@ -58,7 +58,7 @@ class TeachingOfficeImportListener(project: Project, entityDao: EntityDao) exten
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val tg = tr.transfer.current.asInstanceOf[TeachingOffice]
+    val tg = this.current[TeachingOffice]
     tg.project = project
     tg.updatedAt = Instant.now
     if (null == tg.beginOn) {

@@ -24,8 +24,8 @@ import org.beangle.commons.lang.Charsets
 import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
-import org.beangle.doc.transfer.importer.ImportSetting
-import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.transfer.importer.ImportSetting
+import org.beangle.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}

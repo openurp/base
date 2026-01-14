@@ -18,7 +18,7 @@
 package org.openurp.base.web.helper
 
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.doc.transfer.importer.{ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
 import org.openurp.base.model.Project
 import org.openurp.base.std.model.{Grade, Squad}
 
@@ -27,33 +27,22 @@ import java.time.Instant
 /**
  * @author xinzhou
  */
-class SquadImportListener(project: Project, entityDao: EntityDao) extends ImportListener {
-
-  /**
-   * 结束转换
-   */
-  override def onStart(tr: ImportResult): Unit = {
-  }
-
-  /**
-   * 结束转换
-   */
-  override def onFinish(tr: ImportResult): Unit = {}
+class SquadImportListener(project: Project, entityDao: EntityDao) extends EntityImportListener {
 
   /**
    * 开始转换单个项目
    */
   override def onItemStart(tr: ImportResult): Unit = {
-    val squads = entityDao.findBy(classOf[Squad], "code", List(tr.transfer.curData.getOrElse("squad.code", "")))
+    val squads = entityDao.findBy(classOf[Squad], "code", List(tr.importer.datas.getOrElse("squad.code", "")))
     if (squads.size == 1) {
-      tr.transfer.current = squads.head
+      this.current = squads.head
     }
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val squad = tr.transfer.current.asInstanceOf[Squad]
+    val squad = this.current[Squad]
     squad.project = project
-    tr.transfer.curData.get("grade.name") foreach { grade =>
+    tr.importer.datas.get("grade.name") foreach { grade =>
       val query = OqlBuilder.from(classOf[Grade], "g")
       query.where("g.project=:project", project)
       query.where("g.name=:name", grade)

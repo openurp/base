@@ -20,8 +20,8 @@ package org.openurp.base.web.action.admin.hr
 import org.beangle.commons.activation.MediaTypes
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
-import org.beangle.doc.transfer.importer.ImportSetting
-import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.transfer.importer.ImportSetting
+import org.beangle.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.view.{Stream, View}
 import org.beangle.webmvc.support.action.ImportSupport

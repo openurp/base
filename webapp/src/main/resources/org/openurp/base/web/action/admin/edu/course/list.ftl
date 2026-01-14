@@ -11,7 +11,7 @@
     bar.addItem("导入",action.method('importForm'));
     bar.addItem("${b.text("action.export")}",action.exportData("code,name,enName,defaultCredits:学分,"+
                 "creditHours,weekHours,department.name:所属院系,courseType.name:课程类型,nature.name:课程性质,"+
-                "category.name:课程分类,examMode.name:考核方式,hasMakeup,calgp,beginOn,endOn",
+                "module.name:课程模块,rank.name:课程属性,examMode.name:考核方式,hasMakeup,calgp,beginOn,endOn",
                 null,'fileName=课程信息'));
     var m = bar.addMenu("高级..");
     m.addItem("检查英文名",action.multi("checkEnName"));

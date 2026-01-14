@@ -21,8 +21,8 @@ import org.beangle.commons.activation.MediaTypes
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
-import org.beangle.doc.transfer.importer.ImportSetting
-import org.beangle.doc.transfer.importer.listener.ForeignerListener
+import org.beangle.transfer.importer.ImportSetting
+import org.beangle.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.support.helper.QueryHelper
