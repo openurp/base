@@ -32,6 +32,7 @@ import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.hr.model.{Mentor, Staff, StaffTitle, Teacher}
 import org.openurp.base.model.*
 import org.openurp.base.service.Features.Hr
+import org.openurp.base.web.Logger
 import org.openurp.base.web.action.admin.ProjectRestfulAction
 import org.openurp.base.web.helper.{StaffImportListener, UrpUserHelper}
 import org.openurp.code.edu.model.{Degree, DegreeLevel, EducationDegree}
@@ -141,7 +142,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
         redirect("search", "info.save.success")
       } catch {
         case e: Exception =>
-          logger.error("save forward failure", e)
+          Logger.error("save forward failure", e)
           addError("info.save.failure")
           put(simpleEntityName, staff)
           editSetting(staff)
@@ -211,7 +212,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     sheet.add("在职状态", "staff.status.code").ref(workStatuses).required()
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教职工信息.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.xlsx, "教职工信息.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {
@@ -239,7 +240,7 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
     val forceUpdate = getBoolean("forceUpdate", false)
     staffs foreach { staff =>
       if (staff.enName.isEmpty || forceUpdate) {
-        val response = HttpUtils.getText(Ems.api + "/tools/sns/person/pinyin/" + URLEncoder.encode(staff.name, Charsets.UTF_8) + ".json")
+        val response = HttpUtils.get(Ems.api + "/tools/sns/person/pinyin/" + URLEncoder.encode(staff.name, Charsets.UTF_8) + ".json")
         if (response.isOk) {
           val enName = response.getText.trim
           staff.enName = Some(enName)

@@ -125,7 +125,7 @@ class ClassroomAction extends ProjectRestfulAction[Classroom], ExportSupport[Cla
     sheet.add("使用部门", "departNames")
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "教室模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.xlsx, "教室模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

@@ -24,7 +24,7 @@ object TextbookHelper {
 
   def fetchByIsbn(isbn: String): JsonObject = {
     val url = s"https://tool.openurp.net/book/isbn/${isbn}.json"
-    val res = HttpUtils.getText(url).getText
+    val res = HttpUtils.get(url).getText
     if (res.startsWith("{")) {
       val r = Json.parse(res).asInstanceOf[JsonObject]
       if (r.getBoolean("success")) {

@@ -35,7 +35,7 @@ class DefaultModule extends BindModule {
 
     //code mapping
     bind(classOf[CodeAction], classOf[CodeIndexAction])
-    bind(classOf[UrpUserHelper]).nowire("platformDataSource")
+    bind(classOf[UrpUserHelper]).nowire("userRepo")
 
   }
 }

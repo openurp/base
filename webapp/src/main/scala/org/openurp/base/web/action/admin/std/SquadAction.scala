@@ -202,7 +202,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
     sheet.add("失效日期", "squad.endOn").date().required()
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "班级模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.xlsx, "班级模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

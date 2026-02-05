@@ -15,13 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.web.action.info.std
+package org.openurp.base.web
 
-import org.beangle.commons.cdi.BindModule
+import org.beangle.commons.logging.{slf4j, Logger as CLogger}
 
-class DefaultModule extends BindModule {
-
-  protected override def binding(): Unit = {
-    bind(classOf[SquadAction])
-  }
-}
+private [web] object Logger extends CLogger(slf4j("org.beangle.base.web"))

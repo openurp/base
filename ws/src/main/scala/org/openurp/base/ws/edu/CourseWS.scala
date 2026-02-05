@@ -60,6 +60,6 @@ class CourseWS extends ActionSupport, EntityAction[Course] {
     else if q.length > 200 then "Cannot handle Chinese characters exceeding 200"
     else
       val text = "《" + q + "》"
-      HttpUtils.getText(URPTool.url + "/translate/en?" + UrlBuilder.encodeParams(Map("q" -> text))).getText.trim()
+      HttpUtils.get(URPTool.url + "/translate/en?" + UrlBuilder.encodeParams(Map("q" -> text))).getText.trim()
   }
 }

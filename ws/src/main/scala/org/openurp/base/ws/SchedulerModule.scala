@@ -32,8 +32,9 @@ class SchedulerModule extends BindModule {
 
   protected override def binding(): Unit = {
     bind(classOf[SquadServiceImpl])
-    bind(classOf[ConcurrentTaskScheduler])
-    bind(classOf[ScheduledTaskRegistrar]).nowire("triggerTasks", "triggerTasksList")
+    bind("scheduleTaskScheduler", classOf[ConcurrentTaskScheduler]).nowire()
+    bind(classOf[ScheduledTaskRegistrar]).property("taskScheduler", ref("scheduleTaskScheduler"))
+      .nowire()
 
     bind(classOf[SquadStdCountUpdater]).lazyInit(false)
     bind(classOf[StaffAccountUpdater]).lazyInit(false)

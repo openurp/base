@@ -104,7 +104,7 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
 
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "导师研究领域.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.xlsx, "导师研究领域.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

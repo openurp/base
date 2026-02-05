@@ -95,7 +95,7 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
     sheet.add("对应教室", "room.code").ref(rooms)
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "实验室模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.xlsx, "实验室模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

@@ -35,7 +35,7 @@ class UrpUserHelper extends Initializing {
     val ds = new AppDataSourceFactory()
     ds.name = "platform"
     ds.init()
-    userRepo = new DefaultUserRepo(entityDao, ds.result, Ems.hostname)
+    userRepo = new DefaultUserRepo(entityDao, ds.getObject, Ems.hostname)
   }
 
   def createUser(staff: Staff, oldCode: Option[String]): User = {

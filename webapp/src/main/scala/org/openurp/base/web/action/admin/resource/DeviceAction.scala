@@ -89,7 +89,7 @@ class DeviceAction extends ProjectRestfulAction[Device], ExportSupport[Device], 
     sheet.add("IP", "device.ip")
     val os = new ByteArrayOutputStream()
     schema.generate(os)
-    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.ApplicationXlsx, "设备信息模板.xlsx")
+    Stream(new ByteArrayInputStream(os.toByteArray), MediaTypes.xlsx, "设备信息模板.xlsx")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

@@ -32,7 +32,7 @@ class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing {
     ds.name = "platform"
     ds.init()
     staffService = new StaffServiceImpl
-    staffService.userRepo = new DefaultUserRepo(entityDao, ds.result, Ems.hostname)
+    staffService.userRepo = new DefaultUserRepo(entityDao, ds.getObject, Ems.hostname)
     staffService.entityDao = entityDao
   }
 
