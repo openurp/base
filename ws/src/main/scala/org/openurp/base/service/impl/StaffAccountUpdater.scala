@@ -31,9 +31,7 @@ class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing {
     val ds = new AppDataSourceFactory()
     ds.name = "platform"
     ds.init()
-    staffService = new StaffServiceImpl
-    staffService.userRepo = new DefaultUserRepo(entityDao, ds.getObject, Ems.hostname)
-    staffService.entityDao = entityDao
+    staffService = new StaffServiceImpl(entityDao, new DefaultUserRepo(entityDao, ds.getObject, Ems.hostname))
   }
 
   override def execute(): Unit = {
