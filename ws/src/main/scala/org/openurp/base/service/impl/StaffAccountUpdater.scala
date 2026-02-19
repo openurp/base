@@ -19,13 +19,15 @@ package org.openurp.base.service.impl
 
 import org.beangle.commons.bean.Initializing
 import org.beangle.commons.logging.Logging
+import org.beangle.cron.{CronExpr, Scheduled}
 import org.beangle.data.orm.AbstractDaoTask
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.dao.AppDataSourceFactory
 import org.openurp.base.hr.service.impl.StaffServiceImpl
 
-class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing {
+class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing, Scheduled {
   private var staffService: StaffServiceImpl = _
+  var cronExpression: String = _
 
   override def init(): Unit = {
     val ds = new AppDataSourceFactory()
@@ -38,4 +40,6 @@ class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing {
     logger.info("starting sync staff and teacher to account")
     staffService.createActiveUsers()
   }
+
+  override def cronExpr: CronExpr = CronExpr.parse(cronExpression)
 }

@@ -18,6 +18,7 @@
 package org.openurp.base.service.impl
 
 import org.beangle.commons.logging.Logging
+import org.beangle.cron.{CronExpr, Scheduled}
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.orm.AbstractDaoTask
 import org.openurp.base.std.model.Squad
@@ -25,16 +26,19 @@ import org.openurp.base.std.service.SquadService
 
 import java.time.LocalDate
 
-class SquadStdCountUpdater extends AbstractDaoTask, Logging {
+class SquadStdCountUpdater extends AbstractDaoTask, Logging, Scheduled {
   var squadService: SquadService = _
+
+  var cronExpression: String = _
 
   override def execute(): Unit = {
     val today = LocalDate.now()
-
     val query = OqlBuilder.from(classOf[Squad], "s")
     query.where("s.endOn >= :today", today)
     val squads = entityDao.search(query)
     val updated = squadService.statStdCount(squads)
     if updated > 0 then logger.info(s"auto stat ${updated} squads stdcount.")
   }
+
+  override def cronExpr: CronExpr = CronExpr.parse(cronExpression)
 }
