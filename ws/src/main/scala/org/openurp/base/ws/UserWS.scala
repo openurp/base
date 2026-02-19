@@ -20,10 +20,9 @@ package org.openurp.base.ws
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
+import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
-import org.beangle.webmvc.support.helper.QueryHelper
 import org.openurp.base.hr.model.{Mentor, Staff, Teacher}
 import org.openurp.base.model.User
 import org.openurp.base.std.model.Student

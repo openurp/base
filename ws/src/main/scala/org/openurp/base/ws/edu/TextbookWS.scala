@@ -24,8 +24,8 @@ import org.beangle.data.json.JsonAPI
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.EntityAction
+import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.{Status, View}
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.service.impl.TextbookHelper

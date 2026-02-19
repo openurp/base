@@ -18,7 +18,6 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.commons.lang.ClassLoaders
-import org.beangle.data.orm.hibernate.udt.YearMonthType
 
 import java.time.{LocalDate, YearMonth}
 

@@ -24,7 +24,7 @@ import org.beangle.commons.lang.reflect.BeanInfos
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.stat.{Columns, Matrix}
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Major
 import org.openurp.base.hr.model.{Staff, Teacher, TutorMajor}

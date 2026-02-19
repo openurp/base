@@ -24,8 +24,8 @@ import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.transfer.importer.ImportSetting
 import org.beangle.transfer.importer.listener.ForeignerListener
 import org.beangle.webmvc.annotation.{mapping, param, response}
-import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.{ExportSupport, ImportSupport}
+import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.Major
 import org.openurp.base.hr.model.{Staff, TutorJournal, TutorMajor}

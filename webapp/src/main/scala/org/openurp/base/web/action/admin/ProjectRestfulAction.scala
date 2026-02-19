@@ -28,7 +28,7 @@ import org.beangle.data.model.pojo.Updated
 import org.beangle.ems.app.web.WebBusinessLogger
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.context.ActionContext
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.she.webmvc.RestfulAction
 import org.beangle.webmvc.view.View
 import org.openurp.starter.web.support.ProjectSupport
 

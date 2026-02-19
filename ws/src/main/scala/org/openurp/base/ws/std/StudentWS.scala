@@ -25,8 +25,8 @@ import org.beangle.data.json.JsonAPI
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
-import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam}
+import org.beangle.she.webmvc.EntityAction
+import org.beangle.she.webmvc.QueryHelper.{PageParam, PageSizeParam}
 import org.openurp.base.std.model.Student
 
 class StudentWS extends ActionSupport with EntityAction[Student] {

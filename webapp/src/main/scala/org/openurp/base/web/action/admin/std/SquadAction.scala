@@ -26,7 +26,7 @@ import org.beangle.transfer.importer.listener.ForeignerListener
 import org.beangle.ems.app.Ems
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.{mapping, param, response}
-import org.beangle.webmvc.support.action.{ExportSupport, ImportSupport}
+import org.beangle.she.webmvc.{ExportSupport, ImportSupport}
 import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.{Major, MajorDirection}
 import org.openurp.base.model.{Campus, Department, Project}

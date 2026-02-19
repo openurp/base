@@ -23,7 +23,7 @@ import org.beangle.data.json.JsonAPI
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
+import org.beangle.she.webmvc.EntityAction
 import org.openurp.base.std.model.Grade
 
 class GradeWS extends ActionSupport with EntityAction[Grade] {

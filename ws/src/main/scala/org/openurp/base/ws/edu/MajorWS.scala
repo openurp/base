@@ -23,8 +23,8 @@ import org.beangle.data.json.JsonAPI
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.EntityAction
+import org.beangle.she.webmvc.QueryHelper
 import org.openurp.base.edu.model.Major
 
 class MajorWS extends ActionSupport, EntityAction[Major] {

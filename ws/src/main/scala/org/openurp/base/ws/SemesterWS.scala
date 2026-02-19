@@ -22,7 +22,7 @@ import org.beangle.commons.lang.Numbers
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
+import org.beangle.she.webmvc.EntityAction
 import org.openurp.base.model.{Project, Semester}
 
 class SemesterWS extends ActionSupport with EntityAction[Semester] {

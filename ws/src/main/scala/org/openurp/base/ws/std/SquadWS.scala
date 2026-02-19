@@ -25,8 +25,8 @@ import org.beangle.data.json.JsonAPI.Context
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.EntityAction
+import org.beangle.she.webmvc.QueryHelper
 import org.openurp.base.std.model.Squad
 import org.openurp.code.CodeBean
 

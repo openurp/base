@@ -19,8 +19,8 @@ package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.webmvc.support.action.ExportSupport
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.ExportSupport
+import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.base.model.Project

@@ -19,7 +19,7 @@ package org.openurp.base.service.impl
 
 import org.beangle.commons.logging.Logging
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.data.orm.hibernate.AbstractDaoTask
+import org.beangle.data.orm.AbstractDaoTask
 import org.openurp.base.std.model.Squad
 import org.openurp.base.std.service.SquadService
 

@@ -19,7 +19,7 @@ package org.openurp.base.web.action.admin
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.she.webmvc.RestfulAction
 import org.openurp.base.model.{ Project, ProjectCode }
 
 class ProjectCodeAction extends RestfulAction[ProjectCode] {

@@ -18,8 +18,8 @@
 package org.openurp.base.web.action.admin.hr
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.support.action.RestfulAction
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.RestfulAction
+import org.beangle.she.webmvc.QueryHelper
 import org.openurp.base.edu.model.{Major, MajorDirection, MajorDirector}
 import org.openurp.base.model.Project
 import org.openurp.starter.web.support.ProjectSupport

@@ -21,8 +21,8 @@ import org.beangle.commons.collection.Order
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.annotation.ignore
 import org.beangle.webmvc.view.View
-import org.beangle.webmvc.support.action.RestfulAction
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.RestfulAction
+import org.beangle.she.webmvc.QueryHelper
 import org.openurp.base.model.Campus
 import org.openurp.base.resource.model.{Building, Room}
 import org.openurp.base.web.action.admin.SchoolSupport

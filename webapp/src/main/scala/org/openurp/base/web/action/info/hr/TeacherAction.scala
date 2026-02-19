@@ -21,7 +21,7 @@ import org.beangle.commons.bean.orderings.PropertyOrdering
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
+import org.beangle.she.webmvc.EntityAction
 import org.beangle.webmvc.view.View
 import org.openurp.base.hr.model.{StaffTitle, Teacher, TutorJournal, TutorMajor}
 import org.openurp.base.std.model.{Student, StudentTutor, Tutorship}

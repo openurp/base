@@ -22,8 +22,8 @@ import org.beangle.commons.collection.page.PageLimit
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
-import org.beangle.webmvc.support.helper.QueryHelper.{PageParam, PageSizeParam}
+import org.beangle.she.webmvc.EntityAction
+import org.beangle.she.webmvc.QueryHelper.{PageParam, PageSizeParam}
 import org.openurp.base.hr.model.Mentor
 
 class MentorWS extends ActionSupport with EntityAction[Mentor] {

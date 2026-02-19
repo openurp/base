@@ -21,7 +21,7 @@ import org.beangle.commons.collection.Order
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.model.Entity
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.{EntityAction, ExportSupport}
+import org.beangle.she.webmvc.{EntityAction, ExportSupport}
 import org.openurp.code.service.CodeService
 import org.openurp.starter.web.support.ProjectSupport
 

@@ -21,8 +21,8 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.security.Securities
 import org.beangle.webmvc.context.Params
 import org.beangle.webmvc.view.View
-import org.beangle.webmvc.support.action.RestfulAction
-import org.beangle.webmvc.support.helper.PopulateHelper
+import org.beangle.she.webmvc.RestfulAction
+import org.beangle.she.webmvc.PopulateHelper
 import org.openurp.base.hr.model.{Staff, StaffProfile}
 import org.openurp.base.model.Department
 import org.openurp.code.edu.model.{Degree, EducationDegree}

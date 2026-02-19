@@ -20,7 +20,7 @@ package org.openurp.base.web.action.info.edu
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.action.EntityAction
+import org.beangle.she.webmvc.EntityAction
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Course
 import org.openurp.starter.web.support.ProjectSupport

@@ -23,11 +23,12 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "0.49.4"
-val starterVer = "0.4.13"
+val apiVer = "0.49.6"
+val starterVer = "0.4.17"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
+val spring_context = "org.springframework" % "spring-context" % "7.0.3"
 
 lazy val root = (project in file("."))
   .settings(common)
@@ -37,7 +38,7 @@ lazy val tag = (project in file("tag"))
   .settings(
     name := "openurp-base-tag",
     common,
-    libraryDependencies ++= Seq(openurp_base_api, beangle_bui_bootstrap, beangle_model, beangle_ems_app)
+    libraryDependencies ++= Seq(openurp_base_api, beangle_bui_bootstrap, beangle_data_model, beangle_ems_app)
   )
 
 lazy val static = (project in file("static"))
@@ -51,7 +52,7 @@ lazy val ws = (project in file("ws"))
   .settings(
     name := "openurp-base-ws",
     common,
-    libraryDependencies ++= Seq(openurp_base_api, openurp_stater_ws)
+    libraryDependencies ++= Seq(openurp_base_api, openurp_stater_ws,spring_context)
   )
 
 lazy val webapp = (project in file("webapp"))
@@ -59,8 +60,7 @@ lazy val webapp = (project in file("webapp"))
   .settings(
     name := "openurp-base-webapp",
     common,
-    libraryDependencies ++= Seq(openurp_stater_web),
-    libraryDependencies ++= Seq(beangle_model, beangle_bui_bootstrap, beangle_webmvc)
+    libraryDependencies ++= Seq(openurp_stater_web)
   ).dependsOn(tag)
 
 publish / skip := true

@@ -18,8 +18,8 @@
 package org.openurp.base.web.action.admin
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.support.action.RestfulAction
-import org.beangle.webmvc.support.helper.QueryHelper
+import org.beangle.she.webmvc.RestfulAction
+import org.beangle.she.webmvc.QueryHelper
 import org.openurp.code.CodeBean
 
 import java.time.LocalDate

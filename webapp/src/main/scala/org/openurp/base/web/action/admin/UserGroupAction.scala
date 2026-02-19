@@ -18,7 +18,7 @@
 package org.openurp.base.web.action.admin
 
 import org.beangle.webmvc.view.View
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.she.webmvc.RestfulAction
 import org.openurp.base.model.UserGroup
 
 class UserGroupAction extends RestfulAction[UserGroup] with SchoolSupport {

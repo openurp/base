@@ -22,7 +22,7 @@ import org.beangle.data.json.JsonAPI
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.{ActionSupport, MimeSupport}
-import org.beangle.webmvc.support.action.EntityAction
+import org.beangle.she.webmvc.EntityAction
 import org.openurp.base.model.Campus
 
 class CampusWS extends ActionSupport with EntityAction[Campus] with MimeSupport {

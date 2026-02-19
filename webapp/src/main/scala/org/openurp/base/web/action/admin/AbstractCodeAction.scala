@@ -29,7 +29,7 @@ import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.execution.MappingHandler
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.support.helper.{PopulateHelper, QueryHelper}
+import org.beangle.she.webmvc.{PopulateHelper, QueryHelper}
 import org.beangle.webmvc.view.View
 import org.openurp.code.{Code, CodeBean}
 

@@ -19,7 +19,7 @@ package org.openurp.base.web.action.admin
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.webmvc.view.View
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.she.webmvc.RestfulAction
 import org.openurp.base.edu.model.Holiday
 import org.openurp.starter.web.support.ProjectSupport
 

@@ -19,7 +19,7 @@ package org.openurp.base.service.impl
 
 import org.beangle.commons.bean.Initializing
 import org.beangle.commons.logging.Logging
-import org.beangle.data.orm.hibernate.AbstractDaoTask
+import org.beangle.data.orm.AbstractDaoTask
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.dao.AppDataSourceFactory
 import org.openurp.base.hr.service.impl.StaffServiceImpl

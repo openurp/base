@@ -21,7 +21,7 @@ import org.beangle.commons.collection.Collections
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.webmvc.view.View
-import org.beangle.webmvc.support.action.RestfulAction
+import org.beangle.she.webmvc.RestfulAction
 import org.openurp.base.model.*
 import org.openurp.code.std.model.{StdLabel, StdType}
 import org.openurp.code.edu.model.{EduCategory, EducationLevel, EducationType}
