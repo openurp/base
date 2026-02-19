@@ -28,7 +28,7 @@ val starterVer = "0.4.17"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
 val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
-val spring_context = "org.springframework" % "spring-context" % "7.0.3"
+val beangle_con = "org.beangle.cron" % "beangle-cron" % "0.0.1-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .settings(common)
@@ -52,7 +52,7 @@ lazy val ws = (project in file("ws"))
   .settings(
     name := "openurp-base-ws",
     common,
-    libraryDependencies ++= Seq(openurp_base_api, openurp_stater_ws,spring_context)
+    libraryDependencies ++= Seq(openurp_base_api, openurp_stater_ws, beangle_con)
   )
 
 lazy val webapp = (project in file("webapp"))
