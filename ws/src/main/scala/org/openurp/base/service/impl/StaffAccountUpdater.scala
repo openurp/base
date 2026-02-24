@@ -27,7 +27,7 @@ import org.openurp.base.hr.service.impl.StaffServiceImpl
 
 class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing, Scheduled {
   private var staffService: StaffServiceImpl = _
-  var cronExpression: String = _
+  var expression: String = _
 
   override def init(): Unit = {
     val ds = new AppDataSourceFactory()
@@ -41,5 +41,4 @@ class StaffAccountUpdater extends AbstractDaoTask, Logging, Initializing, Schedu
     staffService.createActiveUsers()
   }
 
-  override def cronExpr: CronExpr = CronExpr.parse(cronExpression)
 }

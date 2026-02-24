@@ -29,7 +29,7 @@ import java.time.LocalDate
 class SquadStdCountUpdater extends AbstractDaoTask, Logging, Scheduled {
   var squadService: SquadService = _
 
-  var cronExpression: String = _
+  var expression: String = _
 
   override def execute(): Unit = {
     val today = LocalDate.now()
@@ -39,6 +39,4 @@ class SquadStdCountUpdater extends AbstractDaoTask, Logging, Scheduled {
     val updated = squadService.statStdCount(squads)
     if updated > 0 then logger.info(s"auto stat ${updated} squads stdcount.")
   }
-
-  override def cronExpr: CronExpr = CronExpr.parse(cronExpression)
 }

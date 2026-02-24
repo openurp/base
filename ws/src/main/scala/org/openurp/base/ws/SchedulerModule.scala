@@ -25,12 +25,14 @@ import org.openurp.base.std.service.impl.SquadServiceImpl
 class SchedulerModule extends BindModule {
 
   protected override def binding(): Unit = {
+    //定时任务不能按需初始化，需要随系统一起启动
+    wiredEagerly(true)
     bind(classOf[SquadServiceImpl])
-    bind(classOf[CronTaskRegistrar])
+    bind(classOf[CronTaskRegistrar]).lazyInit(false)
 
     //every three hours
-    bind(classOf[SquadStdCountUpdater]).property("cronExpression", "0 0 7,10,13,16,19 * * *").lazyInit(false)
+    bind(classOf[SquadStdCountUpdater]).property("expression", "0 0 7,10,13,16,19 * * *")
 
-    bind(classOf[StaffAccountUpdater]).property("cronExpression", "0 0 7,8,10,13,16,19 22 * *").lazyInit(false)
+    bind(classOf[StaffAccountUpdater]).property("expression", "0 0 7,8,10,13,16,19 22 * *")
   }
 }
