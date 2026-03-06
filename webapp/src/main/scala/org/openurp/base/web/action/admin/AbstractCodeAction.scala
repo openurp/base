@@ -23,7 +23,7 @@ import org.beangle.commons.lang.reflect.Reflections
 import org.beangle.commons.logging.Logging
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.orm.OrmStructType
-import org.beangle.ems.app.web.WebBusinessLogger
+import org.beangle.ems.app.log.WebBusinessLogger
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.context.ActionContext

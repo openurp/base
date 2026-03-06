@@ -18,7 +18,7 @@
 package org.openurp.base.service.impl
 
 import org.beangle.commons.logging.Logging
-import org.beangle.cron.{CronExpr, Scheduled}
+import org.beangle.cron.Scheduled
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.orm.AbstractDaoTask
 import org.openurp.base.std.model.Squad

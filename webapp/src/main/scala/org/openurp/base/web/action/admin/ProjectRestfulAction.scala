@@ -25,7 +25,7 @@ import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.data.model.meta.EntityType
 import org.beangle.data.model.pojo.Updated
-import org.beangle.ems.app.web.WebBusinessLogger
+import org.beangle.ems.app.log.WebBusinessLogger
 import org.beangle.event.bus.{DataEvent, DataEventBus}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.she.webmvc.RestfulAction

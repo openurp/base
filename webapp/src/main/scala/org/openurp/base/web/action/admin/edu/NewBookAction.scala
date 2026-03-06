@@ -20,7 +20,7 @@ package org.openurp.base.web.action.admin.edu
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
-import org.beangle.ems.app.web.WebBusinessLogger
+import org.beangle.ems.app.log.WebBusinessLogger
 import org.beangle.security.Securities
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.context.ActionContext
