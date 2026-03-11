@@ -18,9 +18,7 @@
 package org.openurp.base.ws
 
 import org.beangle.commons.cdi.BindModule
-import org.beangle.commons.logging.Logging
-import org.beangle.cron.Scheduled
-import org.openurp.base.service.impl.{SquadStdCountUpdater, StaffAccountUpdater}
+import org.openurp.base.service.impl.{SquadStdCountUpdater, UserAccountUpdater}
 import org.openurp.base.std.service.impl.SquadServiceImpl
 
 class SchedulerModule extends BindModule {
@@ -30,10 +28,11 @@ class SchedulerModule extends BindModule {
     wiredEagerly(true)
     bind(classOf[SquadServiceImpl])
 
-    //every three hours
-    bind(classOf[SquadStdCountUpdater]).property("expression", "0 0 7,10,13,16,19 * * *")
+    //every seven hours
+    bind(classOf[SquadStdCountUpdater]).property("expression", "0 0 7,14 * * *")
 
-    bind(classOf[StaffAccountUpdater]).property("expression", "0 0 7,8,10,13,16,19 22 * *")
+    //every seven hours
+    bind(classOf[UserAccountUpdater]).property("expression", "0 0 7,14 * * *")
 
   }
 }

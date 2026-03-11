@@ -22,12 +22,11 @@ import org.beangle.commons.lang.{Charsets, Strings}
 import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.{Operation, OqlBuilder}
 import org.beangle.doc.excel.schema.ExcelSchema
+import org.beangle.ems.app.Ems
+import org.beangle.she.webmvc.{ExportSupport, ImportSupport, QueryHelper}
 import org.beangle.transfer.importer.ImportSetting
 import org.beangle.transfer.importer.listener.ForeignerListener
-import org.beangle.ems.app.Ems
 import org.beangle.webmvc.annotation.{mapping, param, response}
-import org.beangle.she.webmvc.{ExportSupport, ImportSupport}
-import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.hr.model.{Mentor, Staff, StaffTitle, Teacher}
 import org.openurp.base.model.*
@@ -216,8 +215,11 @@ class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], Imp
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {
+    given project: Project = getProject
+
     val fl = new ForeignerListener(entityDao)
     fl.addForeigerKey("name")
+    fl.addScope(classOf[Department], Map("school" -> project.school))
     setting.listeners = List(fl, new StaffImportListener(entityDao, getProject, urpUserHelper))
   }
 
