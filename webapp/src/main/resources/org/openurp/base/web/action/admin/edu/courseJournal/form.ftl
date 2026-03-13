@@ -9,8 +9,8 @@
     [@b.textfield name="journal.enName" label="英文名" value=journal.enName! maxlength="200" style="width:500px"/]
     [@b.select name="journal.department.id" label="院系" value=journal.department! required="true"
                    style="width:200px;" items=departments option="id,name" empty="..."/]
-    [@b.textfield name="journal.creditHours" label="学时" value=journal.creditHours! required="true"  maxlength="100"/]
-    [@b.textfield name="journal.weekHours" label="周课时" value=journal.weekHours! required="true" maxlength="20"/]
+    [@b.number name="journal.creditHours" label="学时" value=journal.creditHours! required="true"  maxlength="100"/]
+    [@b.number name="journal.weekHours" label="周课时" value=journal.weekHours! required="true" maxlength="20"/]
     [@b.textfield name="journal.weeks" label="周数" value=journal.weeks! maxlength="3"/]
     [#if teachingNatures?size>0]
     [@b.field label="分类学时"]

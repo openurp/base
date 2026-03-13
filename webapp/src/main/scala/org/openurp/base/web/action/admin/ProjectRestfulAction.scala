@@ -102,7 +102,7 @@ abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T], Pr
       //3.发布消息
       if (entityType.cacheable) {
         //清楚本地缓存
-        entities foreach { e => entityDao.evict(e) }
+        values foreach { e => entityDao.evict(e) }
         //发布更新消息
         databus.publish(DataEvent.update(values))
       }

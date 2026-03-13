@@ -218,12 +218,12 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     course.categories.clear()
     course.categories.addAll(entityDao.find(classOf[CourseCategory], categoryIds))
 
-    saveMore(course)
     if (course.journals.isEmpty) {
       course.journals += new CourseJournal(course, course.beginOn)
       entityDao.saveOrUpdate(course)
     }
-    super.saveAndRedirect(course)
+    saveMore(course)
+    redirect("search", "info.save.success")
   }
 
   protected override def configImport(setting: ImportSetting): Unit = {

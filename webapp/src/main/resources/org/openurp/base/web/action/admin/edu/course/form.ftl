@@ -3,7 +3,7 @@
 [@b.toolbar title="修改课程"]bar.addBack();[/@]
 [@b.tabs]
   [@b.tab label="基本信息"]
-    [@b.form action=b.rest.save(course) theme="list" onsubmit="validCreditHour"]
+    [@b.form action=b.rest.save(course) theme="list" onsubmit="validCourse" name="courseForm"]
       [@b.textfield name="course.code" label="代码" value="${course.code!}" required="true" maxlength="20"/]
       [@b.textfield name="course.name" id="name" label="名称" value="${course.name!}" required="true" maxlength="100"/]
       [@b.textfield name="course.enName" id="enName" label="英文名" value=course.enName! maxlength="200" style="width:500px"]
@@ -50,6 +50,12 @@
       [/#if]
       [@b.radios name="course.examMode.id" label="考核方式" value=course.examMode! required="true" items=examModes /]
       [@b.radios name="course.gradingMode.id" label="成绩记录方式" items=gradingModes value=course.gradingMode! required="true" /]
+
+      [#assign hasSubCourse=false/][#if course.subCourse??][#assign hasSubCourse=true/][/#if]
+      [@b.radios name="hasSubCourse" label="多学期开课" value=hasSubCourse items={"1":"是", "0":"否"} onclick="displaySubcourse(this)"/]
+      [@base.course name='course.subCourse.id' label="每学期子课程" value=course.subCourse! required="false" /]
+      [@b.number name='course.terms' label="开课学期数" value=course.terms! required="false" min="0" max="8"/]
+
       [@b.radios label="是否计算绩点"  name="course.calgp" value=course.calgp items="1:common.yes,0:common.no" required="true"/]
       [@b.radios label="是否设置补考"  name="course.hasMakeup" value=course.hasMakeup items="1:common.yes,0:common.no" required="true"/]
       [@b.startend label="有效期"  name="course.beginOn,course.endOn" required="true,false"
@@ -61,7 +67,7 @@
       [/@]
     [/@]
   <script>
-    function validCreditHour(form){
+    function validCourse(form){
       [#if teachingNatures?size>0]
       var sumCreditHours=0;
       [#list teachingNatures as ht]
@@ -70,12 +76,23 @@
       if(sumCreditHours != Number.parseFloat(form['course.creditHours'].value||'0')){
          alert("分类课时总和"+sumCreditHours+",不等于课程学时"+form['course.creditHours'].value);
          return false;
-      }else{
-         return true;
       }
-      [#else]
-      return true;
       [/#if]
+      if(form['hasSubCourse'].value=='1'){
+        if(form['course.terms'].value==""){
+          alert("需要填写开课学期数");
+          return false;
+        }
+        if(parseInt(form['course.terms'].value)<2){
+          alert("开课学期数需要大于1");
+          return false;
+        }
+        if(form['course.subCourse.id'].value==""){
+          alert("需要填写每学期开课课程，该课程一般为0分的课程");
+          return false;
+        }
+      }
+      return true;
     }
     [#--根据输入的学分自动计算周课时、学时和理论学时--]
     function autoCalcHours(creditInput){
@@ -102,6 +119,7 @@
       }
       return false;
     }
+
     function checkEnName(){
       var name = document.getElementById('enName').value;
       if(name) {
@@ -116,6 +134,32 @@
       }
       return false;
     }
+
+    function displaySubcourse(ele){
+      var hidden=jQuery(ele).val()=='0';
+      [#--从完成子课程组到开课学期数字--]
+      var i=0;
+      var start =0;
+      jQuery(ele).parents("ol").children("li").each(function(){
+        if($(this).children("label").text().indexOf("多学期开课")>0){
+         start =i;
+        }
+        i++;
+      });
+      if(start >0){
+        start += 1;
+        for(var i=start;i<start+2;i++){
+          if(hidden){
+            jQuery(ele).parents("ol").children("li:nth("+i+")").hide();
+          }else{
+            jQuery(ele).parents("ol").children("li:nth("+i+")").show();
+          }
+        }
+      }
+    }
+  jQuery(document).ready(function(){
+    displaySubcourse(jQuery('#courseForm input:radio[value="${hasSubCourse?string('1','0')}"]').get(0));
+  });
 </script>
 [/@]
   [#if course.persisted]
