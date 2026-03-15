@@ -19,24 +19,29 @@
   [@b.row]
     [@b.boxcol /]
     [@b.col width="10%" property="code" title="代码"/]
-    [@b.col property="name" title="名称"][@b.a href="!info?id=${course.id}"]${course.name}[/@][/@]
-    [@b.col width="5%" property="defaultCredits" title="学分"/]
-    [@b.col width="10%" property="creditHours" title="学时"]
-      ${course.creditHours}
-      [#if course.hours?size>1]
-        ([#list course.hours?sort_by(['nature','code']) as ch]${ch.creditHours}[#if ch_has_next]+[/#if][/#list])
+    [@b.col property="name" title="名称"]
+      [@b.a href="!info?id=${course.id}"]${course.name}[/@]
+      [#if course.subCourse??]
+        <span class="text-muted" style="font-size:0.8em" title="多学期授课">${course.subCourse.code}*${course.terms}</span>
       [/#if]
     [/@]
-    [@b.col width="10%" title="层次"]
+    [@b.col width="5%" property="defaultCredits" title="学分"/]
+    [@b.col width="7%" property="creditHours" title="学时"]
+      ${course.creditHours}
+      [#if course.hours?size>1]
+        <span class="text-muted" style="font-size:0.8em">([#list course.hours?sort_by(['nature','code']) as ch]${ch.creditHours}[#if ch_has_next]+[/#if][/#list])</span>
+      [/#if]
+    [/@]
+    [@b.col width="8%" title="层次"]
       <span style="font-size:0.8em">[#list course.levels as l]${l.level.name}[#if l.credits??]<sup>${l.credits}</sup>[/#if][#sep]&nbsp;[/#list]</span>
     [/@]
     [@b.col width="5%" property="weekHours" title="周课时"/]
     [@b.col width="5%" property="weeks" title="周数"/]
-    [@b.col width="10%" property="department.name" title="课程所属院系"]
+    [@b.col width="9%" property="department.name" title="院系"]
       ${course.department.shortName!course.department.name}
     [/@]
-    [@b.col width="15%" property="courseType.name" title="课程类别"]
-      <div title="${(course.courseType.name)!}" class="text-ellipsis">${(course.courseType.name)!}</div>
+    [@b.col width="12%" property="courseType.name" title="课程类别"]
+      <span title="${(course.courseType.name)!}" class="text-ellipsis">${(course.courseType.name)!}</span>
     [/@]
     [@b.col width="7%" property="examMode.name" title="考核方式"/]
   [/@]

@@ -24,12 +24,11 @@ import org.beangle.commons.lang.Charsets
 import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
+import org.beangle.ems.app.Ems
+import org.beangle.she.webmvc.{ExportSupport, ImportSupport, QueryHelper}
 import org.beangle.transfer.importer.ImportSetting
 import org.beangle.transfer.importer.listener.ForeignerListener
-import org.beangle.ems.app.Ems
 import org.beangle.webmvc.annotation.response
-import org.beangle.she.webmvc.{ExportSupport, ImportSupport}
-import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.edu.model.{Course, CourseHour, CourseJournal, CourseLevel}
 import org.openurp.base.model.{Department, Project}
@@ -49,9 +48,11 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
 
     put("courseTypes", getCodes(classOf[CourseType]))
     put("categories", getCodes(classOf[CourseCategory]))
-    val departments = findInSchool(classOf[Department])
+    val departments = project.departments.toBuffer.sortBy(_.indexno)
     put("departments", departments)
     put("courseNatures", getCodes(classOf[CourseNature]))
+    put("multiTermSupported", getConfig(Features.Edu.CourseMultiTermSupported))
+    put("levels", project.levels)
   }
 
   protected override def editSetting(c: Course): Unit = {
@@ -86,6 +87,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     put("levels", project.levels)
     put("levelCreditSupported", getConfig(Features.Edu.CourseLevelCreditSupported))
     put("hoursPerCredit", getConfig(Features.Edu.CourseHoursPerCredit))
+    put("multiTermSupported", getConfig(Features.Edu.CourseMultiTermSupported))
 
     put("courseCategories", c.categories.map(x => (x.dimension, x)).toMap)
     put("project", project)
@@ -125,6 +127,16 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     getInt("category.id") foreach { categoryId =>
       builder.where("exists(from course.categories as cg where cg.id=:categoryId)", categoryId)
     }
+    getInt("level.id") foreach{levelId=>
+      builder.where("exists(from course.levels as cl where cl.level.id=:levelId)",levelId)
+    }
+    getBoolean("multiTerm") foreach{ multiTerm=>
+      if(multiTerm){
+        builder.where("course.subCourse is not null")
+      }else{
+        builder.where("course.subCourse is null")
+      }
+    }
     populateConditions(builder)
     builder.where(simpleEntityName + ".project = :project", getProject)
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)
@@ -156,7 +168,6 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     sheet.add("实践周数", "course.weeks").decimal()
     sheet.add("考核方式名称", "course.examMode.code").ref(examModes).required()
     sheet.add("课程性质", "course.nature.code").ref(natures).required()
-    //sheet.add("评教分类", "course.category.code").ref(categories)
     sheet.add("是否设置补考", "course.hasMakeup").bool()
     sheet.add("是否计算绩点", "course.calgp").bool()
     sheet.add("设立日期", "course.beginOn").date().required()

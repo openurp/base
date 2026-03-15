@@ -8,14 +8,18 @@
 <div class="search-container">
     <div class="search-panel">
       [@b.form name="courseSearchForm" action="!search" target="courselist" title="ui.searchForm" theme="search"]
-        [@b.textfield name="course.code" label="代码" maxlength="5000"/]
+        [@b.textfield name="course.code" label="代码" maxlength="90000"/]
         [@b.textfields names="course.name;名称"/]
+        [@b.select name="level.id" label="培养层次" items=levels empty="..." /]
         [@base.code type="course-types" name="course.courseType.id" label="课程类别" empty="..." /]
         [@base.code type="course-natures" name="course.nature.id" label="课程性质" empty="..." /]
         [#if categories?size>0]
         [@b.select name="category.id" label="课程分类" items=categories empty="..." /]
         [/#if]
-        [@b.select name="course.department.id" label="所属院系" items=departments option="id,name" empty="..." /]
+        [@b.select name="course.department.id" label="所属院系" items=departments empty="..." /]
+        [#if multiTermSupported]
+        [@b.select name="multiTerm" label="跨学期" items={"1":"多学期开课", "0":"否"} empty="..." /]
+        [/#if]
         [@b.select name="active" label="是否有效" items={"1":"是", "0":"否"} empty="..." value="1" /]
         <input type="hidden" name="orderBy" value="course.code"/>
       [/@]

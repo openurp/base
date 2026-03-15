@@ -28,14 +28,14 @@
       [@b.radios name="course.nature.id" label="课程性质" value=course.nature! items=courseNatures required="true"/]
       [@b.select name="course.courseType.id" label="课程类别" value=course.courseType! items=courseTypes empty="..."/]
       [#list categories?keys as dimension]
-      [@b.select name="category.id" label=dimension.name items=categories.get(dimension) value=courseCategories.get(dimension)! empty="..." required="false"/]
+      [@b.radios name="category.id" label=dimension.name items=categories.get(dimension) value=courseCategories.get(dimension)! required="false"/]
       [/#list]
       [@b.select name="course.department.id" label="院系" value=course.department! required="true"
                  style="width:200px;" items=departments option="id,name" empty="..."/]
       [@b.textfield name="course.defaultCredits" label="学分" onchange="autoCalcHours(this)" value=course.defaultCredits! required="true" maxlength="20"/]
       [@b.textfield name="course.creditHours" label="学时" value=course.creditHours! required="true"  maxlength="100"/]
       [@b.textfield name="course.weekHours" label="周课时" value=course.weekHours! required="true" maxlength="20"/]
-      [@b.textfield name="course.weeks" label="周数" value=course.weeks! maxlength="3"/]
+      [@b.textfield name="course.weeks" label="实践课周数" value=course.weeks! maxlength="3" comment="非实践课不要填写"/]
       [#if teachingNatures?size>0]
       [@b.field label="分类课时"]
          [#assign hours={}/]
@@ -51,10 +51,12 @@
       [@b.radios name="course.examMode.id" label="考核方式" value=course.examMode! required="true" items=examModes /]
       [@b.radios name="course.gradingMode.id" label="成绩记录方式" items=gradingModes value=course.gradingMode! required="true" /]
 
+      [#if multiTermSupported]
       [#assign hasSubCourse=false/][#if course.subCourse??][#assign hasSubCourse=true/][/#if]
       [@b.radios name="hasSubCourse" label="多学期开课" value=hasSubCourse items={"1":"是", "0":"否"} onclick="displaySubcourse(this)"/]
       [@base.course name='course.subCourse.id' label="每学期子课程" value=course.subCourse! required="false" /]
       [@b.number name='course.terms' label="开课学期数" value=course.terms! required="false" min="0" max="8"/]
+      [/#if]
 
       [@b.radios label="是否计算绩点"  name="course.calgp" value=course.calgp items="1:common.yes,0:common.no" required="true"/]
       [@b.radios label="是否设置补考"  name="course.hasMakeup" value=course.hasMakeup items="1:common.yes,0:common.no" required="true"/]
@@ -78,6 +80,7 @@
          return false;
       }
       [/#if]
+      [#if multiTermSupported]
       if(form['hasSubCourse'].value=='1'){
         if(form['course.terms'].value==""){
           alert("需要填写开课学期数");
@@ -92,6 +95,7 @@
           return false;
         }
       }
+      [/#if]
       return true;
     }
     [#--根据输入的学分自动计算周课时、学时和理论学时--]
@@ -135,6 +139,7 @@
       return false;
     }
 
+    [#if multiTermSupported]
     function displaySubcourse(ele){
       var hidden=jQuery(ele).val()=='0';
       [#--从完成子课程组到开课学期数字--]
@@ -157,9 +162,10 @@
         }
       }
     }
-  jQuery(document).ready(function(){
-    displaySubcourse(jQuery('#courseForm input:radio[value="${hasSubCourse?string('1','0')}"]').get(0));
-  });
+    jQuery(document).ready(function(){
+      displaySubcourse(jQuery('#courseForm input:radio[value="${hasSubCourse?string('1','0')}"]').get(0));
+    });
+    [/#if]
 </script>
 [/@]
   [#if course.persisted]
