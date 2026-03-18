@@ -19,20 +19,20 @@ package org.openurp.base.web.helper
 
 import org.beangle.data.dao.EntityDao
 import org.beangle.transfer.importer.{EntityImportListener, ImportResult}
-import org.openurp.base.hr.model.{Official, Staff}
+import org.openurp.base.hr.model.{CadreAssignment, Staff}
 import org.openurp.base.model.School
 
 import java.time.LocalDate
 
-class OfficialImportListener(entityDao: EntityDao, school: School) extends EntityImportListener {
+class CadreAssignmentImportListener(entityDao: EntityDao, school: School) extends EntityImportListener {
   override def onItemStart(tr: ImportResult): Unit = {
     importer.datas.get("staff.code") foreach { code =>
       val staffs = entityDao.findBy(classOf[Staff], "code" -> code, "school" -> school)
       if (staffs.size == 1) {
         val official =
-          entityDao.findBy(classOf[Official], "staff" -> staffs.head).headOption match {
+          entityDao.findBy(classOf[CadreAssignment], "staff" -> staffs.head).headOption match {
             case None =>
-              val m = new Official()
+              val m = new CadreAssignment()
               m.staff = staffs.head
               m
             case Some(m) => m
@@ -45,7 +45,7 @@ class OfficialImportListener(entityDao: EntityDao, school: School) extends Entit
   }
 
   override def onItemFinish(tr: ImportResult): Unit = {
-    val o = this.current[Official]
+    val o = this.current[CadreAssignment]
     if (null != o.staff) {
       if (null == o.beginOn) o.beginOn = LocalDate.now
       if (null == o.department) o.department = o.staff.department

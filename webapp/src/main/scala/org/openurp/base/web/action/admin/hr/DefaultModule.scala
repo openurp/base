@@ -32,7 +32,7 @@ class DefaultModule extends BindModule {
 
     bind(classOf[ProfileAction])
 
-    bind(classOf[OfficialAction], classOf[SecretaryAction])
+    bind(classOf[CadreAssignmentAction], classOf[SecretaryAction])
 
     bind(classOf[PresidentAction], classOf[MajorDirectorAction])
     bind(classOf[MyAction])
