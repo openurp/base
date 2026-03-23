@@ -6,7 +6,7 @@
     [@b.select name="assignment.department.id" label="部门" required="false" items=departments empty="..." comment="空为本人所在部门，兼任另外填写"/]
     [@b.textfield name="assignment.post" label="行政职务" value=assignment.post! required="true" maxlength="20"/]
     [@b.select name="assignment.rank.id" label="职务级别" value=assignment.rank! items=ranks required="true" maxlength="20"/]
-    [@b.radios label="是否主职"  name="assignment.principal" value=assignment.principal items="1:common.yes,0:common.no"/]
+    [@b.radios label="是否正职"  name="assignment.principal" value=assignment.principal items="1:common.yes,0:common.no"/]
     [@b.radios label="是否兼任"  name="assignment.concurrent" value=assignment.concurrent items="1:common.yes,0:common.no"/]
     [@b.startend label="担任时间" name="assignment.beginOn,assignment.endOn" required="true,false" start=assignment.beginOn
        end=assignment.endOn format="date"/]

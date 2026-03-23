@@ -28,7 +28,11 @@
       [@b.radios name="course.nature.id" label="课程性质" value=course.nature! items=courseNatures required="true"/]
       [@b.select name="course.courseType.id" label="课程类别" value=course.courseType! items=courseTypes empty="..."/]
       [#list categories?keys as dimension]
-      [@b.radios name="category.id" label=dimension.name items=categories.get(dimension) value=courseCategories.get(dimension)! required="false"/]
+        [#if categories.get(dimension)?size>5]
+          [@b.select name="category.id" label=dimension.name items=categories.get(dimension) value=courseCategories.get(dimension)! required="false"/]
+        [#else]
+          [@b.radios name="category.id" label=dimension.name items=categories.get(dimension) value=courseCategories.get(dimension)! required="false"/]
+        [/#if]
       [/#list]
       [@b.select name="course.department.id" label="院系" value=course.department! required="true"
                  style="width:200px;" items=departments option="id,name" empty="..."/]

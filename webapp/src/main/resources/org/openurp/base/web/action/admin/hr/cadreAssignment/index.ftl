@@ -10,7 +10,7 @@
       [@b.select name="assignment.department.id" label="部门" items=departments empty="..." /]
       [@b.select name="assignment.rank.id" label="职务级别" items=ranks empty="..." /]
       [@b.textfield name="assignment.post" label="职务"/]
-      [@b.select label="是否主职"  name="assignment.principal" items={"1":"是", "0":"否"}/]
+      [@b.select label="是否正职"  name="assignment.principal" items={"1":"是", "0":"否"}/]
       [@b.select label="是否兼任"  name="assignment.concurrent" items={"1":"是", "0":"否"}/]
       [@b.select style="width:100px" name="active" label="是否有效" items={"1":"是", "0":"否"} value="1" empty="..." /]
       <input type="hidden" name="orderBy" value="assignment.department.code,assignment.staff.code"/>
