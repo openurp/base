@@ -17,10 +17,9 @@
 
 package org.openurp.base.service.impl
 
-import org.beangle.commons.bean.Initializing
+import org.beangle.commons.bean.{Initializing, Scheduled}
 import org.beangle.commons.lang.time.Stopwatch
 import org.beangle.commons.logging.Logging
-import org.beangle.cron.Scheduled
 import org.beangle.data.dao.{OqlBuilder, QueryPage}
 import org.beangle.data.orm.AbstractDaoTask
 import org.beangle.ems.app.Ems

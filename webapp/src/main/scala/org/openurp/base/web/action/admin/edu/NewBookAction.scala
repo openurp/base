@@ -22,11 +22,10 @@ import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.ems.app.Ems
 import org.beangle.ems.app.log.WebBusinessLogger
 import org.beangle.security.Securities
+import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.she.webmvc.EntityAction
-import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.model.Project
@@ -115,7 +114,7 @@ class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSuppor
     } else {
       entityDao.saveOrUpdate(book)
       businessLogger.info(s"新增了教材:${book.name} ${book.author}", book.id, ActionContext.current.params)
-      redirect("info", s"id=${book.id}", "添加成功")
+      redirect("info", Map("id" -> book.id), "添加成功")
     }
   }
 
