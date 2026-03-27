@@ -20,10 +20,9 @@ package org.openurp.base.web.action.admin.hr
 import org.beangle.commons.activation.MediaTypes
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
+import org.beangle.she.webmvc.{ExportSupport, ImportSupport, QueryHelper}
 import org.beangle.transfer.importer.ImportSetting
 import org.beangle.webmvc.annotation.response
-import org.beangle.she.webmvc.{ExportSupport, ImportSupport}
-import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.{Stream, View}
 import org.openurp.base.hr.model.{Mentor, Staff}
 import org.openurp.base.model.*
@@ -66,6 +65,7 @@ class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor], 
     }
     mentor.projects += p
     mentor.name = staff.name
+    mentor.staff = staff
     entityDao.saveOrUpdate(mentor)
     urpUserHelper.createUser(mentor.staff, None)
     redirect("search", "info.save.success")
