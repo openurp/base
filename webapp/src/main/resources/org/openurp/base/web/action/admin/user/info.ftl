@@ -26,7 +26,7 @@
   </tr>
   <tr>
     <td class="title" width="20%">邮箱</td>
-    <td class="content">${user.email}</td>
+    <td class="content">${user.email!}</td>
   </tr>
   <tr>
     <td class="title" width="20%">说明</td>
