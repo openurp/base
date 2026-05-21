@@ -6,15 +6,15 @@ ${tag.body}
 [#if tag.empty??]<option value="">${tag.empty}</option>[/#if][#rt/]
 </select>[#if tag.comment??]<label class="comment">${tag.comment}</label>[/#if]
 <script type="text/javascript">
-  if(sessionStorage.getItem("std.grades") != null){
-    beangle.select.fillin("${tag.id}",beangle.data.parseCsv(sessionStorage.getItem("std.grades")),"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
+  if(sessionStorage.getItem("std.grades@${tag.project.id}") != null){
+    beangle.select.fillin("${tag.id}",beangle.data.parseCsv(sessionStorage.getItem("std.grades@${tag.project.id}")),"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
   }else{
       jQuery.ajax({
         url: "${tag.href}",
         headers:{"Accept":"application/json"},
         success:function (obj){
           var rows = beangle.select.fillin("${tag.id}",obj,"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
-          sessionStorage.setItem("std.grades",beangle.data.toCsv(rows));
+          sessionStorage.setItem("std.grades@${tag.project.id}",beangle.data.toCsv(rows));
         }
       });
   }

@@ -7,15 +7,15 @@ ${tag.body}
 </select>[#if tag.comment??]<label class="comment">${tag.comment}</label>[/#if]
 <script type="text/javascript">
   [#if tag.cacheable]
-  if(sessionStorage.getItem("code.${tag.type}") != null){
-    beangle.select.fillin("${tag.id}",beangle.data.parseCsv(sessionStorage.getItem("code.${tag.type}")),"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
+  if(sessionStorage.getItem("code.${tag.type}@${tag.project.id}") != null){
+    beangle.select.fillin("${tag.id}",beangle.data.parseCsv(sessionStorage.getItem("code.${tag.type}@${tag.project.id}")),"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
   }else{
     jQuery.ajax({
       url: "${tag.href}",
       headers:{"Accept":"application/json"},
       success:function (obj){
         var rows = beangle.select.fillin("${tag.id}",obj,"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
-        sessionStorage.setItem("code.${tag.type}",beangle.data.toCsv(rows));
+        sessionStorage.setItem("code.${tag.type}@${tag.project.id}",beangle.data.toCsv(rows));
       }
     });
   }
