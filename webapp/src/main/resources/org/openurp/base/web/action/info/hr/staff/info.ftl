@@ -51,7 +51,14 @@
       <td class="title">导师类别：</td>
       <td>[#if staff.tutorType??]${staff.tutorType.name} <span class="text-muted" title="聘任日期">${(appointOn.get(staff.tutorType)?string('yy-MM-dd'))!}</span>[/#if]</td>
       <td class="title">联系方式：</td>
-      <td colspan="3">${(staff.mobile)!} ${(staff.email)!}</td>
+      <td colspan="3">
+        [#if staff.mobile?? && staff.mobile?length>10]
+          <span title="${staff.mobile}">${(staff.mobile[0..2])!}****${(staff.mobile[7..10])!}</span>
+        [#else]
+          ${(staff.mobile)!"--"}
+        [/#if]
+         ${((staff.email)!'--')?replace('@',' at ')}
+      </td>
     </tr>
   </table>
 [/@]
@@ -143,7 +150,7 @@
   }
 </style>
 [@panel title="指导学生情况（" + students?size+"名在籍）"]
-  [@b.grid items=students var="student" theme="mini" id="student_table"]
+  [@b.grid items=students var="student" theme="mini" id="student_table" class="table-sm table-mini"]
     [@b.row]
       [@b.col property="code" title="学号" width="100px"/]
       [@b.col property="name" title="姓名" width="80px"]

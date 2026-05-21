@@ -13,7 +13,7 @@
     [@b.col width="10%" title="出生年月"]
       ${(staff.birthday?string("yyyy-MM"))!}
     [/@]
-    [@b.col property="department.name" title="院系"]${(staff.department.name)!}[/@]
+    [@b.col property="department.name" title="院系"]${(staff.department.shortName)!(staff.department.name)}[/@]
     [@b.col width="15%" property="degree.name" title="学位"]
       [#if staff.degree??]${staff.degree.name?replace("学位","")}[#else]--[/#if]
     [/@]

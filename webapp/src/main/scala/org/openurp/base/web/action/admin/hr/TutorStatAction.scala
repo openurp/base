@@ -52,7 +52,8 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
    */
   def direction(): View = {
     val project = getProject
-    val tms = entityDao.findBy(classOf[TutorMajor], "major.project", project)
+    val today= LocalDate.now
+    val tms = entityDao.findBy(classOf[TutorMajor], "major.project", project).filter(_.staff.within(today))
     val datas = tms.flatMap { tm =>
       tm.directions.map(direction => (tm.level, tm.major, direction, tm.staff))
     }
@@ -74,6 +75,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
     q.where("staff.tutorType is not null")
     q.where("staff.school=:school", school)
     q.where(s"tm.staff=staff")
+    q.where("staff.beginOn <= :today and (staff.endOn is null or staff.endOn >= :today)",LocalDate.now)
     q.select(s"staff.title.grade.id,staff.degreeLevel.id,max(tm.level.id)," + //同一个专业的最高培养层次
       s"staff.degreeAwardBy,staff.parttime," +
       s"tm.major.id,staff.birthday,staff.id")
@@ -116,7 +118,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
     ds.add("major", "学科专业", datas, classOf[Major])
     ds.add("age", "兼职", datas, Map("0" -> "未知", "1-25" -> "25岁及以下", "26-35" -> "26至35岁", "36-45" -> "36至45岁", "46-59" -> "46至59岁", "60-150" -> "60岁及以上"))
     val matrix = new Matrix(ds.build(), datas)
-    put("majors", matrix.getColumn("major").values)
+    put("majors", matrix.getColumn("major").datas)
     put("matrixes", matrix.split("major"))
     forward()
   }

@@ -68,7 +68,7 @@
         <td colspan="4">合计</td>
         [#list dxs as dx]
           [#assign gmatrix = matrix.groupBy(dx)/]
-          [#assign dvalues = matrix.getColumn(dx).values/]
+          [#assign dvalues = matrix.getColumn(dx).datas/]
           [#list dvalues?keys?sort as g]
           <td>[@displayCounter gmatrix.getCounter(g)!,{} /]</td>
           [/#list]

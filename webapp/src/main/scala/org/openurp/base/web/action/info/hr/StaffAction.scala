@@ -47,7 +47,8 @@ class StaffAction extends ActionSupport, EntityAction[Teacher], ProjectSupport {
     val teacher = entityDao.findBy(classOf[Teacher], "staff", staff)
     if (teacher.nonEmpty) {
       val stdQuery = OqlBuilder.from(classOf[Student], "std")
-      stdQuery.where("std.tutor=:me", teacher.head)
+      stdQuery.join("std.tutors","st")
+      stdQuery.where("st.tutor=:me", teacher.head)
       stdQuery.where(":today between std.beginOn and std.endOn", LocalDate.now)
       stdQuery.orderBy("std.code")
       put("students", entityDao.search(stdQuery))

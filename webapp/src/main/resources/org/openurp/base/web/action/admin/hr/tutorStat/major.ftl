@@ -35,7 +35,7 @@
       <tbody>
       [#assign lmatrix = matrix.groupBy(dy)/]
       [#assign rows=0/]
-      [#assign yDimensionValues=matrix.getColumn(dy).values/]
+      [#assign yDimensionValues=matrix.getColumn(dy).datas/]
       [#list yDimensionValues?keys as v]
       <tr>
         <td>${yDimensionValues.get(v).name}</td>
@@ -57,7 +57,7 @@
         <td>合计</td>
         [#list dxs as dx]
           [#assign gmatrix = matrix.groupBy(dx)/]
-          [#assign dvalues = matrix.getColumn(dx).values/]
+          [#assign dvalues = matrix.getColumn(dx).datas/]
           [#list dvalues?keys?sort as g]
           <td>[@displayCounter gmatrix.getCounter(g)!,{} /]</td>
           [/#list]
