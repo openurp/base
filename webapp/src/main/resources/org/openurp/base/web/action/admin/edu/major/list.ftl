@@ -21,7 +21,7 @@
     [#list major.journals as j][#if major.endOn?? || !(j.endOn??)] [#if !levels?seq_contains(j.level)][#assign levels = levels+[j.level]][/#if][/#if][/#list]
     [#list levels?sort_by('code') as d]${d.name}[#if d_has_next] [/#if][/#list]
     [/@]
-    [@b.col width="7%" title="学科"]
+    [@b.col width="7%" title="学科门类"]
       [#assign categories = [] /]
       [#list major.disciplines as d][#if (d.category??) && !categories?seq_contains(d.category)][#assign categories = categories+[d.category]][/#if][/#list]
       [#list categories as d]${d.name}[#if d_has_next] [/#if][/#list]

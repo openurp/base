@@ -69,8 +69,8 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
   override def editSetting(squad: Squad): Unit = {
     given project: Project = getProject
 
-    put("departments", findInSchool(classOf[Department]))
-    put("campuses", findInSchool(classOf[Campus]))
+    put("departments", project.departments)
+    put("campuses", project.campuses)
 
     val majors = findInProject(classOf[Major])
     put("majors", majors)

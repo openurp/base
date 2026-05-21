@@ -64,7 +64,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     val categories = getCodes(classOf[CourseCategory])
     put("categories", categories.groupBy(_.dimension))
 
-    put("departments", findInSchool(classOf[Department]))
+    put("departments", project.departments)
 
     val levels = project.levels
     put("courseNatures", getCodes(classOf[CourseNature]))

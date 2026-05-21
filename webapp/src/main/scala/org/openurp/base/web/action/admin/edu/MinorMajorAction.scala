@@ -56,6 +56,7 @@ class MinorMajorAction extends RestfulAction[MinorMajor], ProjectSupport {
 
     put("institutions", getCodes(classOf[Institution]))
     put("departments", getDeparts)
+    put("project", project)
     super.editSetting(entity)
   }
 
@@ -70,12 +71,14 @@ class MinorMajorAction extends RestfulAction[MinorMajor], ProjectSupport {
     majors foreach { major =>
       if (!existsMajors.contains(major.name) && major.within(LocalDate.now)) {
         val newMajor = new MinorMajor
+        newMajor.code = major.code
         newMajor.name = major.name
         newMajor.project = project
         newMajor.beginOn = major.beginOn
         newMajor.major = Some(major)
         newMajor.department = major.departmentsNow.headOption
         newMajor.institution = project.school.institution
+        newMajor.category = major.disciplines.map(_.category).head
         entityDao.saveOrUpdate(newMajor)
       }
     }

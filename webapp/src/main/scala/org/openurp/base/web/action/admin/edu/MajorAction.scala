@@ -18,14 +18,12 @@
 package org.openurp.base.web.action.admin.edu
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.she.webmvc.ExportSupport
-import org.beangle.she.webmvc.QueryHelper
+import org.beangle.she.webmvc.{ExportSupport, QueryHelper}
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.base.model.Project
 import org.openurp.base.web.action.admin.ProjectRestfulAction
-import org.openurp.code.edu.model.EducationLevel
+import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
 
 import java.time.LocalDate
 
@@ -43,13 +41,31 @@ class MajorAction extends ProjectRestfulAction[Major], ExportSupport[Major] {
     query
   }
 
+  override protected def saveAndRedirect(major: Major): View = {
+    val rs = super.saveAndRedirect(major)
+    val category = entityDao.get(classOf[DisciplineCategory], getIntId("category"))
+    if (major.disciplines.nonEmpty) {
+      major.disciplines.maxBy(_.beginOn).category = category
+    } else {
+      val md = new MajorDiscipline
+      md.major = major
+      md.category = category
+      md.beginOn = major.beginOn
+      major.disciplines.addOne(md)
+    }
+    entityDao.saveOrUpdate(major)
+    rs
+  }
+
   override def editSetting(major: Major): Unit = {
-    put("projects", List(getProject))
+    val project = getProject
+    put("project", project)
     if !major.persisted then major.beginOn = LocalDate.now
-    val disciplines = entityDao.getAll(classOf[MajorDiscipline])
-    put("disciplines", disciplines)
     if (null == major.project) {
-      major.project = getProject
+      major.project = project
+    }
+    if (major.disciplines.nonEmpty) {
+      put("category", major.disciplines.maxBy(_.beginOn).category)
     }
     super.editSetting(major)
   }
