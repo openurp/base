@@ -1,5 +1,6 @@
 [#ftl]
 [@b.head/]
+[#include "nav.ftl"/]
 [@b.toolbar title="组织机构管理"/]
 <div class="search-container">
     <div class="search-panel">
