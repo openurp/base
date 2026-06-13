@@ -6,6 +6,7 @@
     [@b.textfield name="code.code" label="代码" value="${code.code!}" required="true" maxlength="20"/]
     [@b.textfield name="code.name" label="名称" value="${code.name!}" required="true" maxlength="20"/]
     [@b.textfield name="code.enName" label="英文名" style="width:500px" value=code.enName! maxlength="100"/]
+    [@b.textfield name="code.shortName" label="简称" style="width:300px" value=code.shortName! maxlength="100"/]
     [@b.select name="code.parent.id" label="上级级别" items=parents value=code.parent! empty="..."/]
     [@b.startend label="有效期"
       name="code.beginOn,code.endOn" required="true,false"
