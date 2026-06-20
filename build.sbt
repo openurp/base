@@ -23,11 +23,9 @@ ThisBuild / developers := List(
 ThisBuild / description := "OpenURP Base Webapp"
 ThisBuild / homepage := Some(url("http://openurp.github.io/base/index.html"))
 
-val apiVer = "1.4.4"
-val starterVer = "0.4.42"
+val apiVer = "1.4.6"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
-val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % starterVer
-val openurp_stater_ws = "org.openurp.starter" % "openurp-starter-ws" % starterVer
+val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % apiVer
 
 lazy val root = (project in file("."))
   .settings(common)
@@ -51,7 +49,7 @@ lazy val ws = (project in file("ws"))
   .settings(
     name := "openurp-base-ws",
     common,
-    libraryDependencies ++= Seq(openurp_base_api, openurp_stater_ws)
+    libraryDependencies ++= Seq(openurp_base_api, openurp_stater_web)
   )
 
 lazy val webapp = (project in file("webapp"))

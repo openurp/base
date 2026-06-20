@@ -23,8 +23,8 @@ import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.reflect.BeanInfos
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.stat.{Columns, Matrix}
-import org.beangle.webmvc.support.ActionSupport
 import org.beangle.she.webmvc.QueryHelper
+import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.view.View
 import org.openurp.base.edu.model.Major
 import org.openurp.base.hr.model.{Staff, Teacher, TutorMajor}
@@ -52,7 +52,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
    */
   def direction(): View = {
     val project = getProject
-    val today= LocalDate.now
+    val today = LocalDate.now
     val tms = entityDao.findBy(classOf[TutorMajor], "major.project", project).filter(_.staff.within(today))
     val datas = tms.flatMap { tm =>
       tm.directions.map(direction => (tm.level, tm.major, direction, tm.staff))
@@ -75,7 +75,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
     q.where("staff.tutorType is not null")
     q.where("staff.school=:school", school)
     q.where(s"tm.staff=staff")
-    q.where("staff.beginOn <= :today and (staff.endOn is null or staff.endOn >= :today)",LocalDate.now)
+    q.where("staff.beginOn <= :today and (staff.endOn is null or staff.endOn >= :today)", LocalDate.now)
     q.select(s"staff.title.grade.id,staff.degreeLevel.id,max(tm.level.id)," + //同一个专业的最高培养层次
       s"staff.degreeAwardBy,staff.parttime," +
       s"tm.major.id,staff.birthday,staff.id")
@@ -175,7 +175,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
     q.where("exists(from std.tutors st where st.tutor.id=:tutorId and st.tutorship=:ship)", getLongId("tutor"), Tutorship.Major)
     //在籍学生，无论是否在校
     q.where("std.registed = true and :today between std.beginOn and std.endOn", LocalDate.now)
-    QueryHelper.populate(q)
+    QueryHelper.populate(entityDao, q)
     q.orderBy("std.code desc")
     val stds = entityDao.search(q)
     put("stds", stds)

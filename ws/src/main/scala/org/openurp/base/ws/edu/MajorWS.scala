@@ -20,11 +20,10 @@ package org.openurp.base.ws.edu
 import org.beangle.commons.json.JsonObject
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.json.JsonAPI
+import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.she.webmvc.EntityAction
-import org.beangle.she.webmvc.QueryHelper
 import org.openurp.base.edu.model.Major
 
 class MajorWS extends ActionSupport, EntityAction[Major] {
@@ -36,7 +35,7 @@ class MajorWS extends ActionSupport, EntityAction[Major] {
     val projectId = getInt("project", 0)
     val query = OqlBuilder.from(classOf[Major])
     query.where("major.project.id=:projectId", projectId)
-    QueryHelper.populate(query).limit(query).sort(query)
+    QueryHelper.populate(entityDao, query).limit(query).sort(query)
     val majors = entityDao.search(query)
 
     val context = JsonAPI.context(ActionContext.current.params)

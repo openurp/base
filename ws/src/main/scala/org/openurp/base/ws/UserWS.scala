@@ -38,7 +38,7 @@ class UserWS extends ActionSupport with EntityAction[User] {
     if (!getBoolean("all", false)) {
       query.where("user.endOn is null or user.endOn >= :today", LocalDate.now)
     }
-    QueryHelper.populate(query)
+    QueryHelper.populate(entityDao, query)
     query.limit(PageLimit(getInt(QueryHelper.PageParam, 1), getInt(QueryHelper.PageSizeParam, 100)))
     get("q") foreach { q =>
       val c = s"%${q}%"

@@ -64,7 +64,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
 
   private def getQueryBuilder(meta: CodeMeta): OqlBuilder[Code] = {
     val q = OqlBuilder.from[Code](meta.entityType.entityName, "code")
-    QueryHelper.populate(q).limit(q).sort(q)
+    QueryHelper.populate(entityDao,q).limit(q).sort(q)
     q
   }
 

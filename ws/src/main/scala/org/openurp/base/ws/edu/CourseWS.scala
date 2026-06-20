@@ -41,7 +41,7 @@ class CourseWS extends ActionSupport, EntityAction[Course] {
     val projectId = getInt("project", 0)
     val query = OqlBuilder.from(classOf[Course])
     query.where("course.project.id=:projectId", projectId)
-    QueryHelper.populate(query).limit(query).sort(query)
+    QueryHelper.populate(entityDao, query).limit(query).sort(query)
     get("q") foreach { q =>
       val c = s"%${q}%"
       query.where("course.name like :c or course.code like :c", c)

@@ -21,11 +21,10 @@ import org.beangle.commons.json.JsonObject
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.json.JsonAPI
+import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.she.webmvc.EntityAction
-import org.beangle.she.webmvc.QueryHelper
 import org.beangle.webmvc.view.{Status, View}
 import org.openurp.base.edu.model.Textbook
 import org.openurp.base.service.impl.TextbookHelper
@@ -40,7 +39,7 @@ class TextbookWS extends ActionSupport, EntityAction[Textbook] {
     val projectId = getInt("project", 0)
     val query = OqlBuilder.from(classOf[Textbook])
     query.where("textbook.project.id=:projectId", projectId)
-    QueryHelper.populate(query).limit(query).sort(query)
+    QueryHelper.populate(entityDao, query).limit(query).sort(query)
     get("q") foreach { q =>
       val c = s"%${q}%"
       query.where("textbook.name like :c or textbook.isbn like :c", c)

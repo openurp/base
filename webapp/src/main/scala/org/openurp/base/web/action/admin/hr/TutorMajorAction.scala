@@ -93,7 +93,7 @@ class TutorMajorAction extends RestfulAction[TutorMajor], ProjectSupport, Import
     val grades = findInProject(classOf[Grade]).map(x => x.code)
 
     val schema = new ExcelSchema()
-    val sheet = schema.createScheet("数据模板")
+    val sheet = schema.createSheet("数据模板")
     sheet.title("导师研究领域信息模板")
     sheet.add("年级", "tutorMajor.grade.code").ref(grades).required()
     sheet.add("导师工号", "tutorMajor.staff.code").length(20).required().remark("≤20位")

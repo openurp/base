@@ -19,10 +19,9 @@ package org.openurp.base.web.action.admin.hr
 
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.security.Securities
+import org.beangle.she.webmvc.{PopulateHelper, RestfulAction}
 import org.beangle.webmvc.context.Params
 import org.beangle.webmvc.view.View
-import org.beangle.she.webmvc.RestfulAction
-import org.beangle.she.webmvc.PopulateHelper
 import org.openurp.base.hr.model.{Staff, StaffProfile}
 import org.openurp.base.model.Department
 import org.openurp.code.edu.model.{Degree, EducationDegree}
@@ -70,7 +69,7 @@ class MyAction extends RestfulAction[StaffProfile], ProjectSupport {
 
   override def saveAndRedirect(profile: StaffProfile): View = {
     profile.staff = getStaff.head
-    PopulateHelper.populate(profile.staff, Params.sub("staff"))
+    PopulateHelper.populate(entityDao, profile.staff, Params.sub("staff"))
     entityDao.saveOrUpdate(profile.staff, profile)
     profile.updatedAt = Instant.now
     redirect("index", "info.save.success")

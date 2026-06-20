@@ -87,7 +87,7 @@ class LaboratoryAction extends ProjectRestfulAction[Laboratory], ExportSupport[L
 
     val rooms = findInSchool(classOf[Classroom]).map(x => x.code + " " + x.name)
     val schema = new ExcelSchema()
-    val sheet = schema.createScheet("数据模板")
+    val sheet = schema.createSheet("数据模板")
     sheet.title("实验室信息模板")
     sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
     sheet.add("实验室代码", "laboratory.code").length(10).required().remark("≤10位")

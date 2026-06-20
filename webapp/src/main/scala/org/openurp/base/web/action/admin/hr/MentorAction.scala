@@ -82,7 +82,7 @@ class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor], 
     given project: Project = getProject
 
     val schema = new ExcelSchema()
-    val sheet = schema.createScheet("数据模板")
+    val sheet = schema.createSheet("数据模板")
     sheet.title("辅导员信息模板")
     sheet.remark("特别说明：\n1、不可改变本表格的行列结构以及批注，否则将会导入失败！\n2、必须按照规格说明的格式填写。\n3、可以多次导入，重复的信息会被新数据更新覆盖。\n4、保存的excel文件名称可以自定。")
     sheet.add("工号", "staff.code").length(10).required().remark("≤10位")
