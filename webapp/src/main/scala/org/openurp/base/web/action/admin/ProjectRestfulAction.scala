@@ -24,11 +24,11 @@ import org.beangle.commons.text.i18n.Messages
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.data.model.Entity
 import org.beangle.data.model.meta.EntityType
-import org.beangle.data.model.pojo.Updated
+import org.beangle.data.model.pojo.Updatable
 import org.beangle.ems.app.log.WebBusinessLogger
 import org.beangle.event.bus.{DataEvent, DataEventBus}
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.she.webmvc.RestfulAction
+import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.view.View
 import org.openurp.starter.web.support.ProjectSupport
 
@@ -67,10 +67,10 @@ abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T], Pr
           if null == p then Properties.set(e, "project", project)
         }
       }
-      if (classOf[Updated].isAssignableFrom(entityType.clazz)) {
+      if (classOf[Updatable].isAssignableFrom(entityType.clazz)) {
         val now = Instant.now
         values foreach { e =>
-          e.asInstanceOf[Updated].updatedAt = now
+          e.asInstanceOf[Updatable].updatedAt = now
         }
       }
     }
