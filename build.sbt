@@ -57,7 +57,7 @@ lazy val webapp = (project in file("webapp"))
   .settings(
     name := "openurp-base-webapp",
     common,
-    libraryDependencies ++= Seq(openurp_stater_web)
+    libraryDependencies ++= Seq(openurp_stater_web, beangle_bui_bootstrap)
   ).dependsOn(tag)
 
 publish / skip := true
