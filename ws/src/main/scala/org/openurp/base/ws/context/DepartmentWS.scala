@@ -15,16 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.ws
+package org.openurp.base.ws.context
 
-import org.beangle.commons.cdi.BindModule
-import org.openurp.code.service.impl.CodeServiceImpl
+import org.beangle.commons.collection.Properties
+import org.beangle.commons.json.JsonArray
+import org.beangle.data.dao.EntityDao
+import org.beangle.webmvc.annotation.response
+import org.openurp.base.model.Project
+import org.openurp.starter.web.support.ProjectSupport
 
-class DefaultModule extends BindModule {
-  protected override def binding(): Unit = {
-    bind(classOf[SemesterWS])
-    bind(classOf[UserWS], classOf[DepartmentWS])
-    bind(classOf[CampusWS])
-    bind(classOf[CodeWS])
+class DepartmentWS extends ProjectSupport {
+
+  var entityDao: EntityDao = _
+
+  @response
+  def index(): JsonArray = {
+    given Project = getProject
+
+    val departs = getDeparts
+    JsonArray(departs.map(d => new Properties(d, "id", "code", "name")))
   }
 }

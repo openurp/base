@@ -19,21 +19,18 @@ package org.openurp.base.ws.std
 
 import org.beangle.commons.collection.page.PageLimit
 import org.beangle.commons.collection.{Order, Properties}
-import org.beangle.commons.json.JsonObject
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.json.JsonAPI
-import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.context.ActionContext
-import org.beangle.webmvc.support.ActionSupport
 import org.beangle.she.webmvc.EntityAction
 import org.beangle.she.webmvc.QueryHelper.{PageParam, PageSizeParam}
+import org.beangle.webmvc.annotation.response
+import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.std.model.Student
 
 class StudentWS extends ActionSupport with EntityAction[Student] {
   var entityDao: EntityDao = _
 
   @response
-  def index(): JsonObject = {
+  def index(): Seq[Properties] = {
     val query = OqlBuilder.from(classOf[Student], "std")
     populateConditions(query)
     query.limit(PageLimit(getInt(PageParam, 1), getInt(PageSizeParam, 100)))
@@ -43,8 +40,7 @@ class StudentWS extends ActionSupport with EntityAction[Student] {
     }
     val orderStr = get(Order.OrderStr).getOrElse("std.code desc")
     query.orderBy(orderStr)
-    val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(entityDao.search(query), "id", "code", "name", "description")
+    entityDao.search(query).map(x => new Properties(x, "id", "code", "name", "description"))
   }
 
 }

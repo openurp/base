@@ -18,18 +18,15 @@
 package org.openurp.base.ws
 
 import org.beangle.commons.bean.Initializing
-import org.beangle.commons.collection.Collections
-import org.beangle.commons.json.JsonObject
+import org.beangle.commons.collection.Properties
+import org.beangle.commons.lang.Strings
 import org.beangle.commons.lang.Strings.unCamel
-import org.beangle.commons.lang.{Chars, ClassLoaders, Strings}
 import org.beangle.commons.text.inflector.en.EnNounPluralizer
-import org.beangle.data.dao.EntityDao
-import org.beangle.data.json.JsonAPI
+import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.orm.OrmEntityType
 import org.beangle.webmvc.annotation.{action, mapping, param, response}
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.webmvc.util.CacheControl
+import org.openurp.base.model.ProjectCode
 import org.openurp.code.Code
 import org.openurp.code.service.CodeService
 
@@ -51,14 +48,21 @@ class CodeWS extends ActionSupport, Initializing {
     EnNounPluralizer.pluralize(unCamel(shortName, '-'))
   }
 
-  @response(cacheable = true )
-  @mapping("{code}")
-  def index(@param("code") code: String): JsonObject = {
+  @response(cacheable = true)
+  @mapping("{projectId}/{code}")
+  def index(@param("code") code: String): Iterable[Properties] = {
     val datas = clazzes.get(code) match {
-      case Some(clazz) => codeService.get(clazz)
+      case Some(clazz) =>
+        val q = OqlBuilder.from(classOf[ProjectCode], "pc").where("pc.project.id=:projectId", getIntId("project"))
+        q.where("pc.className = :clazzName", clazz.getName).cacheable()
+        val pcs = entityDao.search(q)
+        if (pcs.isEmpty) {
+          codeService.get(clazz)
+        } else {
+          codeService.get(clazz, Strings.splitToInt(pcs.head.codeIds): _*)
+        }
       case None => List.empty
     }
-    val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(datas, "id", "code", "name", "enName")
+    datas.map(x => new Properties(x, "id", "code", "name", "enName"))
   }
 }

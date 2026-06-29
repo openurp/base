@@ -17,29 +17,25 @@
 
 package org.openurp.base.ws.std
 
-import org.beangle.commons.json.JsonObject
+import org.beangle.commons.collection.Properties
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.json.JsonAPI
-import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.context.ActionContext
-import org.beangle.webmvc.support.ActionSupport
 import org.beangle.she.webmvc.EntityAction
+import org.beangle.webmvc.annotation.response
+import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.std.model.Grade
 
 class GradeWS extends ActionSupport with EntityAction[Grade] {
   var entityDao: EntityDao = _
 
   @response(cacheable = true)
-  def index(): JsonObject = {
+  def index(): Iterable[Properties] = {
     val projectId = getInt("project", 0)
     val query = OqlBuilder.from(classOf[Grade])
     query.where("grade.project.id=:projectId", projectId)
     query.orderBy("grade.code desc")
     query.cacheable()
     val grades = entityDao.search(query)
-
-    val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(grades, "id", "code", "name")
+    grades.map(x => new Properties(x, "id", "code", "name"))
   }
 
 }

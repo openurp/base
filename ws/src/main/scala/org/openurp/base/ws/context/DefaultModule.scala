@@ -15,16 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.openurp.base.ws
+package org.openurp.base.ws.context
 
 import org.beangle.commons.cdi.BindModule
-import org.openurp.code.service.impl.CodeServiceImpl
 
 class DefaultModule extends BindModule {
   protected override def binding(): Unit = {
-    bind(classOf[SemesterWS])
-    bind(classOf[UserWS], classOf[DepartmentWS])
-    bind(classOf[CampusWS])
-    bind(classOf[CodeWS])
+    bind(classOf[DepartmentWS])
+    bind(classOf[ProjectWS])
   }
 }

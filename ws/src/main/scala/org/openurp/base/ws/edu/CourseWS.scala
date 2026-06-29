@@ -17,17 +17,14 @@
 
 package org.openurp.base.ws.edu
 
-import org.beangle.commons.json.JsonObject
+import org.beangle.commons.collection.Properties
 import org.beangle.commons.lang.Strings
 import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.json.JsonAPI
+import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.web.servlet.url.UrlBuilder
 import org.beangle.webmvc.annotation.{param, response}
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.she.webmvc.EntityAction
-import org.beangle.she.webmvc.QueryHelper
 import org.openurp.api.URPTool
 import org.openurp.base.edu.model.Course
 
@@ -37,7 +34,7 @@ class CourseWS extends ActionSupport, EntityAction[Course] {
   var entityDao: EntityDao = _
 
   @response
-  def index(): JsonObject = {
+  def index(): Iterable[Properties] = {
     val projectId = getInt("project", 0)
     val query = OqlBuilder.from(classOf[Course])
     query.where("course.project.id=:projectId", projectId)
@@ -50,8 +47,7 @@ class CourseWS extends ActionSupport, EntityAction[Course] {
     query.where("course.beginOn <= :date and (course.endOn is null or course.endOn >= :date)", date)
 
     val courses = entityDao.search(query)
-    val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(courses, "id", "code", "name", "enName", "description")
+    courses.map(x => new Properties(x, "id", "code", "name", "enName", "defaultCredits", "description"))
   }
 
   @response

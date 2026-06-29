@@ -17,12 +17,10 @@
 
 package org.openurp.base.ws.edu
 
-import org.beangle.commons.json.JsonObject
+import org.beangle.commons.collection.Properties
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.json.JsonAPI
 import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.edu.model.Major
 
@@ -31,14 +29,11 @@ class MajorWS extends ActionSupport, EntityAction[Major] {
   var entityDao: EntityDao = _
 
   @response
-  def index(): JsonObject = {
+  def index(): Iterable[Properties] = {
     val projectId = getInt("project", 0)
     val query = OqlBuilder.from(classOf[Major])
     query.where("major.project.id=:projectId", projectId)
     QueryHelper.populate(entityDao, query).limit(query).sort(query)
-    val majors = entityDao.search(query)
-
-    val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(majors, "id", "code", "name", "enName")
+    entityDao.search(query).map(x => new Properties(x, "id", "code", "name", "enName", "shortName"))
   }
 }

@@ -17,24 +17,18 @@
 
 package org.openurp.base.ws.std
 
-import org.beangle.commons.collection.Order
-import org.beangle.commons.json.JsonObject
+import org.beangle.commons.collection.Properties
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.json.JsonAPI
-import org.beangle.data.json.JsonAPI.Context
+import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.she.webmvc.EntityAction
-import org.beangle.she.webmvc.QueryHelper
 import org.openurp.base.std.model.Squad
-import org.openurp.code.CodeBean
 
 class SquadWS extends ActionSupport with EntityAction[Squad] {
   var entityDao: EntityDao = _
 
   @response
-  def index(): JsonObject = {
+  def index(): Iterable[Properties] = {
     val projectId = getInt("project", 0)
     val query = OqlBuilder.from(classOf[Squad])
     query.where("squad.project.id=:projectId", projectId)
@@ -42,12 +36,7 @@ class SquadWS extends ActionSupport with EntityAction[Squad] {
     QueryHelper.sort(query)
     QueryHelper.limit(query)
     val squads = entityDao.search(query)
-
-    given context: Context = JsonAPI.context(ActionContext.current.params)
-
-    context.filters.include(classOf[Squad], "id", "code", "name", "enName")
-    val resources = squads.map { g => JsonAPI.create(g, "") }
-    JsonAPI.newJson(resources)
+    squads.map(x => new Properties(x, "id", "code", "name", "enName"))
   }
 
 }

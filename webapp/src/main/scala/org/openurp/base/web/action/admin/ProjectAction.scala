@@ -86,11 +86,4 @@ class ProjectAction extends RestfulAction[Project] {
 
     super.saveAndRedirect(project)
   }
-
-  private def findInProject[T <: Entity[_]](clazz: Class[T], project: Project): Buffer[T] = {
-    val query = OqlBuilder.from(clazz, "aa")
-    query.where("aa.school=:project", project)
-    entityDao.search(query).toBuffer
-  }
-
 }

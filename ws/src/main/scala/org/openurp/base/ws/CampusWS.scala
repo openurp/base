@@ -17,12 +17,11 @@
 
 package org.openurp.base.ws
 
+import org.beangle.commons.collection.Properties
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.data.json.JsonAPI
-import org.beangle.webmvc.annotation.response
-import org.beangle.webmvc.context.ActionContext
-import org.beangle.webmvc.support.{ActionSupport, MimeSupport}
 import org.beangle.she.webmvc.EntityAction
+import org.beangle.webmvc.annotation.response
+import org.beangle.webmvc.support.{ActionSupport, MimeSupport}
 import org.openurp.base.model.Campus
 
 class CampusWS extends ActionSupport with EntityAction[Campus] with MimeSupport {
@@ -30,13 +29,10 @@ class CampusWS extends ActionSupport with EntityAction[Campus] with MimeSupport 
   var entityDao: EntityDao = _
 
   @response(cacheable = true)
-  def index(): Any = {
+  def index(): Iterable[Properties] = {
     val query = OqlBuilder.from(classOf[Campus])
     query.orderBy("campus.code")
     query.cacheable()
-    val grades = entityDao.search(query)
-
-    val context = JsonAPI.context(ActionContext.current.params)
-    context.mkJson(grades, "id", "code", "name")
+    entityDao.search(query).map(x => new Properties(x, "id", "code", "name", "enName", "shortName"))
   }
 }

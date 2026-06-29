@@ -17,11 +17,11 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.ems.app.Ems
-import org.beangle.template.api.{ClosingUIBean, ComponentContext}
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.bui.Select
+import org.beangle.ems.app.Ems
+import org.beangle.template.api.ComponentContext
 import org.openurp.base.model.Project
+import org.openurp.code.service.CodeService
 
 class CodeTag(context: ComponentContext) extends Select(context) {
 
@@ -29,13 +29,15 @@ class CodeTag(context: ComponentContext) extends Select(context) {
   var project: Project = _
 
   var cache: String = "true"
+  var codeService: CodeService = _
 
   def cacheable: Boolean = {
     cache == "true"
   }
 
   override def evaluateParams(): Unit = {
-    if (null == this.href) this.href = Ems.api + s"/base/code/${`type`}.json"
+    if (null == this.href) this.href = Ems.api + s"/base/code/${project.id}/${`type`}.json"
+
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     super.evaluateParams()
   }

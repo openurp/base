@@ -11,6 +11,7 @@
     <module class="org.openurp.base.ws.hr.DefaultModule"/>
     <module class="org.openurp.base.ws.std.DefaultModule"/>
     <module class="org.openurp.base.ws.resource.DefaultModule"/>
+    <module class="org.openurp.base.ws.context.DefaultModule"/>
     <module class="org.openurp.base.ws.SchedulerModule"/>
   </cdi>
 
@@ -20,6 +21,7 @@
       <url path="/" suffix="" style="plur-seo"/>
       <interceptor name="web.Interceptor.hibernate"/>
       <interceptor name="web.Interceptor.cors"/>
+      <interceptor name="web.Interceptor.security"/>
     </profile>
 
     <profile package="org.openurp.base.ws.edu">
@@ -27,6 +29,7 @@
       <url path="/edu/{project}" suffix="" style="plur-seo"/>
       <interceptor name="web.Interceptor.hibernate"/>
       <interceptor name="web.Interceptor.cors"/>
+      <interceptor name="web.Interceptor.security"/>
     </profile>
 
     <profile package="org.openurp.base.ws.std">
@@ -34,6 +37,7 @@
       <url path="/std/{project}" suffix="" style="plur-seo"/>
       <interceptor name="web.Interceptor.hibernate"/>
       <interceptor name="web.Interceptor.cors"/>
+      <interceptor name="web.Interceptor.security"/>
     </profile>
   </mvc>
 
