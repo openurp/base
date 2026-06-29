@@ -29,7 +29,7 @@ class GradeWS extends ActionSupport with EntityAction[Grade] {
 
   @response(cacheable = true)
   def index(): Iterable[Properties] = {
-    val projectId = getInt("project", 0)
+    val projectId = getIntId("project")
     val query = OqlBuilder.from(classOf[Grade])
     query.where("grade.project.id=:projectId", projectId)
     query.orderBy("grade.code desc")

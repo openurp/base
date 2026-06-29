@@ -38,6 +38,7 @@ class StudentWS extends ActionSupport with EntityAction[Student] {
       val c = s"%$q%"
       query.where("std.name like :c or std.code like :c", c)
     }
+    query.where("std.project.id=:projectId",getIntId("project"))
     val orderStr = get(Order.OrderStr).getOrElse("std.code desc")
     query.orderBy(orderStr)
     entityDao.search(query).map(x => new Properties(x, "id", "code", "name", "description"))

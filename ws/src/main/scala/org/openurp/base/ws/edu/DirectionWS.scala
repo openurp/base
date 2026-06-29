@@ -30,7 +30,7 @@ class DirectionWS extends ActionSupport, EntityAction[MajorDirection] {
 
   @response
   def index(): Iterable[Properties] = {
-    val projectId = getInt("project", 0)
+    val projectId = getIntId("project")
     val query = OqlBuilder.from(classOf[MajorDirection], "direction")
     query.where("direction.project.id=:projectId", projectId)
     val directions = entityDao.search(query)

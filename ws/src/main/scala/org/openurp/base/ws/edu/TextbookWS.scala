@@ -33,7 +33,7 @@ class TextbookWS extends ActionSupport, EntityAction[Textbook] {
 
   @response
   def index(): Iterable[Properties] = {
-    val projectId = getInt("project", 0)
+    val projectId = getIntId("project")
     val query = OqlBuilder.from(classOf[Textbook])
     query.where("textbook.project.id=:projectId", projectId)
     QueryHelper.populate(entityDao, query).limit(query).sort(query)

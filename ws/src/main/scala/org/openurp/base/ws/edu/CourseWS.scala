@@ -35,7 +35,7 @@ class CourseWS extends ActionSupport, EntityAction[Course] {
 
   @response
   def index(): Iterable[Properties] = {
-    val projectId = getInt("project", 0)
+    val projectId = getIntId("project")
     val query = OqlBuilder.from(classOf[Course])
     query.where("course.project.id=:projectId", projectId)
     QueryHelper.populate(entityDao, query).limit(query).sort(query)

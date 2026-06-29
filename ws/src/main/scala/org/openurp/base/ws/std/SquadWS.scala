@@ -29,7 +29,7 @@ class SquadWS extends ActionSupport with EntityAction[Squad] {
 
   @response
   def index(): Iterable[Properties] = {
-    val projectId = getInt("project", 0)
+    val projectId = getIntId("project")
     val query = OqlBuilder.from(classOf[Squad])
     query.where("squad.project.id=:projectId", projectId)
     populateConditions(query)

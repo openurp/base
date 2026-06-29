@@ -30,7 +30,7 @@ class MajorWS extends ActionSupport, EntityAction[Major] {
 
   @response
   def index(): Iterable[Properties] = {
-    val projectId = getInt("project", 0)
+    val projectId = getIntId("project")
     val query = OqlBuilder.from(classOf[Major])
     query.where("major.project.id=:projectId", projectId)
     QueryHelper.populate(entityDao, query).limit(query).sort(query)
