@@ -36,9 +36,8 @@ class CodeTag(context: ComponentContext) extends Select(context) {
   }
 
   override def evaluateParams(): Unit = {
-    if (null == this.href) this.href = Ems.api + s"/base/code/${project.id}/${`type`}.json"
-
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
+    if (null == this.href) this.href = Ems.api + s"/base/code/${project.id}/${`type`}.json"
     super.evaluateParams()
   }
 }

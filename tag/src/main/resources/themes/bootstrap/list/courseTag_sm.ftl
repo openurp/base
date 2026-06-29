@@ -14,10 +14,11 @@ ${tag.body}
 [/#list]
 </select>[#if tag.comment??]<label class="comment">${tag.comment}</label>[/#if]
 <script type="text/javascript">
-  beangle.load(["chosen","bui-ajaxchosen"],function(){
+  beangle.require(["chosen","bui-ajaxchosen"],function(){
     $("#${tag.id}").ajaxchosen(
     { method:"GET",
-      url:"${tag.href}"
+      url:"${tag.href}",
+      xhrFields: {withCredentials: true}
     },
     function (obj){
       var is_restapi = Array.isArray(obj);

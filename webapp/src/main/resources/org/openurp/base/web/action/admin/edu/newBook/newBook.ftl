@@ -62,6 +62,7 @@
       var isbn = form['textbook.isbn'].value;
       jQuery.ajax({
         url:anchor.href+"?isbn="+isbn,
+        xhrFields: {withCredentials: true},
         headers:{"Accept":"application/json"},
         success:function (data){
           if(data.name){

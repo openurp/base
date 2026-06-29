@@ -11,6 +11,7 @@ ${tag.body}
   }else{
       jQuery.ajax({
         url: "${tag.href}",
+        xhrFields: {withCredentials: true},
         headers:{"Accept":"application/json"},
         success:function (obj){
           var rows = beangle.select.fillin("${tag.id}",obj,"[#list tag.keys as k]${k}[#sep],[/#list]","${tag.keyName}","${tag.valueName}");
