@@ -17,6 +17,6 @@
       semesterOptions.url="${tag.url}";
       jQuery("#${tag.id}").semester_picker(semesterOptions[#if tag.initCallback??],"${tag.initCallback}"[/#if]);
     }
-    bg.require("${b.static_url('openurp-base','js/edu/semester.js')}",initSelect${tag.id});
+    bg.require(["${b.static_url('openurp-base','js/edu/semester.js')}"],initSelect${tag.id});
   </script>
 </div>

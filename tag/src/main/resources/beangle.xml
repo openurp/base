@@ -8,7 +8,7 @@
   </cdi>
   <mvc>
     <static>
-      <bundle name="openurp-base" version="0.1.10"/>
+      <bundle name="openurp-base" version="0.4.86"/>
     </static>
   </mvc>
 

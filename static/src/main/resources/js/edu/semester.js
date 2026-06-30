@@ -27,6 +27,7 @@ jQuery.fn.extend({semester_picker:function(options,initCallback){
           if(options.url){
               jQuery.ajax({
                   url: options.url,
+                  xhrFields: {withCredentials: true},
                   success: function (result) {
                     options.semesters=eval(result);
                   },
