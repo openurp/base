@@ -34,7 +34,7 @@
 
     <profile package="org.openurp.base.ws.std">
       <action suffix="WS" defaultMethod="index"/>
-      <url path="/std/{projectIdId}" suffix="" style="plur-seo"/>
+      <url path="/std/{projectId}" suffix="" style="plur-seo"/>
       <interceptor name="web.Interceptor.hibernate"/>
       <interceptor name="web.Interceptor.cors"/>
       <interceptor name="web.Interceptor.security"/>
