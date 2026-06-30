@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [#include "nav.ftl"/]
-[@b.toolbar title="组织机构管理"/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="departmentSearchForm" action="!search" target="departmentlist" title="ui.searchForm" theme="search"]

@@ -44,7 +44,7 @@ class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], Imp
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
-
+    put("project", project)
     put("departments", findInSchool(classOf[Department]))
     put("campuses", findInSchool(classOf[Campus]))
   }

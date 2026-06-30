@@ -1,5 +1,4 @@
 [@b.head/]
-[@b.toolbar title="教师基础代码维护"/]
   <div class="container-fluid">
     <div class="row">
       <div class="col-2">

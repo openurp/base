@@ -46,6 +46,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject
 
+    put("project", project)
     put("courseTypes", getCodes(classOf[CourseType]))
     put("categories", getCodes(classOf[CourseCategory]))
     val departments = project.departments.toBuffer.sortBy(_.indexno)
@@ -127,13 +128,13 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
     getInt("category.id") foreach { categoryId =>
       builder.where("exists(from course.categories as cg where cg.id=:categoryId)", categoryId)
     }
-    getInt("level.id") foreach{levelId=>
-      builder.where("exists(from course.levels as cl where cl.level.id=:levelId)",levelId)
+    getInt("level.id") foreach { levelId =>
+      builder.where("exists(from course.levels as cl where cl.level.id=:levelId)", levelId)
     }
-    getBoolean("multiTerm") foreach{ multiTerm=>
-      if(multiTerm){
+    getBoolean("multiTerm") foreach { multiTerm =>
+      if (multiTerm) {
         builder.where("course.subCourse is not null")
-      }else{
+      } else {
         builder.where("course.subCourse is null")
       }
     }

@@ -1,7 +1,6 @@
 [#ftl]
 [@b.head/]
 [#include "../department/nav.ftl"/]
-[@b.toolbar title="部门变迁记录管理"/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="transitionSearchForm" action="!search" target="transitionlist" title="ui.searchForm" theme="search"]

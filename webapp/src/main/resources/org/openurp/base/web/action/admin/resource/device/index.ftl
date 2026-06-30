@@ -1,6 +1,5 @@
 [#ftl]
 [@b.head/]
-[@b.toolbar title="教室设备信息"/]
 <div class="search-container">
     <div class="search-panel">
     [@b.form name="deviceSearchForm" action="!search" target="devicelist" title="ui.searchForm" theme="search"]
