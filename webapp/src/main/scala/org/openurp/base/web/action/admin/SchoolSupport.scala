@@ -18,10 +18,11 @@
 package org.openurp.base.web.action.admin
 
 import org.beangle.data.dao.OqlBuilder
-import org.beangle.webmvc.support.ServletSupport
 import org.beangle.she.webmvc.EntityAction
+import org.beangle.webmvc.support.ServletSupport
 import org.openurp.base.model.{Department, School}
 import org.openurp.code.service.CodeService
+import org.openurp.starter.web.helper.EmsCookieHelper
 
 trait SchoolSupport extends ServletSupport {
   this: EntityAction[_] =>
@@ -29,7 +30,7 @@ trait SchoolSupport extends ServletSupport {
   var codeService: CodeService = _
 
   def getSchool: School = {
-    new SchoolHelper(entityDao).getSchool(request, response)
+    new EmsCookieHelper(entityDao).getSchool(request, response)
   }
 
   def getDepartments: Seq[Department] = {

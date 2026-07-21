@@ -25,11 +25,11 @@ import org.beangle.data.dao.{EntityDao, OqlBuilder}
 import org.beangle.data.orm.OrmStructType
 import org.beangle.ems.app.log.WebBusinessLogger
 import org.beangle.event.bus.{DataEvent, DataEventBus}
+import org.beangle.she.webmvc.{PopulateHelper, QueryHelper}
 import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.webmvc.execution.MappingHandler
 import org.beangle.webmvc.support.ActionSupport
-import org.beangle.she.webmvc.{PopulateHelper, QueryHelper}
 import org.beangle.webmvc.view.View
 import org.openurp.code.{Code, CodeBean}
 
@@ -64,7 +64,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
 
   private def getQueryBuilder(meta: CodeMeta): OqlBuilder[Code] = {
     val q = OqlBuilder.from[Code](meta.entityType.entityName, "code")
-    QueryHelper.populate(entityDao,q).limit(q).sort(q)
+    QueryHelper.populate(entityDao, q).limit(q).sort(q)
     q
   }
 
@@ -97,7 +97,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
     }
   }
 
-  @mapping(method = "post")
+  @mapping(methods = "post")
   def save(): View = {
     val meta = codeHelper.loadMeta(get("category", ""))
     val code = Reflections.newInstance(meta.entityType.clazz).asInstanceOf[CodeBean]
@@ -105,7 +105,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
     persist(code)
   }
 
-  @mapping(value = "{id}", method = "put")
+  @mapping(value = "{id}", methods = "put")
   def update(@param("id") id: String): View = {
     val meta = codeHelper.loadMeta(get("category", ""))
     val entity = getCode(meta, id.toInt)
@@ -132,7 +132,7 @@ abstract class AbstractCodeAction extends ActionSupport, Logging {
     }
   }
 
-  @mapping(method = "delete")
+  @mapping(methods = "delete")
   def remove(): View = {
     val meta = codeHelper.loadMeta(get("category", ""))
     val codes = entityDao.find(meta.entityType.clazz.asInstanceOf[Class[Code]], getIntIds("code"))
