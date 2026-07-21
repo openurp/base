@@ -20,7 +20,7 @@ package org.openurp.base.web.helper
 import org.beangle.commons.collection.Collections
 import org.beangle.commons.lang.Strings
 import org.beangle.data.dao.{EntityDao, OqlBuilder}
-import org.beangle.transfer.importer.{EntityImportListener, ImportListener, ImportResult}
+import org.beangle.transfer.importer.{EntityImportListener, ImportResult}
 import org.openurp.base.edu.model.{Major, MajorDirection}
 import org.openurp.base.hr.model.TutorMajor
 import org.openurp.base.model.{Department, Project}
@@ -90,7 +90,7 @@ class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends E
         }
 
         val q = OqlBuilder.from(classOf[TutorMajor], "m")
-        q.where("m.staff=:staff and m.eduType=:eduType and m.level=:level and m.major=:major", tm.staff, tm.eduType, tm.level, tm.major)
+        q.where("m.staff=:staff and m.eduType=:eduType and m.level=:level and m.major=:major and m.grade=:grade", tm.staff, tm.eduType, tm.level, tm.major, tm.grade)
         val exists = entityDao.search(q)
         if (exists.nonEmpty) {
           exists.head.directions.addAll(directions)
