@@ -2,7 +2,7 @@ import org.openurp.parent.Dependencies.*
 import org.openurp.parent.Settings.*
 
 organization := "org.openurp.base"
-version := "0.4.89"
+version := "0.4.90-SNAPSHOT"
 
 scmInfo := Some(
   ScmInfo(uri("https://github.com/openurp/base"), "scm:git@github.com:openurp/base.git")
