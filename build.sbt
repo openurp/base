@@ -20,7 +20,7 @@ developers := List(
 description := "OpenURP Base Webapp"
 homepage := Some(uri("http://openurp.github.io/base/index.html"))
 
-val apiVer = "1.4.13"
+val apiVer = "1.5.0"
 val openurp_base_api = "org.openurp.base" % "openurp-base-api" % apiVer
 val openurp_stater_web = "org.openurp.starter" % "openurp-starter-web" % apiVer
 
@@ -45,6 +45,7 @@ lazy val static = (project in file("static"))
 
 lazy val ws = (project in file("ws"))
   .enablePlugins(WarPlugin, UndertowPlugin)
+  .enablePlugins(AotPlugin,MetaPlugin,ProxyPlugin)
   .settings(
     name := "openurp-base-ws",
     common,
@@ -53,6 +54,7 @@ lazy val ws = (project in file("ws"))
 
 lazy val webapp = (project in file("webapp"))
   .enablePlugins(WarPlugin, TomcatPlugin)
+  .enablePlugins(AotPlugin,MetaPlugin,ProxyPlugin)
   .settings(
     name := "openurp-base-webapp",
     common,

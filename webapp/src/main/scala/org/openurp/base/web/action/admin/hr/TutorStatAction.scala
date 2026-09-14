@@ -36,15 +36,9 @@ import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
 
-class TutorStatAction extends ActionSupport, ProjectSupport, Initializing {
+class TutorStatAction extends ActionSupport, ProjectSupport {
 
   var entityDao: EntityDao = _
-
-  override def init(): Unit = {
-    if (!BeanInfos.cached(classOf[Matrix])) {
-      BeanInfos.of(classOf[Matrix])
-    }
-  }
 
   /** 按照层次统计，各个方向下都有哪些导师
    *
