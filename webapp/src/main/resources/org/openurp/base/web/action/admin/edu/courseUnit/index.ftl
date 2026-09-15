@@ -16,7 +16,7 @@
     [/@]
     </div>
     <div class="search-list">
-    [#if settings.size>0]
+    [#if settings?size>0]
       [@b.div id="courseUnitlist" href="!search?orderBy=courseUnit.indexno&courseUnit.setting.id="+settings?first.id/]
     [#else]
       没有作息方案，请先制定作息方案。
