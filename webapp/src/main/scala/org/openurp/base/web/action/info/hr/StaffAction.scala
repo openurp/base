@@ -27,10 +27,11 @@ import org.openurp.base.std.model.Student
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class StaffAction extends ActionSupport, EntityAction[Teacher], ProjectSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @mapping(value = "{id}")
   def info(@param("id") id: String): View = {

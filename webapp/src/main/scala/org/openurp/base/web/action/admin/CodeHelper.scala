@@ -27,10 +27,11 @@ import org.beangle.data.orm.OrmEntityType
 import org.openurp.code.Code
 
 import java.util.Locale
+import scala.compiletime.uninitialized
 
 class CodeHelper extends Initializing {
-  var entityDao: EntityDao = _
-  private var metas: Map[String, CodeMeta] = _
+  var entityDao: EntityDao = uninitialized
+  private var metas: Map[String, CodeMeta] = uninitialized
 
   override def init(): Unit = {
     val entities = entityDao.domain.entities

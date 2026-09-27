@@ -35,10 +35,11 @@ import org.openurp.code.job.model.ProfessionalGrade
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class TutorStatAction extends ActionSupport, ProjectSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   /** 按照层次统计，各个方向下都有哪些导师
    *
@@ -146,7 +147,7 @@ class TutorStatAction extends ActionSupport, ProjectSupport {
       val data = Matrix.Row(Seq(teacherId, departId, levelId, gradeId, deferred), Array(count))
       datas.addOne(data)
     }
-    val teachers = entityDao.find(classOf[Teacher], teacherIds).sortBy(_.name)(new CollatorOrdering(true))
+    val teachers = entityDao.find(classOf[Teacher], teacherIds).sortBy(_.name)(using new CollatorOrdering(true))
     put("teachers", teachers)
     put("departTeachers", teachers.groupBy(_.department))
     put("departs", entityDao.find(classOf[Department], departIds).sortBy(_.code))

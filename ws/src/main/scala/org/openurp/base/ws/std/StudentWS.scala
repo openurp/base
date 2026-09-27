@@ -25,9 +25,10 @@ import org.beangle.she.webmvc.QueryHelper.{PageParam, PageSizeParam}
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.std.model.Student
+import scala.compiletime.uninitialized
 
 class StudentWS extends ActionSupport with EntityAction[Student] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Seq[Properties] = {

@@ -29,10 +29,11 @@ import org.openurp.base.model.Department
 import org.openurp.base.std.model.Student
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class UserAccountUpdater extends AbstractDaoTask, Logging, Initializing, Scheduled {
-  private var userRepo: DefaultUserRepo = _
-  var expression: String = _
+  private var userRepo: DefaultUserRepo = uninitialized
+  var expression: String = uninitialized
 
   override def init(): Unit = {
     val ds = new AppDataSourceFactory()

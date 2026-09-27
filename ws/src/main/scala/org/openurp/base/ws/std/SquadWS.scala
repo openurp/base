@@ -23,9 +23,10 @@ import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.std.model.Squad
+import scala.compiletime.uninitialized
 
 class SquadWS extends ActionSupport with EntityAction[Squad] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Iterable[Properties] = {

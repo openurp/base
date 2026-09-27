@@ -34,13 +34,14 @@ import org.openurp.code.sin.model.*
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.{Instant, LocalDate}
+import scala.compiletime.uninitialized
 
 /** 新增教材
  */
 class NewBookAction extends ActionSupport, EntityAction[Textbook], ProjectSupport {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
-  var businessLogger: WebBusinessLogger = _
+  var businessLogger: WebBusinessLogger = uninitialized
 
   def index(): View = {
     put("project", getProject)

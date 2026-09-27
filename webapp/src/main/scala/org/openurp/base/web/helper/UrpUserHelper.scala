@@ -25,11 +25,12 @@ import org.openurp.base.hr.model.Staff
 import org.openurp.base.model.{Department, User}
 import org.openurp.base.service.UserRepo
 import org.openurp.base.service.impl.DefaultUserRepo
+import scala.compiletime.uninitialized
 
 class UrpUserHelper extends Initializing {
 
-  var entityDao: EntityDao = _
-  var userRepo: UserRepo = _
+  var entityDao: EntityDao = uninitialized
+  var userRepo: UserRepo = uninitialized
 
   override def init(): Unit = {
     val ds = new AppDataSourceFactory()

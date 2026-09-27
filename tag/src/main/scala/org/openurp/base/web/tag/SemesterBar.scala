@@ -18,22 +18,23 @@
 package org.openurp.base.web.tag
 
 import org.beangle.template.api.{ClosingUIBean,ComponentContext}
+import scala.compiletime.uninitialized
 
 class SemesterBar(context: ComponentContext) extends ClosingUIBean(context) {
 
   var name: String = "semester.id"
 
-  var label: String = _
+  var label: String = uninitialized
 
   var required: String = "true"
 
-  var value: Object = _
+  var value: Object = uninitialized
 
   var formName: String = "semesterForm"
 
-  var action: String = _
+  var action: String = uninitialized
 
-  var target: String = _
+  var target: String = uninitialized
 
   override def evaluateParams(): Unit = {
     if (null == id) {

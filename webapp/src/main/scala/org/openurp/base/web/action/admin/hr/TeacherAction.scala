@@ -38,9 +38,10 @@ import org.openurp.code.job.model.ProfessionalTitle
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class TeacherAction extends ProjectRestfulAction[Teacher], ExportSupport[Teacher], ImportSupport[Teacher] {
-  var urpUserHelper: UrpUserHelper = _
+  var urpUserHelper: UrpUserHelper = uninitialized
 
   override protected def indexSetting(): Unit = {
     given project: Project = getProject

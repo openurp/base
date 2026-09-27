@@ -25,10 +25,11 @@ import org.beangle.webmvc.support.ActionSupport
 import org.beangle.she.webmvc.EntityAction
 import org.beangle.she.webmvc.QueryHelper.{PageParam, PageSizeParam}
 import org.openurp.base.hr.model.Mentor
+import scala.compiletime.uninitialized
 
 class MentorWS extends ActionSupport with EntityAction[Mentor] {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Seq[Properties] = {

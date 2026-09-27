@@ -22,10 +22,11 @@ import org.beangle.webmvc.annotation.{mapping, param}
 import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.view.View
 import org.openurp.base.hr.model.StaffProfile
+import scala.compiletime.uninitialized
 
 class ProfileAction extends ActionSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @mapping("{id}")
   def index(@param("id") id: String): View = {

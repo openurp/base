@@ -22,23 +22,25 @@ import org.beangle.template.api.{ClosingUIBean, ComponentContext}
 import org.beangle.webmvc.context.ActionContext
 import org.openurp.base.model.{Project, Semester}
 
+import scala.compiletime.uninitialized
+
 class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
 
   var name: String = "semester.id"
 
-  var label: String = _
+  var label: String = uninitialized
 
   var required: String = "true"
 
-  var project: Project = _
+  var project: Project = uninitialized
 
-  var value: Object = _
+  var value: Object = uninitialized
 
-  var url: String = _
+  var url: String = uninitialized
 
-  var onchange: String = _
+  var onchange: String = uninitialized
 
-  var filter: String = _
+  var filter: String = uninitialized
 
   override def evaluateParams(): Unit = {
     if (null == id) {
@@ -59,8 +61,7 @@ class SemesterPicker(context: ComponentContext) extends ClosingUIBean(context) {
       }
     }
     if (url == null) {
-      url = Ems.api + s"/base/semesters/${project.id}.json?filter=${if null == filter then "" else filter}"
+      url = SecureURLHelper.appendSessionId(Ems.api + s"/base/semesters/${project.id}.json?filter=${if null == filter then "" else filter}")
     }
-
   }
 }

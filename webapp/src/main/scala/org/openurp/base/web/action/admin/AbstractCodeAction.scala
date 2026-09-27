@@ -34,15 +34,16 @@ import org.beangle.webmvc.view.View
 import org.openurp.code.{Code, CodeBean}
 
 import java.time.{Instant, LocalDate}
+import scala.compiletime.uninitialized
 
 /** 基础代码编辑类
  */
 abstract class AbstractCodeAction extends ActionSupport, Logging {
 
-  var entityDao: EntityDao = _
-  var businessLogger: WebBusinessLogger = _
-  var databus: DataEventBus = _
-  var codeHelper: CodeHelper = _
+  var entityDao: EntityDao = uninitialized
+  var businessLogger: WebBusinessLogger = uninitialized
+  var databus: DataEventBus = uninitialized
+  var codeHelper: CodeHelper = uninitialized
 
   private def nomalize(name: String): String = {
     val loc = name.lastIndexOf('.')

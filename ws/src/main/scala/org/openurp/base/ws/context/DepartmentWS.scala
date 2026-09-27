@@ -23,10 +23,11 @@ import org.beangle.data.dao.EntityDao
 import org.beangle.webmvc.annotation.response
 import org.openurp.base.model.Project
 import org.openurp.starter.web.support.ProjectSupport
+import scala.compiletime.uninitialized
 
 class DepartmentWS extends ProjectSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): JsonArray = {

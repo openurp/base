@@ -23,10 +23,11 @@ import org.beangle.webmvc.annotation.{mapping, param, response}
 import org.beangle.webmvc.support.ActionSupport
 import org.beangle.she.webmvc.EntityAction
 import org.openurp.base.hr.model.StaffProfile
+import scala.compiletime.uninitialized
 
 class ProfileWS extends ActionSupport, EntityAction[StaffProfile] {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @mapping("{id}")
   @response

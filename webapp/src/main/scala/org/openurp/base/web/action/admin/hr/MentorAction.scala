@@ -32,10 +32,11 @@ import org.openurp.base.web.helper.{MentorImportListener, UrpUserHelper}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class MentorAction extends ProjectRestfulAction[Mentor], ImportSupport[Mentor], ExportSupport[Mentor] {
 
-  var urpUserHelper: UrpUserHelper = _
+  var urpUserHelper: UrpUserHelper = uninitialized
 
   override def getQueryBuilder: OqlBuilder[Mentor] = {
     val query = super.getQueryBuilder

@@ -27,7 +27,7 @@ class BuildingWS extends RestfulService[Building] {
   override def index(): Any = {
     put("properties", List(
       classOf[Building] -> List("id", "name", "code", "campus", "enName", "shortName"),
-      classOf[Entity[_]] -> List("id")))
+      classOf[Entity[?]] -> List("id")))
 
     val builder = getQueryBuilder
     builder.orderBy("building.code")

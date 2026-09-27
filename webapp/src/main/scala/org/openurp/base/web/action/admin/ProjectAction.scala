@@ -28,10 +28,11 @@ import org.openurp.code.edu.model.{EduCategory, EducationLevel, EducationType}
 import org.openurp.code.service.CodeService
 
 import scala.collection.mutable.Buffer
+import scala.compiletime.uninitialized
 
 class ProjectAction extends RestfulAction[Project] {
 
-  var codeService: CodeService = _
+  var codeService: CodeService = uninitialized
 
   override def editSetting(project: Project): Unit = {
     val schools = entityDao.getAll(classOf[School])
@@ -53,7 +54,7 @@ class ProjectAction extends RestfulAction[Project] {
     super.editSetting(project)
   }
 
-  private def findInSchool[T <: Entity[_]](clazz: Class[T], school: School): Buffer[T] = {
+  private def findInSchool[T <: Entity[?]](clazz: Class[T], school: School): Buffer[T] = {
     val query = OqlBuilder.from(clazz, "aa")
     query.where("aa.school=:school", school)
     entityDao.search(query).toBuffer

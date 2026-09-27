@@ -22,6 +22,7 @@ import org.beangle.webmvc.support.ActionSupport
 import org.beangle.webmvc.view.View
 import org.openurp.base.web.action.admin.{AbstractCodeAction, CodeHelper}
 import org.openurp.code.std.model.StdLabelType
+import scala.compiletime.uninitialized
 
 @action("code/{category}")
 class CodeAction extends AbstractCodeAction {
@@ -29,7 +30,7 @@ class CodeAction extends AbstractCodeAction {
 
 class CodeIndexAction extends ActionSupport {
 
-  var codeHelper: CodeHelper = _
+  var codeHelper: CodeHelper = uninitialized
 
   def index(): View = {
     val p = Set("org.openurp.code.person.model", "org.openurp.code.geo.model")

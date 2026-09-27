@@ -23,11 +23,12 @@ import org.beangle.webmvc.support.ServletSupport
 import org.openurp.base.model.{Department, School}
 import org.openurp.code.service.CodeService
 import org.openurp.starter.web.helper.EmsCookieHelper
+import scala.compiletime.uninitialized
 
 trait SchoolSupport extends ServletSupport {
-  this: EntityAction[_] =>
+  this: EntityAction[?] =>
 
-  var codeService: CodeService = _
+  var codeService: CodeService = uninitialized
 
   def getSchool: School = {
     new EmsCookieHelper(entityDao).getSchool(request, response)

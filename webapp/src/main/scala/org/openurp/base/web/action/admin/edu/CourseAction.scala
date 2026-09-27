@@ -25,6 +25,7 @@ import org.beangle.commons.net.http.HttpUtils
 import org.beangle.data.dao.OqlBuilder
 import org.beangle.doc.excel.schema.ExcelSchema
 import org.beangle.ems.app.Ems
+import org.beangle.event.bus.DataEvent
 import org.beangle.she.webmvc.{ExportSupport, ImportSupport, QueryHelper}
 import org.beangle.transfer.importer.ImportSetting
 import org.beangle.transfer.importer.listener.ForeignerListener
@@ -235,6 +236,7 @@ class CourseAction extends ProjectRestfulAction[Course], ExportSupport[Course], 
       entityDao.saveOrUpdate(course)
     }
     saveMore(course)
+    if (course.journals.nonEmpty) databus.publish(DataEvent.update(course.journals))
     redirect("search", "info.save.success")
   }
 

@@ -28,10 +28,11 @@ import org.openurp.code.edu.model.EducationLevel
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class DirectionJournalAction extends RestfulAction[MajorDirectionJournal] with ProjectSupport {
 
-  var databus: DataEventBus = _
+  var databus: DataEventBus = uninitialized
 
   override def editSetting(journal: MajorDirectionJournal) = {
     given project: Project = getProject

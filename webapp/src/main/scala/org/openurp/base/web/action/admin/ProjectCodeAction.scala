@@ -29,7 +29,7 @@ class ProjectCodeAction extends RestfulAction[ProjectCode] {
     super.editSetting(entity)
   }
 
-  private def findItems[T <: Entity[_]](clazz: Class[T]): Seq[T] = {
+  private def findItems[T <: Entity[?]](clazz: Class[T]): Seq[T] = {
     val query = OqlBuilder.from(clazz)
     query.orderBy("name")
     val items = entityDao.search(query)

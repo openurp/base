@@ -22,14 +22,16 @@ import org.beangle.template.api.ComponentContext
 import org.beangle.webmvc.context.ActionContext
 import org.beangle.bui.Select
 import org.openurp.base.model.Project
+import scala.compiletime.uninitialized
 
 class CourseTag(context: ComponentContext) extends Select(context) {
 
-  var project: Project = _
+  var project: Project = uninitialized
 
   override def evaluateParams(): Unit = {
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     if (null == this.href) this.href = Ems.api + s"/base/edu/${project.id}/courses.json?q={term}"
+    this.href = SecureURLHelper.appendSessionId(this.href)
     if (null == this.option) this.option = "id,description"
     super.evaluateParams()
   }

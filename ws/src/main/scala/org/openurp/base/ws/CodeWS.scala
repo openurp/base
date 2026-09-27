@@ -29,12 +29,13 @@ import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.model.ProjectCode
 import org.openurp.code.Code
 import org.openurp.code.service.CodeService
+import scala.compiletime.uninitialized
 
 @action("code")
 class CodeWS extends ActionSupport, Initializing {
-  var codeService: CodeService = _
-  var entityDao: EntityDao = _
-  private var clazzes: Map[String, Class[_ <: Code]] = _
+  var codeService: CodeService = uninitialized
+  var entityDao: EntityDao = uninitialized
+  private var clazzes: Map[String, Class[_ <: Code]] = uninitialized
 
   override def init(): Unit = {
     val entities = entityDao.domain.entities
@@ -59,7 +60,7 @@ class CodeWS extends ActionSupport, Initializing {
         if (pcs.isEmpty) {
           codeService.get(clazz)
         } else {
-          codeService.get(clazz, Strings.splitToInt(pcs.head.codeIds): _*)
+          codeService.get(clazz, Strings.splitToInt(pcs.head.codeIds)*)
         }
       case None => List.empty
     }

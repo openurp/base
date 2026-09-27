@@ -27,9 +27,10 @@ import org.openurp.base.edu.model.Textbook
 import org.openurp.base.service.impl.TextbookHelper
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class TextbookWS extends ActionSupport, EntityAction[Textbook] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Iterable[Properties] = {

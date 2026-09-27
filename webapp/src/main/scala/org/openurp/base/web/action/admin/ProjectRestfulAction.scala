@@ -34,11 +34,12 @@ import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.Instant
 import java.util.Locale
+import scala.compiletime.uninitialized
 
-abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T], ProjectSupport {
+abstract class ProjectRestfulAction[T <: Entity[?]] extends RestfulAction[T], ProjectSupport {
 
-  var databus: DataEventBus = _
-  var businessLogger: WebBusinessLogger = _
+  var databus: DataEventBus = uninitialized
+  var businessLogger: WebBusinessLogger = uninitialized
 
   override protected def getQueryBuilder: OqlBuilder[T] = {
     val builder = OqlBuilder.from(entityClass, simpleEntityName)
@@ -109,7 +110,7 @@ abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T], Pr
     }
   }
 
-  protected def removeMore(entities: Iterable[Entity[_]]): Unit = {
+  protected def removeMore(entities: Iterable[Entity[?]]): Unit = {
     val entityType = entityDao.domain.getEntity(entities.head.getClass).get
     //1.先删除
     entityDao.remove(entities)
@@ -134,7 +135,7 @@ abstract class ProjectRestfulAction[T <: Entity[_]] extends RestfulAction[T], Pr
     redirect("search", "info.remove.success")
   }
 
-  private def digest(messages: Messages, entity: Entity[_], entityType: EntityType): String = {
+  private def digest(messages: Messages, entity: Entity[?], entityType: EntityType): String = {
     var str = messages.get(entityType.clazz, entityType.clazz.getSimpleName) + " "
     if (entityType.getProperty("name").nonEmpty) {
       str += Properties.get[String](entity, "name")

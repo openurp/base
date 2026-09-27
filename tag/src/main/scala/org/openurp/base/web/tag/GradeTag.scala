@@ -21,15 +21,17 @@ import org.beangle.ems.app.Ems
 import org.beangle.template.api.ComponentContext
 import org.beangle.bui.Select
 import org.openurp.base.model.Project
+import scala.compiletime.uninitialized
 
 class GradeTag (context: ComponentContext) extends Select(context) {
 
-  var project: Project = _
+  var project: Project = uninitialized
 
   override def evaluateParams(): Unit = {
     if (null == this.option) this.option = "id,name"
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     if (null == this.href) this.href = Ems.api + s"/base/std/${project.id}/grades.json"
+    this.href = SecureURLHelper.appendSessionId(this.href)
     super.evaluateParams()
   }
 }

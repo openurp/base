@@ -37,10 +37,11 @@ import org.openurp.base.web.helper.SquadImportListener
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class SquadAction extends ProjectRestfulAction[Squad], ExportSupport[Squad], ImportSupport[Squad] {
 
-  var squadService: SquadService = _
+  var squadService: SquadService = uninitialized
 
   protected override def indexSetting(): Unit = {
     given project: Project = getProject

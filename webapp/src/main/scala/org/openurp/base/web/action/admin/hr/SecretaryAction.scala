@@ -32,12 +32,13 @@ import org.openurp.base.web.helper.{SecretaryImportListener, UrpUserHelper}
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 /** 教学秘书
  */
 class SecretaryAction extends ProjectRestfulAction[Secretary], ImportSupport[Secretary] {
 
-  var urpUserHelper: UrpUserHelper = _
+  var urpUserHelper: UrpUserHelper = uninitialized
 
   override def getQueryBuilder: OqlBuilder[Secretary] = {
     val query = super.getQueryBuilder

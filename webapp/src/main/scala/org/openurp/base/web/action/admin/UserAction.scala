@@ -29,9 +29,10 @@ import org.openurp.code.hr.model.UserCategory
 import org.openurp.code.person.model.Gender
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class UserAction extends RestfulAction[User] with SchoolSupport {
-  var urpUserHelper: UrpUserHelper = _
+  var urpUserHelper: UrpUserHelper = uninitialized
 
   override protected def getQueryBuilder: OqlBuilder[User] = {
     val school = getSchool
@@ -47,7 +48,7 @@ class UserAction extends RestfulAction[User] with SchoolSupport {
       val params = new collection.mutable.ListBuffer[Object]
       params += ("%" + groupName + "%")
       params += school
-      builder.where(sb.toString, params.toSeq: _*)
+      builder.where(sb.toString, params.toSeq*)
     }
 
     builder.orderBy(get(Order.OrderStr).orNull).limit(getPageLimit)

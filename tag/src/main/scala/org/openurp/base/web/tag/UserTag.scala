@@ -27,6 +27,7 @@ class UserTag(context: ComponentContext) extends Select(context) {
 
   override def evaluateParams(): Unit = {
     if (null == this.href) this.href = Ems.api + s"/base/users.json?q={term}${params}"
+    this.href = SecureURLHelper.appendSessionId(this.href)
     if (null == this.option) this.option = "id,description"
     super.evaluateParams()
   }

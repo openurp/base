@@ -17,22 +17,32 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.bui.Select
+import jakarta.servlet.http.HttpServletRequest
 import org.beangle.ems.app.Ems
-import org.beangle.template.api.ComponentContext
+import org.beangle.security.Securities
+import org.beangle.web.servlet.util.RequestUtils
 import org.beangle.webmvc.context.ActionContext
-import org.openurp.base.model.Project
-import scala.compiletime.uninitialized
 
-class TextbookTag(context: ComponentContext) extends Select(context) {
+object SecureURLHelper {
 
-  var project: Project = uninitialized
+  def appendSessionId(url: String): String = {
+    if (url == null) return null
+    val origin = getOrigin(ActionContext.current.request)
+    val sameSite = url.startsWith(origin)
+    if (sameSite) {
+      url
+    } else {
+      val hasParams = url.contains("?")
+      url + ((if (hasParams) "&" else "?") + s"${Ems.sid.name}=" + Securities.session.get.id)
+    }
+  }
 
-  override def evaluateParams(): Unit = {
-    if (null == project) ProjectHelper.getProject foreach { p => project = p }
-    if (null == this.href) this.href = Ems.api + s"/base/edu/${project.id}/textbooks.json?q={term}"
-    this.href = SecureURLHelper.appendSessionId(this.href)
-    if (null == this.option) this.option = "id,title"
-    super.evaluateParams()
+  private def getOrigin(request: HttpServletRequest): String = {
+    var s = request.getAttribute("_origin_").asInstanceOf[String]
+    if (s == null) {
+      s = RequestUtils.getOrigin(request)
+      request.setAttribute("_origin_", s)
+    }
+    s
   }
 }

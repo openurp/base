@@ -23,10 +23,11 @@ import org.beangle.she.webmvc.EntityAction
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.{ActionSupport, MimeSupport}
 import org.openurp.base.model.Campus
+import scala.compiletime.uninitialized
 
 class CampusWS extends ActionSupport with EntityAction[Campus] with MimeSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response(cacheable = true)
   def index(): Iterable[Properties] = {

@@ -26,13 +26,14 @@ import org.openurp.base.edu.model.{Major, MajorDiscipline}
 import org.openurp.code.edu.model.DisciplineCategory
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 /**
  * @author xinzhou
  */
 class MajorDisciplineAction extends RestfulAction[MajorDiscipline] {
 
-  var databus: DataEventBus = _
+  var databus: DataEventBus = uninitialized
 
   override def editSetting(discipline: MajorDiscipline): Unit = {
     put("majors", findItems(classOf[Major]))
@@ -40,7 +41,7 @@ class MajorDisciplineAction extends RestfulAction[MajorDiscipline] {
     if !discipline.persisted then discipline.beginOn = LocalDate.now
   }
 
-  private def findItems[T <: Entity[_]](clazz: Class[T]): Seq[T] = {
+  private def findItems[T <: Entity[?]](clazz: Class[T]): Seq[T] = {
     val query = OqlBuilder.from(clazz)
     query.orderBy("name")
     val items = entityDao.search(query)

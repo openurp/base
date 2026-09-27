@@ -26,9 +26,10 @@ import org.beangle.she.webmvc.EntityAction
 import org.beangle.she.webmvc.QueryHelper.{PageParam, PageSizeParam}
 import org.openurp.base.hr.model.Teacher
 import org.openurp.base.model.Project
+import scala.compiletime.uninitialized
 
 class TeacherWS extends ActionSupport with EntityAction[Teacher] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Seq[Properties] = {

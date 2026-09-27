@@ -29,9 +29,10 @@ import org.openurp.code.edu.model.Institution
 import org.openurp.code.hr.model.DepartmentCategory
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class DepartmentAction extends RestfulAction[Department], SchoolSupport, ExportSupport[Department] {
-  var databus: DataEventBus = _
+  var databus: DataEventBus = uninitialized
 
   override protected def indexSetting(): Unit = {
     put("categories", entityDao.getAll(classOf[DepartmentCategory]))

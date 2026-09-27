@@ -17,18 +17,20 @@
 
 package org.openurp.base.web.tag
 
-import org.beangle.ems.app.Ems
-import org.beangle.template.api.{ClosingUIBean, ComponentContext}
-import org.beangle.webmvc.context.ActionContext
 import org.beangle.bui.Select
+import org.beangle.ems.app.Ems
+import org.beangle.template.api.ComponentContext
 import org.openurp.base.model.Project
+
+import scala.compiletime.uninitialized
 
 class CampusTag(context: ComponentContext) extends Select(context) {
 
-  var project: Project = _
+  var project: Project = uninitialized
 
   override def evaluateParams(): Unit = {
     if (null == this.href) this.href = Ems.api + s"/base/campuses.json"
+    this.href = SecureURLHelper.appendSessionId(this.href)
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     super.evaluateParams()
   }

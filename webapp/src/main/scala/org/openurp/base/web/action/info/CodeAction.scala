@@ -27,10 +27,11 @@ import org.openurp.code.CodeBean
 
 import java.time.LocalDate
 import java.util.Locale
+import scala.compiletime.uninitialized
 
 class CodeAction extends ActionSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   def index(): View = {
     val messages = Messages(Locale.SIMPLIFIED_CHINESE)

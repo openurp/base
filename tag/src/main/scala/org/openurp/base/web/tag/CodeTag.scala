@@ -23,13 +23,15 @@ import org.beangle.template.api.ComponentContext
 import org.openurp.base.model.Project
 import org.openurp.code.service.CodeService
 
+import scala.compiletime.uninitialized
+
 class CodeTag(context: ComponentContext) extends Select(context) {
 
-  var `type`: String = _
-  var project: Project = _
+  var `type`: String = uninitialized
+  var project: Project = uninitialized
 
   var cache: String = "true"
-  var codeService: CodeService = _
+  var codeService: CodeService = uninitialized
 
   def cacheable: Boolean = {
     cache == "true"
@@ -38,6 +40,7 @@ class CodeTag(context: ComponentContext) extends Select(context) {
   override def evaluateParams(): Unit = {
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     if (null == this.href) this.href = Ems.api + s"/base/code/${project.id}/${`type`}.json"
+    this.href = SecureURLHelper.appendSessionId(this.href)
     super.evaluateParams()
   }
 }

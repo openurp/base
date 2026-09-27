@@ -26,9 +26,10 @@ import org.openurp.base.edu.model.Course
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class CourseAction extends ActionSupport with EntityAction[Course] with ProjectSupport {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   def index(): View = {
     val project = getProject

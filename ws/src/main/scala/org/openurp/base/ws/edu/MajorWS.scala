@@ -23,10 +23,11 @@ import org.beangle.she.webmvc.{EntityAction, QueryHelper}
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.edu.model.Major
+import scala.compiletime.uninitialized
 
 class MajorWS extends ActionSupport, EntityAction[Major] {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Iterable[Properties] = {

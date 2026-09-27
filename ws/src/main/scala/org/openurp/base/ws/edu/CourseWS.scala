@@ -29,9 +29,10 @@ import org.openurp.api.URPTool
 import org.openurp.base.edu.model.Course
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class CourseWS extends ActionSupport, EntityAction[Course] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Iterable[Properties] = {

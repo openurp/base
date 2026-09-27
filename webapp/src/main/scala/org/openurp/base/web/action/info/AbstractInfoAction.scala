@@ -24,11 +24,12 @@ import org.beangle.webmvc.support.ActionSupport
 import org.beangle.she.webmvc.{EntityAction, ExportSupport}
 import org.openurp.code.service.CodeService
 import org.openurp.starter.web.support.ProjectSupport
+import scala.compiletime.uninitialized
 
-abstract class AbstractInfoAction[T <: Entity[_]] extends ActionSupport
+abstract class AbstractInfoAction[T <: Entity[?]] extends ActionSupport
   with EntityAction[T] with ExportSupport[T] with ProjectSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override protected def getQueryBuilder: OqlBuilder[T] = {
     val builder = OqlBuilder.from(entityClass, simpleEntityName)

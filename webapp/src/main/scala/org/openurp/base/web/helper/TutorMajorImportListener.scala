@@ -64,7 +64,7 @@ class TutorMajorImportListener(entityDao: EntityDao, project: Project) extends E
       keyworkCon.addOne(s"d.name like :name${i}")
       i += 1
     }
-    q.where(keyworkCon.mkString(" and "), keywords.map(x => "%" + x + "%"): _*)
+    q.where(keyworkCon.mkString(" and "), keywords.map(x => "%" + x + "%")*)
     q.where("d.endOn is null")
     var directions = entityDao.search(q) filter (_.journals.exists(x => x.level == level && x.endOn.isEmpty))
     if (directions.size == 1) directions.headOption

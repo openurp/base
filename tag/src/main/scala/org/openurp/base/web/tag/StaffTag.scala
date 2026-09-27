@@ -21,14 +21,15 @@ import org.beangle.ems.app.Ems
 import org.beangle.template.api.ComponentContext
 import org.beangle.bui.Select
 import org.openurp.base.model.Project
+import scala.compiletime.uninitialized
 
 class StaffTag(context: ComponentContext) extends Select(context) {
 
-  var project: Project = _
+  var project: Project = uninitialized
 
-  var teacher: String = _
+  var teacher: String = uninitialized
 
-  var tutor: String = _
+  var tutor: String = uninitialized
 
   override def evaluateParams(): Unit = {
     if (null == this.href) {
@@ -40,6 +41,7 @@ class StaffTag(context: ComponentContext) extends Select(context) {
         this.href += "&isTeacher=" + (if (teacher == "true") then "1" else "0")
       }
     }
+    this.href = SecureURLHelper.appendSessionId(this.href)
     if (null == this.option) this.option = "id,description"
     if (null == project) ProjectHelper.getProject foreach { p => project = p }
     super.evaluateParams()

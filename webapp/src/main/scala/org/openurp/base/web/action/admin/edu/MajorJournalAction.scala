@@ -28,10 +28,11 @@ import org.openurp.code.edu.model.{DisciplineCategory, EducationLevel}
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class MajorJournalAction extends RestfulAction[MajorJournal] with ProjectSupport {
 
-  var databus: DataEventBus = _
+  var databus: DataEventBus = uninitialized
 
   override def search(): View = {
     val journals = entityDao.search(getQueryBuilder)

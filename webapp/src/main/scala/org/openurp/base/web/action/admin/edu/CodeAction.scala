@@ -23,6 +23,7 @@ import org.beangle.webmvc.view.View
 import org.openurp.base.web.action.admin.{AbstractCodeAction, CodeHelper}
 import org.openurp.code.edu.model.*
 import org.openurp.code.sin.model.PressGrade
+import scala.compiletime.uninitialized
 
 @action("code/{category}")
 class CodeAction extends AbstractCodeAction {
@@ -73,7 +74,7 @@ class CodeAction extends AbstractCodeAction {
 
 class CodeIndexAction extends ActionSupport {
 
-  var codeHelper: CodeHelper = _
+  var codeHelper: CodeHelper = uninitialized
 
   def index(): View = {
     val p = Set("org.openurp.code.edu.model", "org.openurp.code.sin.model", "org.openurp.code.trd.model")

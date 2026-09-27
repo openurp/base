@@ -25,11 +25,12 @@ import org.openurp.base.std.model.Squad
 import org.openurp.base.std.service.SquadService
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class SquadStdCountUpdater extends AbstractDaoTask, Logging, Scheduled {
-  var squadService: SquadService = _
+  var squadService: SquadService = uninitialized
 
-  var expression: String = _
+  var expression: String = uninitialized
 
   override def execute(): Unit = {
     val today = LocalDate.now()

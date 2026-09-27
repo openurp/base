@@ -27,9 +27,10 @@ import org.beangle.she.webmvc.QueryHelper.{PageParam, PageSizeParam}
 import org.openurp.base.hr.model.{Mentor, Staff, Teacher}
 import org.openurp.base.model.User
 import org.openurp.base.std.model.Student
+import scala.compiletime.uninitialized
 
 class StaffWS extends ActionSupport with EntityAction[User] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Seq[Properties] = {

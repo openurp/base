@@ -42,10 +42,11 @@ import org.openurp.code.person.model.{Gender, IdType, Nation, PoliticalStatus}
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import java.net.URLEncoder
 import java.time.{Instant, LocalDate}
+import scala.compiletime.uninitialized
 
 class StaffAction extends ProjectRestfulAction[Staff], ExportSupport[Staff], ImportSupport[Staff] {
 
-  var urpUserHelper: UrpUserHelper = _
+  var urpUserHelper: UrpUserHelper = uninitialized
 
   override def getQueryBuilder: OqlBuilder[Staff] = {
     val query = super.getQueryBuilder

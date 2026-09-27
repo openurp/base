@@ -29,10 +29,11 @@ import org.openurp.code.job.model.TutorType
 import org.openurp.starter.web.support.ProjectSupport
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class TeacherAction extends ActionSupport, EntityAction[Teacher], ProjectSupport {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   override def getQueryBuilder: OqlBuilder[Teacher] = {
     val builder = super.getQueryBuilder
@@ -61,7 +62,7 @@ class TeacherAction extends ActionSupport, EntityAction[Teacher], ProjectSupport
     ctQuery.select("t.staff.staffType.id,t.staff.staffType.name,count(*)")
     ctQuery.groupBy("t.staff.staffType.id,t.staff.staffType.code,t.staff.staffType.name")
     ctQuery.orderBy("t.staff.staffType.code")
-    put("typeStat", entityDao.search(ctQuery).sorted(PropertyOrdering.by("[2] desc,[1]")))
+    put("typeStat", entityDao.search(ctQuery).sorted(using PropertyOrdering.by("[2] desc,[1]")))
 
     val categoryQuery = OqlBuilder.from(classOf[Teacher].getName, "t")
     categoryQuery.where("t.endOn is null or t.endOn > :now", LocalDate.now)
@@ -75,7 +76,7 @@ class TeacherAction extends ActionSupport, EntityAction[Teacher], ProjectSupport
     titleQuery.select("t.staff.title.id,t.staff.title.name,count(*)")
     titleQuery.groupBy("t.staff.title.id,t.staff.title.code,t.staff.title.name")
     titleQuery.orderBy("t.staff.title.code")
-    put("titleStat", entityDao.search(titleQuery).sorted(PropertyOrdering.by("[2] desc,[1]")))
+    put("titleStat", entityDao.search(titleQuery).sorted(using PropertyOrdering.by("[2] desc,[1]")))
     forward()
   }
 

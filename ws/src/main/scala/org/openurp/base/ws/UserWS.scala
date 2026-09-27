@@ -28,9 +28,10 @@ import org.openurp.base.model.User
 import org.openurp.base.std.model.Student
 
 import java.time.LocalDate
+import scala.compiletime.uninitialized
 
 class UserWS extends ActionSupport with EntityAction[User] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Seq[Properties] = {

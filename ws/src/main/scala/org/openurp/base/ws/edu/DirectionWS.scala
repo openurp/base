@@ -23,10 +23,11 @@ import org.beangle.she.webmvc.EntityAction
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.edu.model.MajorDirection
+import scala.compiletime.uninitialized
 
 class DirectionWS extends ActionSupport, EntityAction[MajorDirection] {
 
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response
   def index(): Iterable[Properties] = {

@@ -23,9 +23,10 @@ import org.beangle.she.webmvc.EntityAction
 import org.beangle.webmvc.annotation.response
 import org.beangle.webmvc.support.ActionSupport
 import org.openurp.base.std.model.Grade
+import scala.compiletime.uninitialized
 
 class GradeWS extends ActionSupport with EntityAction[Grade] {
-  var entityDao: EntityDao = _
+  var entityDao: EntityDao = uninitialized
 
   @response(cacheable = true)
   def index(): Iterable[Properties] = {
