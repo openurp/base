@@ -4,7 +4,7 @@
   <table style="width: 100%;">
     <tbody>
       <tr>
-        <td style="width: 220px;padding: 2px 0px 0px 10px;">
+        <td style="width: 250px;padding: 2px 0px 0px 10px;">
           [#assign submit=tag.submit!"bg.form.submit('${tag.formName}')"/]
           [#if tag.value??]
             [@base.semester id=tag.id name=tag.name required=tag.required label="学年学期" value=tag.value onchange=submit/]
