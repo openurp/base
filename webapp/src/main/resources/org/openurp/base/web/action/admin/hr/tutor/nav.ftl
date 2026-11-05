@@ -2,7 +2,7 @@
   [@b.navitem href="tutor"]导师信息[/@]
   [@b.navitem href="tutor-major"]研究领域[/@]
   [@b.navitem href="profile"]导师简介[/@]
-  [#if ems.permitted("/admin/hr/tutor-stat")]
+  [#if ems.permitted("/base/admin/hr/tutor-stat")]
   [@b.navitem href="tutor-stat!major"]导师统计[/@]
   [@b.navitem href="tutor-stat!direction"]研究领域统计[/@]
   [/#if]

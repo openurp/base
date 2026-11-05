@@ -26,13 +26,9 @@ class SchedulerModule extends BindModule {
   protected override def binding(): Unit = {
     //定时任务不能按需初始化，需要随系统一起启动
     wiredEagerly(true)
-    bind(classOf[SquadServiceImpl])
-
     //every seven hours
     bind(classOf[SquadStdCountUpdater]).property("expression", "0 0 7,14 * * *")
-
     //every seven hours
     bind(classOf[UserAccountUpdater]).property("expression", "0 0 7,14 * * *")
-
   }
 }

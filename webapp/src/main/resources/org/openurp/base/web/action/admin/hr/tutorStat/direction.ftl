@@ -27,7 +27,7 @@
         <td>${directionTutors.get(direction)?size}</td>
         <td>
         [#list directionTutors.get(direction)?sort_by("code") as t]
-        <a href="${b.url('/info/hr/staff/'+t.id)}" data-toggle="modal" data-target="#staffInfo">${t.name}</a>
+        <a href="${b.url('/base/info/hr/staff/'+t.id)}" data-toggle="modal" data-target="#staffInfo">${t.name}</a>
         [#sep],
         [/#list]
         </td>

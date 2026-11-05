@@ -28,7 +28,7 @@ lazy val root = (project in file("."))
   .settings(common,
     publish / skip := true
   )
-  .aggregate(tag, static, ws, webapp)
+  .aggregate(tag, static, webapp)
 
 lazy val tag = (project in file("tag"))
   .settings(
@@ -41,15 +41,6 @@ lazy val static = (project in file("static"))
   .settings(
     name := "openurp-base-static",
     common
-  )
-
-lazy val ws = (project in file("ws"))
-  .enablePlugins(WarPlugin, UndertowPlugin)
-  .enablePlugins(AotPlugin,MetaPlugin,ProxyPlugin)
-  .settings(
-    name := "openurp-base-ws",
-    common,
-    libraryDependencies ++= Seq(openurp_base_api, openurp_stater_web)
   )
 
 lazy val webapp = (project in file("webapp"))
