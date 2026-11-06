@@ -1,8 +1,20 @@
 *~
 .*
+!/.npmrc
+!**/.gitignore
 
 # Build output directies
 target
+node_modules
+dist
+*.zip
+
+# npm lock files are not allowed, this repo is managed by pnpm
+package-lock.json
+npm-shrinkwrap.json
+
+# frontend release archives
+packages/web/release/
 
 # Eclipse specific files/directories
 .classpath

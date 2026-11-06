@@ -1,0 +1,9 @@
+packages:
+  - 'packages/*'
+
+allowBuilds:
+  esbuild: true
+
+# 本团队包（如 @beangle/bui-vue、@openurp/sdk-vue）刚发布即使用，关闭 pnpm 默认 24 小时的发布成熟期门槛，
+# 否则 pnpm 会退回旧版本，并把该版本写入 minimumReleaseAgeExclude 钉死解析结果。
+minimumReleaseAge: 0

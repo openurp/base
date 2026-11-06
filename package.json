@@ -1,0 +1,23 @@
+{
+  "name": "openurp-base",
+  "private": true,
+  "version": "0.4.94-SNAPSHOT",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=11"
+  },
+  "scripts": {
+    "preinstall": "node scripts/check-pnpm.cjs",
+    "dev:web": "pnpm --filter @openurp/base-web dev",
+    "build:web": "pnpm --filter @openurp/base-web build",
+    "test": "pnpm run test:unit",
+    "test:unit": "pnpm --filter @openurp/base-web test:unit",
+    "test:e2e": "pnpm --filter @openurp/base-web test:e2e",
+    "package": "pnpm -r run package",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "archiver": "^8.0.0"
+  }
+}

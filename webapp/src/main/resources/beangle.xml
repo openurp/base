@@ -15,6 +15,7 @@
     <module class="org.openurp.base.web.action.info.DefaultModule"/>
 
     <module class="org.openurp.base.ws.DefaultModule"/>
+    <module class="org.openurp.base.ws.admin.DefaultModule"/>
     <module class="org.openurp.base.ws.edu.DefaultModule"/>
     <module class="org.openurp.base.ws.hr.DefaultModule"/>
     <module class="org.openurp.base.ws.std.DefaultModule"/>
@@ -34,6 +35,15 @@
     </profile>
 
     <!-- 接口原先的上下文是 /api/base。 -->
+    <!-- 管理端给前端消费的 JSON。类放在 org.openurp.base.ws.admin，对外是 /api/base/admin。页面仍走上面的 /base。 -->
+    <profile package="org.openurp.base.ws.admin">
+      <action suffix="WS" defaultMethod="index"/>
+      <url path="/api/base/admin" suffix="" style="plur-seo"/>
+      <interceptor name="web.Interceptor.hibernate"/>
+      <interceptor name="web.Interceptor.cors"/>
+      <interceptor name="web.Interceptor.security"/>
+    </profile>
+
     <profile package="org.openurp.base.ws">
       <action suffix="WS" defaultMethod="index"/>
       <url path="/api/base" suffix="" style="plur-seo"/>
